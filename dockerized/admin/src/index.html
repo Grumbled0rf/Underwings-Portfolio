@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Underwings Admin Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+  <!-- Login Screen -->
+  <div id="login-screen" class="login-container">
+    <div class="login-card">
+      <div class="login-logo">
+        <svg width="48" height="48" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="50" r="45" stroke="url(#grad)" stroke-width="2" fill="none"/>
+          <path d="M30 50 L50 30 L70 50 L50 70 Z" fill="url(#grad)"/>
+          <defs>
+            <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#24d758"/>
+              <stop offset="100%" stop-color="#27dab4"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <h1>Underwings Admin</h1>
+      </div>
+      <form id="login-form">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required placeholder="admin@underwings.com">
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required placeholder="••••••••">
+        </div>
+        <button type="submit" class="btn-primary">Sign In</button>
+        <p id="login-error" class="error-message"></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Dashboard -->
+  <div id="dashboard" class="dashboard-container" style="display: none;">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <svg width="32" height="32" viewBox="0 0 100 100" fill="none">
+          <circle cx="50" cy="50" r="45" stroke="url(#grad2)" stroke-width="2" fill="none"/>
+          <path d="M30 50 L50 30 L70 50 L50 70 Z" fill="url(#grad2)"/>
+          <defs>
+            <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#24d758"/>
+              <stop offset="100%" stop-color="#27dab4"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <span>Underwings</span>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="#" class="nav-item active" data-page="dashboard">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+          </svg>
+          Dashboard
+        </a>
+        <a href="#" class="nav-item" data-page="posts">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+          Blog Posts
+        </a>
+        <a href="#" class="nav-item" data-page="submissions">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+          Form Submissions
+          <span id="submission-count" class="badge">0</span>
+        </a>
+        <a href="#" class="nav-item" data-page="subscribers">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+          Subscribers
+        </a>
+        <a href="#" class="nav-item" data-page="media">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+            <polyline points="21 15 16 10 5 21"></polyline>
+          </svg>
+          Media Library
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <a href="#" id="logout-btn" class="nav-item">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+          Logout
+        </a>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Dashboard Page -->
+      <div id="page-dashboard" class="page active">
+        <header class="page-header">
+          <h1>Dashboard</h1>
+          <p>Welcome back! Here's an overview of your website.</p>
+        </header>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon green">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+              </svg>
+            </div>
+            <div class="stat-info">
+              <span class="stat-value" id="stat-posts">0</span>
+              <span class="stat-label">Blog Posts</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon blue">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+            </div>
+            <div class="stat-info">
+              <span class="stat-value" id="stat-submissions">0</span>
+              <span class="stat-label">Form Submissions</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon purple">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+              </svg>
+            </div>
+            <div class="stat-info">
+              <span class="stat-value" id="stat-subscribers">0</span>
+              <span class="stat-label">Subscribers</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon orange">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+            </div>
+            <div class="stat-info">
+              <span class="stat-value" id="stat-new">0</span>
+              <span class="stat-label">New This Week</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="content-grid">
+          <div class="card">
+            <div class="card-header">
+              <h3>Recent Submissions</h3>
+              <a href="#" data-page="submissions" class="view-all">View All</a>
+            </div>
+            <div class="card-body">
+              <div id="recent-submissions" class="list">
+                <p class="empty-state">Loading...</p>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <h3>Recent Posts</h3>
+              <a href="#" data-page="posts" class="view-all">View All</a>
+            </div>
+            <div class="card-body">
+              <div id="recent-posts" class="list">
+                <p class="empty-state">Loading...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blog Posts Page -->
+      <div id="page-posts" class="page">
+        <header class="page-header">
+          <div>
+            <h1>Blog Posts</h1>
+            <p>Manage your blog content</p>
+          </div>
+          <button class="btn-primary" id="new-post-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            New Post
+          </button>
+        </header>
+        <div class="card">
+          <div class="card-body">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Category</th>
+                  <th>Status</th>
+                  <th>Date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="posts-table">
+                <tr>
+                  <td colspan="5" class="empty-state">Loading...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form Submissions Page -->
+      <div id="page-submissions" class="page">
+        <header class="page-header">
+          <div>
+            <h1>Form Submissions</h1>
+            <p>View and manage contact form submissions</p>
+          </div>
+          <div class="filter-group">
+            <select id="filter-type">
+              <option value="">All Types</option>
+              <option value="contact">Contact</option>
+              <option value="quote">Quote Request</option>
+              <option value="consultation">Consultation</option>
+            </select>
+            <select id="filter-status">
+              <option value="">All Status</option>
+              <option value="new">New</option>
+              <option value="read">Read</option>
+              <option value="replied">Replied</option>
+            </select>
+          </div>
+        </header>
+        <div class="card">
+          <div class="card-body">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Type</th>
+                  <th>Status</th>
+                  <th>Date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="submissions-table">
+                <tr>
+                  <td colspan="6" class="empty-state">Loading...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Subscribers Page -->
+      <div id="page-subscribers" class="page">
+        <header class="page-header">
+          <div>
+            <h1>Newsletter Subscribers</h1>
+            <p>Manage your email subscribers</p>
+          </div>
+          <button class="btn-secondary" id="export-subscribers">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Export CSV
+          </button>
+        </header>
+        <div class="card">
+          <div class="card-body">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Email</th>
+                  <th>Name</th>
+                  <th>Subscribed</th>
+                  <th>Date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="subscribers-table">
+                <tr>
+                  <td colspan="5" class="empty-state">Loading...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Media Library Page -->
+      <div id="page-media" class="page">
+        <header class="page-header">
+          <div>
+            <h1>Media Library</h1>
+            <p>Upload and manage images</p>
+          </div>
+          <button class="btn-primary" id="upload-media-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            Upload
+          </button>
+        </header>
+        <div class="card">
+          <div class="card-body">
+            <div id="media-grid" class="media-grid">
+              <p class="empty-state">No media files yet. Upload your first image!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Post Editor Modal -->
+  <div id="post-editor-modal" class="modal">
+    <div class="modal-content modal-large">
+      <div class="modal-header">
+        <h2 id="editor-title">New Post</h2>
+        <button class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="post-form">
+          <input type="hidden" id="post-id">
+          <div class="form-row">
+            <div class="form-group flex-grow">
+              <label for="post-title">Title</label>
+              <input type="text" id="post-title" required placeholder="Enter post title">
+            </div>
+            <div class="form-group">
+              <label for="post-category">Category</label>
+              <select id="post-category">
+                <option value="Cybersecurity">Cybersecurity</option>
+                <option value="Compliance">Compliance</option>
+                <option value="Penetration Testing">Penetration Testing</option>
+                <option value="Training">Training</option>
+                <option value="Industry News">Industry News</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="post-slug">Slug</label>
+            <input type="text" id="post-slug" placeholder="auto-generated-from-title">
+          </div>
+          <div class="form-group">
+            <label for="post-excerpt">Excerpt</label>
+            <textarea id="post-excerpt" rows="2" placeholder="Brief description for previews"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="post-content">Content</label>
+            <textarea id="post-content" rows="15" placeholder="Write your content here (Markdown supported)"></textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="post-status">Status</label>
+              <select id="post-status">
+                <option value="draft">Draft</option>
+                <option value="published">Published</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="post-image">Featured Image URL</label>
+              <input type="text" id="post-image" placeholder="https://...">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary modal-close">Cancel</button>
+        <button type="submit" form="post-form" class="btn-primary">Save Post</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Submission Detail Modal -->
+  <div id="submission-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Submission Details</h2>
+        <button class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body" id="submission-details">
+        <!-- Content loaded dynamically -->
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary modal-close">Close</button>
+        <button class="btn-primary" id="mark-replied">Mark as Replied</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/js/admin.js"></script>
+</body>
+</html>

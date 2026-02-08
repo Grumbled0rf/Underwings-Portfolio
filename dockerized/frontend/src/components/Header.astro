@@ -1,0 +1,64 @@
+---
+// ===========================================
+// HEADER COMPONENT
+// Underwings Technologies
+// ===========================================
+
+export interface Props {
+  currentPage?: string;
+}
+
+const { currentPage = 'home' } = Astro.props;
+---
+
+<header id="header" class="header">
+  <div data-w-id="293a7602-a449-8edb-a1a4-0201d537e62c" class="header-offset"></div>
+  <div data-w-id="c0f57989-f5a9-9c1a-60c9-2841a4ab0ea2" data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" class="navbar w-nav">
+    <div class="container-medium header-container-medium w-container">
+      <div class="navbar-inner">
+        <a href="/" aria-current={currentPage === 'home' ? 'page' : undefined} class={`logo w-nav-brand ${currentPage === 'home' ? 'w--current' : ''}`}>
+          <img src="/images/logowhiteUW.png" loading="lazy" width="Auto" sizes="100vw" alt="Underwings Technologies - Cybersecurity Solutions" srcset="/images/logowhiteUW-p-500.png 500w, /images/logowhiteUW.png 639w" class="logo-image">
+        </a>
+        <div class="nav-menu-box">
+          <nav role="navigation" class="nav-menu w-nav-menu">
+            <div class="nav-menu-inner">
+              <a data-name="scramble" href="/software" class={`nav-link nav-link-gradient w-nav-link ${currentPage === 'software' ? 'w--current' : ''}`}>Software</a>
+              <a data-name="scramble" href="/services/vapt" class={`nav-link nav-link-gradient w-nav-link ${currentPage === 'services' ? 'w--current' : ''}`}>Services</a>
+              <div class="nav-dropdown">
+                <a data-name="scramble" href="#" class="nav-link nav-link-gradient w-nav-link">Projects</a>
+                <div class="nav-dropdown-content">
+                  <a href="/pitstack" class="nav-dropdown-item">
+                    <span>Pitstack</span>
+                    <span class="coming-soon-badge">Coming Soon</span>
+                  </a>
+                </div>
+              </div>
+              <a data-name="scramble" href="/#solution-industry" class="nav-link nav-link-gradient w-nav-link">Industries</a>
+              <a data-name="scramble" href="/about" class={`nav-link nav-link-gradient w-nav-link ${currentPage === 'about' ? 'w--current' : ''}`}>About</a>
+              <a data-name="scramble" href="/blog" class={`nav-link nav-link-gradient w-nav-link ${currentPage === 'blog' ? 'w--current' : ''}`}>Blog</a>
+            </div>
+          </nav>
+        </div>
+        <div class="header-cta-button">
+          <div class="button">
+            <a href="/#contact" class="button-hidden w-button">Button Text</a>
+            <div class="button-wrapper">
+              <div class="button-text">Get started</div>
+            </div>
+            <div class="button-accent-gradinet"></div>
+          </div>
+        </div>
+        <div class="menu-button w-nav-button">
+          <div class="menu-button-lines">
+            <div class="menu-button-line menu-button-line-top"></div>
+            <div class="menu-button-line menu-button-line-bottom"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div data-wf--noise--variant="base" class="noise-wrapper">
+  <div data-w-id="71d94dcc-6696-ef8a-8008-1058c6cb48e2" class="noise"></div>
+</div>

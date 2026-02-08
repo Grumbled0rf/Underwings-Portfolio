@@ -1,0 +1,143 @@
+---
+// ===========================================
+// BLOG LISTING PAGE
+// ===========================================
+
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import { getBlogPosts, getBlogCategories } from '../../lib/supabase';
+
+const posts = await getBlogPosts(20);
+const categories = await getBlogCategories();
+---
+
+<Layout
+  title="Blog - Underwings Technologies"
+  description="Insights on cybersecurity, compliance, penetration testing, and security best practices from the Underwings team."
+>
+  <Header currentPage="blog" />
+
+  <main id="main" class="main">
+    <section class="section top-padding-large bottom-padding-medium">
+      <div class="container-medium">
+        <div class="blog-header">
+          <div class="tag-wrapper">
+            <div class="tag">Blog</div>
+          </div>
+          <h1 class="heading-large">Security Insights & <span class="text-gradient-clip bg-color-green-gradient">Resources</span></h1>
+          <p class="text text-center">Expert insights on cybersecurity, compliance frameworks, penetration testing, and security best practices.</p>
+        </div>
+
+        {categories.length > 0 && (
+          <div class="blog-categories">
+            <a href="/blog" class="category-tag active">All</a>
+            {categories.map(cat => (
+              <a href={`/blog/category/${cat.slug}`} class="category-tag">{cat.name}</a>
+            ))}
+          </div>
+        )}
+
+        <div class="blog-grid">
+          {posts.length > 0 ? (
+            posts.map(post => (
+              <BlogCard
+                title={post.title}
+                slug={post.slug}
+                excerpt={post.excerpt}
+                category={post.category}
+                featuredImage={post.featured_image}
+                publishedAt={post.published_at}
+                author={post.author_name}
+              />
+            ))
+          ) : (
+            <div class="empty-state">
+              <p>No blog posts yet. Check back soon!</p>
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .blog-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .blog-header .tag-wrapper {
+    margin-bottom: 1rem;
+  }
+
+  .blog-header .tag {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .blog-header h1 {
+    margin-bottom: 1rem;
+  }
+
+  .blog-header p {
+    max-width: 600px;
+    margin: 0 auto;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .blog-categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+    margin-bottom: 3rem;
+  }
+
+  .category-tag {
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .category-tag:hover,
+  .category-tag.active {
+    background: rgba(36, 215, 88, 0.1);
+    border-color: #24d758;
+    color: #24d758;
+  }
+
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+  }
+
+  .empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 4rem 2rem;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  @media (max-width: 768px) {
+    .blog-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

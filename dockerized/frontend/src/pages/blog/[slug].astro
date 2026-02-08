@@ -1,0 +1,335 @@
+---
+// ===========================================
+// SINGLE BLOG POST PAGE
+// Dynamic routing by slug
+// ===========================================
+
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { getBlogPost, getBlogPosts } from '../../lib/supabase';
+
+const { slug } = Astro.params;
+const post = await getBlogPost(slug);
+
+// If post not found, redirect to blog index
+if (!post) {
+  return Astro.redirect('/blog');
+}
+
+const formattedDate = post.published_at
+  ? new Date(post.published_at).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    })
+  : '';
+
+// Get related posts
+const allPosts = await getBlogPosts(4);
+const relatedPosts = allPosts.filter(p => p.id !== post.id).slice(0, 3);
+
+// Simple markdown to HTML (basic conversion)
+function markdownToHtml(markdown: string): string {
+  if (!markdown) return '';
+  return markdown
+    // Headers
+    .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+    .replace(/^## (.*$)/gim, '<h2>$1</h2>')
+    .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+    // Bold and italic
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g, '<em>$1</em>')
+    // Links
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
+    // Line breaks
+    .replace(/\n\n/g, '</p><p>')
+    .replace(/\n/g, '<br>')
+    // Wrap in paragraphs
+    .replace(/^(.+)$/gm, '<p>$1</p>')
+    // Clean up empty paragraphs
+    .replace(/<p><\/p>/g, '')
+    .replace(/<p><h/g, '<h')
+    .replace(/<\/h(\d)><\/p>/g, '</h$1>');
+}
+---
+
+<Layout
+  title={`${post.title} - Underwings Blog`}
+  description={post.excerpt || post.meta_description || `Read ${post.title} on Underwings Technologies blog.`}
+  ogImage={post.featured_image}
+>
+  <Header currentPage="blog" />
+
+  <main id="main" class="main">
+    <article class="blog-post">
+      <section class="section top-padding-large bottom-padding-small">
+        <div class="container-medium">
+          <div class="post-header">
+            <a href="/blog" class="back-link">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+              </svg>
+              Back to Blog
+            </a>
+
+            {post.category && (
+              <span class="post-category">{post.category}</span>
+            )}
+
+            <h1 class="heading-large">{post.title}</h1>
+
+            <div class="post-meta">
+              {post.author_name && <span class="post-author">By {post.author_name}</span>}
+              {formattedDate && <span class="post-date">{formattedDate}</span>}
+              {post.view_count > 0 && <span class="post-views">{post.view_count} views</span>}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {post.featured_image && (
+        <section class="section top-padding-clear bottom-padding-small">
+          <div class="container-medium">
+            <div class="post-featured-image">
+              <img src={post.featured_image} alt={post.title} />
+            </div>
+          </div>
+        </section>
+      )}
+
+      <section class="section top-padding-clear bottom-padding-large">
+        <div class="container-small">
+          <div class="post-content" set:html={markdownToHtml(post.content)} />
+
+          {post.tags && post.tags.length > 0 && (
+            <div class="post-tags">
+              {post.tags.map(tag => (
+                <span class="tag">{tag}</span>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+
+      {relatedPosts.length > 0 && (
+        <section class="section top-padding-medium bottom-padding-large related-posts-section">
+          <div class="container-medium">
+            <h2 class="heading-medium">Related Articles</h2>
+            <div class="related-posts-grid">
+              {relatedPosts.map(relatedPost => (
+                <a href={`/blog/${relatedPost.slug}`} class="related-post-card">
+                  <span class="related-post-category">{relatedPost.category}</span>
+                  <h3>{relatedPost.title}</h3>
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+    </article>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .post-header {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+    transition: color 0.2s;
+  }
+
+  .back-link:hover {
+    color: #24d758;
+  }
+
+  .post-category {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    background: rgba(36, 215, 88, 0.1);
+    border: 1px solid rgba(36, 215, 88, 0.3);
+    border-radius: 20px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #24d758;
+    margin-bottom: 1.5rem;
+  }
+
+  .post-header h1 {
+    margin-bottom: 1.5rem;
+  }
+
+  .post-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9rem;
+  }
+
+  .post-featured-image {
+    border-radius: 16px;
+    overflow: hidden;
+    max-height: 500px;
+  }
+
+  .post-featured-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .container-small {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  .post-content {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .post-content :global(h2) {
+    font-size: 1.75rem;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    color: #fff;
+  }
+
+  .post-content :global(h3) {
+    font-size: 1.35rem;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    color: #fff;
+  }
+
+  .post-content :global(p) {
+    margin-bottom: 1.5rem;
+  }
+
+  .post-content :global(a) {
+    color: #24d758;
+    text-decoration: underline;
+  }
+
+  .post-content :global(strong) {
+    color: #fff;
+    font-weight: 600;
+  }
+
+  .post-content :global(ul),
+  .post-content :global(ol) {
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+  }
+
+  .post-content :global(li) {
+    margin-bottom: 0.5rem;
+  }
+
+  .post-content :global(blockquote) {
+    border-left: 3px solid #24d758;
+    padding-left: 1.5rem;
+    margin: 2rem 0;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .post-content :global(code) {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 0.9em;
+  }
+
+  .post-content :global(pre) {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 1.5rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 2rem 0;
+  }
+
+  .post-content :global(pre code) {
+    background: none;
+    padding: 0;
+  }
+
+  .post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .post-tags .tag {
+    padding: 0.4rem 0.8rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .related-posts-section {
+    background: rgba(255, 255, 255, 0.02);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .related-posts-section h2 {
+    margin-bottom: 2rem;
+  }
+
+  .related-posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .related-post-card {
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    text-decoration: none;
+    transition: border-color 0.2s;
+  }
+
+  .related-post-card:hover {
+    border-color: #24d758;
+  }
+
+  .related-post-category {
+    display: block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #24d758;
+    margin-bottom: 0.75rem;
+  }
+
+  .related-post-card h3 {
+    font-size: 1.1rem;
+    color: #fff;
+    line-height: 1.4;
+    margin: 0;
+  }
+</style>
