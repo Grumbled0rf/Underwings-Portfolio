@@ -24,15 +24,26 @@
   <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
   <script type="text/javascript">WebFont.load({  google: {    families: ["Droid Sans:400,700","Geist:300,400,500,600,700","Geist Mono:300,400,500,600,700"]  }});</script>
   <script type="text/javascript">!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script>
+  <!-- Favicons -->
+  <link href="/brand/favicons/favicon.svg" rel="icon" type="image/svg+xml">
   <link href="/images/favicon.png" rel="shortcut icon" type="image/x-icon">
-  <link href="/images/webclip.png" rel="apple-touch-icon">
+  <link href="/brand/favicons/apple-touch-icon.svg" rel="apple-touch-icon">
+  <link href="/images/webclip.png" rel="apple-touch-icon" sizes="180x180">
   <style>
+    /* Logo with Tagline */
+    .navbar .logo { height: auto !important; }
+    .logo-wrapper { display: flex; flex-direction: column; align-items: flex-start; gap: 0; }
+    .navbar .logo-wrapper .logo-image, .logo-wrapper .logo-image { height: 24px !important; width: auto !important; max-height: 24px !important; }
+    .logo-tagline { font-size: 8px; font-weight: 500; letter-spacing: 0.8px; text-transform: uppercase; color: rgba(255,255,255,0.4); font-family: 'Geist', sans-serif; margin-top: 2px; margin-left: 0; }
+    .footer-top-part .logo-wrapper .logo-image { height: 22px !important; max-height: 22px !important; }
+    .footer-top-part .logo-tagline { font-size: 7px; color: rgba(255,255,255,0.3); }
+    @media (max-width: 767px) { .logo-tagline { display: none; } }
     .nav-dropdown { position: relative; display: inline-block; }
     .nav-dropdown-content { display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); background: rgba(23, 23, 23, 0.98); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 0.5rem 0; min-width: 180px; box-shadow: 0 10px 40px rgba(0,0,0,0.5); z-index: 1000; backdrop-filter: blur(10px); }
     .nav-dropdown:hover .nav-dropdown-content { display: block; }
-    .nav-dropdown-item { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; color: #fff; text-decoration: none; font-size: 0.875rem; transition: background 0.2s; }
+    .nav-dropdown-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; color: #fff; text-decoration: none; font-size: 0.875rem; transition: background 0.2s; white-space: nowrap; }
     .nav-dropdown-item:hover { background: rgba(255,255,255,0.05); }
-    .coming-soon-badge { font-size: 0.65rem; padding: 0.2rem 0.5rem; background: linear-gradient(135deg, #24d758, #27dab4); color: #000; border-radius: 4px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+    .coming-soon-badge { display: inline-flex; align-items: center; font-size: 0.6rem; padding: 0.15rem 0.4rem; background: linear-gradient(135deg, #24d758, #27dab4); color: #000; border-radius: 3px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; line-height: 1; }
   </style>
 </head>
 <body class="body">
@@ -41,7 +52,12 @@
     <div data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" class="navbar w-nav">
       <div class="container-medium header-container-medium w-container">
         <div class="navbar-inner">
-          <a href="/" class="logo w-nav-brand"><img src="/images/logowhiteUW.png" loading="lazy" width="Auto" sizes="100vw" alt="Underwings Technologies" srcset="images/logowhiteUW-p-500.png 500w, images/logowhiteUW.png 639w" class="logo-image"></a>
+          <a href="/" class="logo w-nav-brand">
+              <div class="logo-wrapper">
+                <img src="/images/logowhiteUW.png" loading="lazy" width="Auto" sizes="100vw" alt="Underwings Technologies" srcset="images/logowhiteUW-p-500.png 500w, images/logowhiteUW.png 639w" class="logo-image">
+                <span class="logo-tagline">Cybersecurity Solutions</span>
+              </div>
+            </a>
           <div class="nav-menu-box">
             <nav role="navigation" class="nav-menu w-nav-menu">
               <div class="nav-menu-inner">
@@ -209,24 +225,41 @@
           <nav class="footer-nav">
             <div class="footer-top-content-grid">
               <div class="footer-top-part footer-top-part-between">
-                <a href="/" class="logo w-nav-brand"><img src="/images/logowhiteUW.png" loading="lazy" sizes="100vw" srcset="images/logowhiteUW-p-500.png 500w, images/logowhiteUW.png 639w" alt="Underwings Technologies Logo" class="logo-image"></a>
-                <div>Headquartered in UAE<br>contact@underwings.org<br>+971 547078203</div>
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                  <a href="/" class="logo w-nav-brand">
+                    <div class="logo-wrapper">
+                      <img src="/images/logowhiteUW.png" loading="lazy" sizes="100vw" srcset="images/logowhiteUW-p-500.png 500w, images/logowhiteUW.png 639w" alt="Underwings Technologies Logo" class="logo-image">
+                      <span class="logo-tagline">Cybersecurity Solutions</span>
+                    </div>
+                  </a>
+                  <p style="font-size: 0.8rem; color: rgba(255,255,255,0.5); max-width: 280px; line-height: 1.5; margin: 0;">Enterprise security software, expert services, and comprehensive protection for businesses in UAE and beyond.</p>
+                </div>
+                <div style="font-size: 0.85rem; line-height: 1.8; color: rgba(255,255,255,0.7);">
+                  <div style="margin-bottom: 0.5rem; color: rgba(255,255,255,0.4); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px;">Contact</div>
+                  <a href="mailto:contact@underwings.org" style="color: inherit; text-decoration: none;">contact@underwings.org</a><br>
+                  <a href="tel:+971547078203" style="color: inherit; text-decoration: none;">+971 547 078 203</a><br>
+                  <span style="color: rgba(255,255,255,0.5);">Dubai, UAE</span>
+                </div>
               </div>
               <div class="footer-top-part footer-top-part-grid">
                 <ul role="list" class="footer-nav-list w-list-unstyled">
-                  <li class="footer-nav-list-item"><a href="/software.html" class="footer-nav-link nav-link-gradient w-inline-block"><div>Software</div></a></li>
+                  <li class="footer-nav-list-item" style="margin-bottom: 0.75rem; color: rgba(255,255,255,0.4); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px;">Services</li>
+                  <li class="footer-nav-list-item"><a href="/software.html" class="footer-nav-link nav-link-gradient w-inline-block"><div>Software Sales</div></a></li>
                   <li class="footer-nav-list-item"><a href="/services/vapt.html" class="footer-nav-link nav-link-gradient w-inline-block"><div>VAPT</div></a></li>
                   <li class="footer-nav-list-item"><a href="/services/iso-27001.html" class="footer-nav-link nav-link-gradient w-inline-block"><div>ISO 27001</div></a></li>
-                  <li class="footer-nav-list-item"><a href="/services/training.html" class="footer-nav-link nav-link-gradient w-inline-block"><div>Training</div></a></li>
+                  <li class="footer-nav-list-item"><a href="/services/training.html" class="footer-nav-link nav-link-gradient w-inline-block"><div>Security Training</div></a></li>
                 </ul>
                 <ul role="list" class="footer-nav-list w-list-unstyled">
+                  <li class="footer-nav-list-item" style="margin-bottom: 0.75rem; color: rgba(255,255,255,0.4); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px;">Company</li>
+                  <li class="footer-nav-list-item"><a href="/about.html" class="footer-nav-link nav-link-gradient w-inline-block"><div>About Us</div></a></li>
                   <li class="footer-nav-list-item"><a href="/pitstack.html" class="footer-nav-link nav-link-gradient w-inline-block" style="display: flex; align-items: center; gap: 0.5rem;"><div>Pitstack</div><span class="coming-soon-badge" style="font-size: 0.55rem;">Soon</span></a></li>
-                  <li class="footer-nav-list-item"><a href="/about.html" class="footer-nav-link nav-link-gradient w-inline-block"><div>About</div></a></li>
-                  <li class="footer-nav-list-item"><a href="index.html#contact" class="footer-nav-link nav-link-gradient w-inline-block"><div>Contact</div></a></li>
+                  <li class="footer-nav-list-item"><a href="/blog/" class="footer-nav-link nav-link-gradient w-inline-block"><div>Blog</div></a></li>
+                  <li class="footer-nav-list-item"><a href="/#contact" class="footer-nav-link nav-link-gradient w-inline-block"><div>Contact</div></a></li>
                 </ul>
               </div>
               <div class="footer-top-part footer-top-part-between footer-top-part-right">
                 <ul role="list" class="socials-list w-list-unstyled">
+                  <li class="socials-list-item" style="color: rgba(255,255,255,0.4); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px;">Follow</li>
                   <li class="socials-list-item"><a href="https://www.linkedin.com/company/underwings-technologies" target="_blank" class="text-link color-white nav-link-gradient">LinkedIn</a></li>
                 </ul>
               </div>
@@ -234,9 +267,12 @@
           </nav>
         </div>
         <div class="footer-bottom-content">
-          <div class="footer-bottom-content-grid">
+          <div class="footer-bottom-content-grid" style="display: flex; justify-content: space-between; align-items: center;">
             <div class="footer-bottom-part">
               <p class="copy-text">© 2026 Underwings Technologies. All rights reserved.</p>
+            </div>
+            <div class="footer-bottom-part">
+              <p class="copy-text"><a href="/privacy-policy.html" style="color: inherit; text-decoration: none; opacity: 0.7;">Privacy Policy</a></p>
             </div>
           </div>
         </div>
