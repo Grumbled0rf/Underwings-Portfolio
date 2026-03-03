@@ -5,10 +5,16 @@
 
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL || 'http://kong:8000';
-const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6InN1cGFiYXNlIiwiaWF0IjoxNjA5NDU5MjAwLCJleHAiOjE4OTM0NTYwMDB9.Inir1TWLEdJ1Izc0kNDPDsmdUsJiruzMjvjiJ9pziIQ';
+const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+if (!supabaseUrl || !supabaseAnonKey) {
+  console.error('Missing PUBLIC_SUPABASE_URL or PUBLIC_SUPABASE_ANON_KEY environment variables');
+}
+
+export const supabase = supabaseUrl && supabaseAnonKey
+  ? createClient(supabaseUrl, supabaseAnonKey)
+  : null;
 
 // ===========================================
 // BLOG FUNCTIONS
@@ -18,6 +24,7 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey);
  * Get all published blog posts
  */
 export async function getBlogPosts(limit = 10, offset = 0) {
+  if (!supabase) return [];
   const { data, error } = await supabase
     .from('blog_posts')
     .select('*')
@@ -37,6 +44,7 @@ export async function getBlogPosts(limit = 10, offset = 0) {
  * Get a single blog post by slug
  */
 export async function getBlogPost(slug) {
+  if (!supabase) return null;
   const { data, error } = await supabase
     .from('blog_posts')
     .select('*')
