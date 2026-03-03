@@ -11,6 +11,16 @@ const supabaseKey = window.SUPABASE_ANON_KEY || '';
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 // ===========================================
+// UTILITIES
+// ===========================================
+function esc(str) {
+  if (!str) return '';
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+// ===========================================
 // STATE
 // ===========================================
 let currentUser = null;
@@ -183,12 +193,12 @@ function renderRecentSubmissions(submissions) {
   }
 
   container.innerHTML = submissions.map(sub => `
-    <div class="list-item" onclick="viewSubmission('${sub.id}')">
+    <div class="list-item" onclick="viewSubmission('${esc(sub.id)}')">
       <div class="list-item-info">
-        <div class="list-item-title">${sub.name || 'Anonymous'}</div>
-        <div class="list-item-meta">${sub.form_type} • ${formatDate(sub.created_at)}</div>
+        <div class="list-item-title">${esc(sub.name) || 'Anonymous'}</div>
+        <div class="list-item-meta">${esc(sub.form_type)} • ${formatDate(sub.created_at)}</div>
       </div>
-      <span class="status-badge ${sub.status}">${sub.status}</span>
+      <span class="status-badge ${esc(sub.status)}">${esc(sub.status)}</span>
     </div>
   `).join('');
 }
@@ -201,12 +211,12 @@ function renderRecentPosts(posts) {
   }
 
   container.innerHTML = posts.map(post => `
-    <div class="list-item" onclick="editPost('${post.id}')">
+    <div class="list-item" onclick="editPost('${esc(post.id)}')">
       <div class="list-item-info">
-        <div class="list-item-title">${post.title}</div>
-        <div class="list-item-meta">${post.category || 'Uncategorized'} • ${formatDate(post.created_at)}</div>
+        <div class="list-item-title">${esc(post.title)}</div>
+        <div class="list-item-meta">${esc(post.category) || 'Uncategorized'} • ${formatDate(post.created_at)}</div>
       </div>
-      <span class="status-badge ${post.status}">${post.status}</span>
+      <span class="status-badge ${esc(post.status)}">${esc(post.status)}</span>
     </div>
   `).join('');
 }
@@ -238,18 +248,18 @@ function renderPostsTable(posts) {
 
   tbody.innerHTML = posts.map(post => `
     <tr>
-      <td><strong>${post.title}</strong></td>
-      <td>${post.category || '-'}</td>
-      <td><span class="status-badge ${post.status}">${post.status}</span></td>
+      <td><strong>${esc(post.title)}</strong></td>
+      <td>${esc(post.category) || '-'}</td>
+      <td><span class="status-badge ${esc(post.status)}">${esc(post.status)}</span></td>
       <td>${formatDate(post.created_at)}</td>
       <td class="actions">
-        <button class="btn-icon" onclick="editPost('${post.id}')" title="Edit">
+        <button class="btn-icon" onclick="editPost('${esc(post.id)}')" title="Edit">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
             <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
           </svg>
         </button>
-        <button class="btn-icon danger" onclick="deletePost('${post.id}')" title="Delete">
+        <button class="btn-icon danger" onclick="deletePost('${esc(post.id)}')" title="Delete">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polyline points="3 6 5 6 21 6"></polyline>
             <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
@@ -399,19 +409,19 @@ function renderSubmissionsTable(submissions) {
 
   tbody.innerHTML = submissions.map(sub => `
     <tr>
-      <td>${sub.name || '-'}</td>
-      <td>${sub.email}</td>
-      <td>${sub.form_type}</td>
-      <td><span class="status-badge ${sub.status}">${sub.status}</span></td>
+      <td>${esc(sub.name) || '-'}</td>
+      <td>${esc(sub.email)}</td>
+      <td>${esc(sub.form_type)}</td>
+      <td><span class="status-badge ${esc(sub.status)}">${esc(sub.status)}</span></td>
       <td>${formatDate(sub.created_at)}</td>
       <td class="actions">
-        <button class="btn-icon" onclick="viewSubmission('${sub.id}')" title="View">
+        <button class="btn-icon" onclick="viewSubmission('${esc(sub.id)}')" title="View">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
             <circle cx="12" cy="12" r="3"></circle>
           </svg>
         </button>
-        <button class="btn-icon danger" onclick="deleteSubmission('${sub.id}')" title="Delete">
+        <button class="btn-icon danger" onclick="deleteSubmission('${esc(sub.id)}')" title="Delete">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polyline points="3 6 5 6 21 6"></polyline>
             <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
@@ -451,16 +461,16 @@ window.viewSubmission = async function(id) {
 
     document.getElementById('submission-details').innerHTML = `
       <div class="submission-detail">
-        <p><strong>Name:</strong> ${sub.name || '-'}</p>
-        <p><strong>Email:</strong> <a href="mailto:${sub.email}">${sub.email}</a></p>
-        <p><strong>Phone:</strong> ${sub.phone || '-'}</p>
-        <p><strong>Company:</strong> ${sub.company || '-'}</p>
-        <p><strong>Type:</strong> ${sub.form_type}</p>
-        <p><strong>Service Interest:</strong> ${sub.service_interest || '-'}</p>
+        <p><strong>Name:</strong> ${esc(sub.name) || '-'}</p>
+        <p><strong>Email:</strong> <a href="mailto:${esc(sub.email)}">${esc(sub.email)}</a></p>
+        <p><strong>Phone:</strong> ${esc(sub.phone) || '-'}</p>
+        <p><strong>Company:</strong> ${esc(sub.company) || '-'}</p>
+        <p><strong>Type:</strong> ${esc(sub.form_type)}</p>
+        <p><strong>Service Interest:</strong> ${esc(sub.service_interest) || '-'}</p>
         <p><strong>Date:</strong> ${formatDate(sub.created_at)}</p>
         <hr style="border-color: var(--border-color); margin: 1rem 0;">
         <p><strong>Message:</strong></p>
-        <p style="white-space: pre-wrap; background: var(--bg-dark); padding: 1rem; border-radius: 8px; margin-top: 0.5rem;">${sub.message || 'No message'}</p>
+        <p style="white-space: pre-wrap; background: var(--bg-dark); padding: 1rem; border-radius: 8px; margin-top: 0.5rem;">${esc(sub.message) || 'No message'}</p>
       </div>
     `;
 
@@ -531,12 +541,12 @@ function renderSubscribersTable(subscribers) {
 
   tbody.innerHTML = subscribers.map(sub => `
     <tr>
-      <td>${sub.email}</td>
-      <td>${sub.name || '-'}</td>
+      <td>${esc(sub.email)}</td>
+      <td>${esc(sub.name) || '-'}</td>
       <td><span class="status-badge ${sub.subscribed ? 'published' : 'draft'}">${sub.subscribed ? 'Active' : 'Unsubscribed'}</span></td>
       <td>${formatDate(sub.created_at)}</td>
       <td class="actions">
-        <button class="btn-icon danger" onclick="deleteSubscriber('${sub.id}')" title="Delete">
+        <button class="btn-icon danger" onclick="deleteSubscriber('${esc(sub.id)}')" title="Delete">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polyline points="3 6 5 6 21 6"></polyline>
             <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>

@@ -244,7 +244,7 @@ services:
 
   # Supabase Studio - Admin UI
   studio:
-    image: supabase/studio:latest
+    image: supabase/studio:20240422-5cf8f30
     container_name: underwings-studio
     healthcheck:
       test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/api/profile', (r) => {if (r.statusCode !== 200) throw new Error(r.statusCode)})"]

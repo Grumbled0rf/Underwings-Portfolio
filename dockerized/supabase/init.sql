@@ -127,6 +127,8 @@ ON CONFLICT (key) DO NOTHING;
 -- ===========================================
 -- ROW LEVEL SECURITY POLICIES
 -- ===========================================
+-- Admin access: service_role key (bypasses RLS) or via Supabase Studio
+-- Public access: anon key with restricted policies below
 
 -- Enable RLS on all tables
 ALTER TABLE public.blog_posts ENABLE ROW LEVEL SECURITY;
@@ -135,54 +137,50 @@ ALTER TABLE public.form_submissions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.subscribers ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.site_settings ENABLE ROW LEVEL SECURITY;
 
--- Blog Posts Policies
+-- Blog Posts Policies (public: read published only)
 DROP POLICY IF EXISTS "Public can read published posts" ON public.blog_posts;
 CREATE POLICY "Public can read published posts" ON public.blog_posts
     FOR SELECT USING (status = 'published');
 
 DROP POLICY IF EXISTS "Authenticated users can manage posts" ON public.blog_posts;
-CREATE POLICY "Authenticated users can manage posts" ON public.blog_posts
-    FOR ALL USING (auth.role() = 'authenticated');
 
--- Blog Categories Policies
+-- Blog Categories Policies (public: read only)
 DROP POLICY IF EXISTS "Public can read categories" ON public.blog_categories;
 CREATE POLICY "Public can read categories" ON public.blog_categories
     FOR SELECT USING (true);
 
 DROP POLICY IF EXISTS "Authenticated users can manage categories" ON public.blog_categories;
-CREATE POLICY "Authenticated users can manage categories" ON public.blog_categories
-    FOR ALL USING (auth.role() = 'authenticated');
 
--- Form Submissions Policies
+-- Form Submissions Policies (public: insert only, constrained)
 DROP POLICY IF EXISTS "Public can submit forms" ON public.form_submissions;
 CREATE POLICY "Public can submit forms" ON public.form_submissions
-    FOR INSERT WITH CHECK (true);
+    FOR INSERT WITH CHECK (
+        status = 'new'
+        AND assigned_to IS NULL
+        AND notes IS NULL
+    );
 
 DROP POLICY IF EXISTS "Authenticated users can view submissions" ON public.form_submissions;
-CREATE POLICY "Authenticated users can view submissions" ON public.form_submissions
-    FOR SELECT USING (auth.role() = 'authenticated');
-
 DROP POLICY IF EXISTS "Authenticated users can update submissions" ON public.form_submissions;
-CREATE POLICY "Authenticated users can update submissions" ON public.form_submissions
-    FOR UPDATE USING (auth.role() = 'authenticated');
 
--- Subscribers Policies
+-- Subscribers Policies (public: insert only, constrained)
 DROP POLICY IF EXISTS "Public can subscribe" ON public.subscribers;
 CREATE POLICY "Public can subscribe" ON public.subscribers
-    FOR INSERT WITH CHECK (true);
+    FOR INSERT WITH CHECK (
+        subscribed = true
+        AND confirmed = false
+        AND confirmed_at IS NULL
+        AND unsubscribed_at IS NULL
+    );
 
 DROP POLICY IF EXISTS "Authenticated users can manage subscribers" ON public.subscribers;
-CREATE POLICY "Authenticated users can manage subscribers" ON public.subscribers
-    FOR ALL USING (auth.role() = 'authenticated');
 
--- Site Settings Policies
+-- Site Settings Policies (public: read only)
 DROP POLICY IF EXISTS "Public can read settings" ON public.site_settings;
 CREATE POLICY "Public can read settings" ON public.site_settings
     FOR SELECT USING (true);
 
 DROP POLICY IF EXISTS "Authenticated users can manage settings" ON public.site_settings;
-CREATE POLICY "Authenticated users can manage settings" ON public.site_settings
-    FOR ALL USING (auth.role() = 'authenticated');
 
 -- ===========================================
 -- FUNCTIONS & TRIGGERS

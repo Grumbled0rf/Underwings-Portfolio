@@ -71,7 +71,7 @@ services:
       - name: cors
       - name: key-auth
         config:
-          hide_credentials: false
+          hide_credentials: true
 
   # REST Service (PostgREST)
   - name: rest-v1
@@ -85,7 +85,7 @@ services:
       - name: cors
       - name: key-auth
         config:
-          hide_credentials: false
+          hide_credentials: true
 
   # Realtime Service
   - name: realtime-v1
@@ -99,7 +99,7 @@ services:
       - name: cors
       - name: key-auth
         config:
-          hide_credentials: false
+          hide_credentials: true
 
   # Storage Service
   - name: storage-v1
@@ -113,7 +113,7 @@ services:
       - name: cors
       - name: key-auth
         config:
-          hide_credentials: false
+          hide_credentials: true
 
   # Meta Service (Postgres Meta)
   - name: meta
@@ -127,7 +127,7 @@ services:
       - name: cors
       - name: key-auth
         config:
-          hide_credentials: false
+          hide_credentials: true
 
 # ===========================================
 # GLOBAL PLUGINS
@@ -136,7 +136,9 @@ plugins:
   - name: cors
     config:
       origins:
-        - "*"
+        - "https://underwings.org"
+        - "https://www.underwings.org"
+        - "http://localhost:8080"
       methods:
         - GET
         - POST

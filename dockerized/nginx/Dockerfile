@@ -2,13 +2,14 @@
 # NGINX DOCKERFILE
 # ===========================================
 
-FROM nginx:alpine
+FROM nginx:1.27-alpine
 
 # Remove default config
 RUN rm /etc/nginx/conf.d/default.conf
 
-# Copy custom config
+# Copy custom config and error pages
 COPY nginx.conf /etc/nginx/nginx.conf
+COPY maintenance.html /usr/share/nginx/html/maintenance.html
 
 # Create SSL directory
 RUN mkdir -p /etc/nginx/ssl
