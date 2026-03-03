@@ -1,4 +1,973 @@
 ---
-// Redirect to static index.html
-return Astro.redirect('/index.html');
+// ===========================================
+// HOMEPAGE
+// Underwings Technologies
+// ===========================================
+
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PentestDiagram from '../components/PentestDiagram.astro';
+import PartnerLogos from '../components/PartnerLogos.astro';
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL || "https://underwings.org";
+
+const schemas = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Underwings Technologies",
+    "url": siteUrl,
+    "logo": `${siteUrl}/images/logowhiteUW.png`,
+    "description": "Enterprise cybersecurity solutions provider offering security software sales, VAPT services, ISO 27001 implementation, and security awareness training.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "AE",
+      "addressRegion": "Dubai"
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+971-547078203",
+      "email": "contact@underwings.org",
+      "contactType": "sales"
+    },
+    "sameAs": [
+      "https://www.linkedin.com/company/underwings-technologies"
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "serviceType": "Cybersecurity Services",
+    "provider": {
+      "@type": "Organization",
+      "name": "Underwings Technologies"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Cybersecurity Services",
+      "itemListElement": [
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Vulnerability Assessment & Penetration Testing (VAPT)" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "ISO 27001 Implementation & Certification" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Cybersecurity Awareness Training" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Security Software Sales & Implementation" } }
+      ]
+    }
+  }
+];
 ---
+
+<Layout
+  title="Underwings – Cybersecurity Solutions & Software Sales"
+  description="Underwings provides comprehensive cybersecurity services including VAPT, ISO 27001 implementation, security awareness training, and enterprise security software sales with implementation, support, and training."
+  keywords="cybersecurity UAE, VAPT services Dubai, ISO 27001 implementation, security software sales, penetration testing UAE, cybersecurity training, Pitstack, security awareness training, compliance services UAE"
+  wfPage="6920627afaad5c7afb54bfa8"
+  schema={schemas}
+>
+  <Fragment slot="head">
+    <style is:inline>
+@media (min-width:992px) {html.w-mod-js:not(.w-mod-ix) [data-w-id="151e5378-463f-813e-1b0b-9cfb3ac00f2f"] {-webkit-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);}html.w-mod-js:not(.w-mod-ix) [data-w-id="b326e48d-3b1b-a602-3e64-9b18a8a2c656"] {-webkit-transform:translate3d(0, 13.75rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 13.75rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 13.75rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 13.75rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);}html.w-mod-js:not(.w-mod-ix) [data-w-id="3efa6418-83ef-ad75-30fd-29b00eb6b76f"] {-webkit-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);}}@media (max-width:991px) and (min-width:768px) {html.w-mod-js:not(.w-mod-ix) [data-w-id="151e5378-463f-813e-1b0b-9cfb3ac00f2f"] {-webkit-transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);}html.w-mod-js:not(.w-mod-ix) [data-w-id="b326e48d-3b1b-a602-3e64-9b18a8a2c656"] {-webkit-transform:translate3d(0, 7.75rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 7.75rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 7.75rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 7.75rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);}html.w-mod-js:not(.w-mod-ix) [data-w-id="3efa6418-83ef-ad75-30fd-29b00eb6b76f"] {-webkit-transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);}}@media (max-width:767px) and (min-width:480px) {html.w-mod-js:not(.w-mod-ix) [data-w-id="151e5378-463f-813e-1b0b-9cfb3ac00f2f"] {-webkit-transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);}html.w-mod-js:not(.w-mod-ix) [data-w-id="b326e48d-3b1b-a602-3e64-9b18a8a2c656"] {-webkit-transform:translate3d(0, 7.75rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 7.75rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 7.75rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 7.75rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);}html.w-mod-js:not(.w-mod-ix) [data-w-id="3efa6418-83ef-ad75-30fd-29b00eb6b76f"] {-webkit-transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);}}@media (max-width:479px) {html.w-mod-js:not(.w-mod-ix) [data-w-id="151e5378-463f-813e-1b0b-9cfb3ac00f2f"] {-webkit-transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);}html.w-mod-js:not(.w-mod-ix) [data-w-id="b326e48d-3b1b-a602-3e64-9b18a8a2c656"] {-webkit-transform:translate3d(0, 7.75rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 7.75rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 7.75rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 7.75rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);}html.w-mod-js:not(.w-mod-ix) [data-w-id="3efa6418-83ef-ad75-30fd-29b00eb6b76f"] {-webkit-transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);}}
+
+    /* Pentest Diagram Styles */
+    .pentest-diagram-container { background: transparent !important; border-radius: 12px; overflow: visible; }
+    .pentest-diagram { width: 100%; height: auto; max-width: 100%; display: block; overflow: visible; }
+    .pentest-diagram .phase-node { opacity: 0; animation: fadeInNode 0.5s ease-out forwards; }
+    .pentest-diagram .flow-line { opacity: 0; animation: fadeInFlow 0.8s ease-out forwards; animation-delay: 0.3s; }
+    .pentest-diagram .pulse-ring { transform-origin: center; animation: pulseRing 2.5s ease-in-out infinite; animation-delay: 1s; }
+    @keyframes fadeInNode { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+    @keyframes fadeInFlow { from { opacity: 0; } to { opacity: 0.8; } }
+    @keyframes pulseRing { 0%, 100% { opacity: 0.2; transform: scale(1); } 50% { opacity: 0.4; transform: scale(1.08); } }
+    .pentest-diagram .phase-node:nth-child(4) { animation-delay: 0.05s; }
+    .pentest-diagram .phase-node:nth-child(5) { animation-delay: 0.1s; }
+    .pentest-diagram .phase-node:nth-child(6) { animation-delay: 0.15s; }
+    .pentest-diagram .phase-node:nth-child(7) { animation-delay: 0.2s; }
+    .pentest-diagram .phase-node:nth-child(8) { animation-delay: 0.25s; }
+    .pentest-diagram .phase-node:nth-child(9) { animation-delay: 0.3s; }
+    .pentest-diagram .phase-node:nth-child(10) { animation-delay: 0.35s; }
+    .pentest-diagram .phase-node:nth-child(11) { animation-delay: 0.4s; }
+    .pentest-diagram .phase-node:nth-of-type(9) { animation-delay: 0.56s; }
+    .pentest-diagram .phase-node:nth-of-type(10) { animation-delay: 0.64s; }
+    /* Contact Form Custom Styles */
+    select.form-field {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23888' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      padding-right: 2.5rem;
+    }
+    select.form-field option {
+      background-color: #1a1a1a;
+      color: #fff;
+      padding: 0.5rem;
+    }
+    textarea.form-field {
+      font-family: inherit;
+      line-height: 1.6;
+    }
+    .form-field::placeholder {
+      color: rgba(255,255,255,0.55);
+    }
+    .form-message {
+      padding: 1.5rem;
+      border-radius: 8px;
+      background: rgba(36, 215, 88, 0.1);
+      border: 1px solid rgba(36, 215, 88, 0.3);
+    }
+    .error-message {
+      padding: 1.5rem;
+      border-radius: 8px;
+      background: rgba(255, 75, 75, 0.1);
+      border: 1px solid rgba(255, 75, 75, 0.3);
+    }
+    </style>
+  </Fragment>
+
+  <Header currentPage="home" />
+
+  <main id="main" class="main">
+    <section class="section bottom-padding-clear top-padding-small">
+      <div class="container-medium">
+        <div class="hero">
+          <div data-w-id="2cf77612-7644-4147-0376-3ea7250fea00" class="hero-main-wrapper">
+            <div data-w-id="34b1122a-f052-4188-7660-95d2b1a495ac" style="filter:blur(3px);opacity:0" class="neon-line-box">
+              <div data-w-id="b85a9a8f-4c66-b8a5-85a2-898ca6c18027" style="filter:grayscale(100%)" class="neon-line-parent">
+                <div style="-webkit-transform:translate3d(-50%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(-50%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(-50%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(-50%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)" class="neon-line-inner"></div>
+              </div>
+              <div style="-webkit-transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);opacity:0.7" class="neon-line-shadow"></div>
+            </div>
+            <div data-w-id="19df5849-171b-4eae-062f-4812128bbbb8" class="hero-heading-wrapper">
+              <h1 data-w-id="879326d7-884d-af95-88ac-b239a9dcd27e" style="filter:blur(3px);opacity:0" class="heading-large hero-heading-large">Security Software. Services. <span class="text-gradient-clip bg-color-green-gradient">Complete Protection.</span></h1>
+              <p data-w-id="6fbcab1d-d1c2-8b6d-65a8-2ec9c6b379ac" style="filter:blur(3px);opacity:0" class="text text-center">Enterprise cybersecurity software sales, implementation, and expert security services</p>
+            </div>
+            <div data-w-id="96085222-d08d-4e66-7db7-ba441d092ac5" style="filter:blur(3px);opacity:0" class="hero-cta-mobile-button">
+              <div class="button">
+                <a href="/#contact" class="button-hidden w-button">Get started</a>
+                <div class="button-wrapper">
+                  <div class="button-text">Get started</div>
+                </div>
+                <div class="button-accent-gradinet"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section bottom-padding-clear top-padding-small">
+      <div data-w-id="fd55d787-0c08-9385-40a4-9ba5b4dffa52" style="filter:blur(3px);opacity:0" class="container-medium">
+        <div data-w-id="40aa5f91-6980-e302-7692-795a366815d9" class="cube-content">
+          <div data-w-id="b02952e0-6e0a-01d6-2998-b7cde99b76a5" style="opacity:0" class="hero hero-cube">
+            <div class="cube-large-wrapper">
+              <div data-w-id="b02952e0-6e0a-01d6-2998-b7cde99b76a6" class="cube-large">
+                <div class="cube-face bottom-large">
+                  <div class="cube-rib"></div>
+                  <div class="cube-rib cube-rib-left">
+                    <div style="-webkit-transform:translate3d(null, 24vw, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(null, 24vw, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(null, 24vw, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(null, 24vw, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)" class="cube-neon-vertical"></div>
+                  </div>
+                </div>
+                <div class="cube-face back-copy">
+                  <div class="cube-rib"></div>
+                  <div class="cube-rib cube-rib-bottom">
+                    <div class="cube-bottom-filter"></div>
+                  </div>
+                  <div class="cube-rib cube-rib-left">
+                    <div class="cube-vertical-filter"></div>
+                  </div>
+                </div>
+                <div class="cube-face left">
+                  <div class="cube-rib cube-rib-left">
+                    <div style="-webkit-transform:translate3d(null, 0vw, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(null, 0vw, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(null, 0vw, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(null, 0vw, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)" class="cube-neon-vertical-center"></div>
+                  </div>
+                </div>
+                <div class="cube-face right">
+                  <div class="cube-rib">
+                    <div style="-webkit-transform:translate3d(24vw, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(24vw, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(24vw, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(24vw, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)" class="cube-neon"></div>
+                  </div>
+                  <div class="cube-rib cube-rib-bottom">
+                    <div class="cube-bottom-filter"></div>
+                  </div>
+                  <div class="cube-rib cube-rib-right">
+                    <div class="cube-vertical-filter"></div>
+                  </div>
+                  <div class="cube-rib cube-rib-left">
+                    <div class="cube-vertical-filter"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="software" class="vertical-heading-top vertical-heading-cube-padding">
+            <div data-w-id="b8841d35-0707-69f9-57ef-8d20c44d263f" style="filter:blur(3px);opacity:0" class="label">
+              <div class="text-small color-grey">Cybersecurity Software Sales</div>
+            </div>
+            <h2 data-w-id="179c1623-13df-8a0e-1e2c-9b54442d3704" style="filter:blur(3px);opacity:0" class="heading heading-center">Enterprise security solutions -<br> <span class="text-gradient-clip bg-color-green-gradient"><code class="code">Implementation, Support, and Training included</code></span></h2>
+            <p data-w-id="74043303-85bb-873d-9493-0a71a57f9a3b" style="filter:blur(3px);opacity:0" class="text-medium vertical-heading-description">We partner with leading cybersecurity vendors to bring you world-class security software. From endpoint protection to SIEM solutions, we handle the entire lifecycle — sales, implementation, ongoing support, and comprehensive training for your team.</p>
+
+            <!-- Trusted Technology Partners -->
+            <div data-w-id="partners-section" style="margin-top: 3rem;" class="partners-section">
+              <p style="text-align: center; color: rgba(255,255,255,0.5); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 2rem;">Trusted Technology Partners</p>
+              <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 2.5rem; max-width: 900px; margin: 0 auto;">
+                <PartnerLogos size="small" linkTo="/software" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="services" class="section top-padding-clear">
+      <div class="container">
+        <div class="section-wrapper-vertical">
+          <div class="heading-horizontal tablet-padding-top">
+            <div class="heading-horizontal-inner">
+              <div class="heading-horizontal-left-part">
+                <div data-w-id="c93db1d2-0db7-c932-7bf8-d33b4459e9b5" style="filter:blur(3px);opacity:0" class="label">
+                  <div class="text-small color-grey">VAPT Services</div>
+                </div>
+                <h2 data-w-id="ba1c1753-2555-ef64-b98c-f98d028e714c" style="filter:blur(3px);opacity:0" class="heading">Vulnerability Assessment & Penetration Testing</h2>
+              </div>
+              <div id="w-node-_82477afa-2a69-f1d5-e365-05d3e7b7698f-fb54bfa8" class="heading-horizontal-right-part">
+                <p data-w-id="48f1af48-b78f-36d1-6d42-a5509ca892ed" style="filter:blur(3px);opacity:0" class="text-medium"><code>Automated scanners miss what matters. Real attackers don&#x27;t follow checklists — they think creatively, chain exploits, and find the gaps tools can&#x27;t see. Our comprehensive VAPT services uncover the real risks hiding in your systems.</code></p>
+              </div>
+            </div>
+            <div data-w-id="32750ae4-56f9-a829-e6b1-0903965a14b2" style="opacity:0" class="heading-horizontal-line-content">
+              <div class="dashed-line-wrapper-fading">
+                <div class="dashed-line"></div>
+                <div class="neon-line neon-line-static"></div>
+              </div>
+            </div>
+          </div>
+          <div class="content-horizontal">
+            <div class="content-horizontal-inner">
+              <div id="w-node-_48ca685f-8d82-71f3-dc5b-414d352e40ac-fb54bfa8" class="content-horizontal-left-part">
+                <div data-w-id="b92c043d-fb1d-a9b6-25a5-ed8c554bd542" style="filter:blur(3px);opacity:0" class="dashed-banner-card dashed-banner-card-medium">
+                  <div style="-webkit-transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0deg) skew(0, 0);-moz-transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0deg) skew(0, 0);-ms-transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0deg) skew(0, 0);transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0deg) skew(0, 0)" class="star-icon w-embed"><svg width="16" height="15" viewbox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M3.15294 13.8532L6.72941 8.02574H0V6.62714H6.72941L3.15294 0.799633L4.37647 0.0537109L8 6.20756L11.6235 0.0537109L12.8471 0.799633L9.27059 6.62714H16V8.02574H9.27059L12.8471 13.8532L11.6235 14.5992L8 8.44532L4.37647 14.5992L3.15294 13.8532Z" fill="white"></path>
+                      <path d="M3.15294 13.8532L6.72941 8.02574H0V6.62714H6.72941L3.15294 0.799633L4.37647 0.0537109L8 6.20756L11.6235 0.0537109L12.8471 0.799633L9.27059 6.62714H16V8.02574H9.27059L12.8471 13.8532L11.6235 14.5992L8 8.44532L4.37647 14.5992L3.15294 13.8532Z" fill="url(#paint0_linear_338_325)"></path>
+                      <defs>
+                        <lineargradient id="paint0_linear_338_325" x1="18.9704" y1="-6.60741" x2="-17.89" y2="8.32116" gradientunits="userSpaceOnUse">
+                          <stop stop-color="#24D758"></stop>
+                          <stop offset="1" stop-color="#27DAB4"></stop>
+                        </lineargradient>
+                      </defs>
+                    </svg></div>
+                  <p class="text-medium">Our VAPT services cover web applications, mobile apps, networks, APIs, and cloud infrastructure. You get comprehensive vulnerability assessments combined with hands-on penetration testing, detailed reports with proof-of-concept exploits, risk ratings, and clear remediation steps.</p>
+                  <!-- Certification Logos & Badges -->
+                  <div style="display: flex; align-items: center; gap: 2rem; margin-top: 2rem; flex-wrap: wrap;">
+                    <!-- CPTS Certification -->
+                    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
+                      <img src="/images/certifications/cpts.png" loading="lazy" alt="CPTS - Certified Penetration Testing Specialist" style="width: 80px; height: 80px; object-fit: contain; filter: drop-shadow(0 0 10px rgba(36, 215, 88, 0.3));">
+                      <span style="padding: 0.4rem 0.8rem; border: 1px solid rgba(36, 215, 88, 0.5); border-radius: 16px; font-size: 0.75rem; color: #fff; background: rgba(36, 215, 88, 0.1);">CPTS Certified</span>
+                    </div>
+                    <!-- OSCP Certification -->
+                    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
+                      <img src="https://www.offsec.com/_astro/OSCP-plus.BZHuApYA_Ztlntl.svg" alt="OSCP+ - Offensive Security Certified Professional" style="width: 80px; height: 80px; object-fit: contain; filter: drop-shadow(0 0 10px rgba(36, 215, 88, 0.3));">
+                      <span style="padding: 0.4rem 0.8rem; border: 1px solid rgba(36, 215, 88, 0.5); border-radius: 16px; font-size: 0.75rem; color: #fff; background: rgba(36, 215, 88, 0.1);">OSCP Certified</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="w-node-b92749f2-c4f3-7ee5-facb-958c6c3539e4-fb54bfa8" class="content-horizontal-right-part">
+                <div data-w-id="b815dd2a-7ddd-31f6-456e-28154881eff0" style="filter:blur(3px);opacity:0" class="image-box pentest-diagram-container">
+                  <PentestDiagram />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="solution-2" class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
+        <div data-w-id="71d94dcc-6696-ef8a-8008-1058c6cb48e2" class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
+      </div>
+      <div class="container">
+        <div class="section-wrapper-vertical section-wrapper-vertical-large">
+          <div class="heading-horizontal">
+            <div class="heading-horizontal-inner">
+              <div class="heading-horizontal-left-part">
+                <div data-w-id="6b22a0dd-39ed-3430-b873-0b94f1ee1f07" style="filter:blur(3px);opacity:0" class="label">
+                  <div class="text-small color-grey">ISO 27001 & Compliance Services</div>
+                </div>
+                <h2 data-w-id="6b22a0dd-39ed-3430-b873-0b94f1ee1f0a" style="filter:blur(3px);opacity:0" class="heading">Complete ISO 27001 Implementation & Compliance</h2>
+              </div>
+              <div id="w-node-_6b22a0dd-39ed-3430-b873-0b94f1ee1f0c-fb54bfa8" class="heading-horizontal-right-part">
+                <p data-w-id="6b22a0dd-39ed-3430-b873-0b94f1ee1f0d" style="filter:blur(3px);opacity:0" class="text-medium">End-to-end ISO 27001 implementation services — from gap assessment to certification. We handle policy development, risk assessments, control implementation, and audit preparation. Turn compliance from a checkbox into a competitive advantage.</p>
+              </div>
+            </div>
+          </div>
+          <div class="content-risks">
+            <div data-w-id="7d5d3ccc-22f6-4d2f-6996-9fc4180da68c" class="content-risks-item">
+              <div class="risk-item-top">
+                <div data-wf--dashed-short-static-line--variant="base" class="dashed-line-wrapper">
+                  <div class="dashed-line"></div>
+                  <div class="neon-line"></div>
+                </div>
+                <div class="text text-gradient-clip bg-color-green-gradient">01</div>
+              </div>
+              <div class="risk-item-inner">
+                <div id="w-node-_7af2b668-5129-7abb-962d-68f051b5ce9c-fb54bfa8" class="risk-item-inner-wrapper">
+                  <div id="w-node-e67fcd8c-8a6a-7c51-edba-6ee78a7f7363-fb54bfa8" class="risk-description">
+                    <h3 data-w-id="1ca204a5-7a10-9eab-add2-2a71fbdc65e3" style="filter:blur(3px);opacity:0" class="heading-small">ISO 27001 &amp; Compliance Frameworks</h3>
+                    <p data-w-id="66f6b51c-fa25-f609-200b-a75845c23a02" style="filter:blur(3px);opacity:0" class="text-medium color-grey">Gap assessments, policy development, evidence management, and audit preparation. We guide you through ISO 27001, SOC 2, and other frameworks — turning complex requirements into clear, actionable steps that get you certified faster.</p>
+                  </div>
+                  <div id="w-node-abe5976a-a99f-7add-c742-1d482f8a56cb-fb54bfa8" data-w-id="abe5976a-a99f-7add-c742-1d482f8a56cb" class="risk-preview risk-preview-columns">
+                    <div style="-webkit-transform:translate3d(0, -0.5rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, -0.5rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, -0.5rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, -0.5rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)" class="risk-cube-wrapper-top">
+                      <div data-w-id="d01008d4-7ced-c9d2-4e8e-03f88abe75bd" class="cube">
+                        <div class="cube-face bottom-small">
+                          <div class="cube-rib">
+                            <div style="-webkit-transform:translate3d(2.25rem, null, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(2.25rem, null, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(2.25rem, null, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(2.25rem, null, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)" class="cube-neon cube-neon-large"></div>
+                          </div>
+                          <div class="cube-rib cube-rib-left"></div>
+                        </div>
+                        <div class="cube-face back-small">
+                          <div class="cube-rib"></div>
+                          <div class="cube-rib cube-rib-bottom"></div>
+                          <div class="cube-rib cube-rib-left"></div>
+                        </div>
+                        <div class="cube-face right-small">
+                          <div class="cube-rib"></div>
+                          <div class="cube-rib cube-rib-bottom"></div>
+                          <div class="cube-rib cube-rib-right"></div>
+                          <div class="cube-rib cube-rib-left"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div style="-webkit-transform:translate3d(null, 0.5rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(null, 0.5rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(null, 0.5rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(null, 0.5rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)" class="risk-cube-wrapper-bottom">
+                      <div data-w-id="3eb0e01c-b0fa-a923-de04-15080ccb538e" class="cube cube-low-index">
+                        <div class="cube-face bottom-small">
+                          <div class="cube-rib"></div>
+                          <div class="cube-rib cube-rib-left">
+                            <div style="-webkit-transform:translate3d(null, 0rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(null, 0rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(null, 0rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(null, 0rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)" class="cube-neon-vertical cube-neon-vertical-large"></div>
+                          </div>
+                        </div>
+                        <div class="cube-face back-small">
+                          <div class="cube-rib"></div>
+                          <div class="cube-rib cube-rib-bottom">
+                            <div style="-webkit-transform:translate3d(2.25rem, null, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(2.25rem, null, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(2.25rem, null, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(2.25rem, null, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)" class="cube-neon cube-neon-large"></div>
+                          </div>
+                          <div class="cube-rib cube-rib-left"></div>
+                        </div>
+                        <div class="cube-face right-small">
+                          <div class="cube-rib">
+                            <div style="-webkit-transform:translate3d(2.25rem, null, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(2.25rem, null, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(2.25rem, null, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(2.25rem, null, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)" class="cube-neon cube-neon-large"></div>
+                          </div>
+                          <div class="cube-rib cube-rib-bottom"></div>
+                          <div class="cube-rib cube-rib-right"></div>
+                          <div class="cube-rib cube-rib-left"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div data-w-id="ebc64dab-ba90-b078-e7d9-a5f75e8cd0cf" class="content-risks-item">
+              <div class="risk-item-top">
+                <div data-wf--dashed-short-static-line--variant="base" class="dashed-line-wrapper">
+                  <div class="dashed-line"></div>
+                  <div class="neon-line"></div>
+                </div>
+                <div class="text text-gradient-clip bg-color-green-gradient">02</div>
+              </div>
+              <div class="risk-item-inner">
+                <div id="w-node-ebc64dab-ba90-b078-e7d9-a5f75e8cd0d5-fb54bfa8" class="risk-item-inner-wrapper">
+                  <div id="w-node-ebc64dab-ba90-b078-e7d9-a5f75e8cd0d6-fb54bfa8" class="risk-description">
+                    <h3 data-w-id="ebc64dab-ba90-b078-e7d9-a5f75e8cd0d7" style="filter:blur(3px);opacity:0" class="heading-small">Risk Assessment &amp; Management</h3>
+                    <p data-w-id="ebc64dab-ba90-b078-e7d9-a5f75e8cd0d9" style="filter:blur(3px);opacity:0" class="text-medium color-grey">Comprehensive risk assessments that map threats to your business objectives. We help you understand where vulnerabilities exist, what controls are needed, and how to allocate resources effectively — from vendor risk to internal security posture.</p>
+                  </div>
+                  <div id="w-node-ebc64dab-ba90-b078-e7d9-a5f75e8cd0de-fb54bfa8" data-w-id="ebc64dab-ba90-b078-e7d9-a5f75e8cd0de" class="risk-preview risk-preview-grid">
+                    <div class="risk-preview-trio">
+                      <div id="w-node-_8a5182dd-509f-4146-5e35-2b11fd7b18af-fb54bfa8" class="risk-preview-trio-cube">
+                        <div style="-webkit-transform:translate3d(0, -0.5rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, -0.5rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, -0.5rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, -0.5rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)" class="risk-cube-wrapper-top">
+                          <div data-w-id="6ce8f2eb-0682-4367-90b5-8aa9606fe963" class="cube cube-low-index">
+                            <div class="cube-face bottom-small">
+                              <div class="cube-rib"></div>
+                              <div class="cube-rib cube-rib-left"></div>
+                            </div>
+                            <div class="cube-face back-small">
+                              <div class="cube-rib"></div>
+                              <div class="cube-rib cube-rib-bottom"></div>
+                              <div class="cube-rib cube-rib-left">
+                                <div style="-webkit-transform:translate3d(0, 0rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 0rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 0rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 0rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)" class="cube-neon-vertical cube-neon-vertical-reverse cube-neon-vertical-large"></div>
+                              </div>
+                            </div>
+                            <div class="cube-face right-small">
+                              <div class="cube-rib"></div>
+                              <div class="cube-rib cube-rib-bottom"></div>
+                              <div class="cube-rib cube-rib-right">
+                                <div style="-webkit-transform:translate3d(0, 2.25rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 2.25rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 2.25rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 2.25rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)" class="cube-neon-vertical cube-neon-vertical-large"></div>
+                              </div>
+                              <div class="cube-rib cube-rib-left">
+                                <div style="-webkit-transform:translate3d(0, 0rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 0rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 0rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 0rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)" class="cube-neon-vertical cube-neon-vertical-reverse cube-neon-vertical-large"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div style="-webkit-transform:translate3d(-0.5rem, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(-0.5rem, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(-0.5rem, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(-0.5rem, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)" class="risk-cube-wrapper-left">
+                        <div data-w-id="cf6b8160-d0a4-a45a-a7cb-fd90cc57a725" class="cube cube-low-index">
+                          <div class="cube-face bottom-small">
+                            <div class="cube-rib"></div>
+                            <div class="cube-rib cube-rib-left"></div>
+                          </div>
+                          <div class="cube-face back-small">
+                            <div class="cube-rib"></div>
+                            <div class="cube-rib cube-rib-bottom"></div>
+                            <div class="cube-rib cube-rib-left"></div>
+                          </div>
+                          <div class="cube-face right-small">
+                            <div class="cube-rib">
+                              <div style="-webkit-transform:translate3d(2.25rem, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(2.25rem, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(2.25rem, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(2.25rem, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)" class="cube-neon cube-neon-large"></div>
+                            </div>
+                            <div class="cube-rib cube-rib-bottom"></div>
+                            <div class="cube-rib cube-rib-right"></div>
+                            <div class="cube-rib cube-rib-left"></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div style="-webkit-transform:translate3d(0.5rem, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0.5rem, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0.5rem, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0.5rem, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)" class="risk-cube-wrapper">
+                        <div data-w-id="601b9b57-99b0-59f3-70e1-8848a6fdfccd" class="cube cube-low-index">
+                          <div class="cube-face bottom-small">
+                            <div class="cube-rib"></div>
+                            <div class="cube-rib cube-rib-left"></div>
+                          </div>
+                          <div class="cube-face back-small">
+                            <div class="cube-rib">
+                              <div style="-webkit-transform:translate3d(2.25rem, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(2.25rem, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(2.25rem, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(2.25rem, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)" class="cube-neon cube-neon-large"></div>
+                            </div>
+                            <div class="cube-rib cube-rib-bottom"></div>
+                            <div class="cube-rib cube-rib-left"></div>
+                          </div>
+                          <div class="cube-face right-small">
+                            <div class="cube-rib"></div>
+                            <div class="cube-rib cube-rib-bottom"></div>
+                            <div class="cube-rib cube-rib-right"></div>
+                            <div class="cube-rib cube-rib-left"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div data-w-id="3cfa1861-14f8-47fe-1c6e-33ecfeb8a1b9" class="content-risks-item">
+              <div class="risk-item-top">
+                <div data-wf--dashed-short-static-line--variant="base" class="dashed-line-wrapper">
+                  <div class="dashed-line"></div>
+                  <div class="neon-line"></div>
+                </div>
+                <div class="text text-gradient-clip bg-color-green-gradient">03</div>
+              </div>
+              <div class="risk-item-inner">
+                <div id="w-node-_3cfa1861-14f8-47fe-1c6e-33ecfeb8a1bf-fb54bfa8" class="risk-item-inner-wrapper">
+                  <div id="w-node-_3cfa1861-14f8-47fe-1c6e-33ecfeb8a1c0-fb54bfa8" class="risk-description">
+                    <h3 data-w-id="3cfa1861-14f8-47fe-1c6e-33ecfeb8a1c1" style="filter:blur(3px);opacity:0" class="heading-small">Cybersecurity Awareness Training</h3>
+                    <p data-w-id="3cfa1861-14f8-47fe-1c6e-33ecfeb8a1c3" style="filter:blur(3px);opacity:0" class="text-medium color-grey">Comprehensive security awareness programs that transform your workforce into your strongest defense. Simulated phishing campaigns, interactive training modules, and real-world scenarios teach employees to recognize threats, protect sensitive data, and become security-conscious in their daily work.</p>
+                  </div>
+                  <div id="w-node-_3cfa1861-14f8-47fe-1c6e-33ecfeb8a1c8-fb54bfa8" data-w-id="3cfa1861-14f8-47fe-1c6e-33ecfeb8a1c8" class="risk-preview risk-preview-row">
+                    <div style="-webkit-transform:translate3d(-0.5rem, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(-0.5rem, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(-0.5rem, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(-0.5rem, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)" class="risk-cube-wrapper-left">
+                      <div data-w-id="9e2865cf-15fb-7476-5171-218c196f1edf" class="cube cube-low-index">
+                        <div class="cube-face bottom-small">
+                          <div class="cube-rib"></div>
+                          <div class="cube-rib cube-rib-left"></div>
+                        </div>
+                        <div class="cube-face back-small">
+                          <div class="cube-rib"></div>
+                          <div class="cube-rib cube-rib-bottom"></div>
+                          <div class="cube-rib cube-rib-left">
+                            <div style="-webkit-transform:translate3d(0, 0rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 0rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 0rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 0rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)" class="cube-neon-vertical cube-neon-vertical-reverse cube-neon-vertical-large"></div>
+                          </div>
+                        </div>
+                        <div class="cube-face right-small">
+                          <div class="cube-rib"></div>
+                          <div class="cube-rib cube-rib-bottom"></div>
+                          <div class="cube-rib cube-rib-right"></div>
+                          <div class="cube-rib cube-rib-left">
+                            <div style="-webkit-transform:translate3d(0, 2.25rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 2.25rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 2.25rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 2.25rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)" class="cube-neon-vertical cube-neon-vertical-large"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div style="-webkit-transform:translate3d(0.5rem, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0.5rem, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0.5rem, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0.5rem, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)" class="risk-cube-wrapper">
+                      <div data-w-id="7932e715-77b8-3cf7-54ae-40c3e8f23856" class="cube cube-low-index">
+                        <div class="cube-face bottom-small">
+                          <div class="cube-rib">
+                            <div style="-webkit-transform:translate3d(0rem, null, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0rem, null, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0rem, null, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0rem, null, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)" class="cube-neon cube-neon-large"></div>
+                          </div>
+                          <div class="cube-rib cube-rib-left"></div>
+                        </div>
+                        <div class="cube-face back-small">
+                          <div class="cube-rib"></div>
+                          <div class="cube-rib cube-rib-bottom"></div>
+                          <div class="cube-rib cube-rib-left"></div>
+                        </div>
+                        <div class="cube-face right-small">
+                          <div class="cube-rib"></div>
+                          <div class="cube-rib cube-rib-bottom">
+                            <div style="-webkit-transform:translate3d(0rem, null, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0rem, null, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0rem, null, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0rem, null, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)" class="cube-neon cube-neon-large"></div>
+                          </div>
+                          <div class="cube-rib cube-rib-right"></div>
+                          <div class="cube-rib cube-rib-left"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Divider -->
+    <div style="width: 100%; height: 1px; background: linear-gradient(90deg, transparent, rgba(36, 215, 88, 0.3), transparent); margin: 4rem 0;"></div>
+
+    <section id="pitstack" class="section" style="padding-top: 6rem;">
+      <div class="container">
+        <div class="section-wrapper-vertical" style="padding-top: 2rem;">
+          <div class="heading-horizontal" style="padding-top: 2rem;">
+            <div class="heading-horizontal-inner">
+              <div class="heading-horizontal-left-part">
+                <div data-w-id="f36e298e-56be-cb64-d811-857425d8ccd0" style="filter:blur(3px);opacity:0" class="label">
+                  <div class="text-small color-grey">Pitstack Platform</div>
+                </div>
+                <h2 data-w-id="f36e298e-56be-cb64-d811-857425d8ccd3" style="filter:blur(3px);opacity:0" class="heading">Your Cybersecurity Intelligence Hub</h2>
+              </div>
+              <div id="w-node-f36e298e-56be-cb64-d811-857425d8ccd5-fb54bfa8" class="heading-horizontal-right-part">
+                <p data-w-id="f36e298e-56be-cb64-d811-857425d8ccd6" style="filter:blur(3px);opacity:0" class="text-medium">Stay ahead of threats with Pitstack — our unified cybersecurity intelligence platform. CTF events, CVE feeds, bug bounties, security conferences, breach alerts, and real-time threat intelligence all in one intelligent dashboard.</p>
+              </div>
+            </div>
+            <div data-w-id="f36e298e-56be-cb64-d811-857425d8ccd8" style="opacity:0" class="heading-horizontal-line-content">
+              <div class="dashed-line-wrapper-fading">
+                <div class="dashed-line"></div>
+                <div class="neon-line neon-line-static"></div>
+              </div>
+            </div>
+          </div>
+          <div class="content-horizontal">
+            <div class="content-horizontal-inner">
+              <div id="w-node-f36e298e-56be-cb64-d811-857425d8ccde-fb54bfa8" class="content-horizontal-left-part">
+                <div data-w-id="f36e298e-56be-cb64-d811-857425d8ccdf" style="filter:blur(3px);opacity:0" class="dashed-banner-card dashed-banner-card-medium">
+                  <div style="-webkit-transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0deg) skew(0, 0);-moz-transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0deg) skew(0, 0);-ms-transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0deg) skew(0, 0);transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0deg) skew(0, 0)" class="star-icon w-embed"><svg width="16" height="15" viewbox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M3.15294 13.8532L6.72941 8.02574H0V6.62714H6.72941L3.15294 0.799633L4.37647 0.0537109L8 6.20756L11.6235 0.0537109L12.8471 0.799633L9.27059 6.62714H16V8.02574H9.27059L12.8471 13.8532L11.6235 14.5992L8 8.44532L4.37647 14.5992L3.15294 13.8532Z" fill="white"></path>
+                      <path d="M3.15294 13.8532L6.72941 8.02574H0V6.62714H6.72941L3.15294 0.799633L4.37647 0.0537109L8 6.20756L11.6235 0.0537109L12.8471 0.799633L9.27059 6.62714H16V8.02574H9.27059L12.8471 13.8532L11.6235 14.5992L8 8.44532L4.37647 14.5992L3.15294 13.8532Z" fill="url(#paint0_linear_338_325)"></path>
+                      <defs>
+                        <lineargradient id="paint0_linear_338_325" x1="18.9704" y1="-6.60741" x2="-17.89" y2="8.32116" gradientunits="userSpaceOnUse">
+                          <stop stop-color="#24D758"></stop>
+                          <stop offset="1" stop-color="#27DAB4"></stop>
+                        </lineargradient>
+                      </defs>
+                    </svg></div>
+                  <p class="text-medium">Pitstack aggregates, filters, and prioritizes cybersecurity intelligence so you only see what matters. Customizable threat feeds, real-time vulnerability updates, and smart notifications — built for security teams and professionals who need to stay ahead of evolving threats.</p>
+                </div>
+              </div>
+              <div id="w-node-f36e298e-56be-cb64-d811-857425d8cce3-fb54bfa8" class="content-horizontal-right-part">
+                <div data-w-id="f36e298e-56be-cb64-d811-857425d8cce4" style="filter:blur(3px);opacity:0" class="image-box"><img class="image-cover image-cover-scalable" src="/images/macbook.png" alt="Pitstack cybersecurity intelligence platform on a MacBook" style="filter:grayscale(100%)" sizes="100vw" data-w-id="f36e298e-56be-cb64-d811-857425d8cce5" loading="lazy" srcset="/images/macbook-p-500.png 500w, /images/macbook-p-800.png 800w, /images/macbook.png 945w"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="solution-industry" class="section bottom-padding-small">
+      <div class="container">
+        <div class="section-grid-wrapper">
+          <div id="w-node-f5618df3-a926-8fa3-5ac0-074587491d6d-fb54bfa8" class="heading-grid">
+            <div class="heading-grid-inner heading-grid-inner-sticky">
+              <div data-w-id="e4ac29a4-a7bc-a109-70fa-1e6657dcf6f4" style="filter:blur(3px);opacity:0" class="label">
+                <div class="text-small color-grey">Industry solutions</div>
+              </div>
+              <h2 data-w-id="7d8e85ea-38fa-1946-e8c7-b8d941f9d5d7" style="filter:blur(3px);opacity:0" class="heading">Security tailored to your sector</h2>
+            </div>
+          </div>
+          <div id="w-node-_6e1a99b1-4dd9-35f1-91b3-c50ce2df78de-fb54bfa8" class="content-grid">
+            <div class="content-grid-inner">
+              <a href="/blog-posts/reducing-tech-debt-with-elegance" class="industry-card w-inline-block">
+                <div data-w-id="5c9ac00d-25cf-2cbc-8fac-05fd54731944" style="opacity:0" class="dashed-line-wrapper">
+                  <div class="dashed-line"></div>
+                  <div class="neon-line"></div>
+                </div>
+                <div class="industry-item-wrapper">
+                  <div id="w-node-_54f0db8b-5d64-5d29-5c1a-1b2fd704ba0f-fb54bfa8" class="industry-item-image">
+                    <!-- Fintech & Banking - Line Art Icon -->
+                    <img src="/images/industries/finance.svg" loading="lazy" alt="Fintech &amp; Banking" class="image-absolute" loading="lazy" style="opacity:0.85; width:60%; height:60%; object-fit:contain; filter: brightness(0) saturate(100%) invert(72%) sepia(52%) saturate(501%) hue-rotate(93deg) brightness(95%) contrast(92%); position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);">
+                    <div class="industry-item-image-overlay">
+                      <div class="industry-item-image-text text-gradient-clip bg-color-green-gradient">Read more</div>
+                    </div>
+                  </div>
+                  <div id="w-node-_2415f5ce-cf51-c903-1197-811cca17e6a1-fb54bfa8" class="industry-item-preview">
+                    <div class="industry-item-description">
+                      <h3 data-w-id="ebfc974a-5ef5-8ecd-2ff8-66d62be7a3e8" style="filter:blur(3px);opacity:0" class="heading-small">Fintech &amp; Banking</h3>
+                      <p data-w-id="d92f57bc-a0b7-453a-0abc-63f1227b30d5" style="filter:blur(3px);opacity:0" class="text-medium color-grey">Financial institutions face the highest stakes — customer data, transaction systems, and regulatory scrutiny. We deliver penetration testing for payment systems and APIs, ISO 27001 and PCI DSS compliance support, and security training that meets financial sector standards.</p>
+                    </div>
+                  </div>
+                </div>
+              </a>
+              <a href="/blog-posts/building-long-term-client-trust" class="industry-card w-inline-block">
+                <div data-w-id="5317c35b-7b89-700e-2ed9-677594cd3d31" style="opacity:0" class="dashed-line-wrapper">
+                  <div class="dashed-line"></div>
+                  <div class="neon-line"></div>
+                </div>
+                <div class="industry-item-wrapper">
+                  <div id="w-node-_5317c35b-7b89-700e-2ed9-677594cd3d35-fb54bfa8" class="industry-item-image">
+                    <!-- Healthcare - Line Art Icon -->
+                    <img src="/images/industries/healthcare.svg" loading="lazy" alt="Healthcare" class="image-absolute" style="opacity:0.85; width:60%; height:60%; object-fit:contain; filter: brightness(0) saturate(100%) invert(72%) sepia(52%) saturate(501%) hue-rotate(93deg) brightness(95%) contrast(92%); position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);">
+                    <div class="industry-item-image-overlay">
+                      <div class="industry-item-image-text text-gradient-clip bg-color-green-gradient">Read more</div>
+                    </div>
+                  </div>
+                  <div id="w-node-_5317c35b-7b89-700e-2ed9-677594cd3d37-fb54bfa8" class="industry-item-preview">
+                    <div class="industry-item-description">
+                      <h3 data-w-id="5317c35b-7b89-700e-2ed9-677594cd3d39" style="filter:blur(3px);opacity:0" class="heading-small">Healthcare</h3>
+                      <p data-w-id="5317c35b-7b89-700e-2ed9-677594cd3d3b" style="filter:blur(3px);opacity:0" class="text-medium color-grey">Patient data breaches carry severe penalties and reputational damage. Our services ensure HIPAA compliance readiness, comprehensive testing of healthcare applications and networks, and staff training on handling sensitive health information securely.</p>
+                    </div>
+                  </div>
+                </div>
+              </a>
+              <a href="/blog-posts/motion-in-microinteractions" class="industry-card w-inline-block">
+                <div data-w-id="300079bc-7375-5375-2dcc-bb64effc28f6" style="opacity:0" class="dashed-line-wrapper">
+                  <div class="dashed-line"></div>
+                  <div class="neon-line"></div>
+                </div>
+                <div class="industry-item-wrapper">
+                  <div id="w-node-_300079bc-7375-5375-2dcc-bb64effc28fa-fb54bfa8" class="industry-item-image">
+                    <!-- SaaS & Technology - Line Art Icon -->
+                    <img src="/images/industries/cloud-server.svg" loading="lazy" alt="SaaS & Technology" class="image-absolute" style="opacity:0.85; width:60%; height:60%; object-fit:contain; filter: brightness(0) saturate(100%) invert(72%) sepia(52%) saturate(501%) hue-rotate(93deg) brightness(95%) contrast(92%); position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);">
+                    <div class="industry-item-image-overlay">
+                      <div class="industry-item-image-text text-gradient-clip bg-color-green-gradient">Read more</div>
+                    </div>
+                  </div>
+                  <div id="w-node-_300079bc-7375-5375-2dcc-bb64effc28fc-fb54bfa8" class="industry-item-preview">
+                    <div class="industry-item-description">
+                      <h3 data-w-id="300079bc-7375-5375-2dcc-bb64effc28fe" style="filter:blur(3px);opacity:0" class="heading-small">SaaS &amp; Technology</h3>
+                      <p data-w-id="300079bc-7375-5375-2dcc-bb64effc2900" style="filter:blur(3px);opacity:0" class="text-medium color-grey">Tech companies move fast — security can&#x27;t slow you down. We provide continuous security testing for CI/CD pipelines, SOC 2 and ISO 27001 certification support, and developer-focused security training that integrates into your workflow.</p>
+                    </div>
+                  </div>
+                </div>
+              </a>
+              <a href="/blog-posts/design-critique-done-right" class="industry-card w-inline-block">
+                <div data-w-id="bd0709ac-5719-bf53-891f-2e07b0d29642" style="opacity:0" class="dashed-line-wrapper">
+                  <div class="dashed-line"></div>
+                  <div class="neon-line"></div>
+                </div>
+                <div class="industry-item-wrapper">
+                  <div id="w-node-bd0709ac-5719-bf53-891f-2e07b0d29646-fb54bfa8" class="industry-item-image">
+                    <!-- E-commerce - Line Art Icon -->
+                    <img src="/images/industries/shopping-cart.svg" loading="lazy" alt="E-commerce" class="image-absolute" style="opacity:0.85; width:60%; height:60%; object-fit:contain; filter: brightness(0) saturate(100%) invert(72%) sepia(52%) saturate(501%) hue-rotate(93deg) brightness(95%) contrast(92%); position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);">
+                    <div class="industry-item-image-overlay">
+                      <div class="industry-item-image-text text-gradient-clip bg-color-green-gradient">Read more</div>
+                    </div>
+                  </div>
+                  <div id="w-node-bd0709ac-5719-bf53-891f-2e07b0d29648-fb54bfa8" class="industry-item-preview">
+                    <div class="industry-item-description">
+                      <h3 data-w-id="bd0709ac-5719-bf53-891f-2e07b0d2964a" style="filter:blur(3px);opacity:0" class="heading-small">E-commerce</h3>
+                      <p data-w-id="bd0709ac-5719-bf53-891f-2e07b0d2964c" style="filter:blur(3px);opacity:0" class="text-medium color-grey">nline businesses are constant targets for payment fraud and data theft. We secure your customer data with web application pentesting, PCI DSS compliance guidance, and employee training to prevent social engineering attacks on your operations team.</p>
+                    </div>
+                  </div>
+                </div>
+              </a>
+              <a href="/blog-posts/from-idea-to-mvp-our-real-process" class="industry-card w-inline-block">
+                <div data-w-id="df7cd71a-da6f-be2e-1909-72a1a482883b" style="opacity:0" class="dashed-line-wrapper">
+                  <div class="dashed-line"></div>
+                  <div class="neon-line"></div>
+                </div>
+                <div class="industry-item-wrapper">
+                  <div id="w-node-df7cd71a-da6f-be2e-1909-72a1a482883f-fb54bfa8" class="industry-item-image">
+                    <!-- Government & Public Sector - Line Art Icon -->
+                    <img src="/images/industries/government.svg" loading="lazy" alt="Government & Public Sector" class="image-absolute" style="opacity:0.85; width:60%; height:60%; object-fit:contain; filter: brightness(0) saturate(100%) invert(72%) sepia(52%) saturate(501%) hue-rotate(93deg) brightness(95%) contrast(92%); position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);">
+                    <div class="industry-item-image-overlay">
+                      <div class="industry-item-image-text text-gradient-clip bg-color-green-gradient">Read more</div>
+                    </div>
+                  </div>
+                  <div id="w-node-df7cd71a-da6f-be2e-1909-72a1a4828841-fb54bfa8" class="industry-item-preview">
+                    <div class="industry-item-description">
+                      <h3 data-w-id="df7cd71a-da6f-be2e-1909-72a1a4828843" style="filter:blur(3px);opacity:0" class="heading-small">Government &amp; Public Sector</h3>
+                      <p data-w-id="df7cd71a-da6f-be2e-1909-72a1a4828845" style="filter:blur(3px);opacity:0" class="text-medium color-grey">Public sector organizations are high-value targets holding citizen data and critical infrastructure. We provide security assessments that meet government standards, compliance support for frameworks like NIST and local regulations, and tailored training for employees handling sensitive public information.</p>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="about-us" class="section bg-color-grey-gradient bottom-padding-clear">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
+        <div data-w-id="71d94dcc-6696-ef8a-8008-1058c6cb48e2" class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
+      </div>
+      <div class="container">
+        <div class="vertical-heading-top vertical-heading-top-medium">
+          <div data-w-id="09fd0b50-34c2-fc2f-a95c-8409e893c450" style="filter:blur(3px);opacity:0" class="neon-line-box neon-line-box-section">
+            <div data-w-id="09fd0b50-34c2-fc2f-a95c-8409e893c451" style="filter:grayscale(100%)" class="neon-line-parent">
+              <div class="neon-line-inner"></div>
+            </div>
+            <div class="neon-line-shadow"></div>
+          </div>
+          <h2 data-w-id="ec18bf78-c996-280c-cd4d-9cfd53367e72" style="filter:blur(3px);opacity:0" class="heading heading-center"><span class="text-gradient-clip bg-color-green-gradient"><code>Your Complete Cybersecurity Partner — Software, Services, and Expertise</code></span></h2>
+          <p data-w-id="ec18bf78-c996-280c-cd4d-9cfd53367e76" style="filter:blur(3px);opacity:0" class="text-medium vertical-heading-description vertical-heading-description-medium">From enterprise security software sales with full implementation and support, to VAPT services that uncover real vulnerabilities, ISO 27001 certification that builds trust, and security training that transforms your team — we deliver complete cybersecurity solutions.</p>
+        </div>
+      </div>
+      <div class="motion-cubes-section">
+        <div class="container container-motion-cubes">
+          <div data-w-id="024953ae-3887-983a-7fe1-2d6ca83c1f68" class="motion-cubes">
+            <div class="motion-cubes-wrapper">
+              <div data-w-id="c925bbce-b506-645f-cba4-6b3258ede183" style="-webkit-transform:translate3d(0, 80%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 80%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 80%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 80%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)" class="motion-cube-col">
+                <div data-w-id="c925bbce-b506-645f-cba4-6b3258ede184" class="cube-height">
+                  <div class="cube-face bottom-small">
+                    <div class="cube-rib-light"></div>
+                    <div class="cube-rib-light cube-rib-left"></div>
+                  </div>
+                  <div class="cube-face back-height">
+                    <div class="cube-rib-light">
+                      <div class="cube-neon cube-neon-mini"></div>
+                    </div>
+                    <div class="cube-rib-light cube-rib-left cube-rib-left-long"></div>
+                  </div>
+                  <div class="cube-face right-small">
+                    <div class="cube-rib-light">
+                      <div class="cube-neon cube-neon-mini"></div>
+                    </div>
+                    <div class="cube-rib-light cube-rib-right">
+                      <div class="cube-neon-vertical cube-neon-vertical-mini margin-left"></div>
+                    </div>
+                    <div class="cube-rib-light cube-rib-left cube-rib-left-long"></div>
+                  </div>
+                  <div class="cube-face bottom-small cube-face-second">
+                    <div class="cube-rib-light"></div>
+                    <div class="cube-rib-light cube-rib-left"></div>
+                  </div>
+                  <div class="cube-face back-height">
+                    <div class="cube-rib-light cube-rib-topper"></div>
+                    <div class="cube-rib-light cube-rib-left cube-rib-left-topper"></div>
+                  </div>
+                  <div class="cube-face right-small">
+                    <div class="cube-rib-light cube-rib-topper"></div>
+                    <div class="cube-rib-light cube-rib-right cube-rib-right-topper"></div>
+                    <div class="cube-rib-light cube-rib-left cube-rib-left-topper"></div>
+                  </div>
+                </div>
+              </div>
+              <div data-w-id="8614fdb1-5325-6ff2-3784-e56f894b73c7" style="-webkit-transform:translate3d(0, 80%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 80%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 80%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 80%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)" class="motion-cube-col motion-cube-col-middle">
+                <div data-w-id="8614fdb1-5325-6ff2-3784-e56f894b73c8" class="cube-height">
+                  <div class="cube-face bottom-small">
+                    <div class="cube-rib-light"></div>
+                    <div class="cube-rib-light cube-rib-left">
+                      <div class="cube-neon-vertical cube-neon-vertical-mini margin-left"></div>
+                    </div>
+                  </div>
+                  <div class="cube-face back-height">
+                    <div class="cube-rib-light"></div>
+                  </div>
+                  <div class="cube-face right-small">
+                    <div class="cube-rib-light"></div>
+                    <div class="cube-rib-light cube-rib-right cube-rib-short"></div>
+                  </div>
+                  <div class="cube-face bottom-small cube-face-second">
+                    <div class="cube-rib-light"></div>
+                    <div class="cube-rib-light cube-rib-left"></div>
+                  </div>
+                  <div class="cube-face back-height">
+                    <div class="cube-rib-light cube-rib-topper"></div>
+                  </div>
+                  <div class="cube-face right-small">
+                    <div class="cube-rib-light cube-rib-topper">
+                      <div class="cube-neon cube-neon-mini"></div>
+                    </div>
+                    <div class="cube-rib-light cube-rib-right cube-rib-right-topper"></div>
+                  </div>
+                </div>
+              </div>
+              <div data-w-id="57ebea3c-84df-8c0f-aa55-8e3e791a0e36" style="-webkit-transform:translate3d(0, 80%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 80%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 80%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 80%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)" class="motion-cube-col">
+                <div data-w-id="57ebea3c-84df-8c0f-aa55-8e3e791a0e37" class="cube-height">
+                  <div class="cube-face bottom-small">
+                    <div class="cube-rib-light"></div>
+                    <div class="cube-rib-light cube-rib-left"></div>
+                  </div>
+                  <div class="cube-face back-height">
+                    <div class="cube-rib-light"></div>
+                    <div class="cube-rib-light cube-rib-left cube-rib-left-long">
+                      <div data-w-id="151e5378-463f-813e-1b0b-9cfb3ac00f2f" class="cube-neon-vertical cube-neon-vertical-mini margin-left"></div>
+                    </div>
+                  </div>
+                  <div class="cube-face right-small">
+                    <div class="cube-rib-light"></div>
+                    <div class="cube-rib-light cube-rib-right cube-rib-short">
+                      <div data-w-id="b326e48d-3b1b-a602-3e64-9b18a8a2c656" class="cube-neon-vertical cube-neon-vertical-mini margin-left"></div>
+                    </div>
+                    <div class="cube-rib-light cube-rib-left cube-rib-left-long">
+                      <div data-w-id="3efa6418-83ef-ad75-30fd-29b00eb6b76f" class="cube-neon-vertical cube-neon-vertical-mini margin-left"></div>
+                    </div>
+                  </div>
+                  <div class="cube-face bottom-small cube-face-second">
+                    <div class="cube-rib-light"></div>
+                    <div class="cube-rib-light cube-rib-left"></div>
+                  </div>
+                  <div class="cube-face back-height">
+                    <div class="cube-rib-light cube-rib-topper"></div>
+                    <div class="cube-rib-light cube-rib-left cube-rib-left-topper"></div>
+                  </div>
+                  <div class="cube-face right-small">
+                    <div class="cube-rib-light cube-rib-topper"></div>
+                    <div class="cube-rib-light cube-rib-right cube-rib-right-topper"></div>
+                    <div class="cube-rib-light cube-rib-left cube-rib-left-topper"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="contact" class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
+        <div data-w-id="71d94dcc-6696-ef8a-8008-1058c6cb48e2" class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
+      </div>
+      <div class="container">
+        <div class="section-grid-wrapper">
+          <div id="w-node-_35d33ae6-e2a1-4340-2cb1-58ad3d2196ef-fb54bfa8" class="heading-grid heading-grid-middle">
+            <div class="heading-grid-inner heading-grid-inner-medium">
+              <div data-w-id="35d33ae6-e2a1-4340-2cb1-58ad3d2196f1" style="filter:blur(3px);opacity:0" class="label label-white">
+                <div class="text-small">Contact</div>
+              </div>
+              <h2 data-w-id="35d33ae6-e2a1-4340-2cb1-58ad3d2196f4" style="filter:blur(3px);opacity:0" class="heading">Ready to strengthen your security?</h2>
+              <p data-w-id="34b857a7-c01d-957b-e744-fd0e8835e124" style="filter:blur(3px);opacity:0" class="text">Tell us about your needs — whether it&#x27;s security software, VAPT services, ISO 27001 implementation, or security training. We&#x27;ll get back to you within 24 hours with a clear next step.</p>
+            </div>
+          </div>
+          <div id="w-node-_35d33ae6-e2a1-4340-2cb1-58ad3d2196f6-fb54bfa8" class="content-grid content-grid-middle">
+            <div class="form-content">
+              <div class="form-box">
+                <div class="form-block w-form">
+                  <form id="contact-form" name="contact-form" data-name="Contact Form" method="post" class="form" data-wf-page-id="6920627afaad5c7afb54bfa8" data-wf-element-id="ce358e6b-f124-3fb3-3659-c0853c165cbb">
+                    <p data-w-id="7bbce9c1-f69b-265f-9d15-5e2e550cd851" style="filter:blur(3px);opacity:0" class="text-medium text-desktop-right">* required fields</p>
+                    <div class="form-fields-grid">
+                      <div class="form-field-box"><label for="full-name" class="form-field-label">Full Name *</label><input class="form-field w-input" maxlength="256" name="full-name" data-name="Full Name" placeholder="Your name" type="text" id="full-name" required="">
+                        <div class="form-neon-line-box"></div>
+                      </div>
+                      <div class="form-field-box"><label for="company" class="form-field-label">Company *</label><input class="form-field w-input" maxlength="256" name="company" data-name="Company" placeholder="Company name" type="text" id="company" required="">
+                        <div class="form-neon-line-box"></div>
+                      </div>
+                    </div>
+                    <div class="form-fields-grid">
+                      <div class="form-field-box"><label for="email" class="form-field-label">Work Email *</label><input class="form-field w-input" maxlength="256" name="email" data-name="Email" placeholder="you@company.com" type="email" id="email" required="">
+                        <div class="form-neon-line-box"></div>
+                      </div>
+                      <div class="form-field-box"><label for="phone" class="form-field-label">Phone</label><input class="form-field w-input" maxlength="256" name="phone" data-name="Phone" placeholder="+971 XXX XXXXXX" type="tel" id="phone">
+                        <div class="form-neon-line-box"></div>
+                      </div>
+                    </div>
+                    <div class="form-field-box"><label for="service" class="form-field-label">What can we help with? *</label>
+                      <select class="form-field w-input" name="service" data-name="Service" id="service" required="" style="background-color: transparent; color: inherit; cursor: pointer;">
+                        <option value="" disabled selected>Select a service</option>
+                        <option value="security-software">Security Software Solutions</option>
+                        <option value="vapt">Penetration Testing (VAPT)</option>
+                        <option value="iso-27001">ISO 27001 Implementation</option>
+                        <option value="training">Security Awareness Training</option>
+                        <option value="pitstack">Pitstack Platform</option>
+                        <option value="multiple">Multiple Services</option>
+                        <option value="other">Other / General Inquiry</option>
+                      </select>
+                      <div class="form-neon-line-box"></div>
+                    </div>
+                    <div class="form-field-box"><label for="message" class="form-field-label">Tell us about your project *</label>
+                      <textarea class="form-field w-input" maxlength="5000" name="message" data-name="Message" placeholder="Brief description of your security needs, timeline, or any questions..." id="message" required="" style="min-height: 120px; resize: vertical;"></textarea>
+                      <div class="form-neon-line-box"></div>
+                    </div>
+                    <div data-w-id="c6e8bdce-8c8f-fd8f-a5c8-1f0a81ab7a4a" style="filter:blur(3px);opacity:0" class="button"><input type="submit" data-wait="Sending..." class="button-hidden w-button" value="Submit">
+                      <div class="button-wrapper">
+                        <div class="button-text color-white">Send Message</div>
+                      </div>
+                      <div class="button-accent-gradinet"></div>
+                    </div>
+                    <div style="position:absolute;left:-9999px;"><label for="website">Website</label><input type="text" name="website" id="website" tabindex="-1" autocomplete="off"></div>
+                    <p class="text-small color-grey" style="margin-top: 1rem; text-align: center;">We respond within 24 hours on business days.</p>
+                  </form>
+                  <script is:inline>
+                  (function() {
+                    // ==============================================
+                    // HubSpot Forms API Integration
+                    // TODO: Replace these with your actual HubSpot IDs
+                    // Get Portal ID: HubSpot > Settings > Account > Account Defaults
+                    // Get Form GUID: HubSpot > Marketing > Forms > Create form > copy GUID from URL
+                    // ==============================================
+                    var HUBSPOT_PORTAL_ID = 'YOUR_PORTAL_ID';
+                    var HUBSPOT_FORM_GUID = 'YOUR_FORM_GUID';
+
+                    var form = document.getElementById('contact-form');
+                    if (!form) return;
+
+                    form.addEventListener('submit', function(e) {
+                      e.preventDefault();
+
+                      // Honeypot check
+                      if (form.querySelector('[name="website"]').value) return;
+
+                      var btn = form.querySelector('input[type="submit"]');
+                      var origVal = btn.value;
+                      btn.value = 'Sending...';
+                      btn.disabled = true;
+
+                      var data = {
+                        fields: [
+                          { name: 'firstname', value: form.querySelector('#full-name').value },
+                          { name: 'company', value: form.querySelector('#company').value },
+                          { name: 'email', value: form.querySelector('#email').value },
+                          { name: 'phone', value: form.querySelector('#phone').value },
+                          { name: 'service_interest', value: form.querySelector('#service').value },
+                          { name: 'message', value: form.querySelector('#message').value }
+                        ],
+                        context: {
+                          pageUri: window.location.href,
+                          pageName: document.title
+                        }
+                      };
+
+                      var url = 'https://api.hsforms.com/submissions/v3/integration/submit/' + HUBSPOT_PORTAL_ID + '/' + HUBSPOT_FORM_GUID;
+
+                      fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(data)
+                      })
+                      .then(function(res) {
+                        if (res.ok || res.status === 200) {
+                          form.style.display = 'none';
+                          form.parentElement.querySelector('.w-form-done').style.display = 'block';
+                        } else {
+                          throw new Error('Submission failed');
+                        }
+                      })
+                      .catch(function() {
+                        form.parentElement.querySelector('.w-form-fail').style.display = 'block';
+                      })
+                      .finally(function() {
+                        btn.value = origVal;
+                        btn.disabled = false;
+                      });
+                    });
+                  })();
+                  </script>
+                  <div class="form-message w-form-done">
+                    <div><strong>Thank you for reaching out.</strong><br>We've received your inquiry and will get back to you within 24 hours.</div>
+                  </div>
+                  <div class="error-message w-form-fail">
+                    <div>Something went wrong. Please try again or email us directly at <a href="mailto:contact@underwings.org" style="color: var(--colors--green-light-gradient);">contact@underwings.org</a></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

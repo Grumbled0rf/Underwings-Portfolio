@@ -11,6 +11,7 @@ export interface Props {
 const { currentPage = 'home' } = Astro.props;
 ---
 
+<a href="#main" class="skip-to-content">Skip to content</a>
 <header id="header" class="header">
   <div data-w-id="293a7602-a449-8edb-a1a4-0201d537e62c" class="header-offset"></div>
   <div data-w-id="c0f57989-f5a9-9c1a-60c9-2841a4ab0ea2" data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" class="navbar w-nav">
@@ -41,14 +42,14 @@ const { currentPage = 'home' } = Astro.props;
         </div>
         <div class="header-cta-button">
           <div class="button">
-            <a href="/#contact" class="button-hidden w-button">Button Text</a>
+            <a href="/#contact" class="button-hidden w-button">Get started</a>
             <div class="button-wrapper">
               <div class="button-text">Get started</div>
             </div>
             <div class="button-accent-gradinet"></div>
           </div>
         </div>
-        <div class="menu-button w-nav-button">
+        <div class="menu-button w-nav-button" aria-label="Toggle navigation menu" role="button" tabindex="0">
           <div class="menu-button-lines">
             <div class="menu-button-line menu-button-line-top"></div>
             <div class="menu-button-line menu-button-line-bottom"></div>

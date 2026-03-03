@@ -1,0 +1,47 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout
+  title="Server Error | Underwings Technologies"
+  description="Something went wrong on our end."
+  wfPage="500-page"
+  schema={null}
+  bodyClass=""
+>
+  <Header currentPage="" />
+
+  <main id="main" class="main">
+    <section class="section server-error-fade-in">
+      <div class="container">
+        <div class="section-wrapper section-wrapper-not-found">
+          <h1 class="heading heading-not-found">500</h1>
+          <div class="not-found-utility">
+            <p class="text color-grey not-found-utility-text">Something went wrong on our end. Please try again in a moment.</p>
+            <div class="button">
+              <a href="/" class="button-hidden w-button">Back to main page</a>
+              <div class="button-wrapper">
+                <div class="button-text color-white">Back to main page</div>
+              </div>
+              <div class="button-accent-gradinet"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style is:inline>
+  @keyframes serverErrorFadeIn {
+    from { opacity: 0; filter: blur(3px); transform: translateY(10px); }
+    to { opacity: 1; filter: blur(0); transform: translateY(0); }
+  }
+  .server-error-fade-in {
+    animation: serverErrorFadeIn 0.6s ease-out forwards;
+  }
+</style>

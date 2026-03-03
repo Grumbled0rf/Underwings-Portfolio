@@ -12,7 +12,9 @@
   "dependencies": {
     "@astrojs/node": "^8.2.0",
     "@supabase/supabase-js": "^2.39.0",
-    "astro": "^4.2.0"
+    "astro": "^4.2.0",
+    "isomorphic-dompurify": "^3.0.0",
+    "marked": "^17.0.3"
   },
   "devDependencies": {
     "@types/node": "^20.10.0"

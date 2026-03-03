@@ -1,0 +1,229 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import FooterRedesigned from '../components/FooterRedesigned.astro';
+---
+
+<Layout
+  title="Pitstack - Cybersecurity Intelligence Platform | Underwings"
+  description="Pitstack is your unified cybersecurity intelligence hub. CTF events, CVE feeds, bug bounties, conferences, breach alerts, and threat intelligence in one dashboard."
+  keywords="cybersecurity intelligence, threat intelligence platform, CVE monitoring, CTF events, bug bounty platform, security dashboard, breach alerts"
+  wfPage="pitstack-page"
+  schema={null}
+>
+  <Header currentPage="pitstack" />
+
+  <main id="main" class="main">
+    <!-- Hero Section -->
+    <section class="section bottom-padding-clear top-padding-small">
+      <div class="container-medium">
+        <div class="hero">
+          <div class="hero-main-wrapper">
+            <div class="hero-heading-wrapper">
+              <div class="label">
+                <div class="text-small color-grey">Intelligence Platform</div>
+              </div>
+              <h1 class="heading-large hero-heading-large"><span class="text-gradient-clip bg-color-green-gradient">Pitstack</span></h1>
+              <p class="text" style="font-size: 1.5rem; margin-top: 0.5rem;">Your Cybersecurity Intelligence Hub</p>
+              <p class="text text-center" style="max-width: 700px; margin: 1.5rem auto;">Stop drowning in scattered security feeds. Pitstack aggregates CTF events, CVE updates, bug bounties, conferences, breach alerts, and threat intelligence into one intelligent dashboard.</p>
+              <div style="margin-top: 2rem;">
+                <div class="button">
+                  <a href="/#contact" class="button-hidden w-button">Request Early Access</a>
+                  <div class="button-wrapper">
+                    <div class="button-text">Request Early Access</div>
+                  </div>
+                  <div class="button-accent-gradinet"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="section bg-color-dark">
+      <div class="container">
+        <div class="section-wrapper-vertical section-wrapper-vertical-large">
+          <div class="heading-horizontal">
+            <div class="heading-horizontal-inner">
+              <div class="heading-horizontal-left-part">
+                <h2 class="heading">Intelligence Feeds</h2>
+              </div>
+              <div class="heading-horizontal-right-part">
+                <p class="text-medium">Everything a security professional needs to stay informed — aggregated, filtered, and prioritized.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="content-risks">
+            <!-- CVE Feeds -->
+            <div class="content-risks-item">
+              <div class="risk-item-top">
+                <div class="dashed-line-wrapper">
+                  <div class="dashed-line"></div>
+                  <div class="neon-line"></div>
+                </div>
+                <div class="text text-gradient-clip bg-color-green-gradient">01</div>
+              </div>
+              <div class="risk-item-inner">
+                <div class="risk-item-inner-wrapper">
+                  <div class="risk-description">
+                    <h3 class="heading-small">CVE & Vulnerability Feeds</h3>
+                    <p class="text-medium color-grey">Real-time CVE updates filtered by your technology stack. CVSS scores, exploit availability, and vendor patches — know which vulnerabilities matter to you.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- CTF Events -->
+            <div class="content-risks-item">
+              <div class="risk-item-top">
+                <div class="dashed-line-wrapper">
+                  <div class="dashed-line"></div>
+                  <div class="neon-line"></div>
+                </div>
+                <div class="text text-gradient-clip bg-color-green-gradient">02</div>
+              </div>
+              <div class="risk-item-inner">
+                <div class="risk-item-inner-wrapper">
+                  <div class="risk-description">
+                    <h3 class="heading-small">CTF Events Calendar</h3>
+                    <p class="text-medium color-grey">Never miss a CTF competition. Upcoming events, registration deadlines, difficulty ratings, and team formation — all tracked for you.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bug Bounties -->
+            <div class="content-risks-item">
+              <div class="risk-item-top">
+                <div class="dashed-line-wrapper">
+                  <div class="dashed-line"></div>
+                  <div class="neon-line"></div>
+                </div>
+                <div class="text text-gradient-clip bg-color-green-gradient">03</div>
+              </div>
+              <div class="risk-item-inner">
+                <div class="risk-item-inner-wrapper">
+                  <div class="risk-description">
+                    <h3 class="heading-small">Bug Bounty Programs</h3>
+                    <p class="text-medium color-grey">New and updated bug bounty programs across major platforms. Scope changes, payout updates, and program launches aggregated in one feed.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Conferences -->
+            <div class="content-risks-item">
+              <div class="risk-item-top">
+                <div class="dashed-line-wrapper">
+                  <div class="dashed-line"></div>
+                  <div class="neon-line"></div>
+                </div>
+                <div class="text text-gradient-clip bg-color-green-gradient">04</div>
+              </div>
+              <div class="risk-item-inner">
+                <div class="risk-item-inner-wrapper">
+                  <div class="risk-description">
+                    <h3 class="heading-small">Security Conferences</h3>
+                    <p class="text-medium color-grey">DEF CON, Black Hat, BSides, and regional events. CFP deadlines, registration dates, and early bird pricing tracked automatically.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Breach Alerts -->
+            <div class="content-risks-item">
+              <div class="risk-item-top">
+                <div class="dashed-line-wrapper">
+                  <div class="dashed-line"></div>
+                  <div class="neon-line"></div>
+                </div>
+                <div class="text text-gradient-clip bg-color-green-gradient">05</div>
+              </div>
+              <div class="risk-item-inner">
+                <div class="risk-item-inner-wrapper">
+                  <div class="risk-description">
+                    <h3 class="heading-small">Breach Alerts</h3>
+                    <p class="text-medium color-grey">Data breach notifications, ransomware incidents, and major security events. Know what's happening in the threat landscape as it unfolds.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Threat Intel -->
+            <div class="content-risks-item">
+              <div class="risk-item-top">
+                <div class="dashed-line-wrapper">
+                  <div class="dashed-line"></div>
+                  <div class="neon-line"></div>
+                </div>
+                <div class="text text-gradient-clip bg-color-green-gradient">06</div>
+              </div>
+              <div class="risk-item-inner">
+                <div class="risk-item-inner-wrapper">
+                  <div class="risk-description">
+                    <h3 class="heading-small">Threat Intelligence</h3>
+                    <p class="text-medium color-grey">APT reports, malware analysis, and emerging attack techniques from trusted sources. Stay informed about the threats targeting your industry.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Features -->
+    <section class="section">
+      <div class="container">
+        <div class="vertical-heading-top">
+          <div class="label">
+            <div class="text-small color-grey">Platform Features</div>
+          </div>
+          <h2 class="heading heading-center">Why <span class="text-gradient-clip bg-color-green-gradient">Pitstack?</span></h2>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-top: 3rem; text-align: left;">
+            <div class="dashed-banner-card">
+              <h3 class="heading-small" style="margin-bottom: 1rem;"><span class="text-gradient-clip bg-color-green-gradient">+</span> Customizable Feeds</h3>
+              <p class="text-medium color-grey">Filter by technology, vendor, severity, or topic. Only see what's relevant to your work and interests.</p>
+            </div>
+            <div class="dashed-banner-card">
+              <h3 class="heading-small" style="margin-bottom: 1rem;"><span class="text-gradient-clip bg-color-green-gradient">+</span> Smart Notifications</h3>
+              <p class="text-medium color-grey">Get alerted about critical updates via email, Slack, or webhooks. No noise — just signal.</p>
+            </div>
+            <div class="dashed-banner-card">
+              <h3 class="heading-small" style="margin-bottom: 1rem;"><span class="text-gradient-clip bg-color-green-gradient">+</span> API Access</h3>
+              <p class="text-medium color-grey">Integrate Pitstack data into your security tools, dashboards, and workflows via REST API.</p>
+            </div>
+            <div class="dashed-banner-card">
+              <h3 class="heading-small" style="margin-bottom: 1rem;"><span class="text-gradient-clip bg-color-green-gradient">+</span> Team Collaboration</h3>
+              <p class="text-medium color-grey">Share feeds, save searches, and collaborate with your security team on a shared dashboard.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="cta" class="section bg-color-dark">
+      <div class="container">
+        <div class="vertical-heading-top">
+          <h2 class="heading heading-center">Stay Ahead of <span class="text-gradient-clip bg-color-green-gradient">Threats</span></h2>
+          <p class="text-medium vertical-heading-description" style="max-width: 600px; margin: 1.5rem auto;">Pitstack is currently in early access. Join the waitlist to be among the first to experience unified cybersecurity intelligence.</p>
+          <div style="margin-top: 2rem;">
+            <div class="button">
+              <a href="/#contact" class="button-hidden w-button">Join Waitlist</a>
+              <div class="button-wrapper">
+                <div class="button-text">Join Waitlist</div>
+              </div>
+              <div class="button-accent-gradinet"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <FooterRedesigned />
+</Layout>

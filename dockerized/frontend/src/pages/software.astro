@@ -1,0 +1,305 @@
+---
+// ===========================================
+// SOFTWARE SALES PAGE
+// Underwings Technologies
+// ===========================================
+
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import FooterRedesigned from '../components/FooterRedesigned.astro';
+import PartnerLogos from '../components/PartnerLogos.astro';
+---
+
+<Layout
+  title="Cybersecurity Software Sales | Underwings"
+  description="Enterprise cybersecurity software sales with full implementation, training, and support. Endpoint protection, SIEM, email security, and more from leading vendors."
+  keywords="cybersecurity software UAE, security software Dubai, endpoint protection, SIEM solutions, email security, firewall solutions, security software implementation"
+  wfPage="software-page"
+  schema={null}
+  bodyClass="body"
+>
+
+  <style is:inline slot="head">
+    .partners-section { animation: fadeInUp 0.8s ease-out forwards; }
+    .partners-section a { display: flex; align-items: center; justify-content: center; }
+    .partners-section a img { max-width: 140px; object-fit: contain; }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @media (max-width: 768px) { .partners-section a img { height: 28px !important; } }
+  </style>
+
+  <Header currentPage="software" />
+
+  <main id="main" class="main">
+    <!-- Hero Section -->
+    <section class="section bottom-padding-clear top-padding-small">
+      <div class="container-medium">
+        <div class="hero">
+          <div class="hero-main-wrapper">
+            <div class="hero-heading-wrapper">
+              <div class="label">
+                <div class="text-small color-grey">Software Sales</div>
+              </div>
+              <h1 class="heading-large hero-heading-large">Enterprise Security <span class="text-gradient-clip bg-color-green-gradient">Software</span></h1>
+              <p class="text text-center" style="max-width: 700px; margin: 1.5rem auto;">We partner with leading cybersecurity vendors to deliver world-class security solutions. Not just sales — full implementation, training, and ongoing support included.</p>
+              <div style="margin-top: 2rem;">
+                <div class="button">
+                  <a href="/#contact" class="button-hidden w-button">Request Quote</a>
+                  <div class="button-wrapper">
+                    <div class="button-text">Request Quote</div>
+                  </div>
+                  <div class="button-accent-gradinet"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Trusted Technology Partners -->
+    <section class="section top-padding-small bottom-padding-small" style="background: linear-gradient(180deg, rgba(17,17,17,0) 0%, rgba(36,215,88,0.03) 50%, rgba(17,17,17,0) 100%);">
+      <div class="container">
+        <div class="partners-section" style="text-align: center;">
+          <p style="color: rgba(255,255,255,0.5); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 2.5rem;">Our Technology Partners</p>
+          <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 3rem;">
+            <PartnerLogos size="large" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- What We Offer -->
+    <section class="section bg-color-dark">
+      <div class="container">
+        <div class="section-wrapper-vertical">
+          <div class="heading-horizontal">
+            <div class="heading-horizontal-inner">
+              <div class="heading-horizontal-left-part">
+                <h2 class="heading">Why Buy Through Us?</h2>
+              </div>
+              <div class="heading-horizontal-right-part">
+                <p class="text-medium">We don't just sell software. We ensure it works for your business — from day one and beyond.</p>
+              </div>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-top: 3rem;">
+            <div class="dashed-banner-card">
+              <h3 class="heading-small" style="margin-bottom: 1rem;"><span class="text-gradient-clip bg-color-green-gradient">01</span> Expert Implementation</h3>
+              <p class="text-medium color-grey">Proper deployment, configuration, and integration with your existing infrastructure. No shelf-ware — every tool works as intended.</p>
+            </div>
+            <div class="dashed-banner-card">
+              <h3 class="heading-small" style="margin-bottom: 1rem;"><span class="text-gradient-clip bg-color-green-gradient">02</span> Hands-On Training</h3>
+              <p class="text-medium color-grey">Comprehensive training for your IT and security teams. Ensure your staff can effectively use and manage the tools.</p>
+            </div>
+            <div class="dashed-banner-card">
+              <h3 class="heading-small" style="margin-bottom: 1rem;"><span class="text-gradient-clip bg-color-green-gradient">03</span> Ongoing Support</h3>
+              <p class="text-medium color-grey">Local support when you need it. We're your first point of contact — faster response than vendor-direct support.</p>
+            </div>
+            <div class="dashed-banner-card">
+              <h3 class="heading-small" style="margin-bottom: 1rem;"><span class="text-gradient-clip bg-color-green-gradient">04</span> Vendor-Neutral Advice</h3>
+              <p class="text-medium color-grey">We recommend what fits your needs, not what has the highest margin. Honest guidance on the right solution for your environment.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Solution Categories -->
+    <section class="section">
+      <div class="container">
+        <div class="section-wrapper-vertical section-wrapper-vertical-large">
+          <div class="heading-horizontal">
+            <div class="heading-horizontal-inner">
+              <div class="heading-horizontal-left-part">
+                <div class="label">
+                  <div class="text-small color-grey">Solutions</div>
+                </div>
+                <h2 class="heading">Security Software Categories</h2>
+              </div>
+              <div class="heading-horizontal-right-part">
+                <p class="text-medium">Comprehensive security stack from industry-leading vendors. Contact us for specific product recommendations.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="content-risks">
+            <!-- Endpoint Protection -->
+            <div class="content-risks-item">
+              <div class="risk-item-top">
+                <div class="dashed-line-wrapper">
+                  <div class="dashed-line"></div>
+                  <div class="neon-line"></div>
+                </div>
+                <div class="text text-gradient-clip bg-color-green-gradient">01</div>
+              </div>
+              <div class="risk-item-inner">
+                <div class="risk-item-inner-wrapper">
+                  <div class="risk-description">
+                    <h3 class="heading-small">Endpoint Protection (EPP/EDR)</h3>
+                    <p class="text-medium color-grey">Next-generation antivirus, endpoint detection and response, and extended detection and response (XDR) solutions. Protect workstations, servers, and mobile devices.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- SIEM -->
+            <div class="content-risks-item">
+              <div class="risk-item-top">
+                <div class="dashed-line-wrapper">
+                  <div class="dashed-line"></div>
+                  <div class="neon-line"></div>
+                </div>
+                <div class="text text-gradient-clip bg-color-green-gradient">02</div>
+              </div>
+              <div class="risk-item-inner">
+                <div class="risk-item-inner-wrapper">
+                  <div class="risk-description">
+                    <h3 class="heading-small">SIEM & Security Analytics</h3>
+                    <p class="text-medium color-grey">Security information and event management solutions. Centralize logs, detect threats, and enable security operations with correlation and alerting.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Email Security -->
+            <div class="content-risks-item">
+              <div class="risk-item-top">
+                <div class="dashed-line-wrapper">
+                  <div class="dashed-line"></div>
+                  <div class="neon-line"></div>
+                </div>
+                <div class="text text-gradient-clip bg-color-green-gradient">03</div>
+              </div>
+              <div class="risk-item-inner">
+                <div class="risk-item-inner-wrapper">
+                  <div class="risk-description">
+                    <h3 class="heading-small">Email Security</h3>
+                    <p class="text-medium color-grey">Advanced email protection against phishing, BEC, malware, and spam. Secure your #1 attack vector with AI-powered threat detection.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Network Security -->
+            <div class="content-risks-item">
+              <div class="risk-item-top">
+                <div class="dashed-line-wrapper">
+                  <div class="dashed-line"></div>
+                  <div class="neon-line"></div>
+                </div>
+                <div class="text text-gradient-clip bg-color-green-gradient">04</div>
+              </div>
+              <div class="risk-item-inner">
+                <div class="risk-item-inner-wrapper">
+                  <div class="risk-description">
+                    <h3 class="heading-small">Network Security</h3>
+                    <p class="text-medium color-grey">Next-gen firewalls, IDS/IPS, network access control, and secure web gateways. Protect your network perimeter and internal segments.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Identity & Access -->
+            <div class="content-risks-item">
+              <div class="risk-item-top">
+                <div class="dashed-line-wrapper">
+                  <div class="dashed-line"></div>
+                  <div class="neon-line"></div>
+                </div>
+                <div class="text text-gradient-clip bg-color-green-gradient">05</div>
+              </div>
+              <div class="risk-item-inner">
+                <div class="risk-item-inner-wrapper">
+                  <div class="risk-description">
+                    <h3 class="heading-small">Identity & Access Management</h3>
+                    <p class="text-medium color-grey">Single sign-on, multi-factor authentication, privileged access management, and identity governance. Control who accesses what.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Cloud Security -->
+            <div class="content-risks-item">
+              <div class="risk-item-top">
+                <div class="dashed-line-wrapper">
+                  <div class="dashed-line"></div>
+                  <div class="neon-line"></div>
+                </div>
+                <div class="text text-gradient-clip bg-color-green-gradient">06</div>
+              </div>
+              <div class="risk-item-inner">
+                <div class="risk-item-inner-wrapper">
+                  <div class="risk-description">
+                    <h3 class="heading-small">Cloud Security</h3>
+                    <p class="text-medium color-grey">CASB, CSPM, workload protection, and cloud-native security solutions. Secure your AWS, Azure, and GCP environments.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Vulnerability Management -->
+            <div class="content-risks-item">
+              <div class="risk-item-top">
+                <div class="dashed-line-wrapper">
+                  <div class="dashed-line"></div>
+                  <div class="neon-line"></div>
+                </div>
+                <div class="text text-gradient-clip bg-color-green-gradient">07</div>
+              </div>
+              <div class="risk-item-inner">
+                <div class="risk-item-inner-wrapper">
+                  <div class="risk-description">
+                    <h3 class="heading-small">Vulnerability Management</h3>
+                    <p class="text-medium color-grey">Continuous vulnerability scanning, prioritization, and remediation tracking. Know your attack surface and fix what matters most.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Backup & Recovery -->
+            <div class="content-risks-item">
+              <div class="risk-item-top">
+                <div class="dashed-line-wrapper">
+                  <div class="dashed-line"></div>
+                  <div class="neon-line"></div>
+                </div>
+                <div class="text text-gradient-clip bg-color-green-gradient">08</div>
+              </div>
+              <div class="risk-item-inner">
+                <div class="risk-item-inner-wrapper">
+                  <div class="risk-description">
+                    <h3 class="heading-small">Backup & Disaster Recovery</h3>
+                    <p class="text-medium color-grey">Ransomware-resistant backup solutions and disaster recovery planning. Ensure business continuity when incidents occur.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="cta" class="section bg-color-dark">
+      <div class="container">
+        <div class="vertical-heading-top">
+          <h2 class="heading heading-center">Need Security <span class="text-gradient-clip bg-color-green-gradient">Software?</span></h2>
+          <p class="text-medium vertical-heading-description" style="max-width: 600px; margin: 1.5rem auto;">Tell us your requirements. We'll recommend the right solutions and provide a complete quote including implementation and training.</p>
+          <div style="margin-top: 2rem;">
+            <div class="button">
+              <a href="/#contact" class="button-hidden w-button">Get Started</a>
+              <div class="button-wrapper">
+                <div class="button-text">Request Consultation</div>
+              </div>
+              <div class="button-accent-gradinet"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <FooterRedesigned />
+
+</Layout>

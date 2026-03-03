@@ -21,5 +21,5 @@ export default defineConfig({
       'import.meta.env.PUBLIC_SUPABASE_ANON_KEY': JSON.stringify(process.env.PUBLIC_SUPABASE_ANON_KEY)
     }
   },
-  site: process.env.PUBLIC_SITE_URL || 'https://underwings.com'
+  site: process.env.PUBLIC_SITE_URL || 'https://underwings.org'
 });

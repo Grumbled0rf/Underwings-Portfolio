@@ -8,6 +8,8 @@ import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import { getBlogPost, getBlogPosts } from '../../lib/supabase';
+import DOMPurify from 'isomorphic-dompurify';
+import { marked } from 'marked';
 
 const { slug } = Astro.params;
 const post = await getBlogPost(slug);
@@ -29,35 +31,40 @@ const formattedDate = post.published_at
 const allPosts = await getBlogPosts(4);
 const relatedPosts = allPosts.filter(p => p.id !== post.id).slice(0, 3);
 
-// Simple markdown to HTML (basic conversion)
-function markdownToHtml(markdown: string): string {
+// Convert markdown to sanitized HTML
+function markdownToHtml(markdown) {
   if (!markdown) return '';
-  return markdown
-    // Headers
-    .replace(/^### (.*$)/gim, '<h3>$1</h3>')
-    .replace(/^## (.*$)/gim, '<h2>$1</h2>')
-    .replace(/^# (.*$)/gim, '<h1>$1</h1>')
-    // Bold and italic
-    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\*(.+?)\*/g, '<em>$1</em>')
-    // Links
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
-    // Line breaks
-    .replace(/\n\n/g, '</p><p>')
-    .replace(/\n/g, '<br>')
-    // Wrap in paragraphs
-    .replace(/^(.+)$/gm, '<p>$1</p>')
-    // Clean up empty paragraphs
-    .replace(/<p><\/p>/g, '')
-    .replace(/<p><h/g, '<h')
-    .replace(/<\/h(\d)><\/p>/g, '</h$1>');
+  return DOMPurify.sanitize(marked.parse(markdown));
 }
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://underwings.org';
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": post.title,
+  "description": post.excerpt || post.meta_description || '',
+  "image": post.featured_image ? `${siteUrl}${post.featured_image}` : undefined,
+  "datePublished": post.published_at,
+  "dateModified": post.updated_at || post.published_at,
+  "author": {
+    "@type": "Organization",
+    "name": "Underwings Technologies",
+    "url": siteUrl
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Underwings Technologies",
+    "logo": { "@type": "ImageObject", "url": `${siteUrl}/images/logowhiteUW.png` }
+  },
+  "mainEntityOfPage": `${siteUrl}/blog/${slug}`
+};
 ---
 
 <Layout
   title={`${post.title} - Underwings Blog`}
   description={post.excerpt || post.meta_description || `Read ${post.title} on Underwings Technologies blog.`}
   ogImage={post.featured_image}
+  schema={articleSchema}
 >
   <Header currentPage="blog" />
 

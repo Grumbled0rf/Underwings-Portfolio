@@ -1,0 +1,68 @@
+---
+// ===========================================
+// PARTNER LOGOS GRID
+// Underwings Technologies
+// Used by: index.astro, software.astro
+// ===========================================
+
+export interface Props {
+  size?: 'small' | 'large';
+  linkTo?: string;
+}
+
+const { size = 'small', linkTo = '#' } = Astro.props;
+const h = size === 'large' ? { sophos: 40, me: 35, teramind: 38, securonix: 32, qualys: 32, isms: 32, fortinet: 35, tenable: 32, rapid7: 32, wazuh: 45 }
+  : { sophos: 35, me: 30, teramind: 32, securonix: 28, qualys: 28, isms: 28, fortinet: 30, tenable: 28, rapid7: 28, wazuh: 40 };
+---
+
+<a href={linkTo} class="partner-logo partner-logo--invert">
+  <img src="/images/partners/sophos.svg" alt="Sophos" style={`height: ${h.sophos}px; width: auto;`}>
+</a>
+<a href={linkTo} class="partner-logo">
+  <img src="/images/partners/manageengine.png" alt="ManageEngine" style={`height: ${h.me}px; width: auto;`}>
+</a>
+<a href={linkTo} class="partner-logo">
+  <img src="/images/partners/teramind.png" alt="Teramind" style={`height: ${h.teramind}px; width: auto;`}>
+</a>
+<a href={linkTo} class="partner-logo partner-logo--invert">
+  <img src="https://cdn.brandfetch.io/idtcaX4QNF/theme/light/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Securonix" style={`height: ${h.securonix}px; width: auto;`}>
+</a>
+<a href={linkTo} class="partner-logo partner-logo--invert">
+  <img src="https://cdn.brandfetch.io/id9QAR2zL7/theme/light/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Qualys" style={`height: ${h.qualys}px; width: auto;`}>
+</a>
+<a href={linkTo} class="partner-logo">
+  <img src="/images/partners/isms-online.svg" alt="ISMS.online" style={`height: ${h.isms}px; width: auto;`}>
+</a>
+<a href={linkTo} class="partner-logo">
+  <img src="/images/partners/fortinet.png" alt="Fortinet" style={`height: ${h.fortinet}px; width: auto;`}>
+</a>
+<a href={linkTo} class="partner-logo partner-logo--invert">
+  <img src="https://cdn.brandfetch.io/idonBVesbb/theme/light/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Tenable" style={`height: ${h.tenable}px; width: auto;`}>
+</a>
+<a href={linkTo} class="partner-logo partner-logo--invert">
+  <img src="https://cdn.brandfetch.io/id4wVB7jg_/theme/light/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B" alt="Rapid7" style={`height: ${h.rapid7}px; width: auto;`}>
+</a>
+<a href={linkTo} class="partner-logo">
+  <img src="/images/partners/wazuh.svg" alt="Wazuh" style={`height: ${h.wazuh}px; width: auto;`}>
+</a>
+
+<style is:inline>
+  .partner-logo {
+    opacity: 0.7;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .partner-logo--invert {
+    filter: brightness(0) invert(1);
+  }
+  .partner-logo:hover {
+    opacity: 1;
+    filter: drop-shadow(0 0 12px rgba(36,215,88,0.6));
+  }
+  .partner-logo--invert:hover {
+    opacity: 1;
+    filter: brightness(0) invert(1) drop-shadow(0 0 12px rgba(36,215,88,0.6));
+  }
+</style>
