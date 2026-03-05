@@ -99,7 +99,7 @@ const articleSchema = {
         <section class="section top-padding-clear bottom-padding-small">
           <div class="container-medium">
             <div class="post-featured-image">
-              <img src={post.featured_image} alt={post.title} />
+              <img src={post.featured_image} alt={post.title} loading="lazy" />
             </div>
           </div>
         </section>
@@ -116,6 +116,26 @@ const articleSchema = {
               ))}
             </div>
           )}
+        </div>
+      </section>
+
+      <!-- Contextual CTA -->
+      <section class="section top-padding-clear bottom-padding-medium">
+        <div class="container-small">
+          <div class="blog-cta">
+            <div class="blog-cta-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2L4 6v6c0 5.5 3.5 8.5 8 10 4.5-1.5 8-4.5 8-10V6l-8-4z" stroke="#24d758" stroke-width="1.5" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="#24d758" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <h3 class="blog-cta-title">Need help securing your systems?</h3>
+            <p class="blog-cta-desc">Our certified team can assess your vulnerabilities and provide actionable remediation guidance. Get in touch for a free consultation.</p>
+            <div class="button" style="display: inline-block;">
+              <a href="/#contact" class="button-hidden w-button">Contact Us</a>
+              <div class="button-wrapper">
+                <div class="button-text">Get a Free Consultation</div>
+              </div>
+              <div class="button-accent-gradinet"></div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -294,6 +314,30 @@ const articleSchema = {
     border-radius: 4px;
     font-size: 0.8rem;
     color: rgba(255, 255, 255, 0.6);
+  }
+
+  .blog-cta {
+    text-align: center;
+    padding: 2.5rem 2rem;
+    background: rgba(36, 215, 88, 0.04);
+    border: 1px solid rgba(36, 215, 88, 0.15);
+    border-radius: 16px;
+    margin-top: 1rem;
+  }
+  .blog-cta-icon {
+    margin-bottom: 1rem;
+  }
+  .blog-cta-title {
+    font-size: 1.35rem;
+    color: #fff;
+    margin-bottom: 0.75rem;
+  }
+  .blog-cta-desc {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.5);
+    max-width: 480px;
+    margin: 0 auto 1.5rem;
+    line-height: 1.6;
   }
 
   .related-posts-section {

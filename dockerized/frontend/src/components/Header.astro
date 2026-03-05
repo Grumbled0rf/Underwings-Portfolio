@@ -23,18 +23,45 @@ const { currentPage = 'home' } = Astro.props;
         <div class="nav-menu-box">
           <nav role="navigation" class="nav-menu w-nav-menu">
             <div class="nav-menu-inner">
-              <a data-name="scramble" href="/software" class={`nav-link nav-link-gradient w-nav-link ${currentPage === 'software' ? 'w--current' : ''}`}>Software</a>
-              <a data-name="scramble" href="/services/vapt" class={`nav-link nav-link-gradient w-nav-link ${currentPage === 'services' ? 'w--current' : ''}`}>Services</a>
-              <div class="nav-dropdown">
-                <a data-name="scramble" href="#" class="nav-link nav-link-gradient w-nav-link">Projects</a>
-                <div class="nav-dropdown-content">
-                  <a href="/pitstack" class="nav-dropdown-item">
-                    <span>Pitstack</span>
-                    <span class="coming-soon-badge">Coming Soon</span>
+              <!-- Services Mega Dropdown -->
+              <div class="nav-dropdown nav-mega-dropdown">
+                <a data-name="scramble" href="#" class={`nav-link nav-link-gradient w-nav-link ${currentPage === 'services' ? 'w--current' : ''}`}>
+                  Services
+                  <svg class="nav-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+                <div class="nav-mega-content">
+                  <a href="/services/vapt" class="nav-mega-item">
+                    <div class="nav-mega-icon">
+                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 18s6.5-3 6.5-8V5L10 2 3.5 5v5c0 5 6.5 8 6.5 8z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+                    </div>
+                    <div>
+                      <span class="nav-mega-title">VAPT</span>
+                      <span class="nav-mega-desc">Penetration testing & vulnerability assessment</span>
+                    </div>
+                  </a>
+                  <a href="/services/iso-27001" class="nav-mega-item">
+                    <div class="nav-mega-icon">
+                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2l2.5 5h5.5l-4.5 3.5 1.5 5.5L10 13l-5 3 1.5-5.5L2 7h5.5L10 2z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+                    </div>
+                    <div>
+                      <span class="nav-mega-title">ISO 27001</span>
+                      <span class="nav-mega-desc">Compliance implementation & certification</span>
+                    </div>
+                  </a>
+                  <a href="/services/training" class="nav-mega-item">
+                    <div class="nav-mega-icon">
+                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 12l7-4-7-4-7 4 7 4z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M17 8v5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M5 10v4c0 1.1 2.2 2 5 2s5-.9 5-2v-4" stroke="currentColor" stroke-width="1.3"/></svg>
+                    </div>
+                    <div>
+                      <span class="nav-mega-title">Training</span>
+                      <span class="nav-mega-desc">Security awareness & phishing simulations</span>
+                    </div>
                   </a>
                 </div>
               </div>
-              <a data-name="scramble" href="/#solution-industry" class="nav-link nav-link-gradient w-nav-link">Industries</a>
+
+              <a data-name="scramble" href="/software" class={`nav-link nav-link-gradient w-nav-link ${currentPage === 'software' ? 'w--current' : ''}`}>Software</a>
+              <a data-name="scramble" href="/updates" class={`nav-link nav-link-gradient w-nav-link ${currentPage === 'updates' ? 'w--current' : ''}`}>Updates</a>
               <a data-name="scramble" href="/about" class={`nav-link nav-link-gradient w-nav-link ${currentPage === 'about' ? 'w--current' : ''}`}>About</a>
               <a data-name="scramble" href="/blog" class={`nav-link nav-link-gradient w-nav-link ${currentPage === 'blog' ? 'w--current' : ''}`}>Blog</a>
             </div>
@@ -42,9 +69,9 @@ const { currentPage = 'home' } = Astro.props;
         </div>
         <div class="header-cta-button">
           <div class="button">
-            <a href="/#contact" class="button-hidden w-button">Get started</a>
+            <a href="/#contact" class="button-hidden w-button">Contact Us</a>
             <div class="button-wrapper">
-              <div class="button-text">Get started</div>
+              <div class="button-text">Contact Us</div>
             </div>
             <div class="button-accent-gradinet"></div>
           </div>
