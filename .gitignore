@@ -13,8 +13,13 @@ build/
 # IDE
 .idea/
 .vscode/
+.cursor/
+.cursorignore
 *.swp
 *.swo
+
+# Astro cache
+.astro/
 
 # OS files
 .DS_Store
