@@ -29,10 +29,14 @@ services:
   # FRONTEND - Astro Static Site
   # ===========================================
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      args:
+        - PUBLIC_SUPABASE_URL=http://kong:8000
+        - PUBLIC_SUPABASE_ANON_KEY=${ANON_KEY}
     container_name: underwings-frontend
     environment:
-      - PUBLIC_SUPABASE_URL=${SUPABASE_PUBLIC_URL}
+      - PUBLIC_SUPABASE_URL=http://kong:8000
       - PUBLIC_SUPABASE_ANON_KEY=${ANON_KEY}
       - PUBLIC_SITE_URL=${SITE_URL}
     restart: always
@@ -46,7 +50,7 @@ services:
     build: ./admin
     container_name: underwings-admin
     environment:
-      - SUPABASE_URL=${SUPABASE_PUBLIC_URL}
+      - SUPABASE_URL=${ADMIN_SUPABASE_URL:-http://localhost:8080}
       - SUPABASE_ANON_KEY=${ANON_KEY}
     restart: always
     networks:
@@ -80,11 +84,10 @@ services:
   kong:
     image: kong:2.8.1
     container_name: underwings-kong
-    entrypoint: >
-      /bin/sh -c "envsubst '$$ANON_KEY $$SERVICE_ROLE_KEY' < /var/lib/kong/kong.yml.template > /var/lib/kong/kong.yml && /docker-entrypoint.sh kong docker-start"
+    entrypoint: /var/lib/kong/kong-entrypoint.sh
     environment:
       KONG_DATABASE: "off"
-      KONG_DECLARATIVE_CONFIG: /var/lib/kong/kong.yml
+      KONG_DECLARATIVE_CONFIG: /tmp/kong.yml
       KONG_DNS_ORDER: LAST,A,CNAME
       KONG_PLUGINS: request-transformer,cors,key-auth,acl,basic-auth
       KONG_NGINX_PROXY_PROXY_BUFFER_SIZE: 160k
@@ -93,6 +96,7 @@ services:
       SERVICE_ROLE_KEY: ${SERVICE_ROLE_KEY}
     volumes:
       - ./supabase/kong.yml:/var/lib/kong/kong.yml.template:ro
+      - ./supabase/kong-entrypoint.sh:/var/lib/kong/kong-entrypoint.sh:ro
     depends_on:
       db:
         condition: service_healthy
@@ -164,7 +168,7 @@ services:
     image: supabase/realtime:v2.25.50
     container_name: underwings-realtime
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:4000/api/health"]
+      test: ["CMD", "curl", "-sf", "-o", "/dev/null", "http://localhost:4000/"]
       timeout: 5s
       interval: 5s
       retries: 3
@@ -196,7 +200,7 @@ services:
     image: supabase/storage-api:v0.46.4
     container_name: underwings-storage
     healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:5000/status"]
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://0.0.0.0:5000/status"]
       timeout: 5s
       interval: 5s
       retries: 3
@@ -247,9 +251,10 @@ services:
     image: supabase/studio:20240422-5cf8f30
     container_name: underwings-studio
     healthcheck:
-      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/api/profile', (r) => {if (r.statusCode !== 200) throw new Error(r.statusCode)})"]
-      timeout: 5s
-      interval: 5s
+      test: ["CMD-SHELL", "node -e \"var h=require('http');var r=h.get('http://'+require('os').hostname()+':3000/api/profile',function(s){process.exit(s.statusCode===200?0:1)});r.on('error',function(){process.exit(1)});r.setTimeout(5000,function(){r.destroy();process.exit(1)})\""]
+      timeout: 10s
+      interval: 15s
+      start_period: 10s
       retries: 3
     environment:
       STUDIO_PG_META_URL: http://meta:8080

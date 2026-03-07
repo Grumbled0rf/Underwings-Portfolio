@@ -6,4 +6,4 @@ Disallow: /supabase/
 Disallow: /api/
 Disallow: /brand/BRAND-GUIDELINES.html
 
-Sitemap: https://underwings.org/sitemap.xml
+Sitemap: https://underwings.org/sitemap-index.xml

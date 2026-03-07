@@ -58,7 +58,7 @@ export async function getBlogPost(slug) {
   }
 
   // Increment view count
-  await supabase.rpc('increment_view_count', { post_id: data.id }).catch(() => {});
+  try { await supabase.rpc('increment_view_count', { post_id: data.id }); } catch {};
 
   return data;
 }

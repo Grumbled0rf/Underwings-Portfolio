@@ -278,7 +278,7 @@ const schema = {
       <div class="container">
         <div class="vertical-heading-top" style="text-align: center;">
           <h2 class="heading heading-center">Stay Ahead of <span class="text-gradient-clip bg-color-green-gradient">Threats</span></h2>
-          <p class="text-medium" style="max-width: 560px; margin: 1.25rem auto; color: rgba(255,255,255,0.5); text-align: center;">Pitstack is currently in early access. Join the waitlist to be among the first to experience unified cybersecurity intelligence.</p>
+          <p class="text-medium" style="max-width: 560px; margin: 1.25rem auto; color: rgba(255,255,255,0.7); text-align: center;">Pitstack is currently in early access. Join the waitlist to be among the first to experience unified cybersecurity intelligence.</p>
           <div style="margin-top: 2rem;">
             <div class="button" style="display: inline-block;">
               <a href="/#contact" class="button-hidden w-button">Join Waitlist</a>
@@ -361,7 +361,7 @@ const schema = {
   .pit-preview-dots span:nth-child(3) { background: #28c840; }
   .pit-preview-url {
     font-size: 0.7rem;
-    color: rgba(255,255,255,0.3);
+    color: rgba(255,255,255,0.6);
     font-family: 'Geist Mono', monospace;
     background: rgba(255,255,255,0.04);
     padding: 0.2rem 0.6rem;
@@ -388,7 +388,7 @@ const schema = {
     gap: 0.5rem;
     padding: 0.5rem 0.75rem;
     font-size: 0.7rem;
-    color: rgba(255,255,255,0.35);
+    color: rgba(255,255,255,0.6);
     cursor: default;
   }
   .pit-preview-nav-item.active {
@@ -437,7 +437,7 @@ const schema = {
   .pit-widget-badge.green { background: rgba(36,215,88,0.12); color: #24d758; }
   .pit-widget-item {
     font-size: 0.65rem;
-    color: rgba(255,255,255,0.4);
+    color: rgba(255,255,255,0.65);
     display: flex;
     align-items: center;
     gap: 0.4rem;
@@ -506,7 +506,7 @@ const schema = {
   }
   .pit-feed-desc {
     font-size: 0.875rem;
-    color: rgba(255,255,255,0.5);
+    color: rgba(255,255,255,0.7);
     line-height: 1.55;
     flex: 1;
   }
@@ -555,7 +555,7 @@ const schema = {
   }
   .pit-feature-desc {
     font-size: 0.875rem;
-    color: rgba(255,255,255,0.5);
+    color: rgba(255,255,255,0.7);
     line-height: 1.5;
   }
 
@@ -580,29 +580,4 @@ const schema = {
   }
 </style>
 
-<script>
-  (function() {
-    if (typeof IntersectionObserver === 'undefined') return;
-    var items = document.querySelectorAll('.pit-stagger');
-    items.forEach(function(el) {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(16px)';
-      el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-    });
-    var observer = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          var parent = entry.target.parentElement;
-          var siblings = parent ? Array.from(parent.children).filter(function(c) { return c.classList && c.classList.contains('pit-stagger') && c.style.opacity === '0'; }) : [];
-          var idx = siblings.indexOf(entry.target);
-          setTimeout(function() {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-          }, Math.max(0, idx) * 80);
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-    items.forEach(function(el) { observer.observe(el); });
-  })();
-</script>
+<script is:inline src="/js/stagger-animate.js" data-selector=".pit-stagger"></script>

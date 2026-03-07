@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/admin.css">
+  <script>window.SUPABASE_URL="__SUPABASE_URL__";window.SUPABASE_ANON_KEY="__SUPABASE_ANON_KEY__";</script>
 </head>
 <body>
   <!-- Login Screen -->
@@ -29,7 +30,7 @@
       <form id="login-form">
         <div class="form-group">
           <label for="email">Email</label>
-          <input type="email" id="email" name="email" required placeholder="admin@underwings.com">
+          <input type="email" id="email" name="email" required placeholder="admin@underwings.org">
         </div>
         <div class="form-group">
           <label for="password">Password</label>
@@ -78,23 +79,6 @@
           </svg>
           Blog Posts
         </a>
-        <a href="#" class="nav-item" data-page="submissions">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-            <polyline points="22,6 12,13 2,6"></polyline>
-          </svg>
-          Form Submissions
-          <span id="submission-count" class="badge">0</span>
-        </a>
-        <a href="#" class="nav-item" data-page="subscribers">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-            <circle cx="9" cy="7" r="4"></circle>
-            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-          </svg>
-          Subscribers
-        </a>
         <a href="#" class="nav-item" data-page="media">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
@@ -105,6 +89,14 @@
         </a>
       </nav>
       <div class="sidebar-footer">
+        <a href="https://app.hubspot.com" target="_blank" rel="noopener noreferrer" class="nav-item" style="color: var(--text-muted); font-size: 0.85rem;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <line x1="10" y1="14" x2="21" y2="3"></line>
+          </svg>
+          HubSpot CRM
+        </a>
         <a href="#" id="logout-btn" class="nav-item">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
@@ -121,8 +113,10 @@
       <!-- Dashboard Page -->
       <div id="page-dashboard" class="page active">
         <header class="page-header">
-          <h1>Dashboard</h1>
-          <p>Welcome back! Here's an overview of your website.</p>
+          <div>
+            <h1>Dashboard</h1>
+            <p>Blog content overview</p>
+          </div>
         </header>
         <div class="stats-grid">
           <div class="stat-card">
@@ -133,60 +127,48 @@
               </svg>
             </div>
             <div class="stat-info">
-              <span class="stat-value" id="stat-posts">0</span>
-              <span class="stat-label">Blog Posts</span>
+              <span class="stat-value" id="stat-total">0</span>
+              <span class="stat-label">Total Posts</span>
             </div>
           </div>
           <div class="stat-card">
             <div class="stat-icon blue">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                <polyline points="22,6 12,13 2,6"></polyline>
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
               </svg>
             </div>
             <div class="stat-info">
-              <span class="stat-value" id="stat-submissions">0</span>
-              <span class="stat-label">Form Submissions</span>
-            </div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon purple">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                <circle cx="9" cy="7" r="4"></circle>
-              </svg>
-            </div>
-            <div class="stat-info">
-              <span class="stat-value" id="stat-subscribers">0</span>
-              <span class="stat-label">Subscribers</span>
+              <span class="stat-value" id="stat-published">0</span>
+              <span class="stat-label">Published</span>
             </div>
           </div>
           <div class="stat-card">
             <div class="stat-icon orange">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10"></circle>
-                <polyline points="12 6 12 12 16 14"></polyline>
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
               </svg>
             </div>
             <div class="stat-info">
-              <span class="stat-value" id="stat-new">0</span>
-              <span class="stat-label">New This Week</span>
+              <span class="stat-value" id="stat-drafts">0</span>
+              <span class="stat-label">Drafts</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon purple">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+            </div>
+            <div class="stat-info">
+              <span class="stat-value" id="stat-views">0</span>
+              <span class="stat-label">Total Views</span>
             </div>
           </div>
         </div>
 
         <div class="content-grid">
-          <div class="card">
-            <div class="card-header">
-              <h3>Recent Submissions</h3>
-              <a href="#" data-page="submissions" class="view-all">View All</a>
-            </div>
-            <div class="card-body">
-              <div id="recent-submissions" class="list">
-                <p class="empty-state">Loading...</p>
-              </div>
-            </div>
-          </div>
           <div class="card">
             <div class="card-header">
               <h3>Recent Posts</h3>
@@ -196,6 +178,50 @@
               <div id="recent-posts" class="list">
                 <p class="empty-state">Loading...</p>
               </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <h3>Quick Links</h3>
+            </div>
+            <div class="card-body">
+              <a href="https://app.hubspot.com" target="_blank" rel="noopener noreferrer" class="list-item" style="text-decoration: none;">
+                <div class="stat-icon blue" style="width: 36px; height: 36px; border-radius: 8px;">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                    <polyline points="22,6 12,13 2,6"></polyline>
+                  </svg>
+                </div>
+                <div class="list-item-info">
+                  <div class="list-item-title">Form Submissions</div>
+                  <div class="list-item-meta">Manage in HubSpot CRM</div>
+                </div>
+              </a>
+              <a href="https://app.hubspot.com" target="_blank" rel="noopener noreferrer" class="list-item" style="text-decoration: none;">
+                <div class="stat-icon purple" style="width: 36px; height: 36px; border-radius: 8px;">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                  </svg>
+                </div>
+                <div class="list-item-info">
+                  <div class="list-item-title">Subscribers & Contacts</div>
+                  <div class="list-item-meta">Manage in HubSpot CRM</div>
+                </div>
+              </a>
+              <a href="/supabase/" class="list-item" style="text-decoration: none;">
+                <div class="stat-icon green" style="width: 36px; height: 36px; border-radius: 8px;">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                    <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+                    <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+                  </svg>
+                </div>
+                <div class="list-item-info">
+                  <div class="list-item-title">Supabase Studio</div>
+                  <div class="list-item-meta">Database management</div>
+                </div>
+              </a>
             </div>
           </div>
         </div>
@@ -224,96 +250,14 @@
                   <th>Title</th>
                   <th>Category</th>
                   <th>Status</th>
+                  <th>Views</th>
                   <th>Date</th>
                   <th>Actions</th>
                 </tr>
               </thead>
               <tbody id="posts-table">
                 <tr>
-                  <td colspan="5" class="empty-state">Loading...</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <!-- Form Submissions Page -->
-      <div id="page-submissions" class="page">
-        <header class="page-header">
-          <div>
-            <h1>Form Submissions</h1>
-            <p>View and manage contact form submissions</p>
-          </div>
-          <div class="filter-group">
-            <select id="filter-type">
-              <option value="">All Types</option>
-              <option value="contact">Contact</option>
-              <option value="quote">Quote Request</option>
-              <option value="consultation">Consultation</option>
-            </select>
-            <select id="filter-status">
-              <option value="">All Status</option>
-              <option value="new">New</option>
-              <option value="read">Read</option>
-              <option value="replied">Replied</option>
-            </select>
-          </div>
-        </header>
-        <div class="card">
-          <div class="card-body">
-            <table class="data-table">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Type</th>
-                  <th>Status</th>
-                  <th>Date</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody id="submissions-table">
-                <tr>
                   <td colspan="6" class="empty-state">Loading...</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <!-- Subscribers Page -->
-      <div id="page-subscribers" class="page">
-        <header class="page-header">
-          <div>
-            <h1>Newsletter Subscribers</h1>
-            <p>Manage your email subscribers</p>
-          </div>
-          <button class="btn-secondary" id="export-subscribers">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-              <polyline points="7 10 12 15 17 10"></polyline>
-              <line x1="12" y1="15" x2="12" y2="3"></line>
-            </svg>
-            Export CSV
-          </button>
-        </header>
-        <div class="card">
-          <div class="card-body">
-            <table class="data-table">
-              <thead>
-                <tr>
-                  <th>Email</th>
-                  <th>Name</th>
-                  <th>Subscribed</th>
-                  <th>Date</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody id="subscribers-table">
-                <tr>
-                  <td colspan="5" class="empty-state">Loading...</td>
                 </tr>
               </tbody>
             </table>
@@ -404,23 +348,6 @@
       <div class="modal-footer">
         <button type="button" class="btn-secondary modal-close">Cancel</button>
         <button type="submit" form="post-form" class="btn-primary">Save Post</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Submission Detail Modal -->
-  <div id="submission-modal" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2>Submission Details</h2>
-        <button class="modal-close">&times;</button>
-      </div>
-      <div class="modal-body" id="submission-details">
-        <!-- Content loaded dynamically -->
-      </div>
-      <div class="modal-footer">
-        <button class="btn-secondary modal-close">Close</button>
-        <button class="btn-primary" id="mark-replied">Mark as Replied</button>
       </div>
     </div>
   </div>

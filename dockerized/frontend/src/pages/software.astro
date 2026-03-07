@@ -70,7 +70,7 @@ const serviceSchema = {
     <section class="section top-padding-small bottom-padding-small" style="background: linear-gradient(180deg, rgba(17,17,17,0) 0%, rgba(36,215,88,0.03) 50%, rgba(17,17,17,0) 100%);">
       <div class="container">
         <div style="text-align: center;">
-          <p style="color: rgba(255,255,255,0.5); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 2.5rem;">Our Technology Partners</p>
+          <p style="color: rgba(255,255,255,0.7); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 2.5rem;">Our Technology Partners</p>
           <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 3rem;">
             <PartnerLogos size="large" linkTo="/software" />
           </div>
@@ -134,7 +134,7 @@ const serviceSchema = {
             <div class="text-small color-grey">Solutions</div>
           </div>
           <h2 class="heading heading-center" style="margin-top: 0.75rem;">Security Software <span class="text-gradient-clip bg-color-green-gradient">Categories</span></h2>
-          <p class="text-medium" style="max-width: 580px; margin: 1rem auto 0; color: rgba(255,255,255,0.5); text-align: center;">Complete security stack from industry-leading vendors. Contact us for tailored recommendations.</p>
+          <p class="text-medium" style="max-width: 580px; margin: 1rem auto 0; color: rgba(255,255,255,0.7); text-align: center;">Complete security stack from industry-leading vendors. Contact us for tailored recommendations.</p>
         </div>
         <div class="sw-cat-grid">
 
@@ -313,7 +313,7 @@ const serviceSchema = {
       <div class="container">
         <div style="text-align: center;">
           <h2 class="heading heading-center">Not Sure What You <span class="text-gradient-clip bg-color-green-gradient">Need?</span></h2>
-          <p class="text-medium" style="max-width: 560px; margin: 1.25rem auto 0; color: rgba(255,255,255,0.5); text-align: center;">Tell us your challenges. We'll assess your environment and recommend the right tools — with a clear quote including implementation and training.</p>
+          <p class="text-medium" style="max-width: 560px; margin: 1.25rem auto 0; color: rgba(255,255,255,0.7); text-align: center;">Tell us your challenges. We'll assess your environment and recommend the right tools — with a clear quote including implementation and training.</p>
           <div style="margin-top: 2.5rem;">
             <div class="button" style="display: inline-block;">
               <a href="/#contact" class="button-hidden w-button">Get Started</a>
@@ -422,7 +422,7 @@ const serviceSchema = {
   }
   .sw-cat-desc {
     font-size: 0.9rem;
-    color: rgba(255,255,255,0.5);
+    color: rgba(255,255,255,0.7);
     line-height: 1.55;
     margin-bottom: 1rem;
     flex-grow: 1;
@@ -447,7 +447,7 @@ const serviceSchema = {
     align-items: center;
     gap: 0.4rem;
     font-size: 0.8rem;
-    color: rgba(255,255,255,0.4);
+    color: rgba(255,255,255,0.65);
     margin-top: auto;
     transition: color 0.3s ease;
   }
@@ -485,7 +485,7 @@ const serviceSchema = {
   }
   .sw-process-desc {
     font-size: 0.85rem;
-    color: rgba(255,255,255,0.5);
+    color: rgba(255,255,255,0.7);
     line-height: 1.55;
   }
   .sw-process-connector {
@@ -510,30 +510,4 @@ const serviceSchema = {
   }
 </style>
 
-<script>
-  // Stagger entrance animation
-  (function() {
-    if (typeof IntersectionObserver === 'undefined') return;
-    var cards = document.querySelectorAll('.sw-benefit-card, .sw-cat-card, .sw-process-step');
-    cards.forEach(function(el) {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(20px)';
-      el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-    });
-    var observer = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          var parent = entry.target.parentElement;
-          var siblings = parent ? Array.from(parent.children).filter(function(c) { return c.style && c.style.opacity === '0'; }) : [];
-          var idx = siblings.indexOf(entry.target);
-          setTimeout(function() {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-          }, Math.max(0, idx) * 80);
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-    cards.forEach(function(el) { observer.observe(el); });
-  })();
-</script>
+<script is:inline src="/js/stagger-animate.js" data-selector=".sw-benefit-card, .sw-cat-card, .sw-process-step"></script>

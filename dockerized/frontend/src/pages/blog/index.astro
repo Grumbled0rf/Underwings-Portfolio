@@ -2,6 +2,7 @@
 // ===========================================
 // BLOG LISTING PAGE
 // ===========================================
+export const prerender = false;
 
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
@@ -120,7 +121,7 @@ const displayPosts = hasNextPage ? posts.slice(0, POSTS_PER_PAGE) : posts;
     grid-column: 1 / -1;
     text-align: center;
     padding: 4rem 2rem;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.7);
   }
 
   .blog-pagination {
@@ -149,7 +150,7 @@ const displayPosts = hasNextPage ? posts.slice(0, POSTS_PER_PAGE) : posts;
   }
 
   .pagination-current {
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.7);
     font-size: 0.875rem;
   }
 

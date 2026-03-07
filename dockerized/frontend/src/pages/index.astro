@@ -7,11 +7,8 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import PentestDiagram from '../components/PentestDiagram.astro';
 import PartnerLogos from '../components/PartnerLogos.astro';
-import { getBlogPosts } from '../lib/supabase';
 
-const recentPosts = await getBlogPosts(3);
 const siteUrl = import.meta.env.PUBLIC_SITE_URL || "https://underwings.org";
 
 const schemas = [
@@ -66,13 +63,55 @@ const schemas = [
 <Layout
   title="Underwings – Cybersecurity Solutions & Software Sales"
   description="Underwings provides comprehensive cybersecurity services including VAPT, ISO 27001 implementation, security awareness training, and enterprise security software sales with implementation, support, and training."
-  keywords="cybersecurity UAE, VAPT services Dubai, ISO 27001 implementation, security software sales, penetration testing UAE, cybersecurity training, Pitstack, security awareness training, compliance services UAE"
+  keywords="cybersecurity UAE, VAPT services Dubai, ISO 27001 implementation, security software sales, penetration testing UAE, cybersecurity training, security awareness training, compliance services UAE"
   wfPage="6920627afaad5c7afb54bfa8"
   schema={schemas}
 >
   <Fragment slot="head">
     <style is:inline>
 @media (min-width:992px) {html.w-mod-js:not(.w-mod-ix) [data-w-id="151e5378-463f-813e-1b0b-9cfb3ac00f2f"] {-webkit-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);}html.w-mod-js:not(.w-mod-ix) [data-w-id="b326e48d-3b1b-a602-3e64-9b18a8a2c656"] {-webkit-transform:translate3d(0, 13.75rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 13.75rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 13.75rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 13.75rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);}html.w-mod-js:not(.w-mod-ix) [data-w-id="3efa6418-83ef-ad75-30fd-29b00eb6b76f"] {-webkit-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 3rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);}}@media (max-width:991px) and (min-width:768px) {html.w-mod-js:not(.w-mod-ix) [data-w-id="151e5378-463f-813e-1b0b-9cfb3ac00f2f"] {-webkit-transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);}html.w-mod-js:not(.w-mod-ix) [data-w-id="b326e48d-3b1b-a602-3e64-9b18a8a2c656"] {-webkit-transform:translate3d(0, 7.75rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 7.75rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 7.75rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 7.75rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);}html.w-mod-js:not(.w-mod-ix) [data-w-id="3efa6418-83ef-ad75-30fd-29b00eb6b76f"] {-webkit-transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);}}@media (max-width:767px) and (min-width:480px) {html.w-mod-js:not(.w-mod-ix) [data-w-id="151e5378-463f-813e-1b0b-9cfb3ac00f2f"] {-webkit-transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);}html.w-mod-js:not(.w-mod-ix) [data-w-id="b326e48d-3b1b-a602-3e64-9b18a8a2c656"] {-webkit-transform:translate3d(0, 7.75rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 7.75rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 7.75rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 7.75rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);}html.w-mod-js:not(.w-mod-ix) [data-w-id="3efa6418-83ef-ad75-30fd-29b00eb6b76f"] {-webkit-transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);}}@media (max-width:479px) {html.w-mod-js:not(.w-mod-ix) [data-w-id="151e5378-463f-813e-1b0b-9cfb3ac00f2f"] {-webkit-transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);}html.w-mod-js:not(.w-mod-ix) [data-w-id="b326e48d-3b1b-a602-3e64-9b18a8a2c656"] {-webkit-transform:translate3d(0, 7.75rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 7.75rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 7.75rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 7.75rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);}html.w-mod-js:not(.w-mod-ix) [data-w-id="3efa6418-83ef-ad75-30fd-29b00eb6b76f"] {-webkit-transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);}}
+
+    /* Neon Line Sweep Animation */
+    .neon-line-animate {
+      animation: neonFadeIn 0.8s ease-out 0.3s both;
+    }
+    .neon-line-animate .neon-line-parent {
+      animation: neonColorIn 1s ease-out 0.6s both;
+    }
+    .neon-line-animate .neon-line-inner {
+      transform: translate3d(-50%, 0, 0);
+      animation: neonSweep 3s ease-in-out 0.8s infinite;
+    }
+    .neon-line-animate .neon-line-shadow {
+      opacity: 0;
+      animation: neonGlow 3s ease-in-out 0.8s infinite;
+    }
+    @keyframes neonFadeIn {
+      from { filter: blur(3px); opacity: 0; }
+      to { filter: blur(0); opacity: 1; }
+    }
+    @keyframes neonColorIn {
+      from { filter: grayscale(100%); }
+      to { filter: grayscale(0%); }
+    }
+    @keyframes neonSweep {
+      0% { transform: translate3d(-50%, 0, 0); }
+      50% { transform: translate3d(0%, 0, 0); }
+      100% { transform: translate3d(-50%, 0, 0); }
+    }
+    @keyframes neonGlow {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 0.9; }
+    }
+    /* Hero Fade In */
+    .hero-fade-in {
+      animation: heroFadeIn 0.8s ease-out both;
+      animation-delay: 0.5s;
+    }
+    @keyframes heroFadeIn {
+      from { filter: blur(3px); opacity: 0; transform: translateY(1rem); }
+      to { filter: blur(0); opacity: 1; transform: translateY(0); }
+    }
 
     /* Pentest Diagram Styles */
     .pentest-diagram-container { background: transparent !important; border-radius: 12px; overflow: visible; }
@@ -128,864 +167,409 @@ const schemas = [
       border: 1px solid rgba(255, 75, 75, 0.3);
     }
 
-    /* ---- Team Section ---- */
-    .team-grid {
+    /* ---- Contact Form Redesign ---- */
+    .ctf-layout {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.5rem;
-      margin-top: 3rem;
+      grid-template-columns: 0.45fr 0.55fr;
+      gap: 4rem;
+      align-items: start;
     }
-    .team-card {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 12px;
-      padding: 2rem 1.5rem;
-      text-align: center;
-      transition: border-color 0.3s ease, background 0.3s ease;
+    .ctf-heading { margin-top: 0.75rem; }
+    .ctf-desc {
+      margin-top: 1rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.7;
     }
-    .team-card:hover {
-      border-color: rgba(36, 215, 88, 0.3);
-      background: rgba(255, 255, 255, 0.05);
-    }
-    .team-avatar {
-      width: 4.5rem;
-      height: 4.5rem;
-      border-radius: 50%;
-      background: linear-gradient(135deg, rgba(36, 215, 88, 0.15), rgba(39, 218, 180, 0.15));
-      border: 1px solid rgba(36, 215, 88, 0.25);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 1.25rem;
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: #24d758;
-    }
-    .team-name {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: #fff;
-      margin-bottom: 0.25rem;
-    }
-    .team-role {
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: #24d758;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 0.75rem;
-    }
-    .team-exp {
-      font-size: 0.8rem;
-      color: rgba(255, 255, 255, 0.5);
-      margin-bottom: 0.75rem;
-    }
-    .team-desc {
-      font-size: 0.825rem;
-      color: rgba(255, 255, 255, 0.5);
-      line-height: 1.5;
-      margin-bottom: 0.75rem;
-    }
-    .team-certs {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.35rem;
-    }
-    .team-cert {
-      font-size: 0.65rem;
-      padding: 0.2rem 0.5rem;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 4px;
-      color: rgba(255, 255, 255, 0.6);
-      letter-spacing: 0.3px;
-    }
-    @media (max-width: 991px) {
-      .team-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 479px) {
-      .team-grid { grid-template-columns: 1fr; }
-    }
-
-    /* ---- Blog Preview ---- */
-    .blog-preview-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
-      margin-top: 3rem;
-    }
-    .blog-preview-card {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--colors--dashed-grey);
-      border-radius: 12px;
-      overflow: hidden;
-      text-decoration: none;
-      transition: border-color 0.3s ease, transform 0.3s ease;
-    }
-    .blog-preview-card:hover {
-      border-color: rgba(39, 218, 180, 0.3);
-      transform: translateY(-4px);
-    }
-    .blog-preview-image {
-      width: 100%;
-      height: 180px;
-      overflow: hidden;
-    }
-    .blog-preview-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.3s ease;
-    }
-    .blog-preview-card:hover .blog-preview-image img {
-      transform: scale(1.05);
-    }
-    .blog-preview-content {
-      padding: 1.5rem;
-    }
-    .blog-preview-category {
-      display: inline-block;
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      padding: 0.2rem 0.6rem;
-      border-radius: 100px;
-      background: rgba(36, 215, 88, 0.1);
-      border: 1px solid rgba(36, 215, 88, 0.3);
-      color: var(--colors--green-light-gradient);
-      margin-bottom: 0.75rem;
-    }
-    .blog-preview-title {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: var(--colors--white);
-      line-height: 140%;
-      margin-bottom: 0.5rem;
-    }
-    .blog-preview-excerpt {
-      font-size: 0.875rem;
-      color: var(--colors--white-60);
-      line-height: 160%;
-      margin-bottom: 1rem;
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-    .blog-preview-date {
-      font-size: 0.75rem;
-      color: var(--colors--white-60);
-      opacity: 0.7;
-    }
-    .blog-preview-cta {
-      text-align: center;
-      margin-top: 2.5rem;
-    }
-    .blog-preview-cta .button {
-      display: inline-flex;
-    }
-    @media screen and (max-width: 991px) {
-      .blog-preview-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-    @media screen and (max-width: 567px) {
-      .blog-preview-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* ---- Pitstack Badge & Waitlist ---- */
-    .pitstack-badge {
-      display: inline-block;
-      font-size: 0.6875rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      padding: 0.3rem 0.85rem;
-      border-radius: 100px;
-      background: linear-gradient(235deg, rgba(36, 215, 88, 0.15), rgba(39, 218, 180, 0.15));
-      border: 1px solid rgba(36, 215, 88, 0.4);
-      color: var(--colors--green-light-gradient);
-      vertical-align: middle;
-      margin-left: 0.5rem;
-      white-space: nowrap;
-      position: relative;
-      top: -0.15em;
-      line-height: 1;
-    }
-    .pitstack-waitlist {
-      margin-top: 1.5rem;
-    }
-    .pitstack-notify-btn {
-      text-decoration: none;
-      display: inline-flex;
-    }
-
-    /* ---- Industries (Compact) ---- */
-    .ind-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 1.25rem;
-      margin-top: 3rem;
-    }
-    .ind-card {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--colors--dashed-grey);
-      border-radius: 12px;
-      padding: 1.75rem 1.25rem;
-      text-decoration: none;
+    .ctf-trust {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      text-align: center;
-      transition: border-color 0.3s ease, transform 0.2s ease;
-    }
-    .ind-card:hover {
-      border-color: rgba(39, 218, 180, 0.35);
-      transform: translateY(-3px);
-    }
-    .ind-icon-wrap {
-      width: 3.5rem;
-      height: 3.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 1.25rem;
-    }
-    .ind-icon-svg {
-      width: 2.75rem;
-      height: 2.75rem;
-      color: var(--colors--green-light-gradient);
-      opacity: 0.7;
-      transition: opacity 0.3s ease;
-    }
-    .ind-card:hover .ind-icon-svg {
-      opacity: 1;
-    }
-    .ind-title {
-      font-size: 0.9375rem;
-      font-weight: 600;
-      color: var(--colors--white);
-      margin-bottom: 0.5rem;
-      line-height: 130%;
-    }
-    .ind-desc {
-      font-size: 0.8125rem;
-      color: var(--colors--white-60);
-      line-height: 155%;
-      margin-bottom: 1rem;
-      flex-grow: 1;
-    }
-    .ind-link {
-      font-size: 0.8125rem;
-      color: var(--colors--green-light-gradient);
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-    .ind-card:hover .ind-link {
-      opacity: 1;
-    }
-    @media screen and (max-width: 991px) {
-      .ind-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-    @media screen and (max-width: 567px) {
-      .ind-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 1rem;
-      }
-      .ind-card {
-        padding: 1.25rem 1rem;
-      }
-    }
-
-    /* ---- How It Works ---- */
-    .hiw-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 2rem;
-      margin-top: 3rem;
-      position: relative;
-    }
-    .hiw-step {
-      text-align: center;
-      padding: 2rem 1.25rem;
-      position: relative;
-      opacity: 0;
-      filter: blur(3px);
-      transform: translateY(1.5rem);
-    }
-    .hiw-step.is-animated {
-      animation: testimonial-fade-in 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-    }
-    .hiw-step-number {
-      font-size: 2rem;
-      font-weight: 700;
-      background: linear-gradient(235deg, var(--colors--green-light-gradient), var(--colors--green-dark-gradient));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 1.25rem;
-      line-height: 1;
-    }
-    .hiw-step-connector {
-      position: absolute;
-      top: 3.25rem;
-      right: -1rem;
-      width: 2rem;
-      height: 1px;
-      border-top: 1px dashed var(--colors--dashed-grey);
-    }
-    .hiw-step:last-child .hiw-step-connector {
-      display: none;
-    }
-    .hiw-step-icon {
-      width: 2.5rem;
-      height: 2.5rem;
-      color: var(--colors--green-light-gradient);
-      margin: 0 auto 1rem;
-      display: block;
-    }
-    .hiw-step-title {
-      font-size: 1.125rem;
-      font-weight: 600;
-      color: var(--colors--white);
-      margin-bottom: 0.5rem;
-    }
-    .hiw-step-desc {
-      font-size: 0.875rem;
-      color: var(--colors--white-60);
-      line-height: 160%;
-    }
-    @media screen and (max-width: 991px) {
-      .hiw-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-      .hiw-step:nth-child(2) .hiw-step-connector {
-        display: none;
-      }
-      .hiw-step-connector {
-        right: -1rem;
-      }
-    }
-    @media screen and (max-width: 567px) {
-      .hiw-grid {
-        grid-template-columns: 1fr;
-      }
-      .hiw-step-connector {
-        display: none;
-      }
-    }
-
-    /* ---- Pitstack Features ---- */
-    .pitstack-features {
-      display: flex;
-      flex-direction: column;
-      gap: 1.75rem;
-    }
-    .pitstack-feature-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 1rem;
-    }
-    .pitstack-feature-icon {
-      width: 1.5rem;
-      height: 1.5rem;
-      flex-shrink: 0;
-      color: var(--colors--green-light-gradient);
-      margin-top: 0.125rem;
-    }
-    .pitstack-feature-title {
-      font-size: 0.9375rem;
-      font-weight: 600;
-      color: var(--colors--white);
-      margin-bottom: 0.25rem;
-      line-height: 130%;
-    }
-    .pitstack-feature-desc {
-      font-size: 0.875rem;
-      color: var(--colors--white-60);
-      line-height: 155%;
-    }
-    .pitstack-image-box {
-      filter: grayscale(100%);
-      transition: filter 0.5s ease;
-    }
-    .pitstack-image-box:hover {
-      filter: grayscale(0%);
-    }
-
-    /* ---- Testimonials ---- */
-    @keyframes testimonial-fade-in {
-      from {
-        opacity: 0;
-        filter: blur(3px);
-        transform: translateY(1.5rem);
-      }
-      to {
-        opacity: 1;
-        filter: blur(0);
-        transform: translateY(0);
-      }
-    }
-    #testimonials .vertical-heading-top,
-    .testimonial-card {
-      opacity: 0;
-      filter: blur(3px);
-      transform: translateY(1.5rem);
-    }
-    #testimonials .vertical-heading-top.is-animated,
-    .testimonial-card.is-animated {
-      animation: testimonial-fade-in 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-    }
-    .testimonials-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2.5rem;
-      margin-top: 3rem;
-    }
-    .testimonial-card {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--colors--dashed-grey);
-      border-radius: 12px;
-      padding: 2.5rem;
-      position: relative;
-      transition: border-color 0.3s ease;
-    }
-    .testimonial-card:hover {
-      border-color: rgba(39, 218, 180, 0.3);
-    }
-    .testimonial-quote-icon {
-      width: 2rem;
-      height: 2rem;
-      margin-bottom: 1.25rem;
-      opacity: 0.6;
-    }
-    .testimonial-text {
-      font-size: 1rem;
-      line-height: 170%;
-      color: var(--colors--white-60);
-      margin-bottom: 1.5rem;
-      font-style: italic;
-    }
-    .testimonial-author {
-      display: flex;
-      align-items: center;
       gap: 0.75rem;
-      padding-top: 1.25rem;
-      border-top: 1px dashed var(--colors--dashed-grey);
-    }
-    .testimonial-name {
-      font-size: 0.9375rem;
-      font-weight: 600;
-      color: var(--colors--white);
-      line-height: 130%;
-    }
-    .testimonial-role {
-      font-size: 0.8125rem;
-      color: var(--colors--white-60);
-      line-height: 130%;
-      margin-top: 0.2rem;
-    }
-    @media screen and (max-width: 767px) {
-      .testimonials-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-      }
-      .testimonial-card {
-        padding: 1.75rem;
-      }
-    }
-
-    /* ---- Section Spacing & Transitions ---- */
-    #main > .section {
-      padding-top: 6rem;
-      padding-bottom: 6rem;
-    }
-    #main > .section.top-padding-clear { padding-top: 0; }
-    #main > .section.bottom-padding-clear { padding-bottom: 0; }
-    #main > .section.top-padding-small { padding-top: 4.5rem; }
-    #main > .section.bottom-padding-small { padding-bottom: 3rem; }
-
-    @media screen and (max-width: 767px) {
-      #main > .section {
-        padding-top: 4rem;
-        padding-bottom: 4rem;
-      }
-    }
-
-    /* ---- Contact Focus States ---- */
-    .form-neon-line-box {
-      transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
-    .form-field-box:focus-within .form-neon-line-box {
-      width: 100%;
-    }
-    .form-field:focus {
-      outline: none;
-      color: var(--colors--white);
-      box-shadow: 0 0 0 1px rgba(39, 218, 180, 0.15);
-    }
-    .form-field:focus::placeholder {
-      color: rgba(255, 255, 255, 0.35);
-    }
-
-    /* ---- Contact Field Icons ---- */
-    #contact .form-field-icon {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 1rem;
-      height: 1rem;
-      opacity: 0.4;
-      transition: opacity 0.3s ease;
-      pointer-events: none;
-    }
-    #contact .form-field-box:focus-within .form-field-icon {
-      opacity: 0.8;
-    }
-    #contact .form-field {
-      padding-left: 1.35rem;
-    }
-    #contact .form-field-label {
-      padding-left: 1.35rem;
-    }
-
-    /* ---- Contact Submit Button States ---- */
-    #contact .button {
-      transition: border-color 0.3s ease, box-shadow 0.3s ease;
-      min-width: 180px;
-    }
-    #contact .button:hover {
-      border-color: var(--colors--green-dark-gradient);
-      box-shadow: 0 0 20px rgba(39, 218, 180, 0.15);
-    }
-    @keyframes contact-spin {
-      to { transform: rotate(360deg); }
-    }
-    #contact .button-spinner {
-      display: none;
-      width: 1.25rem;
-      height: 1.25rem;
-      border: 2px solid rgba(255, 255, 255, 0.3);
-      border-top-color: var(--colors--green-light-gradient);
-      border-radius: 50%;
-      animation: contact-spin 0.7s linear infinite;
-    }
-    #contact .button.is-loading .button-text { display: none; }
-    #contact .button.is-loading .button-spinner { display: block; }
-    #contact .button.is-loading .button-hidden { pointer-events: none; }
-    @keyframes contact-checkmark-draw {
-      to { stroke-dashoffset: 0; }
-    }
-    #contact .button-checkmark {
-      display: none;
-      width: 1.5rem;
-      height: 1.5rem;
-    }
-    #contact .button-checkmark path {
-      stroke-dasharray: 24;
-      stroke-dashoffset: 24;
-    }
-    #contact .button.is-success .button-text { display: none; }
-    #contact .button.is-success .button-checkmark { display: block; }
-    #contact .button.is-success .button-checkmark path {
-      animation: contact-checkmark-draw 0.4s ease forwards;
-    }
-    #contact .button.is-success {
-      border-color: var(--colors--green-light-gradient);
-      box-shadow: 0 0 25px rgba(36, 215, 88, 0.2);
-    }
-
-    /* ---- Contact Messages ---- */
-    @keyframes contact-msg-enter {
-      from { opacity: 0; filter: blur(3px); transform: translateY(1rem); }
-      to { opacity: 1; filter: blur(0); transform: translateY(0); }
-    }
-    #contact .form-message,
-    #contact .error-message {
-      animation: contact-msg-enter 0.5s ease forwards;
-    }
-    #contact .form-message[style*="flex"],
-    #contact .error-message[style*="flex"] {
-      display: flex !important;
-      align-items: flex-start;
-      gap: 1rem;
-      text-align: left;
-    }
-    #contact .msg-icon {
-      flex-shrink: 0;
-      width: 1.5rem;
-      height: 1.5rem;
-      margin-top: 0.125rem;
-    }
-
-    /* ---- Contact Stagger Animations ---- */
-    @keyframes contact-field-in {
-      from { opacity: 0; filter: blur(3px); transform: translateY(0.75rem); }
-      to { opacity: 1; filter: blur(0); transform: translateY(0); }
-    }
-    #contact .form-field-box,
-    #contact .form-fields-grid,
-    #contact .button {
-      opacity: 0;
-    }
-    #contact .form-field-box.is-visible,
-    #contact .form-fields-grid.is-visible,
-    #contact .button.is-visible {
-      animation: contact-field-in 0.6s ease forwards;
-    }
-
-    /* ---- Contact Field Box Heights ---- */
-    #contact .form-field-box {
-      height: 62px;
-      padding-top: 0.25rem;
-    }
-    #contact .form-field-box:has(textarea) {
-      height: auto;
-      min-height: 62px;
-    }
-
-    /* ---- Contact Dropdown ---- */
-    #contact select.form-field {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14'%3E%3Cpath fill='%2327dab4' d='M7 10L1.5 4h11z'/%3E%3C/svg%3E");
-      background-position: right 0.75rem center;
-      background-size: 14px;
-      transition: background-position 0.2s ease;
-    }
-    #contact select.form-field:focus {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14'%3E%3Cpath fill='%2324d758' d='M7 10L1.5 4h11z'/%3E%3C/svg%3E");
-    }
-    #contact select.form-field option {
-      background-color: #1a1a1a;
-      color: var(--colors--white);
-      padding: 0.75rem;
-    }
-
-    /* ---- Contact Trust Signals ---- */
-    .contact-trust-signals {
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
-      margin-top: 2.5rem;
-    }
-    .contact-trust-item {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      opacity: 0.7;
-    }
-    .contact-trust-icon {
-      width: 1.25rem;
-      height: 1.25rem;
-      flex-shrink: 0;
-      color: var(--colors--green-light-gradient);
-    }
-    .contact-trust-text {
-      font-size: 0.875rem;
-      color: var(--colors--white-60);
-      line-height: 130%;
-    }
-
-    /* ---- Contact Direct Info ---- */
-    .contact-direct-info {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
       margin-top: 2rem;
       padding-top: 2rem;
-      border-top: 1px dashed var(--colors--dashed-grey);
+      border-top: 1px solid rgba(255,255,255,0.08);
     }
-    .contact-direct-item {
+    .ctf-trust-item {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.6rem;
+      color: rgba(255,255,255,0.55);
+      font-size: 0.85rem;
     }
-    .contact-direct-item a {
-      color: var(--colors--white-60);
-      text-decoration: none;
-      font-size: 0.875rem;
-      transition: color 0.2s ease;
-    }
-    .contact-direct-item a:hover {
-      color: var(--colors--green-light-gradient);
-    }
-    .contact-direct-icon {
-      width: 1rem;
-      height: 1rem;
-      flex-shrink: 0;
-      opacity: 0.6;
-    }
-
-    /* ---- Contact Decorative ---- */
-    .contact-deco-line {
+    .ctf-trust-item svg { color: #24d758; flex-shrink: 0; }
+    .ctf-direct {
       margin-top: 2rem;
-      width: 100%;
-      position: relative;
-      height: 4px;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
     }
-    .contact-deco-line .dashed-line {
-      border-top: 1px dashed var(--colors--dashed-grey);
-      width: 100%;
-      height: 1px;
-      position: absolute;
-    }
-    .contact-deco-neon {
-      background-image: linear-gradient(235deg, var(--colors--green-light-gradient), var(--colors--green-dark-gradient));
-      border-radius: 6px;
-      width: 3rem;
-      height: 4px;
-      position: absolute;
-      top: -1.5px;
-      left: 0;
-      box-shadow: 0 5px 20px #27dab4, inset 0 -1px 3px #a8feff, inset 0 1px 3px #c0fff2;
-      animation: contact-neon-drift 6s ease-in-out infinite alternate;
-    }
-    @keyframes contact-neon-drift {
-      0% { left: 0; }
-      100% { left: calc(100% - 3rem); }
-    }
-    @media screen and (max-width: 991px) {
-      .contact-deco-line { display: none; }
-      .contact-trust-signals { flex-direction: row; flex-wrap: wrap; }
-      .contact-direct-info { flex-direction: row; flex-wrap: wrap; gap: 1.5rem; }
-    }
-
-    /* Lead Magnet / Newsletter Section */
-    .lead-magnet {
-      text-align: center;
-      padding: 4rem 2rem;
-      position: relative;
-    }
-    .lead-magnet-inner {
-      max-width: 580px;
-      margin: 0 auto;
-    }
-    .lead-magnet-icon {
-      margin-bottom: 1.25rem;
-    }
-    .lead-magnet h3 {
-      font-size: 1.5rem;
-      color: #fff;
-      margin-bottom: 0.5rem;
-      font-weight: 600;
-    }
-    .lead-magnet p {
+    .ctf-direct-link {
+      color: #24d758;
+      text-decoration: none;
       font-size: 0.9rem;
-      color: rgba(255,255,255,0.45);
-      line-height: 1.6;
-      margin-bottom: 1.5rem;
+      font-weight: 500;
     }
-    .lead-magnet-form {
+    .ctf-direct-link:hover { text-decoration: underline; }
+    .ctf-form-wrap {
+      position: relative;
+    }
+    .ctf-form {
       display: flex;
-      gap: 0.5rem;
-      max-width: 440px;
-      margin: 0 auto;
+      flex-direction: column;
+      gap: 1.25rem;
+      padding: 2.25rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
     }
-    .lead-magnet-input {
-      flex: 1;
-      padding: 0.7rem 1rem;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 8px;
-      color: #fff;
-      font-size: 0.875rem;
-      font-family: 'Geist', sans-serif;
-      outline: none;
-      transition: border-color 0.2s ease;
+    .ctf-form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
     }
-    .lead-magnet-input::placeholder {
-      color: rgba(255,255,255,0.3);
+    .ctf-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
     }
-    .lead-magnet-input:focus {
-      border-color: rgba(36,215,88,0.5);
-    }
-    .lead-magnet-btn {
-      padding: 0.7rem 1.5rem;
-      background: linear-gradient(135deg, #24d758, #27dab4);
-      color: #000;
-      font-weight: 600;
+    .ctf-field label {
       font-size: 0.8rem;
+      color: rgba(255,255,255,0.5);
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+    .ctf-req { color: #24d758; }
+    .ctf-field input,
+    .ctf-field select,
+    .ctf-field textarea {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      color: #fff;
+      font-size: 0.9rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.25s ease, background 0.25s ease;
+    }
+    .ctf-field input::placeholder,
+    .ctf-field textarea::placeholder {
+      color: rgba(255,255,255,0.25);
+    }
+    .ctf-field input:focus,
+    .ctf-field select:focus,
+    .ctf-field textarea:focus {
+      border-color: rgba(36,215,88,0.5);
+      background: rgba(36,215,88,0.04);
+    }
+    .ctf-field select {
+      cursor: pointer;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5l5 5 5-5' stroke='%23ffffff' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' opacity='0.4'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      padding-right: 2.5rem;
+    }
+    .ctf-field select option {
+      background: #1a1a1a;
+      color: #fff;
+    }
+    .ctf-field textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+    .ctf-submit {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      padding: 0.85rem 2rem;
+      background: linear-gradient(135deg, #24d758, #1db84a);
       border: none;
       border-radius: 8px;
+      color: #000;
+      font-size: 0.95rem;
+      font-weight: 600;
+      font-family: inherit;
       cursor: pointer;
-      font-family: 'Geist', sans-serif;
-      white-space: nowrap;
-      transition: opacity 0.2s ease, transform 0.2s ease;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      width: 100%;
     }
-    .lead-magnet-btn:hover {
-      opacity: 0.9;
+    .ctf-submit:hover {
       transform: translateY(-1px);
+      box-shadow: 0 4px 20px rgba(36,215,88,0.3);
     }
-    .lead-magnet-btn:disabled {
-      opacity: 0.5;
+    .ctf-submit:disabled {
+      opacity: 0.7;
       cursor: not-allowed;
       transform: none;
     }
-    .lead-magnet-note {
-      font-size: 0.7rem;
-      color: rgba(255,255,255,0.25);
-      margin-top: 0.75rem;
-    }
-    .lead-magnet-success {
-      display: none;
-      color: #24d758;
-      font-size: 0.9rem;
-      font-weight: 500;
-    }
-    .lead-magnet-error {
-      display: none;
-      color: #ff5454;
-      font-size: 0.85rem;
-      margin-top: 0.75rem;
-    }
-    @media screen and (max-width: 480px) {
-      .lead-magnet-form { flex-direction: column; }
-    }
-
-    /* Industry Social Proof */
-    .social-proof {
-      text-align: center;
-      padding: 2.5rem 0 0;
-    }
-    .social-proof-label {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: rgba(255,255,255,0.3);
-      margin-bottom: 1.5rem;
-    }
-    .social-proof-grid {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.6rem;
-    }
-    .social-proof-badge {
+    .ctf-submit-loading {
       display: inline-flex;
       align-items: center;
-      gap: 0.45rem;
-      padding: 0.45rem 0.85rem;
+      gap: 0.4rem;
+    }
+    @keyframes ctfSpin {
+      to { transform: rotate(360deg); }
+    }
+    .ctf-spinner {
+      animation: ctfSpin 0.8s linear infinite;
+    }
+    .ctf-success {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 1rem;
+      padding: 3rem 2rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(36,215,88,0.2);
+      border-radius: 16px;
+    }
+    .ctf-success h3 {
+      font-size: 1.25rem;
+      color: #fff;
+      font-weight: 600;
+    }
+    .ctf-success p {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.9rem;
+    }
+    .ctf-error {
+      margin-top: 1rem;
+      padding: 1rem 1.25rem;
+      background: rgba(255,75,75,0.1);
+      border: 1px solid rgba(255,75,75,0.3);
+      border-radius: 8px;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.7);
+    }
+    .ctf-error a { color: #24d758; }
+    @media (max-width: 991px) {
+      .ctf-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+    @media (max-width: 600px) {
+      .ctf-form-row { grid-template-columns: 1fr; }
+      .ctf-form { padding: 1.5rem; }
+    }
+
+    /* ---- VAPT Homepage Section ---- */
+    .vapt-hp-top {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    .vapt-hp-top-left .label {
+      width: fit-content;
+    }
+    .vapt-hp-heading {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.1;
+      margin-top: 0.75rem;
+    }
+    .vapt-hp-accent {
+      width: 40px;
+      height: 3px;
+      background: #24d758;
+      border-radius: 2px;
+      margin-top: 1.5rem;
+    }
+    .vapt-hp-top-right {
+      padding-top: 0.5rem;
+    }
+    .vapt-hp-top-right .text-medium {
+      font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.7);
+    }
+    .vapt-hp-bottom {
+      display: grid;
+      grid-template-columns: 0.4fr 0.6fr;
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+      align-items: stretch;
+    }
+    .vapt-hp-card {
+      padding: 2rem;
+      border: 1px dashed rgba(255,255,255,0.15);
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+    }
+    .vapt-hp-card-icon {
+      color: #24d758;
+      margin-bottom: 1.25rem;
+    }
+    .vapt-hp-card-text {
+      font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+      font-size: 0.85rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.65);
+      flex: 1;
+    }
+    .vapt-hp-scope {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 1.25rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .vapt-hp-scope span {
+      font-size: 0.7rem;
+      padding: 0.2rem 0.55rem;
+      background: rgba(36,215,88,0.08);
+      border: 1px solid rgba(36,215,88,0.2);
+      border-radius: 4px;
+      color: rgba(255,255,255,0.6);
+      letter-spacing: 0.3px;
+    }
+    .vapt-hp-certs {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .vapt-hp-cert {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .vapt-hp-cert img {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 12px rgba(36, 215, 88, 0.4));
+    }
+    .vapt-hp-cert span {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: rgba(255,255,255,0.5);
+      font-weight: 600;
+    }
+    .vapt-hp-link {
+      font-size: 0.85rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--colors--green-light-gradient);
+      text-decoration: none;
+      margin-top: 1.25rem;
+    }
+    .vapt-hp-diagram {
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .vapt-hp-diagram img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    /* ---- Industry Solutions ---- */
+    .ind-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-top: 2.5rem;
+    }
+    .ind-card {
+      padding: 1.75rem;
       background: rgba(255,255,255,0.03);
       border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 6px;
-      color: rgba(255,255,255,0.5);
-      font-size: 0.75rem;
-      font-weight: 500;
-      transition: border-color 0.2s ease;
+      border-radius: 14px;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.3s ease, transform 0.3s ease;
     }
-    .social-proof-badge:hover {
-      border-color: rgba(36,215,88,0.25);
+    .ind-card:hover {
+      border-color: rgba(36,215,88,0.3);
+      transform: translateY(-3px);
     }
-    .social-proof-badge svg {
-      flex-shrink: 0;
-      color: rgba(36,215,88,0.6);
+    .ind-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+    }
+    .ind-icon {
+      color: #24d758;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      background: rgba(36,215,88,0.08);
+      border: 1px solid rgba(36,215,88,0.2);
+    }
+    .ind-threat-badge {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 0.3rem 0.6rem;
+      border-radius: 4px;
+      background: rgba(255,180,50,0.1);
+      border: 1px solid rgba(255,180,50,0.25);
+      color: rgba(255,180,50,0.85);
+      font-weight: 600;
+    }
+    .ind-title {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 0.6rem;
+    }
+    .ind-desc {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.6;
+      flex: 1;
+    }
+    .ind-services {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 1.25rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .ind-services span {
+      font-size: 0.7rem;
+      padding: 0.2rem 0.55rem;
+      background: rgba(36,215,88,0.08);
+      border: 1px solid rgba(36,215,88,0.2);
+      border-radius: 4px;
+      color: rgba(255,255,255,0.6);
+      letter-spacing: 0.3px;
+    }
+    .ind-cta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      margin-top: 2rem;
+      padding: 1.5rem 2rem;
+      border: 1px dashed rgba(255,255,255,0.12);
+      border-radius: 10px;
+    }
+
+    @media (max-width: 991px) {
+      .vapt-hp-top { grid-template-columns: 1fr; gap: 1.5rem; }
+      .vapt-hp-bottom { grid-template-columns: 1fr; }
+      .ind-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .vapt-hp-heading { font-size: 1.8rem; }
+      .ind-grid { grid-template-columns: 1fr; }
+      .ind-cta { flex-direction: column; text-align: center; }
     }
     </style>
   </Fragment>
@@ -997,17 +581,17 @@ const schemas = [
       <div class="container-medium">
         <div class="hero">
           <div data-w-id="2cf77612-7644-4147-0376-3ea7250fea00" class="hero-main-wrapper">
-            <div data-w-id="34b1122a-f052-4188-7660-95d2b1a495ac" style="filter:blur(3px);opacity:0" class="neon-line-box">
-              <div data-w-id="b85a9a8f-4c66-b8a5-85a2-898ca6c18027" style="filter:grayscale(100%)" class="neon-line-parent">
-                <div style="-webkit-transform:translate3d(-50%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(-50%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(-50%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(-50%, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)" class="neon-line-inner"></div>
+            <div class="neon-line-box neon-line-animate">
+              <div class="neon-line-parent">
+                <div class="neon-line-inner"></div>
               </div>
-              <div style="-webkit-transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);opacity:0.7" class="neon-line-shadow"></div>
+              <div class="neon-line-shadow"></div>
             </div>
             <div data-w-id="19df5849-171b-4eae-062f-4812128bbbb8" class="hero-heading-wrapper">
-              <h1 data-w-id="879326d7-884d-af95-88ac-b239a9dcd27e" style="filter:blur(3px);opacity:0" class="heading-large hero-heading-large">Security Software. Services. <span class="text-gradient-clip bg-color-green-gradient">Complete Protection.</span></h1>
-              <p data-w-id="6fbcab1d-d1c2-8b6d-65a8-2ec9c6b379ac" style="filter:blur(3px);opacity:0" class="text text-center">Enterprise cybersecurity software sales, implementation, and expert security services</p>
+              <h1 class="heading-large hero-heading-large hero-fade-in">Security Software. Services. <span class="text-gradient-clip bg-color-green-gradient">Complete Protection.</span></h1>
+              <p class="text text-center hero-fade-in" style="animation-delay: 0.2s">Enterprise cybersecurity software sales, implementation, and expert security services</p>
             </div>
-            <div data-w-id="96085222-d08d-4e66-7db7-ba441d092ac5" style="filter:blur(3px);opacity:0" class="hero-cta-mobile-button">
+            <div class="hero-cta-mobile-button hero-fade-in" style="animation-delay: 0.4s">
               <div class="button">
                 <a href="/#contact" class="button-hidden w-button">Get started</a>
                 <div class="button-wrapper">
@@ -1020,44 +604,10 @@ const schemas = [
         </div>
       </div>
     </section>
-
-    <!-- Industry Social Proof -->
-    <div class="social-proof">
-      <div class="container-medium">
-        <p class="social-proof-label">Trusted across industries</p>
-        <div class="social-proof-grid">
-          <span class="social-proof-badge">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="3" width="12" height="9" rx="1" stroke="currentColor" stroke-width="1.1"/><path d="M4 6h6M4 9h3" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>
-            Financial Services
-          </span>
-          <span class="social-proof-badge">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v12M4 4h6M3 7h8M4 10h6" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>
-            Healthcare
-          </span>
-          <span class="social-proof-badge">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 13V5l5-3.5L12 5v8" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/><path d="M5 13V9h4v4" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Government
-          </span>
-          <span class="social-proof-badge">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.1"/><path d="M3 5.5h8M3 8.5h8M7 1.5c-1.5 1.5-2 3.5-2 5.5s.5 4 2 5.5M7 1.5c1.5 1.5 2 3.5 2 5.5s-.5 4-2 5.5" stroke="currentColor" stroke-width="1.1"/></svg>
-            E-Commerce
-          </span>
-          <span class="social-proof-badge">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="2" width="10" height="10" rx="1" stroke="currentColor" stroke-width="1.1"/><path d="M5 5h4M5 7h4M5 9h2" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>
-            Education
-          </span>
-          <span class="social-proof-badge">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1L2 3.5v3c0 4 2.5 5.5 5 6.5 2.5-1 5-2.5 5-6.5v-3L7 1z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg>
-            Enterprise IT
-          </span>
-        </div>
-      </div>
-    </div>
-
     <section class="section bottom-padding-clear top-padding-small">
-      <div data-w-id="fd55d787-0c08-9385-40a4-9ba5b4dffa52" style="filter:blur(3px);opacity:0" class="container-medium">
+      <div data-w-id="fd55d787-0c08-9385-40a4-9ba5b4dffa52" class="container-medium">
         <div data-w-id="40aa5f91-6980-e302-7692-795a366815d9" class="cube-content">
-          <div data-w-id="b02952e0-6e0a-01d6-2998-b7cde99b76a5" style="opacity:0" class="hero hero-cube">
+          <div data-w-id="b02952e0-6e0a-01d6-2998-b7cde99b76a5" class="hero hero-cube">
             <div class="cube-large-wrapper">
               <div data-w-id="b02952e0-6e0a-01d6-2998-b7cde99b76a6" class="cube-large">
                 <div class="cube-face bottom-large">
@@ -1098,11 +648,11 @@ const schemas = [
             </div>
           </div>
           <div id="software" class="vertical-heading-top vertical-heading-cube-padding">
-            <div data-w-id="b8841d35-0707-69f9-57ef-8d20c44d263f" style="filter:blur(3px);opacity:0" class="label">
+            <div data-w-id="b8841d35-0707-69f9-57ef-8d20c44d263f" class="label">
               <div class="text-small color-grey">Cybersecurity Software Sales</div>
             </div>
-            <h2 data-w-id="179c1623-13df-8a0e-1e2c-9b54442d3704" style="filter:blur(3px);opacity:0" class="heading heading-center">Enterprise security solutions -<br> <span class="text-gradient-clip bg-color-green-gradient"><code class="code">Implementation, Support, and Training included</code></span></h2>
-            <p data-w-id="74043303-85bb-873d-9493-0a71a57f9a3b" style="filter:blur(3px);opacity:0" class="text-medium vertical-heading-description">We partner with leading cybersecurity vendors to bring you world-class security software. From endpoint protection to SIEM solutions, we handle the entire lifecycle — sales, implementation, ongoing support, and comprehensive training for your team.</p>
+            <h2 data-w-id="179c1623-13df-8a0e-1e2c-9b54442d3704" class="heading heading-center">Enterprise security solutions -<br> <span class="text-gradient-clip bg-color-green-gradient"><code class="code">Implementation, Support, and Training included</code></span></h2>
+            <p data-w-id="74043303-85bb-873d-9493-0a71a57f9a3b" class="text-medium vertical-heading-description">We partner with leading cybersecurity vendors to bring you world-class security software. From endpoint protection to SIEM solutions, we handle the entire lifecycle — sales, implementation, ongoing support, and comprehensive training for your team.</p>
 
             <!-- Trusted Technology Partners -->
             <div data-w-id="partners-section" style="margin-top: 3rem;" class="partners-section">
@@ -1118,60 +668,54 @@ const schemas = [
     <section id="services" class="section top-padding-clear">
       <div class="container">
         <div class="section-wrapper-vertical">
-          <div class="heading-horizontal tablet-padding-top">
-            <div class="heading-horizontal-inner">
-              <div class="heading-horizontal-left-part">
-                <div data-w-id="c93db1d2-0db7-c932-7bf8-d33b4459e9b5" style="filter:blur(3px);opacity:0" class="label">
-                  <div class="text-small color-grey">VAPT Services</div>
-                </div>
-                <h2 data-w-id="ba1c1753-2555-ef64-b98c-f98d028e714c" style="filter:blur(3px);opacity:0" class="heading">Vulnerability Assessment & Penetration Testing</h2>
+          <!-- Top row: Label + Heading left, Description right -->
+          <div class="vapt-hp-top">
+            <div class="vapt-hp-top-left">
+              <div class="label hero-fade-in">
+                <div class="text-small color-grey">Pentesting #1</div>
               </div>
-              <div id="w-node-_82477afa-2a69-f1d5-e365-05d3e7b7698f-fb54bfa8" class="heading-horizontal-right-part">
-                <p data-w-id="48f1af48-b78f-36d1-6d42-a5509ca892ed" style="filter:blur(3px);opacity:0" class="text-medium"><code>Automated scanners miss what matters. Real attackers don&#x27;t follow checklists — they think creatively, chain exploits, and find the gaps tools can&#x27;t see. Our comprehensive VAPT services uncover the real risks hiding in your systems.</code></p>
-              </div>
+              <h2 class="heading hero-fade-in vapt-hp-heading">Find vulnerabilities<br>before attackers do</h2>
+              <div class="vapt-hp-accent hero-fade-in" style="animation-delay: 0.1s" aria-hidden="true"></div>
             </div>
-            <div data-w-id="32750ae4-56f9-a829-e6b1-0903965a14b2" style="opacity:0" class="heading-horizontal-line-content">
-              <div class="dashed-line-wrapper-fading">
-                <div class="dashed-line"></div>
-                <div class="neon-line neon-line-static"></div>
-              </div>
+            <div class="vapt-hp-top-right hero-fade-in" style="animation-delay: 0.15s">
+              <p class="text-medium">Automated scanners miss what matters. Real attackers don't follow checklists — they think creatively, chain exploits, and find the gaps tools can't see. Our hands-on penetration testing uncovers the real risks hiding in your systems.</p>
             </div>
           </div>
-          <div class="content-horizontal">
-            <div class="content-horizontal-inner">
-              <div id="w-node-_48ca685f-8d82-71f3-dc5b-414d352e40ac-fb54bfa8" class="content-horizontal-left-part">
-                <div data-w-id="b92c043d-fb1d-a9b6-25a5-ed8c554bd542" style="filter:blur(3px);opacity:0" class="dashed-banner-card dashed-banner-card-medium">
-                  <div style="-webkit-transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0deg) skew(0, 0);-moz-transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0deg) skew(0, 0);-ms-transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0deg) skew(0, 0);transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0deg) skew(0, 0)" class="star-icon w-embed"><svg width="16" height="15" viewbox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M3.15294 13.8532L6.72941 8.02574H0V6.62714H6.72941L3.15294 0.799633L4.37647 0.0537109L8 6.20756L11.6235 0.0537109L12.8471 0.799633L9.27059 6.62714H16V8.02574H9.27059L12.8471 13.8532L11.6235 14.5992L8 8.44532L4.37647 14.5992L3.15294 13.8532Z" fill="white"></path>
-                      <path d="M3.15294 13.8532L6.72941 8.02574H0V6.62714H6.72941L3.15294 0.799633L4.37647 0.0537109L8 6.20756L11.6235 0.0537109L12.8471 0.799633L9.27059 6.62714H16V8.02574H9.27059L12.8471 13.8532L11.6235 14.5992L8 8.44532L4.37647 14.5992L3.15294 13.8532Z" fill="url(#paint0_linear_338_325)"></path>
-                      <defs>
-                        <lineargradient id="paint0_linear_338_325" x1="18.9704" y1="-6.60741" x2="-17.89" y2="8.32116" gradientunits="userSpaceOnUse">
-                          <stop stop-color="#24D758"></stop>
-                          <stop offset="1" stop-color="#27DAB4"></stop>
-                        </lineargradient>
-                      </defs>
-                    </svg></div>
-                  <p class="text-medium">Our VAPT services cover web applications, mobile apps, networks, APIs, and cloud infrastructure. You get comprehensive vulnerability assessments combined with hands-on penetration testing, detailed reports with proof-of-concept exploits, risk ratings, and clear remediation steps.</p>
-                  <!-- Certification Logos & Badges -->
-                  <div style="display: flex; align-items: center; gap: 2rem; margin-top: 2rem; flex-wrap: wrap;">
-                    <!-- CPTS Certification -->
-                    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
-                      <img src="/images/certifications/cpts.png" loading="lazy" alt="CPTS - Certified Penetration Testing Specialist" style="width: 80px; height: 80px; object-fit: contain; filter: drop-shadow(0 0 10px rgba(36, 215, 88, 0.3));">
-                      <span style="padding: 0.4rem 0.8rem; border: 1px solid rgba(36, 215, 88, 0.5); border-radius: 16px; font-size: 0.75rem; color: #fff; background: rgba(36, 215, 88, 0.1);">CPTS Certified</span>
-                    </div>
-                    <!-- OSCP Certification -->
-                    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
-                      <img src="/images/certifications/oscp.png" alt="OSCP - Offensive Security Certified Professional" style="width: 75px; height: 75px; object-fit: contain; filter: drop-shadow(0 0 10px rgba(36, 215, 88, 0.5)) drop-shadow(0 0 20px rgba(36, 215, 88, 0.3));">
-                      <span style="padding: 0.4rem 0.8rem; border: 1px solid rgba(36, 215, 88, 0.5); border-radius: 16px; font-size: 0.75rem; color: #fff; background: rgba(36, 215, 88, 0.1);">OSCP Certified</span>
-                    </div>
-                  </div>
+
+          <!-- Bottom row: Dashed card left, Diagram right -->
+          <div class="vapt-hp-bottom hero-fade-in" style="animation-delay: 0.25s">
+            <div class="vapt-hp-card">
+              <div class="vapt-hp-card-icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 1l2 5.5H17l-5 3.5 2 6L9 12.5 3.5 16l2-6-5-3.5H6L9 1z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
+              </div>
+              <p class="vapt-hp-card-text">We simulate real-world attacks on your web applications, networks, APIs, and cloud infrastructure. You get a detailed report with proof-of-concept exploits, risk ratings, and clear remediation steps — not a generic scan output.</p>
+              <!-- Scope tags -->
+              <div class="vapt-hp-scope">
+                <span>Web Apps</span>
+                <span>Networks</span>
+                <span>APIs</span>
+                <span>Cloud</span>
+                <span>Mobile</span>
+                <span>Active Directory</span>
+              </div>
+              <!-- Certifications -->
+              <div class="vapt-hp-certs">
+                <div class="vapt-hp-cert">
+                  <img src="/images/certifications/cpts.png" loading="lazy" alt="CPTS Certified" width="80" height="80">
+                  <span>CPTS</span>
+                </div>
+                <div class="vapt-hp-cert">
+                  <img src="/images/certifications/oscp.webp" loading="lazy" alt="OSCP+ Certified" width="80" height="80">
+                  <span>OSCP+</span>
                 </div>
               </div>
-              <div id="w-node-b92749f2-c4f3-7ee5-facb-958c6c3539e4-fb54bfa8" class="content-horizontal-right-part">
-                <div data-w-id="b815dd2a-7ddd-31f6-456e-28154881eff0" style="filter:blur(3px);opacity:0" class="image-box pentest-diagram-container">
-                  <PentestDiagram />
-                </div>
-              </div>
+              <a href="/services/vapt" class="nav-link-gradient vapt-hp-link">
+                Learn more about our VAPT process
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </div>
+            <div class="vapt-hp-diagram">
+              <img src="/images/pentest-process.svg" alt="Penetration Testing Process - Pre-Engagement, Information Gathering, Vulnerability Assessment, Exploitation, Lateral Movement, Post Exploitation, Proof-of-Concept, Post-Engagement" loading="lazy" width="1735" height="843" />
             </div>
           </div>
         </div>
@@ -1186,13 +730,13 @@ const schemas = [
           <div class="heading-horizontal">
             <div class="heading-horizontal-inner">
               <div class="heading-horizontal-left-part">
-                <div data-w-id="6b22a0dd-39ed-3430-b873-0b94f1ee1f07" style="filter:blur(3px);opacity:0" class="label">
-                  <div class="text-small color-grey">Compliance, Risk & Training</div>
+                <div data-w-id="6b22a0dd-39ed-3430-b873-0b94f1ee1f07" class="label">
+                  <div class="text-small color-grey">ISO 27001 & Compliance Services</div>
                 </div>
-                <h2 data-w-id="6b22a0dd-39ed-3430-b873-0b94f1ee1f0a" style="filter:blur(3px);opacity:0" class="heading">Compliance, Risk Assessment & <span class="text-gradient-clip bg-color-green-gradient">Security Training</span></h2>
+                <h2 data-w-id="6b22a0dd-39ed-3430-b873-0b94f1ee1f0a" class="heading">Complete ISO 27001 Implementation & Compliance</h2>
               </div>
               <div id="w-node-_6b22a0dd-39ed-3430-b873-0b94f1ee1f0c-fb54bfa8" class="heading-horizontal-right-part">
-                <p data-w-id="6b22a0dd-39ed-3430-b873-0b94f1ee1f0d" style="filter:blur(3px);opacity:0" class="text-medium">From ISO 27001 certification and compliance frameworks to comprehensive risk assessments and security awareness training — we help you build a resilient security posture from the ground up.</p>
+                <p data-w-id="6b22a0dd-39ed-3430-b873-0b94f1ee1f0d" class="text-medium">End-to-end ISO 27001 implementation services — from gap assessment to certification. We handle policy development, risk assessments, control implementation, and audit preparation. Turn compliance from a checkbox into a competitive advantage.</p>
               </div>
             </div>
           </div>
@@ -1208,8 +752,8 @@ const schemas = [
               <div class="risk-item-inner">
                 <div id="w-node-_7af2b668-5129-7abb-962d-68f051b5ce9c-fb54bfa8" class="risk-item-inner-wrapper">
                   <div id="w-node-e67fcd8c-8a6a-7c51-edba-6ee78a7f7363-fb54bfa8" class="risk-description">
-                    <h3 data-w-id="1ca204a5-7a10-9eab-add2-2a71fbdc65e3" style="filter:blur(3px);opacity:0" class="heading-small">ISO 27001 &amp; Compliance Frameworks</h3>
-                    <p data-w-id="66f6b51c-fa25-f609-200b-a75845c23a02" style="filter:blur(3px);opacity:0" class="text-medium color-grey">Gap assessments, policy development, evidence management, and audit preparation. We guide you through ISO 27001, SOC 2, and other frameworks — turning complex requirements into clear, actionable steps that get you certified faster.</p>
+                    <h3 data-w-id="1ca204a5-7a10-9eab-add2-2a71fbdc65e3" class="heading-small">ISO 27001 &amp; Compliance Frameworks</h3>
+                    <p data-w-id="66f6b51c-fa25-f609-200b-a75845c23a02" class="text-medium color-grey">Gap assessments, policy development, evidence management, and audit preparation. We guide you through ISO 27001, SOC 2, and other frameworks — turning complex requirements into clear, actionable steps that get you certified faster.</p>
                   </div>
                   <div id="w-node-abe5976a-a99f-7add-c742-1d482f8a56cb-fb54bfa8" data-w-id="abe5976a-a99f-7add-c742-1d482f8a56cb" class="risk-preview risk-preview-columns">
                     <div style="-webkit-transform:translate3d(0, -0.5rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, -0.5rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, -0.5rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, -0.5rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)" class="risk-cube-wrapper-top">
@@ -1273,8 +817,8 @@ const schemas = [
               <div class="risk-item-inner">
                 <div id="w-node-ebc64dab-ba90-b078-e7d9-a5f75e8cd0d5-fb54bfa8" class="risk-item-inner-wrapper">
                   <div id="w-node-ebc64dab-ba90-b078-e7d9-a5f75e8cd0d6-fb54bfa8" class="risk-description">
-                    <h3 data-w-id="ebc64dab-ba90-b078-e7d9-a5f75e8cd0d7" style="filter:blur(3px);opacity:0" class="heading-small">Risk Assessment &amp; Management</h3>
-                    <p data-w-id="ebc64dab-ba90-b078-e7d9-a5f75e8cd0d9" style="filter:blur(3px);opacity:0" class="text-medium color-grey">Comprehensive risk assessments that map threats to your business objectives. We help you understand where vulnerabilities exist, what controls are needed, and how to allocate resources effectively — from vendor risk to internal security posture.</p>
+                    <h3 data-w-id="ebc64dab-ba90-b078-e7d9-a5f75e8cd0d7" class="heading-small">Risk Assessment &amp; Management</h3>
+                    <p data-w-id="ebc64dab-ba90-b078-e7d9-a5f75e8cd0d9" class="text-medium color-grey">Comprehensive risk assessments that map threats to your business objectives. We help you understand where vulnerabilities exist, what controls are needed, and how to allocate resources effectively — from vendor risk to internal security posture.</p>
                   </div>
                   <div id="w-node-ebc64dab-ba90-b078-e7d9-a5f75e8cd0de-fb54bfa8" data-w-id="ebc64dab-ba90-b078-e7d9-a5f75e8cd0de" class="risk-preview risk-preview-grid">
                     <div class="risk-preview-trio">
@@ -1363,8 +907,8 @@ const schemas = [
               <div class="risk-item-inner">
                 <div id="w-node-_3cfa1861-14f8-47fe-1c6e-33ecfeb8a1bf-fb54bfa8" class="risk-item-inner-wrapper">
                   <div id="w-node-_3cfa1861-14f8-47fe-1c6e-33ecfeb8a1c0-fb54bfa8" class="risk-description">
-                    <h3 data-w-id="3cfa1861-14f8-47fe-1c6e-33ecfeb8a1c1" style="filter:blur(3px);opacity:0" class="heading-small">Cybersecurity Awareness Training</h3>
-                    <p data-w-id="3cfa1861-14f8-47fe-1c6e-33ecfeb8a1c3" style="filter:blur(3px);opacity:0" class="text-medium color-grey">Comprehensive security awareness programs that transform your workforce into your strongest defense. Simulated phishing campaigns, interactive training modules, and real-world scenarios teach employees to recognize threats, protect sensitive data, and become security-conscious in their daily work.</p>
+                    <h3 data-w-id="3cfa1861-14f8-47fe-1c6e-33ecfeb8a1c1" class="heading-small">Cybersecurity Awareness Training</h3>
+                    <p data-w-id="3cfa1861-14f8-47fe-1c6e-33ecfeb8a1c3" class="text-medium color-grey">Comprehensive security awareness programs that transform your workforce into your strongest defense. Simulated phishing campaigns, interactive training modules, and real-world scenarios teach employees to recognize threats, protect sensitive data, and become security-conscious in their daily work.</p>
                   </div>
                   <div id="w-node-_3cfa1861-14f8-47fe-1c6e-33ecfeb8a1c8-fb54bfa8" data-w-id="3cfa1861-14f8-47fe-1c6e-33ecfeb8a1c8" class="risk-preview risk-preview-row">
                     <div style="-webkit-transform:translate3d(-0.5rem, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(-0.5rem, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(-0.5rem, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(-0.5rem, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)" class="risk-cube-wrapper-left">
@@ -1423,205 +967,134 @@ const schemas = [
     </section>
 
     <section id="solution-industry" class="section">
-      <div class="container">
-        <div class="vertical-heading-top vertical-heading-top-medium">
-          <div class="label label-white">
-            <div class="text-small">Industries</div>
-          </div>
-          <h2 class="heading heading-center">Security tailored to <span class="text-gradient-clip bg-color-green-gradient">your sector</span></h2>
-        </div>
-        <div class="ind-grid">
-          <a href="/#contact" class="ind-card">
-            <div class="ind-icon-wrap">
-              <svg class="ind-icon-svg" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="6" width="24" height="20" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M4 12h24M12 12v14M20 18h4M20 22h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="9" r="1" fill="currentColor"/><circle cx="11" cy="9" r="1" fill="currentColor"/></svg>
-            </div>
-            <h3 class="ind-title">Fintech &amp; Banking</h3>
-            <p class="ind-desc">Penetration testing for payment systems, PCI DSS compliance, and financial sector security training.</p>
-            <span class="ind-link">Get in touch <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          </a>
-          <a href="/#contact" class="ind-card">
-            <div class="ind-icon-wrap">
-              <svg class="ind-icon-svg" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 6v20M11 16h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><rect x="5" y="9" width="22" height="14" rx="3" stroke="currentColor" stroke-width="1.5"/><path d="M10 5h12M10 27h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-            </div>
-            <h3 class="ind-title">Healthcare</h3>
-            <p class="ind-desc">HIPAA compliance readiness, healthcare app testing, and sensitive data handling training.</p>
-            <span class="ind-link">Get in touch <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          </a>
-          <a href="/#contact" class="ind-card">
-            <div class="ind-icon-wrap">
-              <svg class="ind-icon-svg" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="6" y="4" width="20" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M10 22h12M13 18v4M19 18v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M11 9h3M11 12h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="22" cy="24" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M22 22v2h2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-            </div>
-            <h3 class="ind-title">SaaS &amp; Technology</h3>
-            <p class="ind-desc">CI/CD pipeline security, SOC 2 &amp; ISO 27001 support, and developer-focused training.</p>
-            <span class="ind-link">Get in touch <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          </a>
-          <a href="/#contact" class="ind-card">
-            <div class="ind-icon-wrap">
-              <svg class="ind-icon-svg" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 8h4l3 14h10l3-10H12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="14" cy="26" r="2" stroke="currentColor" stroke-width="1.5"/><circle cx="24" cy="26" r="2" stroke="currentColor" stroke-width="1.5"/></svg>
-            </div>
-            <h3 class="ind-title">E-commerce</h3>
-            <p class="ind-desc">Web app pentesting, PCI DSS guidance, and anti-social engineering training for operations.</p>
-            <span class="ind-link">Get in touch <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          </a>
-          <a href="/#contact" class="ind-card">
-            <div class="ind-icon-wrap">
-              <svg class="ind-icon-svg" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 14h20v12H6V14z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M10 14V8h12v6" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M16 8V5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M13 5h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M13 20h6M16 18v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-            </div>
-            <h3 class="ind-title">Government &amp; Public Sector</h3>
-            <p class="ind-desc">NIST compliance, government-standard assessments, and public sector employee training.</p>
-            <span class="ind-link">Get in touch <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <section id="how-it-works" class="section bg-color-dark">
       <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
         <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
       </div>
       <div class="container">
-        <div class="vertical-heading-top vertical-heading-top-medium">
-          <div class="label label-white">
-            <div class="text-small">Process</div>
+        <div class="section-wrapper-vertical">
+          <div class="heading-horizontal">
+            <div class="heading-horizontal-inner">
+              <div class="heading-horizontal-left-part">
+                <div class="label hero-fade-in">
+                  <div class="text-small color-grey">Industry Solutions</div>
+                </div>
+                <h2 class="heading hero-fade-in">Security tailored to<br>your sector</h2>
+              </div>
+              <div class="heading-horizontal-right-part">
+                <p class="text-medium hero-fade-in" style="animation-delay: 0.1s">Every industry faces unique threats, compliance requirements, and attack surfaces. We customize our services to match your sector's risk profile.</p>
+              </div>
+            </div>
           </div>
-          <h2 class="heading heading-center">How we <span class="text-gradient-clip bg-color-green-gradient">work</span></h2>
-          <p class="text-medium vertical-heading-description vertical-heading-description-medium">From first conversation to ongoing partnership — a clear, structured engagement.</p>
-        </div>
-        <div class="hiw-grid">
-          <div class="hiw-step">
-            <div class="hiw-step-number">01</div>
-            <div class="hiw-step-connector"></div>
-            <svg class="hiw-step-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/><path d="M12 8v4l3 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <h3 class="hiw-step-title">Consult</h3>
-            <p class="hiw-step-desc">We assess your current security posture, understand your business context, and identify gaps and priorities.</p>
+
+          <div class="ind-grid hero-fade-in" style="animation-delay: 0.2s">
+            <!-- Fintech & Banking -->
+            <div class="ind-card">
+              <div class="ind-card-top">
+                <div class="ind-icon" aria-hidden="true">
+                  <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect x="2" y="3" width="24" height="22" rx="3" stroke="currentColor" stroke-width="1.5"/><path d="M2 10h24" stroke="currentColor" stroke-width="1.5"/><path d="M7 16h6M7 20h3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" opacity="0.5"/><rect x="18" y="15" width="5" height="6" rx="1" stroke="currentColor" stroke-width="1.3"/></svg>
+                </div>
+                <div class="ind-threat-badge">High-value target</div>
+              </div>
+              <h3 class="ind-title">Fintech & Banking</h3>
+              <p class="ind-desc">Penetration testing for payment systems and APIs, ISO 27001 and PCI DSS compliance, and training that meets financial sector regulatory scrutiny.</p>
+              <div class="ind-services">
+                <span>VAPT</span><span>PCI DSS</span><span>ISO 27001</span><span>API Testing</span>
+              </div>
+            </div>
+
+            <!-- Healthcare -->
+            <div class="ind-card">
+              <div class="ind-card-top">
+                <div class="ind-icon" aria-hidden="true">
+                  <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M14 4v20M4 14h20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><rect x="5" y="5" width="18" height="18" rx="3" stroke="currentColor" stroke-width="1.5"/></svg>
+                </div>
+                <div class="ind-threat-badge">Regulatory pressure</div>
+              </div>
+              <h3 class="ind-title">Healthcare</h3>
+              <p class="ind-desc">HIPAA compliance readiness, comprehensive testing of healthcare applications and networks, and staff training on handling sensitive patient data securely.</p>
+              <div class="ind-services">
+                <span>HIPAA</span><span>App Testing</span><span>Training</span><span>Network VAPT</span>
+              </div>
+            </div>
+
+            <!-- SaaS & Technology -->
+            <div class="ind-card">
+              <div class="ind-card-top">
+                <div class="ind-icon" aria-hidden="true">
+                  <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect x="3" y="4" width="22" height="16" rx="2.5" stroke="currentColor" stroke-width="1.5"/><path d="M8 24h12M14 20v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M9 10l3 3-3 3M15 16h4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div class="ind-threat-badge">Fast-moving target</div>
+              </div>
+              <h3 class="ind-title">SaaS & Technology</h3>
+              <p class="ind-desc">Continuous security testing for CI/CD pipelines, SOC 2 and ISO 27001 certification support, and developer-focused training that fits your workflow.</p>
+              <div class="ind-services">
+                <span>CI/CD Testing</span><span>SOC 2</span><span>Cloud VAPT</span><span>Dev Training</span>
+              </div>
+            </div>
+
+            <!-- E-commerce -->
+            <div class="ind-card">
+              <div class="ind-card-top">
+                <div class="ind-icon" aria-hidden="true">
+                  <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="10" cy="24" r="2" stroke="currentColor" stroke-width="1.5"/><circle cx="22" cy="24" r="2" stroke="currentColor" stroke-width="1.5"/><path d="M2 4h4l3 14h14l3-10H10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div class="ind-threat-badge">Constant attacks</div>
+              </div>
+              <h3 class="ind-title">E-Commerce & Retail</h3>
+              <p class="ind-desc">Online businesses face constant payment fraud and data theft. We provide web application pentesting, PCI DSS compliance, and social engineering training for operations teams.</p>
+              <div class="ind-services">
+                <span>Web VAPT</span><span>PCI DSS</span><span>Phishing Training</span><span>API Security</span>
+              </div>
+            </div>
+
+            <!-- Government -->
+            <div class="ind-card">
+              <div class="ind-card-top">
+                <div class="ind-icon" aria-hidden="true">
+                  <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M4 24V12l10-8 10 8v12" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><rect x="11" y="16" width="6" height="8" stroke="currentColor" stroke-width="1.5"/><path d="M4 12h20" stroke="currentColor" stroke-width="1.5"/><path d="M14 4v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                </div>
+                <div class="ind-threat-badge">Critical infrastructure</div>
+              </div>
+              <h3 class="ind-title">Government & Public Sector</h3>
+              <p class="ind-desc">Security assessments meeting government standards, NIST and NESA compliance support, and tailored training for employees handling citizen data and critical systems.</p>
+              <div class="ind-services">
+                <span>NIST</span><span>NESA</span><span>Infrastructure VAPT</span><span>Training</span>
+              </div>
+            </div>
           </div>
-          <div class="hiw-step">
-            <div class="hiw-step-number">02</div>
-            <div class="hiw-step-connector"></div>
-            <svg class="hiw-step-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 3h18v18H3V3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M3 9h18M9 9v12" stroke="currentColor" stroke-width="1.5"/></svg>
-            <h3 class="hiw-step-title">Plan</h3>
-            <p class="hiw-step-desc">We design a tailored strategy — the right mix of software, services, and compliance frameworks for your needs.</p>
-          </div>
-          <div class="hiw-step">
-            <div class="hiw-step-number">03</div>
-            <div class="hiw-step-connector"></div>
-            <svg class="hiw-step-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <h3 class="hiw-step-title">Execute</h3>
-            <p class="hiw-step-desc">We implement solutions, run penetration tests, deploy software, and deliver detailed reports with clear findings.</p>
-          </div>
-          <div class="hiw-step">
-            <div class="hiw-step-number">04</div>
-            <svg class="hiw-step-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L3 7v5c0 5 3.5 9.74 9 11 5.5-1.26 9-6 9-11V7l-9-5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <h3 class="hiw-step-title">Support</h3>
-            <p class="hiw-step-desc">Ongoing monitoring, training, and continuous improvement — we stay with you as your security partner.</p>
+
+          <!-- CTA row -->
+          <div class="ind-cta hero-fade-in" style="animation-delay: 0.3s">
+            <p class="text-medium color-grey">Don't see your industry? We work with any sector — our approach adapts to your specific threat landscape.</p>
+            <a href="/#contact" class="nav-link-gradient" style="font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.4rem; text-decoration: none; white-space: nowrap;">
+              Talk to us about your sector
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
           </div>
         </div>
       </div>
     </section>
-
-    <section id="testimonials" class="section bg-color-dark">
-      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
-        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
-      </div>
-      <div class="container">
-        <div class="vertical-heading-top vertical-heading-top-medium">
-          <div class="neon-line-box neon-line-box-section">
-            <div style="filter:grayscale(100%)" class="neon-line-parent">
-              <div class="neon-line-inner"></div>
-            </div>
-            <div class="neon-line-shadow"></div>
-          </div>
-          <div class="label label-white">
-            <div class="text-small">Testimonials</div>
-          </div>
-          <h2 class="heading heading-center">What our clients say</h2>
-        </div>
-        <div class="testimonials-grid">
-          <div class="testimonial-card">
-            <svg class="testimonial-quote-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 18h6l-2 8h4l2-8V8H6v10zm14 0h6l-2 8h4l2-8V8H20v10z" fill="url(#tq)"/><defs><linearGradient id="tq" x1="0" y1="0" x2="32" y2="32"><stop stop-color="#24d758"/><stop offset="1" stop-color="#27dab4"/></linearGradient></defs></svg>
-            <p class="testimonial-text">The Underwings team truly understands our needs before recommending solutions. They're not just selling software &mdash; they take the time to assess what's right for our business. A customer-focused team that delivers real results.</p>
-            <div class="testimonial-author">
-              <div class="testimonial-author-info">
-                <div class="testimonial-name">Mr. Hasim</div>
-                <div class="testimonial-role">IT Manager, Al Kazunah Leather</div>
-              </div>
-            </div>
-          </div>
-          <div class="testimonial-card">
-            <svg class="testimonial-quote-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 18h6l-2 8h4l2-8V8H6v10zm14 0h6l-2 8h4l2-8V8H20v10z" fill="url(#tq2)"/><defs><linearGradient id="tq2" x1="0" y1="0" x2="32" y2="32"><stop stop-color="#24d758"/><stop offset="1" stop-color="#27dab4"/></linearGradient></defs></svg>
-            <p class="testimonial-text">Underwings has been an excellent partner for our cybersecurity consulting, ISO 27001 implementation, and penetration testing needs. Their collaborative approach and deep expertise make them a trusted extension of our team.</p>
-            <div class="testimonial-author">
-              <div class="testimonial-author-info">
-                <div class="testimonial-name">Mr. Hammad</div>
-                <div class="testimonial-role">Managing Director, Core Care Technologies</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <script is:inline>
-    (function() {
-      var section = document.getElementById('testimonials');
-      if (!section || !('IntersectionObserver' in window)) {
-        // Fallback: show everything
-        if (section) section.querySelectorAll('.vertical-heading-top, .testimonial-card').forEach(function(el) { el.classList.add('is-animated'); });
-        return;
-      }
-      var targets = section.querySelectorAll('.vertical-heading-top, .testimonial-card');
-      var observer = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-          if (entry.isIntersecting) {
-            var idx = Array.prototype.indexOf.call(targets, entry.target);
-            setTimeout(function() {
-              entry.target.classList.add('is-animated');
-            }, idx * 150);
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-      targets.forEach(function(el) { observer.observe(el); });
-
-      // ---- How It Works staggered entrance ----
-      var hiwSection = document.getElementById('how-it-works');
-      if (hiwSection) {
-        var hiwSteps = hiwSection.querySelectorAll('.hiw-step');
-        var hiwObserver = new IntersectionObserver(function(entries) {
-          entries.forEach(function(entry) {
-            if (entry.isIntersecting) {
-              var idx = Array.prototype.indexOf.call(hiwSteps, entry.target);
-              setTimeout(function() {
-                entry.target.classList.add('is-animated');
-              }, idx * 150);
-              hiwObserver.unobserve(entry.target);
-            }
-          });
-        }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-        hiwSteps.forEach(function(el) { hiwObserver.observe(el); });
-      }
-    })();
-    </script>
-    <section id="about-us" class="section bg-color-grey-gradient bottom-padding-clear">
+    <section id="about-us" class="section bg-color-grey-gradient bottom-padding-clear" style="overflow: hidden;">
       <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
         <div data-w-id="71d94dcc-6696-ef8a-8008-1058c6cb48e2" class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
       </div>
       <div class="container">
         <div class="vertical-heading-top vertical-heading-top-medium">
-          <div data-w-id="09fd0b50-34c2-fc2f-a95c-8409e893c450" style="filter:blur(3px);opacity:0" class="neon-line-box neon-line-box-section">
-            <div data-w-id="09fd0b50-34c2-fc2f-a95c-8409e893c451" style="filter:grayscale(100%)" class="neon-line-parent">
+          <div data-w-id="09fd0b50-34c2-fc2f-a95c-8409e893c450" class="neon-line-box neon-line-box-section">
+            <div data-w-id="09fd0b50-34c2-fc2f-a95c-8409e893c451" class="neon-line-parent">
               <div class="neon-line-inner"></div>
             </div>
             <div class="neon-line-shadow"></div>
           </div>
-          <h2 data-w-id="ec18bf78-c996-280c-cd4d-9cfd53367e72" style="filter:blur(3px);opacity:0" class="heading heading-center"><span class="text-gradient-clip bg-color-green-gradient"><code>Your Complete Cybersecurity Partner — Software, Services, and Expertise</code></span></h2>
-          <p data-w-id="ec18bf78-c996-280c-cd4d-9cfd53367e76" style="filter:blur(3px);opacity:0" class="text-medium vertical-heading-description vertical-heading-description-medium">From enterprise security software sales with full implementation and support, to VAPT services that uncover real vulnerabilities, ISO 27001 certification that builds trust, and security training that transforms your team — we deliver complete cybersecurity solutions.</p>
+          <h2 class="heading heading-center"><span class="text-gradient-clip bg-color-green-gradient"><code>We don't just check boxes, we find real vulnerabilities, fix compliance gaps, and train your people</code></span></h2>
+          <p class="text-medium vertical-heading-description vertical-heading-description-medium" style="max-width: 650px; margin-left: auto; margin-right: auto;">Real-world penetration testing uncovers what scanners miss. Streamlined compliance gets you audit-ready without the chaos. And security-aware employees become your strongest defense — not your weakest link.</p>
         </div>
       </div>
       <div class="motion-cubes-section">
         <div class="container container-motion-cubes">
           <div data-w-id="024953ae-3887-983a-7fe1-2d6ca83c1f68" class="motion-cubes">
             <div class="motion-cubes-wrapper">
-              <div data-w-id="c925bbce-b506-645f-cba4-6b3258ede183" style="-webkit-transform:translate3d(0, 80%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 80%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 80%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 80%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)" class="motion-cube-col">
+              <div data-w-id="c925bbce-b506-645f-cba4-6b3258ede183" class="motion-cube-col">
                 <div data-w-id="c925bbce-b506-645f-cba4-6b3258ede184" class="cube-height">
                   <div class="cube-face bottom-small">
                     <div class="cube-rib-light"></div>
@@ -1657,7 +1130,7 @@ const schemas = [
                   </div>
                 </div>
               </div>
-              <div data-w-id="8614fdb1-5325-6ff2-3784-e56f894b73c7" style="-webkit-transform:translate3d(0, 80%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 80%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 80%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 80%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)" class="motion-cube-col motion-cube-col-middle">
+              <div data-w-id="8614fdb1-5325-6ff2-3784-e56f894b73c7" class="motion-cube-col motion-cube-col-middle">
                 <div data-w-id="8614fdb1-5325-6ff2-3784-e56f894b73c8" class="cube-height">
                   <div class="cube-face bottom-small">
                     <div class="cube-rib-light"></div>
@@ -1687,7 +1160,7 @@ const schemas = [
                   </div>
                 </div>
               </div>
-              <div data-w-id="57ebea3c-84df-8c0f-aa55-8e3e791a0e36" style="-webkit-transform:translate3d(0, 80%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 80%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 80%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 80%, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)" class="motion-cube-col">
+              <div data-w-id="57ebea3c-84df-8c0f-aa55-8e3e791a0e36" class="motion-cube-col">
                 <div data-w-id="57ebea3c-84df-8c0f-aa55-8e3e791a0e37" class="cube-height">
                   <div class="cube-face bottom-small">
                     <div class="cube-rib-light"></div>
@@ -1728,418 +1201,181 @@ const schemas = [
         </div>
       </div>
     </section>
-    <section id="team" class="section">
-      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
-        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
-      </div>
-      <div class="container">
-        <div class="vertical-heading-top vertical-heading-top-medium" style="text-align:center;">
-          <div class="label" style="margin-bottom:0.75rem;"><div class="text-small color-grey">Our Team</div></div>
-          <h2 class="heading heading-center">The Experts Behind <span class="text-gradient-clip bg-color-green-gradient">Your Security</span></h2>
-          <p class="text-medium vertical-heading-description vertical-heading-description-medium">Certified professionals with deep expertise in offensive security, compliance, infrastructure, and development.</p>
-        </div>
-        <div class="team-grid">
-          <div class="team-card">
-            <div class="team-avatar">MP</div>
-            <div class="team-name">Manoj Prabhakaran</div>
-            <div class="team-role">Founder</div>
-            <div class="team-exp">5+ Years in Cybersecurity</div>
-            <div class="team-desc">Cybersecurity consultant leading Underwings' mission to deliver honest, effective security solutions. Specializes in penetration testing, compliance strategy, and cloud security architecture.</div>
-            <div class="team-certs">
-              <span class="team-cert">CPTS</span>
-              <span class="team-cert">CDSA</span>
-              <span class="team-cert">Security+</span>
-              <span class="team-cert">Azure Cloud Security</span>
-              <span class="team-cert">ISO 27001 Lead Auditor</span>
-              <span class="team-cert">HTB Omniscient</span>
-            </div>
-          </div>
-          <div class="team-card">
-            <div class="team-avatar">ND</div>
-            <div class="team-name">Nelson Durairaj</div>
-            <div class="team-role">Senior Penetration Tester</div>
-            <div class="team-exp">5+ Years in Offensive Security</div>
-            <div class="team-desc">Offensive security specialist focused on uncovering real-world vulnerabilities across networks, web applications, and infrastructure. Proven track record on HackTheBox.</div>
-            <div class="team-certs">
-              <span class="team-cert">OSCP</span>
-              <span class="team-cert">eJPT</span>
-              <span class="team-cert">CEH</span>
-              <span class="team-cert">BlackHat Linux</span>
-              <span class="team-cert">HTB Omniscient</span>
-            </div>
-          </div>
-          <div class="team-card">
-            <div class="team-avatar">S</div>
-            <div class="team-name">Sivaraj</div>
-            <div class="team-role">Chief Technology Officer</div>
-            <div class="team-exp">15+ Years in IT Infrastructure</div>
-            <div class="team-desc">Seasoned IT infrastructure leader with deep expertise in enterprise networking, systems architecture, and technology operations. Ensures robust, scalable solutions for every client.</div>
-            <div class="team-certs">
-              <span class="team-cert">CCNA</span>
-              <span class="team-cert">CCNP</span>
-              <span class="team-cert">Microsoft Certified</span>
-            </div>
-          </div>
-          <div class="team-card">
-            <div class="team-avatar">G</div>
-            <div class="team-name">Gowtham</div>
-            <div class="team-role">Senior Developer</div>
-            <div class="team-exp">8+ Years in Full Stack Development</div>
-            <div class="team-desc">Full stack developer building secure, scalable web applications. Handles development, testing, and quality assurance across Underwings' products and client projects.</div>
-            <div class="team-certs">
-              <span class="team-cert">Full Stack</span>
-              <span class="team-cert">QA & Testing</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    {recentPosts.length > 0 && (
-    <section id="blog-preview" class="section">
-      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
-        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
-      </div>
-      <div class="container">
-        <div class="vertical-heading-top vertical-heading-top-medium">
-          <div style="filter:blur(3px);opacity:0" class="label label-white">
-            <div class="text-small">Blog</div>
-          </div>
-          <h2 style="filter:blur(3px);opacity:0" class="heading heading-center">Latest <span class="text-gradient-clip bg-color-green-gradient">Insights</span></h2>
-          <p style="filter:blur(3px);opacity:0" class="text-medium vertical-heading-description vertical-heading-description-medium">Expert perspectives on cybersecurity, compliance, and threat intelligence.</p>
-        </div>
-        <div class="blog-preview-grid">
-          {recentPosts.map((post) => (
-            <a href={`/blog/${post.slug}`} class="blog-preview-card">
-              {post.featured_image && (
-                <div class="blog-preview-image">
-                  <img src={post.featured_image} alt={post.title} loading="lazy" />
-                </div>
-              )}
-              <div class="blog-preview-content">
-                {post.category && <span class="blog-preview-category">{post.category}</span>}
-                <h3 class="blog-preview-title">{post.title}</h3>
-                {post.excerpt && <p class="blog-preview-excerpt">{post.excerpt}</p>}
-                <span class="blog-preview-date">{post.published_at ? new Date(post.published_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : ''}</span>
-              </div>
-            </a>
-          ))}
-        </div>
-        <div class="blog-preview-cta" style="filter:blur(3px);opacity:0">
-          <a href="/blog" class="button">
-            <div class="button-wrapper">
-              <div class="button-text color-white">View All Posts</div>
-            </div>
-            <div class="button-accent-gradinet"></div>
-          </a>
-        </div>
-      </div>
-    </section>
-    )}
     <section id="contact" class="section bg-color-dark">
       <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
-        <div data-w-id="71d94dcc-6696-ef8a-8008-1058c6cb48e2" class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
+        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
       </div>
       <div class="container">
-        <div class="section-grid-wrapper">
-          <div id="w-node-_35d33ae6-e2a1-4340-2cb1-58ad3d2196ef-fb54bfa8" class="heading-grid heading-grid-middle">
-            <div class="heading-grid-inner heading-grid-inner-medium">
-              <div data-w-id="35d33ae6-e2a1-4340-2cb1-58ad3d2196f1" style="filter:blur(3px);opacity:0" class="label label-white">
-                <div class="text-small">Contact</div>
+        <div class="ctf-layout">
+          <!-- Left: Copy -->
+          <div class="ctf-copy">
+            <div class="label label-white">
+              <div class="text-small">Contact</div>
+            </div>
+            <h2 class="heading ctf-heading">Ready to test your security?</h2>
+            <p class="text ctf-desc">Tell us about your needs — whether it's penetration testing, compliance support, or security training. We'll get back to you within 24 hours with a clear next step.</p>
+            <div class="ctf-trust">
+              <div class="ctf-trust-item">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M9 1l2 5h5l-4 3 1.5 5L9 11.5 4.5 14 6 9 2 6h5L9 1z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
+                <span>Free consultation</span>
               </div>
-              <h2 data-w-id="35d33ae6-e2a1-4340-2cb1-58ad3d2196f4" style="filter:blur(3px);opacity:0" class="heading">Ready to <span class="text-gradient-clip bg-color-green-gradient">strengthen</span> your security?</h2>
-              <p data-w-id="34b857a7-c01d-957b-e744-fd0e8835e124" style="filter:blur(3px);opacity:0" class="text">Tell us about your needs &mdash; whether it's security software, VAPT services, ISO 27001 implementation, or security training. We'll get back to you within 24 hours with a clear next step.</p>
-
-              <!-- Direct Contact Info -->
-              <div class="contact-direct-info">
-                <div class="contact-direct-item">
-                  <svg class="contact-direct-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M2 3h12v10H2V3zm1.5 1L8 8.5 12.5 4M2 13l4.5-4.5M14 13l-4.5-4.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-                  </svg>
-                  <a href="mailto:contact@underwings.org">contact@underwings.org</a>
-                </div>
-                <div class="contact-direct-item">
-                  <svg class="contact-direct-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M3.5 1.5h3l1.5 3.5-2 1.5a9 9 0 004 4l1.5-2 3.5 1.5v3c0 .5-.5 1.5-3 1.5C6 14.5 1.5 10 1.5 4.5c0-2.5 1-3 2-3z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-                  </svg>
-                  <a href="tel:+971547078203">+971 547 078 203</a>
-                </div>
+              <div class="ctf-trust-item">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="1.2"/><path d="M9 5v4l3 2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+                <span>Response in 24 hours</span>
               </div>
-
-              <!-- Decorative neon line -->
-              <div class="contact-deco-line">
-                <div class="dashed-line"></div>
-                <div class="contact-deco-neon"></div>
-              </div>
-
-              <!-- Trust Signals -->
-              <div class="contact-trust-signals">
-                <div class="contact-trust-item">
-                  <svg class="contact-trust-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.2"/>
-                    <path d="M8 4v4l2.5 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-                  </svg>
-                  <span class="contact-trust-text">Response within 24 hours</span>
-                </div>
-                <div class="contact-trust-item">
-                  <svg class="contact-trust-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M8 1.5l1.5 3.5h3.5l-2.75 2 1 3.5L8 8.5 4.75 10.5l1-3.5L3 5h3.5z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round" fill="none"/>
-                  </svg>
-                  <span class="contact-trust-text">Trusted by businesses in India & UAE</span>
-                </div>
-                <div class="contact-trust-item">
-                  <svg class="contact-trust-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M8 1.5L3 4v4c0 3.5 2.5 5.5 5 6.5 2.5-1 5-3 5-6.5V4l-5-2.5z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round" fill="none"/>
-                    <path d="M6 8l1.5 1.5L10.5 6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                  <span class="contact-trust-text">OSCP &amp; CPTS certified team</span>
-                </div>
+              <div class="ctf-trust-item">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M9 17s6-3 6-8V4l-6-2-6 2v5c0 5 6 8 6 8z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
+                <span>No obligation</span>
               </div>
             </div>
+            <div class="ctf-direct">
+              <p class="text-small color-grey">Or reach us directly:</p>
+              <a href="mailto:contact@underwings.org" class="ctf-direct-link">contact@underwings.org</a>
+            </div>
           </div>
-          <div id="w-node-_35d33ae6-e2a1-4340-2cb1-58ad3d2196f6-fb54bfa8" class="content-grid content-grid-middle">
-            <div class="form-content">
-              <div class="form-box">
-                <div class="form-block w-form">
-                  <form id="contact-form" name="contact-form" data-name="Contact Form" method="post" class="form" data-wf-page-id="6920627afaad5c7afb54bfa8" data-wf-element-id="ce358e6b-f124-3fb3-3659-c0853c165cbb">
-                    <p data-w-id="7bbce9c1-f69b-265f-9d15-5e2e550cd851" style="filter:blur(3px);opacity:0" class="text-medium text-desktop-right">* required fields</p>
-                    <div class="form-fields-grid">
-                      <div class="form-field-box">
-                        <svg class="form-field-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="5" r="3" stroke="white" stroke-width="1.2" fill="none"/><path d="M2.5 14c0-3 2.5-5 5.5-5s5.5 2 5.5 5" stroke="white" stroke-width="1.2" stroke-linecap="round" fill="none"/></svg>
-                        <label for="full-name" class="form-field-label">Full Name *</label>
-                        <input class="form-field w-input" maxlength="256" name="full-name" data-name="Full Name" placeholder="Your name" type="text" id="full-name" required="">
-                        <div class="form-neon-line-box"></div>
-                      </div>
-                      <div class="form-field-box">
-                        <svg class="form-field-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="3" width="12" height="11" rx="1" stroke="white" stroke-width="1.2" fill="none"/><path d="M5 7h2v2H5zM9 7h2v2H9zM5 3V1M11 3V1" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg>
-                        <label for="company" class="form-field-label">Company *</label>
-                        <input class="form-field w-input" maxlength="256" name="company" data-name="Company" placeholder="Company name" type="text" id="company" required="">
-                        <div class="form-neon-line-box"></div>
-                      </div>
-                    </div>
-                    <div class="form-fields-grid">
-                      <div class="form-field-box">
-                        <svg class="form-field-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="3" width="12" height="10" rx="1" stroke="white" stroke-width="1.2" fill="none"/><path d="M2 5l6 4 6-4" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                        <label for="email" class="form-field-label">Work Email *</label>
-                        <input class="form-field w-input" maxlength="256" name="email" data-name="Email" placeholder="you@company.com" type="email" id="email" required="">
-                        <div class="form-neon-line-box"></div>
-                      </div>
-                      <div class="form-field-box">
-                        <svg class="form-field-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.5 1.5h3l1.5 3.5-2 1.5a9 9 0 004 4l1.5-2 3.5 1.5v3c0 .5-.5 1.5-3 1.5C6 14.5 1.5 10 1.5 4.5c0-2.5 1-3 2-3z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
-                        <label for="phone" class="form-field-label">Phone</label>
-                        <input class="form-field w-input" maxlength="256" name="phone" data-name="Phone" placeholder="+971 XXX XXXXXX" type="tel" id="phone">
-                        <div class="form-neon-line-box"></div>
-                      </div>
-                    </div>
-                    <div class="form-field-box">
-                      <svg class="form-field-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.5 1.5l-1 3-3 1 3 1 1 3 1-3 3-1-3-1-1-3z" stroke="white" stroke-width="1.2" stroke-linejoin="round" fill="none"/><path d="M11 9l-.5 1.5-1.5.5 1.5.5.5 1.5.5-1.5 1.5-.5-1.5-.5L11 9z" stroke="white" stroke-width="1" stroke-linejoin="round" fill="none"/></svg>
-                      <label for="service" class="form-field-label">What can we help with? *</label>
-                      <select class="form-field w-input" name="service" data-name="Service" id="service" required="" style="background-color: transparent; color: inherit; cursor: pointer;">
-                        <option value="" disabled selected>Select a service</option>
-                        <option value="security-software">Security Software Solutions</option>
-                        <option value="vapt">Penetration Testing (VAPT)</option>
-                        <option value="iso-27001">ISO 27001 Implementation</option>
-                        <option value="training">Security Awareness Training</option>
-                        <option value="pitstack">Pitstack Platform</option>
-                        <option value="consultation">Consultation</option>
-                        <option value="multiple">Multiple Services</option>
-                        <option value="other">Other / General Inquiry</option>
-                      </select>
-                      <div class="form-neon-line-box"></div>
-                    </div>
-                    <div class="form-field-box">
-                      <svg class="form-field-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 2h12v9H6l-3 3v-3H2V2z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M5 6.5h6M5 9h3" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg>
-                      <label for="message" class="form-field-label">Tell us about your project *</label>
-                      <textarea class="form-field w-input" maxlength="5000" name="message" data-name="Message" placeholder="Describe your security needs, timeline, or questions..." id="message" required="" style="min-height: 120px; resize: vertical;"></textarea>
-                      <div class="form-neon-line-box"></div>
-                    </div>
-                    <div data-w-id="c6e8bdce-8c8f-fd8f-a5c8-1f0a81ab7a4a" style="filter:blur(3px);opacity:0" class="button" id="contact-submit-btn"><input type="submit" data-wait="Sending..." class="button-hidden w-button" value="Submit">
-                      <div class="button-wrapper">
-                        <div class="button-text color-white">Send Message</div>
-                        <div class="button-spinner"></div>
-                        <svg class="button-checkmark" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 12l6 6L20 6" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                      </div>
-                      <div class="button-accent-gradinet"></div>
-                    </div>
-                    <div style="position:absolute;left:-9999px;"><label for="website">Website</label><input type="text" name="website" id="website" tabindex="-1" autocomplete="off"></div>
-                  </form>
-                  <script is:inline>
-                  (function() {
-                    var CONTACT_API = '/api/contact';
-                    var form = document.getElementById('contact-form');
-                    if (!form) return;
 
-                    // ---- Pitstack pre-select service ----
-                    document.querySelectorAll('[data-preselect-service]').forEach(function(link) {
-                      link.addEventListener('click', function() {
-                        var serviceVal = link.getAttribute('data-preselect-service');
-                        var serviceDropdown = document.getElementById('service');
-                        if (serviceDropdown) serviceDropdown.value = serviceVal;
-                      });
-                    });
-
-                    // ---- Staggered entrance animation ----
-                    var animTargets = form.querySelectorAll('.form-field-box, .form-fields-grid, .button');
-                    if ('IntersectionObserver' in window) {
-                      var observer = new IntersectionObserver(function(entries) {
-                        entries.forEach(function(entry) {
-                          if (entry.isIntersecting) {
-                            var delay = Array.prototype.indexOf.call(animTargets, entry.target) * 80;
-                            setTimeout(function() {
-                              entry.target.classList.add('is-visible');
-                            }, delay);
-                            observer.unobserve(entry.target);
-                          }
-                        });
-                      }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-                      animTargets.forEach(function(el) { observer.observe(el); });
-                    } else {
-                      animTargets.forEach(function(el) { el.classList.add('is-visible'); });
-                    }
-
-                    // ---- Form submission ----
-                    var btn = document.getElementById('contact-submit-btn');
-
-                    form.addEventListener('submit', function(e) {
-                      e.preventDefault();
-
-                      // Honeypot check
-                      if (form.querySelector('[name="website"]').value) return;
-
-                      var submitInput = form.querySelector('input[type="submit"]');
-                      submitInput.disabled = true;
-
-                      // Show loading state
-                      if (btn) btn.classList.add('is-loading');
-
-                      var data = {
-                        fields: [
-                          { name: 'firstname', value: form.querySelector('#full-name').value },
-                          { name: '0-2/name', value: form.querySelector('#full-name').value },
-                          { name: 'company', value: form.querySelector('#company').value },
-                          { name: 'email', value: form.querySelector('#email').value },
-                          { name: 'phone', value: form.querySelector('#phone').value },
-                          { name: 'what_can_we_help_with_', value: form.querySelector('#service').value },
-                          { name: 'message', value: form.querySelector('#message').value }
-                        ],
-                        context: {
-                          pageUri: window.location.href,
-                          pageName: document.title
-                        }
-                      };
-
-                      fetch(CONTACT_API, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(data)
-                      })
-                      .then(function(res) {
-                        return res.json().then(function(body) {
-                          if (res.ok || res.status === 200) {
-                            // Show success checkmark briefly, then hide form
-                            if (btn) {
-                              btn.classList.remove('is-loading');
-                              btn.classList.add('is-success');
-                            }
-                            setTimeout(function() {
-                              form.style.display = 'none';
-                              form.parentElement.querySelector('.w-form-done').style.display = 'flex';
-                            }, 800);
-                          } else {
-                            throw new Error(JSON.stringify(body));
-                          }
-                        });
-                      })
-                      .catch(function(err) {
-                        console.error('HubSpot submit error:', err);
-                        if (btn) btn.classList.remove('is-loading');
-                        form.parentElement.querySelector('.w-form-fail').style.display = 'flex';
-                      })
-                      .finally(function() {
-                        submitInput.disabled = false;
-                      });
-                    });
-                  })();
-                  </script>
-                  <div class="form-message w-form-done">
-                    <svg class="msg-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" stroke="#24d758" stroke-width="1.5" fill="none"/><path d="M7 12l3.5 3.5L17 9" stroke="#24d758" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    <div><strong>Thank you for reaching out.</strong><br>We've received your inquiry and will get back to you within 24 hours.</div>
-                  </div>
-                  <div class="error-message w-form-fail">
-                    <svg class="msg-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" stroke="#ff5454" stroke-width="1.5" fill="none"/><path d="M8 8l8 8M16 8l-8 8" stroke="#ff5454" stroke-width="2" stroke-linecap="round"/></svg>
-                    <div>Something went wrong. Please try again or email us directly at <a href="mailto:contact@underwings.org" style="color: var(--colors--green-light-gradient);">contact@underwings.org</a></div>
-                  </div>
+          <!-- Right: Form -->
+          <div class="ctf-form-wrap">
+            <form id="contact-form" class="ctf-form" novalidate>
+              <div class="ctf-form-row">
+                <div class="ctf-field">
+                  <label for="ctf-name">Full Name <span class="ctf-req">*</span></label>
+                  <input type="text" id="ctf-name" name="fullname" placeholder="Your full name" required autocomplete="name">
+                </div>
+                <div class="ctf-field">
+                  <label for="ctf-company">Company <span class="ctf-req">*</span></label>
+                  <input type="text" id="ctf-company" name="company" placeholder="Company name" required autocomplete="organization">
                 </div>
               </div>
+              <div class="ctf-form-row">
+                <div class="ctf-field">
+                  <label for="ctf-email">Work Email <span class="ctf-req">*</span></label>
+                  <input type="email" id="ctf-email" name="email" placeholder="you@company.com" required autocomplete="email">
+                </div>
+                <div class="ctf-field">
+                  <label for="ctf-phone">Phone</label>
+                  <input type="tel" id="ctf-phone" name="phone" placeholder="+971 XXX XXXXXX" autocomplete="tel">
+                </div>
+              </div>
+              <div class="ctf-field">
+                <label for="ctf-service">What can we help with? <span class="ctf-req">*</span></label>
+                <select id="ctf-service" name="service" required>
+                  <option value="" disabled selected>Select a service</option>
+                  <option value="security-software">Security Software Solutions</option>
+                  <option value="vapt">Penetration Testing (VAPT)</option>
+                  <option value="iso-27001">ISO 27001 Implementation</option>
+                  <option value="training">Security Awareness Training</option>
+                  <option value="multiple">Multiple Services</option>
+                  <option value="other">Other / General Inquiry</option>
+                </select>
+              </div>
+              <div class="ctf-field">
+                <label for="ctf-message">Tell us about your project <span class="ctf-req">*</span></label>
+                <textarea id="ctf-message" name="message" placeholder="Brief description of your security needs, timeline, or questions..." required rows="4"></textarea>
+              </div>
+              <!-- Honeypot -->
+              <div style="position:absolute;left:-9999px;" aria-hidden="true"><input type="text" name="website" tabindex="-1" autocomplete="off"></div>
+              <button type="submit" class="ctf-submit">
+                <span class="ctf-submit-text">Send Message</span>
+                <span class="ctf-submit-loading" style="display:none;">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="ctf-spinner"><circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="2" stroke-dasharray="40 20" stroke-linecap="round"/></svg>
+                  Sending...
+                </span>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="ctf-submit-arrow"><path d="M1 8h14M9 2l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </form>
+            <div class="ctf-success" style="display:none;">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="22" stroke="#24d758" stroke-width="2"/><path d="M15 24l6 6 12-12" stroke="#24d758" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <h3>Thank you for reaching out</h3>
+              <p>We've received your inquiry and will get back to you within 24 hours.</p>
+            </div>
+            <div class="ctf-error" style="display:none;">
+              <p>Something went wrong. Please try again or email us at <a href="mailto:contact@underwings.org">contact@underwings.org</a></p>
             </div>
           </div>
         </div>
       </div>
     </section>
-  </main>
 
-  <!-- Lead Magnet Section -->
-  <section class="lead-magnet" style="position: relative;">
-    <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
-      <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
-    </div>
-    <div class="lead-magnet-inner">
-      <div class="lead-magnet-icon">
-        <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M16 2L6 7v9c0 8 5 13 10 15 5-2 10-7 10-15V7L16 2z" stroke="#24d758" stroke-width="1.5" stroke-linejoin="round"/><path d="M11 16l3.5 3.5L21 13" stroke="#24d758" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <h3>Free Security Assessment Checklist</h3>
-      <p>Get our 10-point security checklist used by our team to evaluate SMB security posture. Delivered straight to your inbox.</p>
-      <form id="lead-magnet-form" class="lead-magnet-form">
-        <input type="email" class="lead-magnet-input" placeholder="you@company.com" required id="lead-magnet-email" autocomplete="email">
-        <button type="submit" class="lead-magnet-btn" id="lead-magnet-submit">Download Free</button>
-      </form>
-      <div class="lead-magnet-note">No spam. Unsubscribe anytime.</div>
-      <div class="lead-magnet-success" id="lead-magnet-success">Check your inbox — the checklist is on its way.</div>
-      <div class="lead-magnet-error" id="lead-magnet-error">Something went wrong. Try again or email us at contact@underwings.org</div>
-    </div>
-  </section>
-  <script is:inline>
-  (function() {
-    var form = document.getElementById('lead-magnet-form');
-    if (!form) return;
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      var email = document.getElementById('lead-magnet-email').value;
-      var btn = document.getElementById('lead-magnet-submit');
-      btn.disabled = true;
-      btn.textContent = 'Sending...';
+    <script is:inline>
+    (function() {
+      // ==============================================
+      // HubSpot Forms API Integration
+      // Replace with your actual HubSpot Portal ID and Form GUID
+      // Portal ID: HubSpot > Settings > Account Defaults
+      // Form GUID: HubSpot > Marketing > Forms > form URL
+      // ==============================================
+      var HUBSPOT_PORTAL_ID = 'YOUR_PORTAL_ID';
+      var HUBSPOT_FORM_GUID = 'YOUR_FORM_GUID';
 
-      var data = {
-        fields: [
-          { name: 'email', value: email }
-        ],
-        context: {
-          pageUri: window.location.href,
-          pageName: 'Homepage - Lead Magnet'
-        }
-      };
+      var form = document.getElementById('contact-form');
+      if (!form) return;
 
-      fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      })
-      .then(function(res) {
-        if (res.ok || res.status === 200) {
-          form.style.display = 'none';
-          document.querySelector('.lead-magnet-note').style.display = 'none';
-          document.getElementById('lead-magnet-success').style.display = 'block';
-        } else {
-          throw new Error('Submit failed');
-        }
-      })
-      .catch(function() {
-        document.getElementById('lead-magnet-error').style.display = 'block';
-        btn.disabled = false;
-        btn.textContent = 'Download Free';
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // Honeypot
+        if (form.querySelector('[name="website"]').value) return;
+
+        var submitBtn = form.querySelector('.ctf-submit');
+        var textEl = submitBtn.querySelector('.ctf-submit-text');
+        var loadEl = submitBtn.querySelector('.ctf-submit-loading');
+        var arrowEl = submitBtn.querySelector('.ctf-submit-arrow');
+        textEl.style.display = 'none';
+        arrowEl.style.display = 'none';
+        loadEl.style.display = 'inline-flex';
+        submitBtn.disabled = true;
+
+        var fullName = form.querySelector('#ctf-name').value.trim();
+        var nameParts = fullName.split(' ');
+        var firstName = nameParts[0] || '';
+        var lastName = nameParts.slice(1).join(' ') || '';
+
+        var payload = {
+          fields: [
+            { name: 'firstname', value: firstName },
+            { name: 'lastname', value: lastName },
+            { name: 'company', value: form.querySelector('#ctf-company').value },
+            { name: 'email', value: form.querySelector('#ctf-email').value },
+            { name: 'phone', value: form.querySelector('#ctf-phone').value },
+            { name: 'service_interest', value: form.querySelector('#ctf-service').value },
+            { name: 'message', value: form.querySelector('#ctf-message').value }
+          ],
+          context: {
+            pageUri: window.location.href,
+            pageName: document.title,
+            hutk: document.cookie.match(/hubspotutk=([^;]*)/)?.[1] || ''
+          }
+        };
+
+        var url = 'https://api.hsforms.com/submissions/v3/integration/submit/' + HUBSPOT_PORTAL_ID + '/' + HUBSPOT_FORM_GUID;
+
+        fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        })
+        .then(function(res) {
+          if (res.ok) {
+            form.style.display = 'none';
+            form.parentElement.querySelector('.ctf-success').style.display = 'flex';
+          } else {
+            throw new Error('Failed');
+          }
+        })
+        .catch(function() {
+          form.parentElement.querySelector('.ctf-error').style.display = 'block';
+        })
+        .finally(function() {
+          textEl.style.display = '';
+          arrowEl.style.display = '';
+          loadEl.style.display = 'none';
+          submitBtn.disabled = false;
+        });
       });
-    });
-  })();
-  </script>
+    })();
+    </script>
+  </main>
 
   <Footer />
 </Layout>

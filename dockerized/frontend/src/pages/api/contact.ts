@@ -1,5 +1,7 @@
 import type { APIRoute } from 'astro';
 
+export const prerender = false;
+
 const HUBSPOT_PORTAL_ID = '147940148';
 const HUBSPOT_FORM_GUID = '838aa154-ee64-47e0-a6bf-4d20c5408ca5';
 const HUBSPOT_API_URL = `https://api-eu1.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_FORM_GUID}`;

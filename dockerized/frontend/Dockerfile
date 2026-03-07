@@ -14,6 +14,12 @@ COPY package*.json ./
 # Install dependencies
 RUN npm install
 
+# Build-time env vars (Astro bakes PUBLIC_* at build time)
+ARG PUBLIC_SUPABASE_URL
+ARG PUBLIC_SUPABASE_ANON_KEY
+ENV PUBLIC_SUPABASE_URL=$PUBLIC_SUPABASE_URL
+ENV PUBLIC_SUPABASE_ANON_KEY=$PUBLIC_SUPABASE_ANON_KEY
+
 # Copy source code
 COPY . .
 
@@ -47,7 +53,7 @@ ENV NODE_ENV=production
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
-    CMD wget --no-verbose --tries=1 --spider http://localhost:4321/ || exit 1
+    CMD wget --no-verbose --tries=1 --spider http://0.0.0.0:4321/ || exit 1
 
 # Start the server
 CMD ["node", "./dist/server/entry.mjs"]

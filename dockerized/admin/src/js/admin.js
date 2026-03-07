@@ -20,6 +20,24 @@ function esc(str) {
   return d.innerHTML;
 }
 
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric'
+  });
+}
+
+function generateSlug(title) {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .trim();
+}
+
 // ===========================================
 // STATE
 // ===========================================
@@ -122,12 +140,6 @@ function navigateTo(page) {
     case 'posts':
       loadPosts();
       break;
-    case 'submissions':
-      loadSubmissions();
-      break;
-    case 'subscribers':
-      loadSubscribers();
-      break;
     case 'media':
       loadMedia();
       break;
@@ -140,73 +152,33 @@ function navigateTo(page) {
 
 async function loadDashboardData() {
   try {
-    // Get counts
-    const [postsRes, subsRes, subscribersRes] = await Promise.all([
-      supabase.from('blog_posts').select('id', { count: 'exact' }),
-      supabase.from('form_submissions').select('id', { count: 'exact' }),
-      supabase.from('subscribers').select('id', { count: 'exact' }).eq('subscribed', true)
-    ]);
+    const { data: posts } = await supabase
+      .from('blog_posts')
+      .select('id, title, category, status, view_count, created_at')
+      .order('created_at', { ascending: false });
 
-    // Get new submissions count
-    const weekAgo = new Date();
-    weekAgo.setDate(weekAgo.getDate() - 7);
-    const { count: newCount } = await supabase
-      .from('form_submissions')
-      .select('id', { count: 'exact' })
-      .eq('status', 'new')
-      .gte('created_at', weekAgo.toISOString());
+    const allPosts = posts || [];
+    const published = allPosts.filter(p => p.status === 'published');
+    const drafts = allPosts.filter(p => p.status === 'draft');
+    const totalViews = allPosts.reduce((sum, p) => sum + (p.view_count || 0), 0);
 
     // Update stats
-    document.getElementById('stat-posts').textContent = postsRes.count || 0;
-    document.getElementById('stat-submissions').textContent = subsRes.count || 0;
-    document.getElementById('stat-subscribers').textContent = subscribersRes.count || 0;
-    document.getElementById('stat-new').textContent = newCount || 0;
-    document.getElementById('submission-count').textContent = newCount || 0;
+    document.getElementById('stat-total').textContent = allPosts.length;
+    document.getElementById('stat-published').textContent = published.length;
+    document.getElementById('stat-drafts').textContent = drafts.length;
+    document.getElementById('stat-views').textContent = totalViews;
 
-    // Load recent submissions
-    const { data: recentSubs } = await supabase
-      .from('form_submissions')
-      .select('*')
-      .order('created_at', { ascending: false })
-      .limit(5);
-
-    renderRecentSubmissions(recentSubs || []);
-
-    // Load recent posts
-    const { data: recentPosts } = await supabase
-      .from('blog_posts')
-      .select('*')
-      .order('created_at', { ascending: false })
-      .limit(5);
-
-    renderRecentPosts(recentPosts || []);
+    // Render recent posts
+    renderRecentPosts(allPosts.slice(0, 5));
   } catch (error) {
     console.error('Error loading dashboard data:', error);
   }
 }
 
-function renderRecentSubmissions(submissions) {
-  const container = document.getElementById('recent-submissions');
-  if (submissions.length === 0) {
-    container.innerHTML = '<p class="empty-state">No submissions yet</p>';
-    return;
-  }
-
-  container.innerHTML = submissions.map(sub => `
-    <div class="list-item" onclick="viewSubmission('${esc(sub.id)}')">
-      <div class="list-item-info">
-        <div class="list-item-title">${esc(sub.name) || 'Anonymous'}</div>
-        <div class="list-item-meta">${esc(sub.form_type)} • ${formatDate(sub.created_at)}</div>
-      </div>
-      <span class="status-badge ${esc(sub.status)}">${esc(sub.status)}</span>
-    </div>
-  `).join('');
-}
-
 function renderRecentPosts(posts) {
   const container = document.getElementById('recent-posts');
   if (posts.length === 0) {
-    container.innerHTML = '<p class="empty-state">No posts yet</p>';
+    container.innerHTML = '<p class="empty-state">No posts yet. Create your first post!</p>';
     return;
   }
 
@@ -214,7 +186,7 @@ function renderRecentPosts(posts) {
     <div class="list-item" onclick="editPost('${esc(post.id)}')">
       <div class="list-item-info">
         <div class="list-item-title">${esc(post.title)}</div>
-        <div class="list-item-meta">${esc(post.category) || 'Uncategorized'} • ${formatDate(post.created_at)}</div>
+        <div class="list-item-meta">${esc(post.category) || 'Uncategorized'} • ${formatDate(post.created_at)} • ${post.view_count || 0} views</div>
       </div>
       <span class="status-badge ${esc(post.status)}">${esc(post.status)}</span>
     </div>
@@ -242,7 +214,7 @@ async function loadPosts() {
 function renderPostsTable(posts) {
   const tbody = document.getElementById('posts-table');
   if (posts.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="5" class="empty-state">No posts yet. Create your first post!</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No posts yet. Create your first post!</td></tr>';
     return;
   }
 
@@ -251,6 +223,7 @@ function renderPostsTable(posts) {
       <td><strong>${esc(post.title)}</strong></td>
       <td>${esc(post.category) || '-'}</td>
       <td><span class="status-badge ${esc(post.status)}">${esc(post.status)}</span></td>
+      <td>${post.view_count || 0}</td>
       <td>${formatDate(post.created_at)}</td>
       <td class="actions">
         <button class="btn-icon" onclick="editPost('${esc(post.id)}')" title="Edit">
@@ -279,6 +252,7 @@ newPostBtn.addEventListener('click', () => {
   document.getElementById('editor-title').textContent = 'New Post';
   postForm.reset();
   document.getElementById('post-id').value = '';
+  document.getElementById('post-slug').dataset.autoGenerate = 'true';
   postModal.classList.add('active');
 });
 
@@ -296,6 +270,7 @@ window.editPost = async function(id) {
     document.getElementById('post-id').value = post.id;
     document.getElementById('post-title').value = post.title;
     document.getElementById('post-slug').value = post.slug;
+    document.getElementById('post-slug').dataset.autoGenerate = 'false';
     document.getElementById('post-excerpt').value = post.excerpt || '';
     document.getElementById('post-content').value = post.content || '';
     document.getElementById('post-category').value = post.category || '';
@@ -320,6 +295,7 @@ window.deletePost = async function(id) {
 
     if (error) throw error;
     loadPosts();
+    loadDashboardData();
   } catch (error) {
     console.error('Error deleting post:', error);
     alert('Failed to delete post');
@@ -352,14 +328,12 @@ postForm.addEventListener('submit', async (e) => {
 
   try {
     if (id) {
-      // Update
       const { error } = await supabase
         .from('blog_posts')
         .update(postData)
         .eq('id', id);
       if (error) throw error;
     } else {
-      // Insert
       const { error } = await supabase
         .from('blog_posts')
         .insert([postData]);
@@ -368,231 +342,10 @@ postForm.addEventListener('submit', async (e) => {
 
     postModal.classList.remove('active');
     loadPosts();
+    loadDashboardData();
   } catch (error) {
     console.error('Error saving post:', error);
     alert('Failed to save post: ' + error.message);
-  }
-});
-
-// ===========================================
-// FORM SUBMISSIONS
-// ===========================================
-
-async function loadSubmissions() {
-  try {
-    const filterType = document.getElementById('filter-type').value;
-    const filterStatus = document.getElementById('filter-status').value;
-
-    let query = supabase
-      .from('form_submissions')
-      .select('*')
-      .order('created_at', { ascending: false });
-
-    if (filterType) query = query.eq('form_type', filterType);
-    if (filterStatus) query = query.eq('status', filterStatus);
-
-    const { data, error } = await query;
-    if (error) throw error;
-
-    renderSubmissionsTable(data || []);
-  } catch (error) {
-    console.error('Error loading submissions:', error);
-  }
-}
-
-function renderSubmissionsTable(submissions) {
-  const tbody = document.getElementById('submissions-table');
-  if (submissions.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No submissions found</td></tr>';
-    return;
-  }
-
-  tbody.innerHTML = submissions.map(sub => `
-    <tr>
-      <td>${esc(sub.name) || '-'}</td>
-      <td>${esc(sub.email)}</td>
-      <td>${esc(sub.form_type)}</td>
-      <td><span class="status-badge ${esc(sub.status)}">${esc(sub.status)}</span></td>
-      <td>${formatDate(sub.created_at)}</td>
-      <td class="actions">
-        <button class="btn-icon" onclick="viewSubmission('${esc(sub.id)}')" title="View">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-            <circle cx="12" cy="12" r="3"></circle>
-          </svg>
-        </button>
-        <button class="btn-icon danger" onclick="deleteSubmission('${esc(sub.id)}')" title="Delete">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="3 6 5 6 21 6"></polyline>
-            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-          </svg>
-        </button>
-      </td>
-    </tr>
-  `).join('');
-}
-
-// Filter change handlers
-document.getElementById('filter-type').addEventListener('change', loadSubmissions);
-document.getElementById('filter-status').addEventListener('change', loadSubmissions);
-
-const submissionModal = document.getElementById('submission-modal');
-let currentSubmissionId = null;
-
-window.viewSubmission = async function(id) {
-  try {
-    const { data: sub, error } = await supabase
-      .from('form_submissions')
-      .select('*')
-      .eq('id', id)
-      .single();
-
-    if (error) throw error;
-
-    currentSubmissionId = id;
-
-    // Mark as read
-    if (sub.status === 'new') {
-      await supabase
-        .from('form_submissions')
-        .update({ status: 'read' })
-        .eq('id', id);
-    }
-
-    document.getElementById('submission-details').innerHTML = `
-      <div class="submission-detail">
-        <p><strong>Name:</strong> ${esc(sub.name) || '-'}</p>
-        <p><strong>Email:</strong> <a href="mailto:${esc(sub.email)}">${esc(sub.email)}</a></p>
-        <p><strong>Phone:</strong> ${esc(sub.phone) || '-'}</p>
-        <p><strong>Company:</strong> ${esc(sub.company) || '-'}</p>
-        <p><strong>Type:</strong> ${esc(sub.form_type)}</p>
-        <p><strong>Service Interest:</strong> ${esc(sub.service_interest) || '-'}</p>
-        <p><strong>Date:</strong> ${formatDate(sub.created_at)}</p>
-        <hr style="border-color: var(--border-color); margin: 1rem 0;">
-        <p><strong>Message:</strong></p>
-        <p style="white-space: pre-wrap; background: var(--bg-dark); padding: 1rem; border-radius: 8px; margin-top: 0.5rem;">${esc(sub.message) || 'No message'}</p>
-      </div>
-    `;
-
-    submissionModal.classList.add('active');
-    loadSubmissions();
-  } catch (error) {
-    console.error('Error viewing submission:', error);
-  }
-};
-
-window.deleteSubmission = async function(id) {
-  if (!confirm('Are you sure you want to delete this submission?')) return;
-
-  try {
-    const { error } = await supabase
-      .from('form_submissions')
-      .delete()
-      .eq('id', id);
-
-    if (error) throw error;
-    loadSubmissions();
-    loadDashboardData();
-  } catch (error) {
-    console.error('Error deleting submission:', error);
-  }
-};
-
-document.getElementById('mark-replied').addEventListener('click', async () => {
-  if (!currentSubmissionId) return;
-
-  try {
-    await supabase
-      .from('form_submissions')
-      .update({ status: 'replied' })
-      .eq('id', currentSubmissionId);
-
-    submissionModal.classList.remove('active');
-    loadSubmissions();
-  } catch (error) {
-    console.error('Error updating status:', error);
-  }
-});
-
-// ===========================================
-// SUBSCRIBERS
-// ===========================================
-
-async function loadSubscribers() {
-  try {
-    const { data, error } = await supabase
-      .from('subscribers')
-      .select('*')
-      .order('created_at', { ascending: false });
-
-    if (error) throw error;
-    renderSubscribersTable(data || []);
-  } catch (error) {
-    console.error('Error loading subscribers:', error);
-  }
-}
-
-function renderSubscribersTable(subscribers) {
-  const tbody = document.getElementById('subscribers-table');
-  if (subscribers.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="5" class="empty-state">No subscribers yet</td></tr>';
-    return;
-  }
-
-  tbody.innerHTML = subscribers.map(sub => `
-    <tr>
-      <td>${esc(sub.email)}</td>
-      <td>${esc(sub.name) || '-'}</td>
-      <td><span class="status-badge ${sub.subscribed ? 'published' : 'draft'}">${sub.subscribed ? 'Active' : 'Unsubscribed'}</span></td>
-      <td>${formatDate(sub.created_at)}</td>
-      <td class="actions">
-        <button class="btn-icon danger" onclick="deleteSubscriber('${esc(sub.id)}')" title="Delete">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="3 6 5 6 21 6"></polyline>
-            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-          </svg>
-        </button>
-      </td>
-    </tr>
-  `).join('');
-}
-
-window.deleteSubscriber = async function(id) {
-  if (!confirm('Are you sure you want to delete this subscriber?')) return;
-
-  try {
-    const { error } = await supabase
-      .from('subscribers')
-      .delete()
-      .eq('id', id);
-
-    if (error) throw error;
-    loadSubscribers();
-  } catch (error) {
-    console.error('Error deleting subscriber:', error);
-  }
-};
-
-// Export CSV
-document.getElementById('export-subscribers').addEventListener('click', async () => {
-  try {
-    const { data } = await supabase
-      .from('subscribers')
-      .select('email,name,subscribed,created_at')
-      .eq('subscribed', true);
-
-    const csv = 'Email,Name,Date\n' + data.map(s =>
-      `${s.email},${s.name || ''},${formatDate(s.created_at)}`
-    ).join('\n');
-
-    const blob = new Blob([csv], { type: 'text/csv' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `subscribers-${new Date().toISOString().split('T')[0]}.csv`;
-    a.click();
-  } catch (error) {
-    console.error('Error exporting:', error);
   }
 });
 
@@ -684,28 +437,6 @@ document.querySelectorAll('.modal').forEach(modal => {
     }
   });
 });
-
-// ===========================================
-// UTILITIES
-// ===========================================
-
-function formatDate(dateString) {
-  const date = new Date(dateString);
-  return date.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric'
-  });
-}
-
-function generateSlug(title) {
-  return title
-    .toLowerCase()
-    .replace(/[^a-z0-9\s-]/g, '')
-    .replace(/\s+/g, '-')
-    .replace(/-+/g, '-')
-    .trim();
-}
 
 // Auto-generate slug from title
 document.getElementById('post-title')?.addEventListener('input', (e) => {
