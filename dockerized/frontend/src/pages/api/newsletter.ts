@@ -4,10 +4,7 @@ import { createClient } from '@supabase/supabase-js';
 export const prerender = false;
 
 const HUBSPOT_PORTAL_ID = '147940148';
-// Use a dedicated newsletter form GUID (falls back to contact form if not set)
-const HUBSPOT_NEWSLETTER_FORM_GUID = import.meta.env.HUBSPOT_NEWSLETTER_FORM_GUID
-  || process.env.HUBSPOT_NEWSLETTER_FORM_GUID
-  || '838aa154-ee64-47e0-a6bf-4d20c5408ca5';
+const HUBSPOT_NEWSLETTER_FORM_GUID = '48612ae2-0011-4bba-b2d3-9fa1770f515b';
 const HUBSPOT_API_URL = `https://api-eu1.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_NEWSLETTER_FORM_GUID}`;
 const TURNSTILE_SECRET = import.meta.env.TURNSTILE_SECRET_KEY || process.env.TURNSTILE_SECRET_KEY;
 
