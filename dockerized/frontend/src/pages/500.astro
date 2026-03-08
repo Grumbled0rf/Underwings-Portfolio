@@ -1,17 +1,19 @@
 ---
 // ===========================================
 // 500 SERVER ERROR PAGE
-// Underwings Technologies
+// Underwings Cybersecurity Solutions
 // ===========================================
 
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+
+export const prerender = false;
 ---
 
 <Layout
-  title="Server Error | Underwings Technologies"
-  description="Something went wrong on our end."
+  title="Server Error | Underwings Cybersecurity Solutions"
+  description="We're experiencing a temporary server error. Please try again in a moment or contact us at contact@underwings.org to report the issue."
   schema={null}
   bodyClass="body"
 >

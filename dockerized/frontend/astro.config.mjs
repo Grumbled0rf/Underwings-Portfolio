@@ -1,6 +1,6 @@
 // ===========================================
 // ASTRO CONFIGURATION
-// Underwings Technologies Frontend
+// Underwings Cybersecurity Solutions Frontend
 // ===========================================
 
 import { defineConfig } from 'astro/config';

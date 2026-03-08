@@ -53,23 +53,33 @@ const articleSchema = {
   "dateModified": post.updated_at || post.published_at,
   "author": {
     "@type": "Organization",
-    "name": "Underwings Technologies",
+    "name": "Underwings Cybersecurity Solutions",
     "url": siteUrl
   },
   "publisher": {
     "@type": "Organization",
-    "name": "Underwings Technologies",
+    "name": "Underwings Cybersecurity Solutions",
     "logo": { "@type": "ImageObject", "url": `${siteUrl}/images/logowhiteUW.png` }
   },
   "mainEntityOfPage": `${siteUrl}/blog/${slug}`
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": siteUrl },
+    { "@type": "ListItem", "position": 2, "name": "Blog", "item": `${siteUrl}/blog` },
+    { "@type": "ListItem", "position": 3, "name": post.title, "item": `${siteUrl}/blog/${slug}` }
+  ]
 };
 ---
 
 <Layout
   title={`${post.title} - Underwings Blog`}
-  description={post.excerpt || post.meta_description || `Read ${post.title} on Underwings Technologies blog.`}
+  description={post.excerpt || post.meta_description || `Read ${post.title} on Underwings Cybersecurity Solutions blog.`}
   ogImage={post.featured_image}
-  schema={articleSchema}
+  schema={[articleSchema, breadcrumbSchema]}
 >
   <Header currentPage="blog" />
 
@@ -187,7 +197,7 @@ const articleSchema = {
               <div>
                 <div class="post-footer-written">Written by</div>
                 <div class="post-footer-name">{post.author_name || 'Underwings Team'}</div>
-                <div class="post-footer-bio">Cybersecurity insights from the Underwings Technologies team — OSCP & CPTS certified professionals serving businesses in India and UAE.</div>
+                <div class="post-footer-bio">Cybersecurity insights from the Underwings Cybersecurity Solutions team — OSCP & CPTS certified professionals serving businesses in India and UAE.</div>
               </div>
             </div>
           </div>
@@ -232,7 +242,7 @@ const articleSchema = {
     </article>
   </main>
 
-  <script is:inline>
+  <script is:inline nonce={Astro.locals.nonce || ""}>
   // Reading progress bar
   (function() {
     var bar = document.getElementById('reading-progress');

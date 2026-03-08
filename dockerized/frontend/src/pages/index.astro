@@ -1,8 +1,9 @@
 ---
 // ===========================================
 // HOMEPAGE
-// Underwings Technologies
+// Underwings Cybersecurity Solutions
 // ===========================================
+export const prerender = false;
 
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
@@ -15,10 +16,10 @@ const schemas = [
   {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "Underwings Technologies",
+    "name": "Underwings Cybersecurity Solutions",
     "url": siteUrl,
     "logo": `${siteUrl}/images/logowhiteUW.png`,
-    "description": "Enterprise cybersecurity solutions provider offering security software sales, VAPT services, ISO 27001 implementation, and security awareness training.",
+    "description": "Cybersecurity startup offering security software sales, VAPT services, ISO 27001 implementation, and security awareness training in India & UAE.",
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "AE",
@@ -40,7 +41,7 @@ const schemas = [
     "serviceType": "Cybersecurity Services",
     "provider": {
       "@type": "Organization",
-      "name": "Underwings Technologies"
+      "name": "Underwings Cybersecurity Solutions"
     },
     "areaServed": {
       "@type": "Country",
@@ -61,9 +62,9 @@ const schemas = [
 ---
 
 <Layout
-  title="Underwings – Cybersecurity Solutions & Software Sales"
-  description="Underwings provides comprehensive cybersecurity services including VAPT, ISO 27001 implementation, security awareness training, and enterprise security software sales with implementation, support, and training."
-  keywords="cybersecurity UAE, VAPT services Dubai, ISO 27001 implementation, security software sales, penetration testing UAE, cybersecurity training, security awareness training, compliance services UAE"
+  title="Underwings – Cybersecurity Solutions | India & UAE"
+  description="Cybersecurity startup in India & UAE. OSCP+ & CPTS certified VAPT, ISO 27001 implementation, security awareness training, and software sales with hands-on support."
+  keywords="cybersecurity startup India, cybersecurity UAE, VAPT services Dubai, ISO 27001 implementation, security software sales, penetration testing, cybersecurity training, OSCP penetration testing, compliance services UAE"
   wfPage="6920627afaad5c7afb54bfa8"
   schema={schemas}
 >
@@ -111,6 +112,46 @@ const schemas = [
     @keyframes heroFadeIn {
       from { filter: blur(3px); opacity: 0; transform: translateY(1rem); }
       to { filter: blur(0); opacity: 1; transform: translateY(0); }
+    }
+
+    /* Hero Stats */
+    .hero-stats {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 2.5rem;
+      padding: 1.25rem 2.5rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+    }
+    .hero-stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    .hero-stat-num {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #24d758;
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    }
+    .hero-stat-label {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .hero-stat-divider {
+      width: 1px;
+      height: 2.5rem;
+      background: rgba(255,255,255,0.1);
+    }
+    @media (max-width: 600px) {
+      .hero-stats { flex-direction: column; gap: 1rem; padding: 1.25rem; }
+      .hero-stat-divider { width: 3rem; height: 1px; }
     }
 
     /* Pentest Diagram Styles */
@@ -196,8 +237,36 @@ const schemas = [
       font-size: 0.85rem;
     }
     .ctf-trust-item svg { color: #24d758; flex-shrink: 0; }
+    .ctf-response-indicator {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-top: 1.5rem;
+      padding: 0.75rem 1rem;
+      background: rgba(36,215,88,0.06);
+      border: 1px solid rgba(36,215,88,0.15);
+      border-radius: 8px;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.7);
+    }
+    .ctf-response-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #24d758;
+      flex-shrink: 0;
+      animation: ctfPulse 2s ease-in-out infinite;
+    }
+    .ctf-response-dot.offline {
+      background: #888;
+      animation: none;
+    }
+    @keyframes ctfPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
     .ctf-direct {
-      margin-top: 2rem;
+      margin-top: 1.5rem;
       padding-top: 1.5rem;
       border-top: 1px solid rgba(255,255,255,0.08);
     }
@@ -277,6 +346,29 @@ const schemas = [
     .ctf-field textarea {
       resize: vertical;
       min-height: 100px;
+    }
+    .ctf-consent {
+      margin-bottom: 0.5rem;
+    }
+    .ctf-checkbox-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.5;
+      cursor: pointer;
+    }
+    .ctf-checkbox-label input[type="checkbox"] {
+      margin-top: 0.2rem;
+      accent-color: #24d758;
+      min-width: 16px;
+      min-height: 16px;
+      cursor: pointer;
+    }
+    .ctf-checkbox-label a {
+      color: #24d758;
+      text-decoration: underline;
     }
     .ctf-submit {
       display: inline-flex;
@@ -588,16 +680,33 @@ const schemas = [
               <div class="neon-line-shadow"></div>
             </div>
             <div data-w-id="19df5849-171b-4eae-062f-4812128bbbb8" class="hero-heading-wrapper">
-              <h1 class="heading-large hero-heading-large hero-fade-in">Security Software. Services. <span class="text-gradient-clip bg-color-green-gradient">Complete Protection.</span></h1>
-              <p class="text text-center hero-fade-in" style="animation-delay: 0.2s">Enterprise cybersecurity software sales, implementation, and expert security services</p>
+              <h1 class="heading-large hero-heading-large hero-fade-in">Cybersecurity That's <span class="text-gradient-clip bg-color-green-gradient">Honest, Hands-On & Affordable</span></h1>
+              <p class="text text-center hero-fade-in" style="animation-delay: 0.2s">We're a new cybersecurity startup in India & UAE — OSCP+ & CPTS certified, backed by real credentials, and built to give growing businesses the security they actually need. Penetration testing, ISO 27001, security training, and software — without the enterprise markup.</p>
             </div>
             <div class="hero-cta-mobile-button hero-fade-in" style="animation-delay: 0.4s">
               <div class="button">
-                <a href="/#contact" class="button-hidden w-button">Get started</a>
+                <a href="/#contact" class="button-hidden w-button">Let's Talk</a>
                 <div class="button-wrapper">
-                  <div class="button-text">Get started</div>
+                  <div class="button-text">Let's Talk</div>
                 </div>
                 <div class="button-accent-gradinet"></div>
+              </div>
+            </div>
+            <!-- Hero Stats -->
+            <div class="hero-stats hero-fade-in" style="animation-delay: 0.6s">
+              <div class="hero-stat">
+                <span class="hero-stat-num">OSCP+ & CPTS</span>
+                <span class="hero-stat-label">Certified Testers</span>
+              </div>
+              <div class="hero-stat-divider" aria-hidden="true"></div>
+              <div class="hero-stat">
+                <span class="hero-stat-num">India & UAE</span>
+                <span class="hero-stat-label">Operating From</span>
+              </div>
+              <div class="hero-stat-divider" aria-hidden="true"></div>
+              <div class="hero-stat">
+                <span class="hero-stat-num">24h</span>
+                <span class="hero-stat-label">Response Time</span>
               </div>
             </div>
           </div>
@@ -651,8 +760,8 @@ const schemas = [
             <div data-w-id="b8841d35-0707-69f9-57ef-8d20c44d263f" class="label">
               <div class="text-small color-grey">Cybersecurity Software Sales</div>
             </div>
-            <h2 data-w-id="179c1623-13df-8a0e-1e2c-9b54442d3704" class="heading heading-center">Enterprise security solutions -<br> <span class="text-gradient-clip bg-color-green-gradient"><code class="code">Implementation, Support, and Training included</code></span></h2>
-            <p data-w-id="74043303-85bb-873d-9493-0a71a57f9a3b" class="text-medium vertical-heading-description">We partner with leading cybersecurity vendors to bring you world-class security software. From endpoint protection to SIEM solutions, we handle the entire lifecycle — sales, implementation, ongoing support, and comprehensive training for your team.</p>
+            <h2 data-w-id="179c1623-13df-8a0e-1e2c-9b54442d3704" class="heading heading-center">Security software that actually gets deployed -<br> <span class="text-gradient-clip bg-color-green-gradient"><code class="code">Implementation, Support, and Training included</code></span></h2>
+            <p data-w-id="74043303-85bb-873d-9493-0a71a57f9a3b" class="text-medium vertical-heading-description">We partner with leading cybersecurity vendors so you don't have to navigate the market alone. From endpoint protection to SIEM, we handle everything — selection, deployment, training, and ongoing support. No shelfware.</p>
 
             <!-- Trusted Technology Partners -->
             <div data-w-id="partners-section" style="margin-top: 3rem;" class="partners-section">
@@ -962,6 +1071,14 @@ const schemas = [
               </div>
             </div>
           </div>
+          <!-- ISO Section CTA -->
+          <div style="display: flex; align-items: center; justify-content: center; gap: 1.5rem; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.08);">
+            <p class="text-medium color-grey" style="margin: 0;">Ready to get audit-ready without the chaos?</p>
+            <a href="/services/iso-27001" class="nav-link-gradient" style="font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.4rem; text-decoration: none; white-space: nowrap;">
+              Start your ISO 27001 journey
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
         </div>
       </div>
     </section>
@@ -1061,6 +1178,21 @@ const schemas = [
                 <span>NIST</span><span>NESA</span><span>Infrastructure VAPT</span><span>Training</span>
               </div>
             </div>
+
+            <!-- Oil & Gas / Energy -->
+            <div class="ind-card">
+              <div class="ind-card-top">
+                <div class="ind-icon" aria-hidden="true">
+                  <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M14 3v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M10 9h8l2 6H8l2-6z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><rect x="9" y="15" width="10" height="9" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M12 19h4M5 24h18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                </div>
+                <div class="ind-threat-badge">Nation-state risk</div>
+              </div>
+              <h3 class="ind-title">Oil, Gas & Energy</h3>
+              <p class="ind-desc">OT/ICS security assessments, SCADA system testing, and compliance with energy sector regulations. Protecting operational technology from threats that can impact physical infrastructure.</p>
+              <div class="ind-services">
+                <span>OT/ICS VAPT</span><span>SCADA Testing</span><span>ISO 27001</span><span>Staff Training</span>
+              </div>
+            </div>
           </div>
 
           <!-- CTA row -->
@@ -1074,28 +1206,28 @@ const schemas = [
         </div>
       </div>
     </section>
-    <section id="about-us" class="section bg-color-grey-gradient bottom-padding-clear" style="overflow: hidden;">
+    <section id="about-us" class="section bg-color-grey-gradient bottom-padding-clear">
       <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
         <div data-w-id="71d94dcc-6696-ef8a-8008-1058c6cb48e2" class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
       </div>
       <div class="container">
         <div class="vertical-heading-top vertical-heading-top-medium">
-          <div data-w-id="09fd0b50-34c2-fc2f-a95c-8409e893c450" class="neon-line-box neon-line-box-section">
-            <div data-w-id="09fd0b50-34c2-fc2f-a95c-8409e893c451" class="neon-line-parent">
+          <div class="neon-line-box neon-line-box-section about-anim" style="filter:blur(3px);opacity:0">
+            <div class="neon-line-parent about-neon-parent" style="filter:grayscale(100%)">
               <div class="neon-line-inner"></div>
             </div>
             <div class="neon-line-shadow"></div>
           </div>
-          <h2 class="heading heading-center"><span class="text-gradient-clip bg-color-green-gradient"><code>We don't just check boxes, we find real vulnerabilities, fix compliance gaps, and train your people</code></span></h2>
-          <p class="text-medium vertical-heading-description vertical-heading-description-medium" style="max-width: 650px; margin-left: auto; margin-right: auto;">Real-world penetration testing uncovers what scanners miss. Streamlined compliance gets you audit-ready without the chaos. And security-aware employees become your strongest defense — not your weakest link.</p>
+          <h2 class="heading heading-center about-anim" style="filter:blur(3px);opacity:0"><span class="text-gradient-clip bg-color-green-gradient"><code>We don't just check boxes, we find real vulnerabilities, fix compliance gaps, and train your people</code></span></h2>
+          <p class="text-medium vertical-heading-description vertical-heading-description-medium about-anim" style="max-width: 650px; margin-left: auto; margin-right: auto; text-align: center; filter:blur(3px); opacity:0;">Real-world penetration testing uncovers what scanners miss. Streamlined compliance gets you audit-ready without the chaos. And security-aware employees become your strongest defense — not your weakest link.</p>
         </div>
       </div>
       <div class="motion-cubes-section">
         <div class="container container-motion-cubes">
-          <div data-w-id="024953ae-3887-983a-7fe1-2d6ca83c1f68" class="motion-cubes">
+          <div class="motion-cubes">
             <div class="motion-cubes-wrapper">
-              <div data-w-id="c925bbce-b506-645f-cba4-6b3258ede183" class="motion-cube-col">
-                <div data-w-id="c925bbce-b506-645f-cba4-6b3258ede184" class="cube-height">
+              <div class="motion-cube-col" data-cube="1">
+                <div class="cube-height">
                   <div class="cube-face bottom-small">
                     <div class="cube-rib-light"></div>
                     <div class="cube-rib-light cube-rib-left"></div>
@@ -1130,8 +1262,8 @@ const schemas = [
                   </div>
                 </div>
               </div>
-              <div data-w-id="8614fdb1-5325-6ff2-3784-e56f894b73c7" class="motion-cube-col motion-cube-col-middle">
-                <div data-w-id="8614fdb1-5325-6ff2-3784-e56f894b73c8" class="cube-height">
+              <div class="motion-cube-col motion-cube-col-middle" data-cube="2">
+                <div class="cube-height">
                   <div class="cube-face bottom-small">
                     <div class="cube-rib-light"></div>
                     <div class="cube-rib-light cube-rib-left">
@@ -1160,8 +1292,8 @@ const schemas = [
                   </div>
                 </div>
               </div>
-              <div data-w-id="57ebea3c-84df-8c0f-aa55-8e3e791a0e36" class="motion-cube-col">
-                <div data-w-id="57ebea3c-84df-8c0f-aa55-8e3e791a0e37" class="cube-height">
+              <div class="motion-cube-col" data-cube="3">
+                <div class="cube-height">
                   <div class="cube-face bottom-small">
                     <div class="cube-rib-light"></div>
                     <div class="cube-rib-light cube-rib-left"></div>
@@ -1169,16 +1301,16 @@ const schemas = [
                   <div class="cube-face back-height">
                     <div class="cube-rib-light"></div>
                     <div class="cube-rib-light cube-rib-left cube-rib-left-long">
-                      <div data-w-id="151e5378-463f-813e-1b0b-9cfb3ac00f2f" class="cube-neon-vertical cube-neon-vertical-mini margin-left"></div>
+                      <div class="cube-neon-vertical cube-neon-vertical-mini margin-left" data-neon="c3a"></div>
                     </div>
                   </div>
                   <div class="cube-face right-small">
                     <div class="cube-rib-light"></div>
                     <div class="cube-rib-light cube-rib-right cube-rib-short">
-                      <div data-w-id="b326e48d-3b1b-a602-3e64-9b18a8a2c656" class="cube-neon-vertical cube-neon-vertical-mini margin-left"></div>
+                      <div class="cube-neon-vertical cube-neon-vertical-mini margin-left" data-neon="c3b"></div>
                     </div>
                     <div class="cube-rib-light cube-rib-left cube-rib-left-long">
-                      <div data-w-id="3efa6418-83ef-ad75-30fd-29b00eb6b76f" class="cube-neon-vertical cube-neon-vertical-mini margin-left"></div>
+                      <div class="cube-neon-vertical cube-neon-vertical-mini margin-left" data-neon="c3c"></div>
                     </div>
                   </div>
                   <div class="cube-face bottom-small cube-face-second">
@@ -1201,6 +1333,192 @@ const schemas = [
         </div>
       </div>
     </section>
+    <style is:inline>
+      /* Motion Cubes Layout */
+      .motion-cubes-section { overflow: hidden; }
+      .container.container-motion-cubes { max-width: 100.25rem; }
+      .motion-cubes {
+        justify-content: center;
+        align-items: flex-end;
+        width: 100%;
+        padding-top: 8.75rem;
+        display: flex;
+      }
+      .motion-cubes-wrapper {
+        grid-column-gap: 0px;
+        grid-row-gap: 0px;
+        width: calc(var(--sizes--motion-cubes) * 4.25);
+        min-width: calc(var(--sizes--motion-cubes) * 4.25);
+        flex-flow: row;
+        grid-template-rows: auto;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-auto-columns: 1fr;
+        align-items: end;
+        margin-bottom: 0;
+        display: grid;
+      }
+      .motion-cube-col {
+        margin-left: auto;
+        margin-right: auto;
+        transform: translateY(80%);
+        transition: transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+      .motion-cube-col.motion-cube-col-middle {
+        margin-bottom: -3rem;
+        transition-delay: 0.4s;
+      }
+      .motion-cube-col[data-cube="3"] {
+        transition-delay: 0.3s;
+      }
+      .motion-cube-col.cube-visible {
+        transform: translateY(0);
+      }
+      .cube-height {
+        z-index: 1;
+        width: var(--sizes--motion-cubes);
+        height: var(--sizes--motion-cubes);
+        transform-style: preserve-3d;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+        transform: rotateX(145deg) rotateY(45deg);
+      }
+      /* Cube rib-light styles (purged from webflow CSS) */
+      .cube-rib-light {
+        border: 1px dashed var(--colors--white-30);
+        width: 100%;
+        height: 1px;
+        position: absolute;
+        inset: auto 0% 0%;
+      }
+      .cube-rib-light.cube-rib-right {
+        width: 1px;
+        height: 100%;
+        inset: 0% 0% 0% auto;
+      }
+      .cube-rib-light.cube-rib-right.cube-rib-right-topper {
+        height: 7%;
+        top: 100%;
+        bottom: auto;
+      }
+      .cube-rib-light.cube-rib-left {
+        width: 1px;
+        height: 100%;
+        inset: 0% auto 0% 0%;
+      }
+      .cube-rib-light.cube-rib-left.cube-rib-left-topper {
+        height: 7%;
+        top: 100%;
+      }
+      .cube-rib-light.cube-rib-left.cube-rib-left-long {
+        height: 130%;
+        top: -30%;
+      }
+      .cube-rib-light.cube-rib-topper {
+        bottom: -7%;
+      }
+      /* Neon line looping animations */
+      @keyframes neon-v-1 {
+        0%, 100% { transform: translateY(13.75rem); }
+        50% { transform: translateY(6.25rem); }
+      }
+      @keyframes neon-h-1 {
+        0%, 100% { transform: translateX(13.75rem); }
+        50% { transform: translateX(0); }
+      }
+      @keyframes neon-v-2 {
+        0%, 100% { transform: translateY(13.75rem); }
+        50% { transform: translateY(0); }
+      }
+      @keyframes neon-v-c3a {
+        0%, 100% { transform: translateY(3rem); }
+        50% { transform: translateY(18rem); }
+      }
+      @keyframes neon-v-c3b {
+        0%, 100% { transform: translateY(13.75rem); }
+        50% { transform: translateY(6.25rem); }
+      }
+      /* Cube 1 neon animations */
+      [data-cube="1"] .cube-neon-vertical {
+        animation: neon-v-1 5s ease-in-out infinite;
+      }
+      [data-cube="1"] .cube-neon {
+        animation: neon-h-1 5s ease-in-out infinite;
+      }
+      /* Cube 2 neon animations */
+      [data-cube="2"] .cube-neon-vertical {
+        animation: neon-v-2 5s ease-in-out infinite;
+      }
+      [data-cube="2"] .cube-neon {
+        animation: neon-h-1 5s ease-in-out infinite;
+      }
+      /* Cube 3 neon animations */
+      [data-neon="c3a"] { animation: neon-v-c3a 5s ease-in-out infinite; }
+      [data-neon="c3b"] { animation: neon-v-c3b 5s ease-in-out infinite; }
+      [data-neon="c3c"] { animation: neon-v-c3a 5s ease-in-out infinite; }
+
+      /* About section scroll animations */
+      .about-anim {
+        transition: filter 0.4s ease-in-out, opacity 0.6s ease-in-out;
+      }
+      .about-anim.anim-visible {
+        filter: blur(0) !important;
+        opacity: 1 !important;
+      }
+      .about-neon-parent {
+        transition: filter 1.5s ease-in-out;
+      }
+      .about-neon-parent.anim-visible {
+        filter: grayscale(0) !important;
+      }
+      @media screen and (max-width: 991px) {
+        .container.container-motion-cubes { max-width: 106.438rem; }
+        .motion-cubes-wrapper { width: max-content; }
+        .motion-cube-col { width: auto; }
+      }
+      @media screen and (max-width: 767px) {
+        .container.container-motion-cubes { padding-left: 0; padding-right: 0; }
+      }
+    </style>
+    <script is:inline nonce={Astro.locals.nonce || ""}>
+      (function() {
+        var section = document.getElementById('about-us');
+        if (!section) return;
+        var cubes = section.querySelectorAll('.motion-cube-col');
+        var animEls = section.querySelectorAll('.about-anim');
+        var neonParent = section.querySelector('.about-neon-parent');
+
+        // Cubes animation
+        var cubeObserver = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              cubes.forEach(function(col) { col.classList.add('cube-visible'); });
+            } else {
+              cubes.forEach(function(col) { col.classList.remove('cube-visible'); });
+            }
+          });
+        }, { threshold: 0.2 });
+        var motionCubes = section.querySelector('.motion-cubes');
+        if (motionCubes) cubeObserver.observe(motionCubes);
+
+        // Text + neon line animation with stagger
+        var textObserver = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              var delay = 0;
+              animEls.forEach(function(el) {
+                setTimeout(function() { el.classList.add('anim-visible'); }, delay);
+                delay += 200;
+              });
+              if (neonParent) {
+                setTimeout(function() { neonParent.classList.add('anim-visible'); }, 300);
+              }
+            }
+          });
+        }, { threshold: 0.1 });
+        textObserver.observe(section.querySelector('.vertical-heading-top'));
+      })();
+    </script>
     <section id="contact" class="section bg-color-dark">
       <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
         <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
@@ -1212,8 +1530,8 @@ const schemas = [
             <div class="label label-white">
               <div class="text-small">Contact</div>
             </div>
-            <h2 class="heading ctf-heading">Ready to test your security?</h2>
-            <p class="text ctf-desc">Tell us about your needs — whether it's penetration testing, compliance support, or security training. We'll get back to you within 24 hours with a clear next step.</p>
+            <h2 class="heading ctf-heading">Let's figure out what you actually need</h2>
+            <p class="text ctf-desc">We're a small team, so you'll talk to someone who actually does the work — not a sales rep. Tell us what you're dealing with and we'll give you an honest recommendation within 24 hours.</p>
             <div class="ctf-trust">
               <div class="ctf-trust-item">
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M9 1l2 5h5l-4 3 1.5 5L9 11.5 4.5 14 6 9 2 6h5L9 1z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
@@ -1228,6 +1546,10 @@ const schemas = [
                 <span>No obligation</span>
               </div>
             </div>
+            <div class="ctf-response-indicator" id="ctf-response-indicator">
+              <div class="ctf-response-dot"></div>
+              <span id="ctf-response-text">We typically respond within 24 hours</span>
+            </div>
             <div class="ctf-direct">
               <p class="text-small color-grey">Or reach us directly:</p>
               <a href="mailto:contact@underwings.org" class="ctf-direct-link">contact@underwings.org</a>
@@ -1240,17 +1562,17 @@ const schemas = [
               <div class="ctf-form-row">
                 <div class="ctf-field">
                   <label for="ctf-name">Full Name <span class="ctf-req">*</span></label>
-                  <input type="text" id="ctf-name" name="fullname" placeholder="Your full name" required autocomplete="name">
+                  <input type="text" id="ctf-name" name="fullname" placeholder="Your full name" required autocomplete="name" aria-required="true" aria-invalid="false">
                 </div>
                 <div class="ctf-field">
                   <label for="ctf-company">Company <span class="ctf-req">*</span></label>
-                  <input type="text" id="ctf-company" name="company" placeholder="Company name" required autocomplete="organization">
+                  <input type="text" id="ctf-company" name="company" placeholder="Company name" required autocomplete="organization" aria-required="true" aria-invalid="false">
                 </div>
               </div>
               <div class="ctf-form-row">
                 <div class="ctf-field">
                   <label for="ctf-email">Work Email <span class="ctf-req">*</span></label>
-                  <input type="email" id="ctf-email" name="email" placeholder="you@company.com" required autocomplete="email">
+                  <input type="email" id="ctf-email" name="email" placeholder="you@company.com" required autocomplete="email" aria-required="true" aria-invalid="false">
                 </div>
                 <div class="ctf-field">
                   <label for="ctf-phone">Phone</label>
@@ -1259,7 +1581,7 @@ const schemas = [
               </div>
               <div class="ctf-field">
                 <label for="ctf-service">What can we help with? <span class="ctf-req">*</span></label>
-                <select id="ctf-service" name="service" required>
+                <select id="ctf-service" name="service" required aria-required="true" aria-invalid="false">
                   <option value="" disabled selected>Select a service</option>
                   <option value="security-software">Security Software Solutions</option>
                   <option value="vapt">Penetration Testing (VAPT)</option>
@@ -1271,8 +1593,17 @@ const schemas = [
               </div>
               <div class="ctf-field">
                 <label for="ctf-message">Tell us about your project <span class="ctf-req">*</span></label>
-                <textarea id="ctf-message" name="message" placeholder="Brief description of your security needs, timeline, or questions..." required rows="4"></textarea>
+                <textarea id="ctf-message" name="message" placeholder="Brief description of your security needs, timeline, or questions..." required rows="4" aria-required="true" aria-invalid="false"></textarea>
               </div>
+              <!-- Privacy Consent -->
+              <div class="ctf-consent">
+                <label class="ctf-checkbox-label">
+                  <input type="checkbox" id="ctf-consent" required>
+                  <span>I agree to allow Underwings Cybersecurity Solutions to store and process my personal data. <a href="/privacy-policy" target="_blank">Privacy Policy</a></span>
+                </label>
+              </div>
+              <!-- Turnstile CAPTCHA (renders only if site key is configured via PUBLIC_TURNSTILE_SITE_KEY env var) -->
+              <div id="ctf-turnstile" style="margin-bottom:0.5rem;"></div>
               <!-- Honeypot -->
               <div style="position:absolute;left:-9999px;" aria-hidden="true"><input type="text" name="website" tabindex="-1" autocomplete="off"></div>
               <button type="submit" class="ctf-submit">
@@ -1297,16 +1628,27 @@ const schemas = [
       </div>
     </section>
 
-    <script is:inline>
+    <script is:inline nonce={Astro.locals.nonce || ""}>
     (function() {
-      // ==============================================
-      // HubSpot Forms API Integration
-      // Replace with your actual HubSpot Portal ID and Form GUID
-      // Portal ID: HubSpot > Settings > Account Defaults
-      // Form GUID: HubSpot > Marketing > Forms > form URL
-      // ==============================================
-      var HUBSPOT_PORTAL_ID = 'YOUR_PORTAL_ID';
-      var HUBSPOT_FORM_GUID = 'YOUR_FORM_GUID';
+      // Render Turnstile widget if site key is configured
+      if (window.__TURNSTILE_SITE_KEY && typeof turnstile !== 'undefined') {
+        turnstile.render('#ctf-turnstile', {
+          sitekey: window.__TURNSTILE_SITE_KEY,
+          theme: 'dark',
+        });
+      } else if (window.__TURNSTILE_SITE_KEY) {
+        // Turnstile script may not be loaded yet, wait for it
+        document.addEventListener('DOMContentLoaded', function() {
+          if (typeof turnstile !== 'undefined') {
+            turnstile.render('#ctf-turnstile', {
+              sitekey: window.__TURNSTILE_SITE_KEY,
+              theme: 'dark',
+            });
+          }
+        });
+      }
+
+      // HubSpot Forms API Integration (proxied through server)
 
       var form = document.getElementById('contact-form');
       if (!form) return;
@@ -1316,6 +1658,19 @@ const schemas = [
 
         // Honeypot
         if (form.querySelector('[name="website"]').value) return;
+
+        // Validate required fields and set aria-invalid
+        var requiredFields = form.querySelectorAll('[required]');
+        var hasError = false;
+        requiredFields.forEach(function(field) {
+          if (!field.value || (field.type === 'checkbox' && !field.checked)) {
+            field.setAttribute('aria-invalid', 'true');
+            hasError = true;
+          } else {
+            field.setAttribute('aria-invalid', 'false');
+          }
+        });
+        if (hasError) return;
 
         var submitBtn = form.querySelector('.ctf-submit');
         var textEl = submitBtn.querySelector('.ctf-submit-text');
@@ -1331,39 +1686,52 @@ const schemas = [
         var firstName = nameParts[0] || '';
         var lastName = nameParts.slice(1).join(' ') || '';
 
+        // Include Turnstile token if available
+        var turnstileInput = form.querySelector('[name="cf-turnstile-response"]');
+        var turnstileToken = turnstileInput ? turnstileInput.value : '';
+
         var payload = {
           fields: [
             { name: 'firstname', value: firstName },
             { name: 'lastname', value: lastName },
+            { name: '0-2/name', value: fullName },
             { name: 'company', value: form.querySelector('#ctf-company').value },
             { name: 'email', value: form.querySelector('#ctf-email').value },
             { name: 'phone', value: form.querySelector('#ctf-phone').value },
-            { name: 'service_interest', value: form.querySelector('#ctf-service').value },
+            { name: 'what_can_we_help_with_', value: form.querySelector('#ctf-service').value },
             { name: 'message', value: form.querySelector('#ctf-message').value }
           ],
-          context: {
-            pageUri: window.location.href,
-            pageName: document.title,
-            hutk: document.cookie.match(/hubspotutk=([^;]*)/)?.[1] || ''
+          'cf-turnstile-response': turnstileToken,
+          context: Object.assign(
+            { pageUri: window.location.href, pageName: document.title },
+            (function() { var m = document.cookie.match(/hubspotutk=([^;]+)/); return m ? { hutk: m[1] } : {}; })()
+          ),
+          legalConsentOptions: {
+            consent: {
+              consentToProcess: true,
+              text: 'I agree to allow Underwings Cybersecurity Solutions to store and process my personal data.'
+            }
           }
         };
 
-        var url = 'https://api.hsforms.com/submissions/v3/integration/submit/' + HUBSPOT_PORTAL_ID + '/' + HUBSPOT_FORM_GUID;
-
-        fetch(url, {
+        fetch('/api/contact', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
         })
         .then(function(res) {
-          if (res.ok) {
-            form.style.display = 'none';
-            form.parentElement.querySelector('.ctf-success').style.display = 'flex';
-          } else {
-            throw new Error('Failed');
-          }
+          return res.text().then(function(body) {
+            console.log('HubSpot response:', res.status, body);
+            if (res.ok) {
+              form.style.display = 'none';
+              form.parentElement.querySelector('.ctf-success').style.display = 'flex';
+            } else {
+              throw new Error('Status ' + res.status + ': ' + body);
+            }
+          });
         })
-        .catch(function() {
+        .catch(function(err) {
+          console.error('Form submit error:', err);
           form.parentElement.querySelector('.ctf-error').style.display = 'block';
         })
         .finally(function() {
@@ -1373,6 +1741,37 @@ const schemas = [
           submitBtn.disabled = false;
         });
       });
+    })();
+    </script>
+
+    <!-- Timezone-aware response indicator -->
+    <script is:inline nonce={Astro.locals.nonce || ""}>
+    (function() {
+      var el = document.getElementById('ctf-response-text');
+      var dot = document.querySelector('.ctf-response-dot');
+      if (!el || !dot) return;
+
+      var now = new Date();
+      // India: UTC+5:30, UAE: UTC+4 — business hours roughly 9-18 IST (3:30-12:30 UTC)
+      var utcHour = now.getUTCHours();
+      var utcMin = now.getUTCMinutes();
+      var istHour = utcHour + 5 + (utcMin >= 30 ? 1 : 0);
+      var uaeHour = utcHour + 4;
+      var day = now.getUTCDay();
+      var isWeekend = day === 0 || day === 6;
+      var isIndiaHours = istHour >= 9 && istHour < 18;
+      var isUaeHours = uaeHour >= 9 && uaeHour < 18;
+
+      if (isWeekend) {
+        el.textContent = 'Weekend — we\'ll respond by Monday morning (India/UAE time)';
+        dot.classList.add('offline');
+      } else if (isIndiaHours || isUaeHours) {
+        var tz = isUaeHours ? 'UAE' : 'India';
+        el.textContent = 'Our ' + tz + ' team is online — expect a reply within a few hours';
+      } else {
+        el.textContent = 'Our team is currently offline — we\'ll respond within 24 hours';
+        dot.classList.add('offline');
+      }
     })();
     </script>
   </main>

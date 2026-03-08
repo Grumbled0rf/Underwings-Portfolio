@@ -1,6 +1,6 @@
 // ===========================================
 // SUPABASE CLIENT
-// Underwings Technologies
+// Underwings Cybersecurity Solutions
 // ===========================================
 
 import { createClient } from '@supabase/supabase-js';

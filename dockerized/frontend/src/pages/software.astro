@@ -1,7 +1,7 @@
 ---
 // ===========================================
 // SOFTWARE SALES PAGE
-// Underwings Technologies
+// Underwings Cybersecurity Solutions
 // ===========================================
 
 import Layout from '../layouts/Layout.astro';
@@ -12,21 +12,23 @@ import PartnerLogos from '../components/PartnerLogos.astro';
 const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
-  "name": "Enterprise Cybersecurity Software Sales",
+  "name": "Cybersecurity Software Sales & Implementation",
   "provider": {
     "@type": "Organization",
-    "name": "Underwings Technologies",
+    "name": "Underwings Cybersecurity Solutions",
     "url": "https://underwings.org"
   },
-  "description": "Enterprise cybersecurity software sales with full implementation, training, and ongoing support. Endpoint protection, SIEM, email security, network security and more.",
+  "description": "Cybersecurity software sales with full implementation, training, and ongoing support. Endpoint protection, SIEM, email security, network security and more.",
   "areaServed": ["IN", "AE"],
   "serviceType": "Cybersecurity Software Sales & Implementation"
 };
+
+export const prerender = false;
 ---
 
 <Layout
   title="Cybersecurity Software Sales | Underwings"
-  description="Enterprise cybersecurity software sales with full implementation, training, and support. Endpoint protection, SIEM, email security, and more from leading vendors."
+  description="Cybersecurity software sales with full implementation, training, and support. Sophos, Fortinet, ManageEngine, Qualys, and more — deployed and managed for you."
   keywords="cybersecurity software, security software sales, endpoint protection, SIEM solutions, email security, firewall solutions, security software implementation, Sophos, Fortinet, ManageEngine"
   wfPage="software-page"
   schema={serviceSchema}
@@ -53,9 +55,9 @@ const serviceSchema = {
               <p class="text" style="max-width: 680px; margin: 1.5rem auto 0; text-align: center;">We don't just sell licenses — we assess your environment, recommend the right fit, deploy it properly, train your team, and support you long after the sale.</p>
               <div style="margin-top: 2rem; text-align: center;">
                 <div class="button" style="display: inline-block;">
-                  <a href="/#contact" class="button-hidden w-button">Request Quote</a>
+                  <a href="/#contact" class="button-hidden w-button">Let's Talk</a>
                   <div class="button-wrapper">
-                    <div class="button-text">Request a Quote</div>
+                    <div class="button-text">Let's Talk</div>
                   </div>
                   <div class="button-accent-gradinet"></div>
                 </div>
@@ -510,4 +512,4 @@ const serviceSchema = {
   }
 </style>
 
-<script is:inline src="/js/stagger-animate.js" data-selector=".sw-benefit-card, .sw-cat-card, .sw-process-step"></script>
+<script is:inline nonce={Astro.locals.nonce || ""} src="/js/stagger-animate.js" data-selector=".sw-benefit-card, .sw-cat-card, .sw-process-step"></script>

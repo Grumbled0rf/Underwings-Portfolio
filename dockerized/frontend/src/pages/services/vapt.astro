@@ -1,7 +1,7 @@
 ---
 // ===========================================
 // VAPT SERVICES PAGE
-// Underwings Technologies
+// Underwings Cybersecurity Solutions
 // ===========================================
 
 import Layout from '../../layouts/Layout.astro';
@@ -20,11 +20,20 @@ const faqs = [
 const schema = [
   {
     "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://underwings.org" },
+      { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://underwings.org/#services" },
+      { "@type": "ListItem", "position": 3, "name": "VAPT", "item": "https://underwings.org/services/vapt" }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
     "@type": "Service",
     "name": "Vulnerability Assessment & Penetration Testing (VAPT)",
     "provider": {
       "@type": "Organization",
-      "name": "Underwings Technologies",
+      "name": "Underwings Cybersecurity Solutions",
       "url": "https://underwings.org"
     },
     "description": "Comprehensive VAPT services including web application, network, API, mobile, and cloud penetration testing with detailed vulnerability assessments.",
@@ -41,15 +50,17 @@ const schema = [
     }))
   }
 ];
+
+export const prerender = false;
 ---
 
 <Layout
-  title="VAPT Services - Vulnerability Assessment & Penetration Testing | Underwings"
+  title="VAPT Services – Penetration Testing India & UAE | Underwings"
   description="Professional VAPT services in India & UAE. Web application, network, API, and cloud penetration testing. Comprehensive vulnerability assessments with detailed remediation guidance."
   keywords="VAPT UAE, penetration testing Dubai, vulnerability assessment, web application security, API security testing, network penetration testing, cloud security assessment"
   wfPage="vapt-page"
   schema={schema}
-  bodyClass="body"
+  bodyClass="body svc-compact"
 >
   <Header currentPage="services" />
 
@@ -82,9 +93,9 @@ const schema = [
               </div>
               <div class="vapt-hero-cta">
                 <div class="button">
-                  <a href="/#contact" class="button-hidden w-button">Request Assessment</a>
+                  <a href="/#contact" class="button-hidden w-button">Get Started</a>
                   <div class="button-wrapper">
-                    <div class="button-text">Request Assessment</div>
+                    <div class="button-text">Get Started</div>
                   </div>
                   <div class="button-accent-gradinet"></div>
                 </div>
@@ -293,8 +304,8 @@ const schema = [
             </div>
             <div class="vapt-why-card vapt-stagger">
               <div class="vapt-why-number">02</div>
-              <h3 class="vapt-test-title">Startup-Friendly Pricing</h3>
-              <p class="vapt-test-desc">Transparent, scope-based pricing without enterprise markups. Get the same quality of testing that large firms charge 3x for.</p>
+              <h3 class="vapt-test-title">Honest, Transparent Pricing</h3>
+              <p class="vapt-test-desc">We're a startup too, so we get it. Scope-based pricing, no hidden fees, no enterprise markups. Quality testing that fits real budgets.</p>
             </div>
             <div class="vapt-why-card vapt-stagger">
               <div class="vapt-why-number">03</div>
@@ -436,14 +447,47 @@ const schema = [
               <h3 class="svc-cross-title">Security Training</h3>
               <p class="svc-cross-desc">Turn employees into your strongest defence with awareness programs.</p>
             </a>
-            <a href="/software" class="svc-cross-card vapt-stagger">
+            <a href="/services/consultation" class="svc-cross-card vapt-stagger">
               <div class="svc-cross-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M8 21h8M12 17v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 12c0 4.4-3.6 8-8 8s-8-3.6-8-8 3.6-8 8-8 8 3.6 8 8z" stroke="currentColor" stroke-width="1.5"/><path d="M12 8v4l3 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
               </div>
-              <h3 class="svc-cross-title">Security Software</h3>
-              <p class="svc-cross-desc">Enterprise tools — endpoint, SIEM, email & network security deployed right.</p>
+              <h3 class="svc-cross-title">Consultation & Advisory</h3>
+              <p class="svc-cross-desc">Virtual CISO, security architecture review & incident response retainer.</p>
             </a>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lead Magnet -->
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
+        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
+      </div>
+      <div class="container">
+        <div class="lead-magnet vapt-stagger">
+          <div class="lead-magnet-icon">
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M27 5H9a3 3 0 00-3 3v20a3 3 0 003 3h18a3 3 0 003-3V8a3 3 0 00-3-3z" stroke="currentColor" stroke-width="1.5"/><path d="M12 13h12M12 18h8M12 23h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M24 14l-2 2-4-4" stroke="#24d758" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="lead-magnet-content">
+            <h3 class="lead-magnet-title">Free VAPT Scope Template</h3>
+            <p class="lead-magnet-desc">Download our penetration testing scope document template — the same one we use to kick off every engagement. Includes asset inventory checklist, rules of engagement, and testing methodology selection.</p>
+            <div class="lead-magnet-tags">
+              <span>PDF Template</span><span>Editable</span><span>Used in 100+ Engagements</span>
+            </div>
+          </div>
+          <form class="lead-magnet-form" data-lead="vapt-scope-template">
+            <input type="email" placeholder="your@email.com" required autocomplete="email" class="lead-magnet-input">
+            <button type="submit" class="lead-magnet-btn">
+              <span class="lm-btn-text">Download Free</span>
+              <span class="lm-btn-loading" style="display:none;">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="2" stroke-dasharray="30 15" stroke-linecap="round"><animateTransform attributeName="transform" type="rotate" from="0 8 8" to="360 8 8" dur="0.8s" repeatCount="indefinite"/></circle></svg>
+              </span>
+            </button>
+            <div class="lm-msg lm-success" style="display:none;">Check your inbox! The template is on its way.</div>
+            <div class="lm-msg lm-error" style="display:none;">Something went wrong. Try again or email us.</div>
+            <p class="lm-privacy">No spam. Unsubscribe anytime.</p>
+          </form>
         </div>
       </div>
     </section>
@@ -856,4 +900,4 @@ const schema = [
   }
 </style>
 
-<script is:inline src="/js/stagger-animate.js" data-selector=".vapt-stagger"></script>
+<script is:inline nonce={Astro.locals.nonce || ""} src="/js/stagger-animate.js" data-selector=".vapt-stagger"></script>

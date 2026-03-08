@@ -1,7 +1,7 @@
 ---
 // ===========================================
 // NEWS & UPDATES PAGE
-// Underwings Technologies
+// Underwings Cybersecurity Solutions
 // Auto-fetches cybersecurity vendor advisories
 // ===========================================
 export const prerender = false;
@@ -12,7 +12,7 @@ import Footer from '../components/Footer.astro';
 ---
 
 <Layout
-  title="Cybersecurity News & Updates | Underwings Technologies"
+  title="Cybersecurity News & Threat Intelligence | Underwings"
   description="Stay informed with the latest cybersecurity advisories, vulnerability disclosures, and threat intelligence from CISA, The Hacker News, and BleepingComputer."
   keywords="cybersecurity news, CISA advisories, vulnerability updates, threat intelligence, security updates UAE, cyber alerts"
   wfPage="updates-page"
@@ -328,4 +328,4 @@ import Footer from '../components/Footer.astro';
   <Footer />
 </Layout>
 
-<script is:inline src="/js/updates-feed.js"></script>
+<script is:inline nonce={Astro.locals.nonce || ""} src="/js/updates-feed.js"></script>

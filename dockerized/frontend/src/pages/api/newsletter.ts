@@ -8,7 +8,7 @@ const HUBSPOT_API_URL = `https://api-eu1.hsforms.com/submissions/v3/integration/
 const TURNSTILE_SECRET = import.meta.env.TURNSTILE_SECRET_KEY || process.env.TURNSTILE_SECRET_KEY;
 
 async function verifyTurnstile(token: string): Promise<boolean> {
-  if (!TURNSTILE_SECRET) return true; // Skip if not configured
+  if (!TURNSTILE_SECRET) return true;
   if (!token) return false;
   const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
     method: 'POST',
@@ -22,6 +22,14 @@ async function verifyTurnstile(token: string): Promise<boolean> {
 export const POST: APIRoute = async ({ request }) => {
   try {
     const body = await request.json();
+    const { email, lead_magnet } = body;
+
+    if (!email || typeof email !== 'string' || !email.includes('@')) {
+      return new Response(JSON.stringify({ error: 'Valid email required' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
 
     // Verify Turnstile CAPTCHA if configured
     if (TURNSTILE_SECRET) {
@@ -32,13 +40,35 @@ export const POST: APIRoute = async ({ request }) => {
           headers: { 'Content-Type': 'application/json' },
         });
       }
-      delete body['cf-turnstile-response'];
     }
+
+    const helpText = lead_magnet
+      ? `Lead Magnet: ${lead_magnet}`
+      : 'Newsletter Subscription';
+
+    const payload = {
+      fields: [
+        { name: 'email', value: email },
+        { name: 'firstname', value: '' },
+        { name: '0-2/name', value: '' },
+        { name: 'what_can_we_help_with_', value: helpText },
+      ],
+      context: {
+        pageUri: request.headers.get('referer') || 'https://underwings.org',
+        pageName: lead_magnet ? `Lead Magnet: ${lead_magnet}` : 'Newsletter Signup',
+      },
+      legalConsentOptions: {
+        consent: {
+          consentToProcess: true,
+          text: 'I agree to receive cybersecurity updates from Underwings Cybersecurity Solutions.',
+        },
+      },
+    };
 
     const res = await fetch(HUBSPOT_API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
+      body: JSON.stringify(payload),
     });
 
     const data = await res.text();
@@ -48,7 +78,7 @@ export const POST: APIRoute = async ({ request }) => {
       headers: { 'Content-Type': 'application/json' },
     });
   } catch {
-    return new Response(JSON.stringify({ error: 'Submission failed' }), {
+    return new Response(JSON.stringify({ error: 'Subscription failed' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
     });

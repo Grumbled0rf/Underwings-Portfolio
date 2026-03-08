@@ -1,8 +1,9 @@
 ---
 // ===========================================
 // FOOTER COMPONENT
-// Underwings Technologies
+// Underwings Cybersecurity Solutions
 // ===========================================
+const nonce = Astro.locals.nonce || "";
 ---
 
 <footer id="footer" data-wf--footer--variant="black" class="footer w-variant-2d3c46da-753e-dab6-6d26-4f15379a30dd">
@@ -14,9 +15,9 @@
             <!-- Logo & Tagline -->
             <div id="w-node-f2b4380d-560d-1d13-931c-82460eddde1d-0eddde17" class="footer-top-part footer-top-part-between">
               <a href="/" class="logo w-nav-brand">
-                <img src="/images/logowhiteUW.png" loading="lazy" alt="Underwings Technologies Logo" srcset="/images/logowhiteUW-p-500.png 500w, /images/logowhiteUW.png 639w" sizes="150px" class="logo-image">
+                <img src="/images/logowhiteUW.png" loading="lazy" alt="Underwings Cybersecurity Solutions Logo" srcset="/images/logowhiteUW-p-500.png 500w, /images/logowhiteUW.png 639w" sizes="150px" class="logo-image">
               </a>
-              <div style="font-size: 0.85rem; color: rgba(255,255,255,0.7); line-height: 1.6;">Practical cybersecurity<br>for businesses in India & UAE</div>
+              <p style="font-size: 0.8rem; color: rgba(255,255,255,0.5); line-height: 1.7; margin-top: 1rem; max-width: 260px;">A cybersecurity startup making real security accessible to growing businesses. Software, pentesting, compliance, and training — without the enterprise price tag.</p>
             </div>
 
             <!-- 3-Column Nav Grid -->
@@ -35,6 +36,9 @@
                 </li>
                 <li class="footer-nav-list-item">
                   <a data-name="scramble" href="/services/training" class="footer-nav-link nav-link-gradient w-inline-block"><div>Training</div></a>
+                </li>
+                <li class="footer-nav-list-item">
+                  <a data-name="scramble" href="/services/consultation" class="footer-nav-link nav-link-gradient w-inline-block"><div>Consultation</div></a>
                 </li>
                 <li class="footer-nav-list-item">
                   <a data-name="scramble" href="/software" class="footer-nav-link nav-link-gradient w-inline-block"><div>Software</div></a>
@@ -56,16 +60,13 @@
                   <a data-name="scramble" href="/updates" class="footer-nav-link nav-link-gradient w-inline-block"><div>Updates</div></a>
                 </li>
                 <li class="footer-nav-list-item">
+                  <a data-name="scramble" href="/careers" class="footer-nav-link nav-link-gradient w-inline-block"><div>Careers</div></a>
+                </li>
+                <li class="footer-nav-list-item">
                   <a data-name="scramble" href="/brand" class="footer-nav-link nav-link-gradient w-inline-block"><div>Brand</div></a>
                 </li>
                 <li class="footer-nav-list-item">
                   <a data-name="scramble" href="/privacy-policy" class="footer-nav-link nav-link-gradient w-inline-block"><div>Privacy Policy</div></a>
-                </li>
-                <li class="footer-nav-list-item">
-                  <a data-name="scramble" href="/pitstack" class="footer-nav-link nav-link-gradient" style="display: inline-flex; align-items: center; gap: 0.5rem;">
-                    <div>Pitstack</div>
-                    <span class="coming-soon-badge" style="font-size: 0.55rem;">Soon</span>
-                  </a>
                 </li>
               </ul>
 
@@ -104,6 +105,36 @@
           </div>
         </nav>
       </div>
+      <!-- Newsletter -->
+      <div class="footer-newsletter">
+        <div class="footer-newsletter-inner">
+          <div class="footer-newsletter-text">
+            <h3 class="footer-newsletter-heading">Monthly Threat Briefing for CISOs & CTOs</h3>
+            <p class="footer-newsletter-desc">Get curated vulnerability alerts, zero-day analysis, compliance updates, and practical security tips — delivered once a month. No fluff.</p>
+            <div class="nl-what-you-get">
+              <span>Zero-Day Alerts</span>
+              <span>Compliance Updates</span>
+              <span>Attack Trend Analysis</span>
+              <span>Tool Reviews</span>
+            </div>
+          </div>
+          <form id="newsletter-form" class="footer-newsletter-form">
+            <div class="footer-newsletter-input-wrap">
+              <input type="email" id="nl-email" placeholder="your@email.com" required autocomplete="email">
+              <button type="submit" class="footer-newsletter-btn">
+                <span class="nl-btn-text">Subscribe Free</span>
+                <span class="nl-btn-loading" style="display:none;">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="2" stroke-dasharray="30 15" stroke-linecap="round"><animateTransform attributeName="transform" type="rotate" from="0 8 8" to="360 8 8" dur="0.8s" repeatCount="indefinite"/></circle></svg>
+                </span>
+              </button>
+            </div>
+            <div class="nl-msg nl-success" style="display:none;">You're in! Check your inbox for the welcome briefing.</div>
+            <div class="nl-msg nl-error" style="display:none;">Something went wrong. Try again or email us.</div>
+            <p class="nl-privacy-note">Join 500+ security professionals. Unsubscribe anytime.</p>
+          </form>
+        </div>
+      </div>
+
       <div class="footer-bottom-content">
         <div class="footer-bottom-lines-grid">
           <div id="w-node-f2b4380d-560d-1d13-931c-82460eddde42-0eddde17" class="footer-bottom-part">
@@ -127,7 +158,7 @@
         </div>
         <div class="footer-bottom-content-grid">
           <div id="w-node-f2b4380d-560d-1d13-931c-82460eddde49-0eddde17" class="footer-bottom-part">
-            <p class="copy-text">&copy; {new Date().getFullYear()} Underwings Technologies. All rights reserved.</p>
+            <p class="copy-text">&copy; {new Date().getFullYear()} Underwings Cybersecurity Solutions. All rights reserved.</p>
           </div>
           <div class="footer-bottom-part">
             <p class="copy-text">India & UAE</p>
@@ -140,3 +171,153 @@
     <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
   </div>
 </footer>
+
+<style is:inline>
+  .footer-newsletter {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding: 2.5rem 0;
+  }
+  .footer-newsletter-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    max-width: 100%;
+  }
+  .footer-newsletter-text { flex: 1; min-width: 0; }
+  .footer-newsletter-heading {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    margin: 0 0 0.3rem;
+  }
+  .footer-newsletter-desc {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.5);
+    margin: 0;
+    line-height: 1.5;
+  }
+  .footer-newsletter-form { flex: 1; min-width: 0; max-width: 420px; }
+  .footer-newsletter-input-wrap {
+    display: flex;
+    gap: 0;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .footer-newsletter-input-wrap:focus-within {
+    border-color: #24d758;
+  }
+  .footer-newsletter-input-wrap input {
+    flex: 1;
+    background: rgba(255,255,255,0.05);
+    border: none;
+    padding: 0.7rem 1rem;
+    color: #fff;
+    font-size: 0.85rem;
+    font-family: inherit;
+    outline: none;
+    min-width: 0;
+  }
+  .footer-newsletter-input-wrap input::placeholder {
+    color: rgba(255,255,255,0.3);
+  }
+  .footer-newsletter-btn {
+    background: #24d758;
+    border: none;
+    padding: 0.7rem 1.2rem;
+    color: #000;
+    font-size: 0.85rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s;
+  }
+  .footer-newsletter-btn:hover { background: #1db84a; }
+  .footer-newsletter-btn:disabled { opacity: 0.7; cursor: not-allowed; }
+  .nl-msg {
+    font-size: 0.75rem;
+    margin-top: 0.5rem;
+    line-height: 1.4;
+  }
+  .nl-success { color: #24d758; }
+  .nl-error { color: #ff4444; }
+  .nl-what-you-get {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.6rem;
+  }
+  .nl-what-you-get span {
+    font-size: 0.65rem;
+    padding: 0.2rem 0.5rem;
+    background: rgba(36,215,88,0.08);
+    border: 1px solid rgba(36,215,88,0.2);
+    border-radius: 4px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.3px;
+  }
+  .nl-privacy-note {
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.3);
+    margin: 0.4rem 0 0;
+    line-height: 1.4;
+  }
+  @media (max-width: 768px) {
+    .footer-newsletter-inner {
+      flex-direction: column;
+      text-align: center;
+    }
+    .footer-newsletter-form { max-width: 100%; width: 100%; }
+    .nl-msg { text-align: center; }
+  }
+</style>
+
+<script is:inline nonce={nonce}>
+(function() {
+  var form = document.getElementById('newsletter-form');
+  if (!form) return;
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var email = form.querySelector('#nl-email').value.trim();
+    if (!email) return;
+
+    var btn = form.querySelector('.footer-newsletter-btn');
+    var textEl = btn.querySelector('.nl-btn-text');
+    var loadEl = btn.querySelector('.nl-btn-loading');
+    textEl.style.display = 'none';
+    loadEl.style.display = 'inline-flex';
+    btn.disabled = true;
+
+    var successEl = form.querySelector('.nl-success');
+    var errorEl = form.querySelector('.nl-error');
+    successEl.style.display = 'none';
+    errorEl.style.display = 'none';
+
+    fetch('/api/newsletter', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email })
+    })
+    .then(function(res) {
+      if (res.ok) {
+        successEl.style.display = 'block';
+        form.querySelector('#nl-email').value = '';
+      } else {
+        throw new Error('Failed');
+      }
+    })
+    .catch(function() {
+      errorEl.style.display = 'block';
+    })
+    .finally(function() {
+      textEl.style.display = '';
+      loadEl.style.display = 'none';
+      btn.disabled = false;
+    });
+  });
+})();
+</script>

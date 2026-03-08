@@ -1,7 +1,7 @@
 ---
 // ===========================================
 // CYBERSECURITY TRAINING PAGE
-// Underwings Technologies
+// Underwings Cybersecurity Solutions
 // ===========================================
 
 import Layout from '../../layouts/Layout.astro';
@@ -11,11 +11,20 @@ import Footer from '../../components/Footer.astro';
 const schema = [
   {
     "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://underwings.org" },
+      { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://underwings.org/#services" },
+      { "@type": "ListItem", "position": 3, "name": "Training", "item": "https://underwings.org/services/training" }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
     "@type": "Service",
     "name": "Cybersecurity Awareness Training",
     "provider": {
       "@type": "Organization",
-      "name": "Underwings Technologies",
+      "name": "Underwings Cybersecurity Solutions",
       "url": "https://underwings.org"
     },
     "description": "Cybersecurity awareness training programs including phishing simulations, role-based training, compliance training, and live workshops.",
@@ -54,6 +63,8 @@ const schema = [
     ]
   }
 ];
+
+export const prerender = false;
 ---
 
 <Layout
@@ -62,7 +73,7 @@ const schema = [
   keywords="security awareness training UAE, phishing simulation Dubai, cybersecurity training, employee security training, compliance training UAE, social engineering training, security training India"
   wfPage="training-page"
   schema={schema}
-  bodyClass="body"
+  bodyClass="body svc-compact"
 >
   <Header currentPage="services" />
 
@@ -98,9 +109,9 @@ const schema = [
               </div>
               <div style="margin-top: 1.5rem;">
                 <div class="button">
-                  <a href="/#contact" class="button-hidden w-button">Start Training Program</a>
+                  <a href="/#contact" class="button-hidden w-button">Get Started</a>
                   <div class="button-wrapper">
-                    <div class="button-text">Start Training Program</div>
+                    <div class="button-text">Get Started</div>
                   </div>
                   <div class="button-accent-gradinet"></div>
                 </div>
@@ -602,12 +613,12 @@ const schema = [
               <h3 class="svc-cross-title">ISO 27001 Implementation</h3>
               <p class="svc-cross-desc">End-to-end compliance — gap assessment to certification audit support.</p>
             </a>
-            <a href="/software" class="svc-cross-card trn-stagger">
+            <a href="/services/consultation" class="svc-cross-card trn-stagger">
               <div class="svc-cross-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="2" y="3" width="20" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M8 21h8M12 17v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M20 12c0 4.4-3.6 8-8 8s-8-3.6-8-8 3.6-8 8-8 8 3.6 8 8z" stroke="currentColor" stroke-width="1.5"/><path d="M12 8v4l3 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
               </div>
-              <h3 class="svc-cross-title">Security Software</h3>
-              <p class="svc-cross-desc">Enterprise tools — endpoint, SIEM, email & network security deployed right.</p>
+              <h3 class="svc-cross-title">Consultation & Advisory</h3>
+              <p class="svc-cross-desc">Virtual CISO, security architecture review & incident response retainer.</p>
             </a>
           </div>
         </div>
@@ -689,6 +700,39 @@ const schema = [
               <p class="trn-faq-answer">Our training modules are delivered via a web-based platform accessible on any device — desktop, tablet, or mobile. No software installation required. We can also integrate with your existing LMS.</p>
             </details>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lead Magnet -->
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
+        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
+      </div>
+      <div class="container">
+        <div class="lead-magnet trn-stagger">
+          <div class="lead-magnet-icon">
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M6 28V8a2 2 0 012-2h16l6 6v16a2 2 0 01-2 2H8a2 2 0 01-2-2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M24 6v6h6" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M13 18l3 3 7-7" stroke="#24d758" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="lead-magnet-content">
+            <h3 class="lead-magnet-title">Security Awareness Training ROI Calculator</h3>
+            <p class="lead-magnet-desc">Calculate the return on investment for security awareness training. Input your team size, industry, and current phishing click rate to see projected cost savings from reduced incidents.</p>
+            <div class="lead-magnet-tags">
+              <span>Interactive Spreadsheet</span><span>Industry Benchmarks</span><span>Board-Ready Charts</span>
+            </div>
+          </div>
+          <form class="lead-magnet-form" data-lead="training-roi-calculator">
+            <input type="email" placeholder="your@email.com" required autocomplete="email" class="lead-magnet-input">
+            <button type="submit" class="lead-magnet-btn">
+              <span class="lm-btn-text">Download Free</span>
+              <span class="lm-btn-loading" style="display:none;">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="2" stroke-dasharray="30 15" stroke-linecap="round"><animateTransform attributeName="transform" type="rotate" from="0 8 8" to="360 8 8" dur="0.8s" repeatCount="indefinite"/></circle></svg>
+              </span>
+            </button>
+            <div class="lm-msg lm-success" style="display:none;">Check your inbox! The calculator is on its way.</div>
+            <div class="lm-msg lm-error" style="display:none;">Something went wrong. Try again or email us.</div>
+            <p class="lm-privacy">No spam. Unsubscribe anytime.</p>
+          </form>
         </div>
       </div>
     </section>
@@ -1259,4 +1303,4 @@ const schema = [
   }
 </style>
 
-<script is:inline src="/js/stagger-animate.js" data-selector=".trn-stagger"></script>
+<script is:inline nonce={Astro.locals.nonce || ""} src="/js/stagger-animate.js" data-selector=".trn-stagger"></script>

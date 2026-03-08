@@ -1,17 +1,19 @@
 ---
 // ===========================================
 // BRAND GUIDELINES PAGE
-// Underwings Technologies
+// Underwings Cybersecurity Solutions
 // ===========================================
 
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+
+export const prerender = false;
 ---
 
 <Layout
-  title="Brand Guidelines | Underwings Technologies"
-  description="Official brand guidelines for Underwings Technologies. Logo usage, color palette, typography, and downloadable brand assets."
+  title="Brand Guidelines | Underwings Cybersecurity Solutions"
+  description="Official Underwings brand guidelines. Logo usage rules, color palette, Geist typography, and downloadable brand assets for partners and media."
   keywords="Underwings brand, brand guidelines, logo, brand assets, media kit"
   wfPage="brand-page"
   schema={null}
@@ -34,7 +36,7 @@ import Footer from '../components/Footer.astro';
               <div class="brand-label">
                 <div class="text-small color-grey">Brand Guidelines</div>
               </div>
-              <h1 class="heading-large hero-heading-large">Our <span class="text-gradient-clip bg-color-green-gradient">Identity</span></h1>
+              <h1 class="heading-large hero-heading-large">Brand <span class="text-gradient-clip bg-color-green-gradient">Guidelines</span></h1>
               <p class="text" style="max-width: 620px; margin: 1rem auto 0; text-align: center;">Guidelines for using the Underwings brand. Follow these rules to maintain consistency across all communications.</p>
             </div>
           </div>
@@ -616,4 +618,4 @@ import Footer from '../components/Footer.astro';
   }
 </style>
 
-<script is:inline src="/js/stagger-animate.js" data-selector=".brand-logo-card, .brand-color-card, .brand-type-card, .brand-guideline-card, .brand-scale-item"></script>
+<script is:inline nonce={Astro.locals.nonce || ""} src="/js/stagger-animate.js" data-selector=".brand-logo-card, .brand-color-card, .brand-type-card, .brand-guideline-card, .brand-scale-item"></script>

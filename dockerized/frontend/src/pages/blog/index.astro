@@ -22,9 +22,14 @@ const displayPosts = hasNextPage ? posts.slice(0, POSTS_PER_PAGE) : posts;
 ---
 
 <Layout
-  title={currentPage > 1 ? `Blog - Page ${currentPage} - Underwings Technologies` : "Blog - Underwings Technologies"}
-  description="Insights on cybersecurity, compliance, penetration testing, and security best practices from the Underwings team."
+  title={currentPage > 1 ? `Blog - Page ${currentPage} - Underwings Cybersecurity Solutions` : "Blog - Underwings Cybersecurity Solutions"}
+  description="Expert insights on cybersecurity, compliance frameworks, penetration testing, and security best practices from the Underwings team. Stay ahead of threats."
+  keywords="cybersecurity blog, penetration testing insights, ISO 27001 guide, security best practices, VAPT blog, compliance tips, cybersecurity news India UAE"
 >
+  <Fragment slot="head">
+    {currentPage > 1 && <link rel="prev" href={currentPage === 2 ? '/blog' : `/blog?page=${currentPage - 1}`} />}
+    {hasNextPage && <link rel="next" href={`/blog?page=${currentPage + 1}`} />}
+  </Fragment>
   <Header currentPage="blog" />
 
   <main id="main" class="main">

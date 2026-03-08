@@ -1,4 +1,4 @@
-# Underwings Technologies - Dockerized Stack
+# Underwings Cybersecurity Solutions - Dockerized Stack
 
 Full-stack dockerized solution with Astro frontend, self-hosted Supabase, and custom admin dashboard.
 
@@ -246,4 +246,4 @@ docker-compose logs db
 
 ## License
 
-Proprietary - Underwings Technologies
+Proprietary - Underwings Cybersecurity Solutions

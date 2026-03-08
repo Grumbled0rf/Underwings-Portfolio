@@ -39,6 +39,10 @@ services:
       - PUBLIC_SUPABASE_URL=http://kong:8000
       - PUBLIC_SUPABASE_ANON_KEY=${ANON_KEY}
       - PUBLIC_SITE_URL=${SITE_URL}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - PUBLIC_TURNSTILE_SITE_KEY=${TURNSTILE_SITE_KEY}
+      - TURNSTILE_SECRET_KEY=${TURNSTILE_SECRET_KEY}
+      - SUPABASE_SERVICE_ROLE_KEY=${SERVICE_ROLE_KEY}
     restart: always
     networks:
       - underwings-network
@@ -259,7 +263,7 @@ services:
     environment:
       STUDIO_PG_META_URL: http://meta:8080
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      DEFAULT_ORGANIZATION_NAME: Underwings Technologies
+      DEFAULT_ORGANIZATION_NAME: Underwings Cybersecurity Solutions
       DEFAULT_PROJECT_NAME: Underwings Website
       SUPABASE_URL: http://kong:8000
       SUPABASE_PUBLIC_URL: ${SUPABASE_PUBLIC_URL}

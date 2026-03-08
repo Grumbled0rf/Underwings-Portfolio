@@ -1,14 +1,15 @@
 ---
 // ===========================================
-// 404 NOT FOUND PAGE
-// Underwings Cybersecurity Solutions
+// CATCH-ALL 404 ROUTE
+// Catches any unmatched URL and returns 404
 // ===========================================
+export const prerender = false;
 
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
-export const prerender = false;
+Astro.response.status = 404;
 ---
 
 <Layout
