@@ -276,7 +276,7 @@ const nonce = Astro.locals.nonce || "";
   }
 </style>
 
-<script is:inline>
+<script is:inline nonce={nonce}>
 (function() {
   var form = document.getElementById('footer-newsletter-form');
   if (!form) return;

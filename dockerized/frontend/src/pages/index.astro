@@ -1631,21 +1631,21 @@ const schemas = [
     <script is:inline nonce={Astro.locals.nonce || ""}>
     (function() {
       // Render Turnstile widget if site key is configured
-      if (window.__TURNSTILE_SITE_KEY && typeof turnstile !== 'undefined') {
-        turnstile.render('#ctf-turnstile', {
-          sitekey: window.__TURNSTILE_SITE_KEY,
-          theme: 'dark',
-        });
-      } else if (window.__TURNSTILE_SITE_KEY) {
-        // Turnstile script may not be loaded yet, wait for it
-        document.addEventListener('DOMContentLoaded', function() {
-          if (typeof turnstile !== 'undefined') {
+      // Uses polling to handle async script load race condition
+      if (window.__TURNSTILE_SITE_KEY) {
+        var turnstileAttempts = 0;
+        function tryRenderTurnstile() {
+          if (typeof turnstile !== 'undefined' && document.getElementById('ctf-turnstile')) {
             turnstile.render('#ctf-turnstile', {
               sitekey: window.__TURNSTILE_SITE_KEY,
               theme: 'dark',
             });
+          } else if (turnstileAttempts < 20) {
+            turnstileAttempts++;
+            setTimeout(tryRenderTurnstile, 250);
           }
-        });
+        }
+        tryRenderTurnstile();
       }
 
       // HubSpot Forms API Integration (proxied through server)
