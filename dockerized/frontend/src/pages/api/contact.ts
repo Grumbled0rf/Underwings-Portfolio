@@ -1,11 +1,7 @@
 import type { APIRoute } from 'astro';
 import { createClient } from '@supabase/supabase-js';
-import { checkRateLimit, rateLimitResponse, getClientIP } from '../../lib/rate-limit';
 
 export const prerender = false;
-
-// Rate limit: 5 submissions per 15 minutes per IP
-const CONTACT_RATE_LIMIT = { windowMs: 900_000, maxRequests: 5 };
 
 const HUBSPOT_PORTAL_ID = '147940148';
 const HUBSPOT_FORM_GUID = '838aa154-ee64-47e0-a6bf-4d20c5408ca5';
@@ -20,11 +16,8 @@ const supabase = supabaseUrl && (supabaseServiceKey || supabaseAnonKey)
   ? createClient(supabaseUrl, supabaseServiceKey || supabaseAnonKey)
   : null;
 
-const SITE_URL = import.meta.env.PUBLIC_SITE_URL || process.env.PUBLIC_SITE_URL || '';
-const IS_LOCAL = SITE_URL.includes('localhost') || SITE_URL.includes('127.0.0.1');
-
 async function verifyTurnstile(token: string): Promise<boolean> {
-  if (!TURNSTILE_SECRET || IS_LOCAL) return true;
+  if (!TURNSTILE_SECRET) return true;
   if (!token) return false;
   const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
     method: 'POST',
@@ -36,10 +29,6 @@ async function verifyTurnstile(token: string): Promise<boolean> {
 }
 
 export const POST: APIRoute = async ({ request }) => {
-  const ip = getClientIP(request);
-  const { allowed, retryAfterMs } = checkRateLimit(`contact:${ip}`, CONTACT_RATE_LIMIT);
-  if (!allowed) return rateLimitResponse(retryAfterMs);
-
   try {
     const body = await request.json();
 

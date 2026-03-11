@@ -1,11 +1,7 @@
 import type { APIRoute } from 'astro';
 import { MsEdgeTTS, OUTPUT_FORMAT } from 'msedge-tts';
-import { checkRateLimit, rateLimitResponse, getClientIP } from '../../lib/rate-limit';
 
 export const prerender = false;
-
-// Rate limit: 5 TTS requests per 5 minutes per IP (resource-intensive)
-const TTS_RATE_LIMIT = { windowMs: 300_000, maxRequests: 5 };
 
 const VOICE = 'en-US-AndrewMultilingualNeural';
 
@@ -63,10 +59,6 @@ async function synthesizeChunk(tts: MsEdgeTTS, text: string): Promise<Buffer> {
 }
 
 export const POST: APIRoute = async ({ request }) => {
-  const ip = getClientIP(request);
-  const { allowed, retryAfterMs } = checkRateLimit(`tts:${ip}`, TTS_RATE_LIMIT);
-  if (!allowed) return rateLimitResponse(retryAfterMs);
-
   let tts: MsEdgeTTS | null = null;
   try {
     const body = await request.json();

@@ -118,9 +118,9 @@ const nonce = Astro.locals.nonce || "";
               <span>Tool Reviews</span>
             </div>
           </div>
-          <form id="footer-newsletter-form" class="footer-newsletter-form" novalidate>
+          <form id="newsletter-form" class="footer-newsletter-form">
             <div class="footer-newsletter-input-wrap">
-              <input type="email" id="nl-email" placeholder="your@email.com" required autocomplete="email" aria-label="Email for newsletter">
+              <input type="email" id="nl-email" placeholder="your@email.com" required autocomplete="email">
               <button type="submit" class="footer-newsletter-btn">
                 <span class="nl-btn-text">Subscribe Free</span>
                 <span class="nl-btn-loading" style="display:none;">
@@ -207,40 +207,39 @@ const nonce = Astro.locals.nonce || "";
     transition: border-color 0.2s;
   }
   .footer-newsletter-input-wrap:focus-within {
-    border-color: rgba(36,215,88,0.5);
+    border-color: #24d758;
   }
-  #nl-email {
+  .footer-newsletter-input-wrap input {
     flex: 1;
     background: rgba(255,255,255,0.05);
     border: none;
-    padding: 0.7rem 0.85rem;
+    padding: 0.7rem 1rem;
     color: #fff;
-    font-size: 0.825rem;
+    font-size: 0.85rem;
     font-family: inherit;
     outline: none;
     min-width: 0;
   }
-  #nl-email::placeholder { color: rgba(255,255,255,0.3); }
+  .footer-newsletter-input-wrap input::placeholder {
+    color: rgba(255,255,255,0.3);
+  }
   .footer-newsletter-btn {
     background: #24d758;
     border: none;
-    padding: 0.7rem 1.1rem;
+    padding: 0.7rem 1.2rem;
     color: #000;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: 600;
     font-family: inherit;
     cursor: pointer;
     white-space: nowrap;
     transition: background 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
   }
   .footer-newsletter-btn:hover { background: #1db84a; }
   .footer-newsletter-btn:disabled { opacity: 0.7; cursor: not-allowed; }
   .nl-msg {
     font-size: 0.75rem;
-    margin-top: 0.4rem;
+    margin-top: 0.5rem;
     line-height: 1.4;
   }
   .nl-success { color: #24d758; }
@@ -278,57 +277,38 @@ const nonce = Astro.locals.nonce || "";
 
 <script is:inline nonce={nonce}>
 (function() {
-  var form = document.getElementById('footer-newsletter-form');
+  var form = document.getElementById('newsletter-form');
   if (!form) return;
-  var HS_URL = 'https://api-eu1.hsforms.com/submissions/v3/integration/submit/147940148/48612ae2-0011-4bba-b2d3-9fa1770f515b';
 
   form.addEventListener('submit', function(e) {
     e.preventDefault();
-    var emailEl = document.getElementById('nl-email');
-    var email = emailEl.value.trim();
-    if (!email || !email.includes('@')) {
-      emailEl.setAttribute('aria-invalid', 'true');
-      return;
-    }
-    emailEl.setAttribute('aria-invalid', 'false');
+    var email = form.querySelector('#nl-email').value.trim();
+    if (!email) return;
 
     var btn = form.querySelector('.footer-newsletter-btn');
-    var textEl = form.querySelector('.nl-btn-text');
-    var loadEl = form.querySelector('.nl-btn-loading');
-    var successEl = form.querySelector('.nl-success');
-    var errorEl = form.querySelector('.nl-error');
-
+    var textEl = btn.querySelector('.nl-btn-text');
+    var loadEl = btn.querySelector('.nl-btn-loading');
     textEl.style.display = 'none';
     loadEl.style.display = 'inline-flex';
     btn.disabled = true;
+
+    var successEl = form.querySelector('.nl-success');
+    var errorEl = form.querySelector('.nl-error');
     successEl.style.display = 'none';
     errorEl.style.display = 'none';
 
-    fetch(HS_URL, {
+    fetch('/api/newsletter', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        fields: [
-          { name: 'email', value: email },
-          { name: 'what_can_we_help_with_', value: 'Newsletter Subscription' }
-        ],
-        context: {
-          pageUri: window.location.href,
-          pageName: 'Newsletter Signup (Footer)'
-        },
-        legalConsentOptions: {
-          consent: {
-            consentToProcess: true,
-            text: 'I agree to receive cybersecurity updates from Underwings Cybersecurity Solutions.'
-          }
-        }
-      })
+      body: JSON.stringify({ email: email })
     })
     .then(function(res) {
       if (res.ok) {
         successEl.style.display = 'block';
-        emailEl.value = '';
-      } else { throw new Error('Failed'); }
+        form.querySelector('#nl-email').value = '';
+      } else {
+        throw new Error('Failed');
+      }
     })
     .catch(function() {
       errorEl.style.display = 'block';

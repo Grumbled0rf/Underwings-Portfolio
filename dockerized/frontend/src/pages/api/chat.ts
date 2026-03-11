@@ -1,12 +1,8 @@
 import type { APIRoute } from 'astro';
-import { checkRateLimit, rateLimitResponse, getClientIP } from '../../lib/rate-limit';
 
 export const prerender = false;
 
 const ANTHROPIC_API_KEY = import.meta.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_API_KEY;
-
-// Rate limit: 10 requests per minute per IP
-const CHAT_RATE_LIMIT = { windowMs: 60_000, maxRequests: 10 };
 
 const SYSTEM_PROMPT = `You are the AI assistant for Underwings Cybersecurity Solutions — a cybersecurity startup operating from India and the UAE. You help website visitors learn about our services, answer questions, and guide them toward the right solution.
 
@@ -84,10 +80,6 @@ interface ChatMessage {
 }
 
 export const POST: APIRoute = async ({ request }) => {
-  const ip = getClientIP(request);
-  const { allowed, retryAfterMs } = checkRateLimit(`chat:${ip}`, CHAT_RATE_LIMIT);
-  if (!allowed) return rateLimitResponse(retryAfterMs);
-
   if (!ANTHROPIC_API_KEY) {
     return new Response(JSON.stringify({ reply: "I'm currently being set up! In the meantime, reach us at **contact@underwings.org** or call **+971 547078203**." }), {
       status: 200,
