@@ -118,10 +118,20 @@ const nonce = Astro.locals.nonce || "";
               <span>Tool Reviews</span>
             </div>
           </div>
-          <div class="footer-newsletter-form" id="hs-newsletter-wrapper">
-            <div class="hs-form-frame" data-region="eu1" data-form-id="48612ae2-0011-4bba-b2d3-9fa1770f515b" data-portal-id="147940148"></div>
+          <form id="footer-newsletter-form" class="footer-newsletter-form" novalidate>
+            <div class="footer-newsletter-input-wrap">
+              <input type="email" id="nl-email" placeholder="your@email.com" required autocomplete="email" aria-label="Email for newsletter">
+              <button type="submit" class="footer-newsletter-btn">
+                <span class="nl-btn-text">Subscribe Free</span>
+                <span class="nl-btn-loading" style="display:none;">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="2" stroke-dasharray="30 15" stroke-linecap="round"><animateTransform attributeName="transform" type="rotate" from="0 8 8" to="360 8 8" dur="0.8s" repeatCount="indefinite"/></circle></svg>
+                </span>
+              </button>
+            </div>
+            <div class="nl-msg nl-success" style="display:none;">You're in! Check your inbox for the welcome briefing.</div>
+            <div class="nl-msg nl-error" style="display:none;">Something went wrong. Try again or email us.</div>
             <p class="nl-privacy-note">Join 500+ security professionals. Unsubscribe anytime.</p>
-          </div>
+          </form>
         </div>
       </div>
 
@@ -188,9 +198,53 @@ const nonce = Astro.locals.nonce || "";
     line-height: 1.5;
   }
   .footer-newsletter-form { flex: 1; min-width: 0; max-width: 420px; }
-  .footer-newsletter-form .hs-form-frame {
-    min-height: 60px;
+  .footer-newsletter-input-wrap {
+    display: flex;
+    gap: 0;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: border-color 0.2s;
   }
+  .footer-newsletter-input-wrap:focus-within {
+    border-color: rgba(36,215,88,0.5);
+  }
+  #nl-email {
+    flex: 1;
+    background: rgba(255,255,255,0.05);
+    border: none;
+    padding: 0.7rem 0.85rem;
+    color: #fff;
+    font-size: 0.825rem;
+    font-family: inherit;
+    outline: none;
+    min-width: 0;
+  }
+  #nl-email::placeholder { color: rgba(255,255,255,0.3); }
+  .footer-newsletter-btn {
+    background: #24d758;
+    border: none;
+    padding: 0.7rem 1.1rem;
+    color: #000;
+    font-size: 0.8rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .footer-newsletter-btn:hover { background: #1db84a; }
+  .footer-newsletter-btn:disabled { opacity: 0.7; cursor: not-allowed; }
+  .nl-msg {
+    font-size: 0.75rem;
+    margin-top: 0.4rem;
+    line-height: 1.4;
+  }
+  .nl-success { color: #24d758; }
+  .nl-error { color: #ff4444; }
   .nl-what-you-get {
     display: flex;
     flex-wrap: wrap;
@@ -222,3 +276,68 @@ const nonce = Astro.locals.nonce || "";
   }
 </style>
 
+<script is:inline>
+(function() {
+  var form = document.getElementById('footer-newsletter-form');
+  if (!form) return;
+  var HS_URL = 'https://api-eu1.hsforms.com/submissions/v3/integration/submit/147940148/48612ae2-0011-4bba-b2d3-9fa1770f515b';
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var emailEl = document.getElementById('nl-email');
+    var email = emailEl.value.trim();
+    if (!email || !email.includes('@')) {
+      emailEl.setAttribute('aria-invalid', 'true');
+      return;
+    }
+    emailEl.setAttribute('aria-invalid', 'false');
+
+    var btn = form.querySelector('.footer-newsletter-btn');
+    var textEl = form.querySelector('.nl-btn-text');
+    var loadEl = form.querySelector('.nl-btn-loading');
+    var successEl = form.querySelector('.nl-success');
+    var errorEl = form.querySelector('.nl-error');
+
+    textEl.style.display = 'none';
+    loadEl.style.display = 'inline-flex';
+    btn.disabled = true;
+    successEl.style.display = 'none';
+    errorEl.style.display = 'none';
+
+    fetch(HS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        fields: [
+          { name: 'email', value: email },
+          { name: 'what_can_we_help_with_', value: 'Newsletter Subscription' }
+        ],
+        context: {
+          pageUri: window.location.href,
+          pageName: 'Newsletter Signup (Footer)'
+        },
+        legalConsentOptions: {
+          consent: {
+            consentToProcess: true,
+            text: 'I agree to receive cybersecurity updates from Underwings Cybersecurity Solutions.'
+          }
+        }
+      })
+    })
+    .then(function(res) {
+      if (res.ok) {
+        successEl.style.display = 'block';
+        emailEl.value = '';
+      } else { throw new Error('Failed'); }
+    })
+    .catch(function() {
+      errorEl.style.display = 'block';
+    })
+    .finally(function() {
+      textEl.style.display = '';
+      loadEl.style.display = 'none';
+      btn.disabled = false;
+    });
+  });
+})();
+</script>
