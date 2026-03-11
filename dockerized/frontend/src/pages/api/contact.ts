@@ -20,8 +20,11 @@ const supabase = supabaseUrl && (supabaseServiceKey || supabaseAnonKey)
   ? createClient(supabaseUrl, supabaseServiceKey || supabaseAnonKey)
   : null;
 
+const SITE_URL = import.meta.env.PUBLIC_SITE_URL || process.env.PUBLIC_SITE_URL || '';
+const IS_LOCAL = SITE_URL.includes('localhost') || SITE_URL.includes('127.0.0.1');
+
 async function verifyTurnstile(token: string): Promise<boolean> {
-  if (!TURNSTILE_SECRET) return true;
+  if (!TURNSTILE_SECRET || IS_LOCAL) return true;
   if (!token) return false;
   const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
     method: 'POST',
