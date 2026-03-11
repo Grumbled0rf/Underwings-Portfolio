@@ -559,7 +559,7 @@ const schemaArray = schemaToRender === null ? [] : Array.isArray(schemaToRender)
   <script is:inline nonce={nonce} src="https://cdn.prod.website-files.com/gsap/3.14.2/gsap.min.js" type="text/javascript" integrity="sha384-sG0Hv1tP1lZCk9KQmrIbY/XNwi+OY84GQqhMscbnsoBFqAz8KNCil1kvfL3Hbbk2" crossorigin="anonymous" defer></script>
   <script is:inline nonce={nonce} src="https://cdn.prod.website-files.com/gsap/3.14.2/ScrambleTextPlugin.min.js" type="text/javascript" integrity="sha384-WLYL9YzLSUMXVSCeTvIeNU1RjveFpJK9drY7FtmMDfLeYdVjyx2/JoVDt/ujHexr" crossorigin="anonymous" defer></script>
   <script is:inline nonce={nonce} src="/js/scramble-init.js" defer></script>
-  <script is:inline nonce={nonce} src="https://assets.calendly.com/assets/external/widget.js"></script>
+  <script is:inline nonce={nonce} src="https://assets.calendly.com/assets/external/widget.js" defer></script>
   <script is:inline nonce={nonce}>
   document.addEventListener('click', function(e) {
     var trigger = e.target.closest('[data-calendly-open]');
@@ -1059,6 +1059,7 @@ const schemaArray = schemaToRender === null ? [] : Array.isArray(schemaToRender)
   <!-- Lead Magnet Forms -->
   <script is:inline nonce={nonce}>
   (function() {
+    var HS_URL = 'https://api-eu1.hsforms.com/submissions/v3/integration/submit/147940148/48612ae2-0011-4bba-b2d3-9fa1770f515b';
     document.querySelectorAll('.lead-magnet-form').forEach(function(form) {
       form.addEventListener('submit', function(e) {
         e.preventDefault();
@@ -1077,10 +1078,17 @@ const schemaArray = schemaToRender === null ? [] : Array.isArray(schemaToRender)
         var errorEl = form.querySelector('.lm-error');
         successEl.style.display = 'none';
         errorEl.style.display = 'none';
-        fetch('/api/newsletter', {
+        fetch(HS_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: email, lead_magnet: leadType })
+          body: JSON.stringify({
+            fields: [
+              { name: 'email', value: email },
+              { name: 'what_can_we_help_with_', value: 'Lead Magnet: ' + leadType }
+            ],
+            context: { pageUri: window.location.href, pageName: 'Lead Magnet: ' + leadType },
+            legalConsentOptions: { consent: { consentToProcess: true, text: 'I agree to receive cybersecurity updates from Underwings Cybersecurity Solutions.' } }
+          })
         })
         .then(function(res) {
           if (res.ok) {
@@ -1258,10 +1266,17 @@ const schemaArray = schemaToRender === null ? [] : Array.isArray(schemaToRender)
       loadEl.style.display = 'inline';
       btn.disabled = true;
 
-      fetch('/api/newsletter', {
+      fetch('https://api-eu1.hsforms.com/submissions/v3/integration/submit/147940148/48612ae2-0011-4bba-b2d3-9fa1770f515b', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email, lead_magnet: 'Security Assessment Checklist' })
+        body: JSON.stringify({
+          fields: [
+            { name: 'email', value: email },
+            { name: 'what_can_we_help_with_', value: 'Lead Magnet: Security Assessment Checklist' }
+          ],
+          context: { pageUri: window.location.href, pageName: 'Exit Intent Popup' },
+          legalConsentOptions: { consent: { consentToProcess: true, text: 'I agree to receive cybersecurity updates from Underwings Cybersecurity Solutions.' } }
+        })
       })
       .then(function(res) {
         if (res.ok) {
@@ -1282,5 +1297,6 @@ const schemaArray = schemaToRender === null ? [] : Array.isArray(schemaToRender)
     });
   })();
   </script>
+  <script is:inline nonce={nonce} src="https://js-eu1.hsforms.net/forms/embed/147940148.js" defer></script>
 </body>
 </html>

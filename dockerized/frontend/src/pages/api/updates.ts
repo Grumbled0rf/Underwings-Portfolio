@@ -1,4 +1,5 @@
 import type { APIRoute } from 'astro';
+import { XMLParser } from 'fast-xml-parser';
 
 export const prerender = false;
 
@@ -39,57 +40,50 @@ const FEEDS = [
   },
 ];
 
-function extractTextContent(xml: string, tag: string): string {
-  // Handle CDATA sections
-  const cdataRegex = new RegExp(`<${tag}[^>]*>\\s*<!\\[CDATA\\[([\\s\\S]*?)\\]\\]>\\s*</${tag}>`, 'i');
-  const cdataMatch = xml.match(cdataRegex);
-  if (cdataMatch) return cdataMatch[1].trim();
+const xmlParser = new XMLParser({
+  ignoreAttributes: false,
+  parseTagValue: true,
+  trimValues: true,
+  processEntities: true,
+});
 
-  const regex = new RegExp(`<${tag}[^>]*>([\\s\\S]*?)</${tag}>`, 'i');
-  const match = xml.match(regex);
-  return match ? match[1].replace(/<[^>]+>/g, '').trim() : '';
+function stripHtml(str: string): string {
+  return typeof str === 'string' ? str.replace(/<[^>]+>/g, '').trim() : '';
 }
 
 function parseRSSItems(xml: string, source: string, sourceIcon: string): FeedItem[] {
+  const parsed = xmlParser.parse(xml);
+  const channel = parsed?.rss?.channel || parsed?.feed;
+  if (!channel) return [];
+
+  const rawItems = channel.item || channel.entry || [];
+  const itemList = Array.isArray(rawItems) ? rawItems : [rawItems];
+
   const items: FeedItem[] = [];
-  const itemRegex = /<item>([\s\S]*?)<\/item>/gi;
-  let match;
+  for (const item of itemList.slice(0, 10)) {
+    const title = stripHtml(String(item.title || ''));
+    const link = typeof item.link === 'string'
+      ? item.link
+      : item.link?.['@_href'] || String(item.guid || '');
+    const rawDesc = stripHtml(String(item.description || item.summary || ''));
+    const pubDate = String(item.pubDate || item.published || item.updated || '');
 
-  while ((match = itemRegex.exec(xml)) !== null && items.length < 10) {
-    const itemXml = match[1];
-    const title = extractTextContent(itemXml, 'title');
-    const link = extractTextContent(itemXml, 'link') || extractTextContent(itemXml, 'guid');
-    const description = extractTextContent(itemXml, 'description');
-    const pubDate = extractTextContent(itemXml, 'pubDate');
+    if (!title || !link) continue;
 
-    if (title && link) {
-      // Detect severity from title/description keywords
-      let severity: string | undefined;
-      const text = (title + ' ' + description).toLowerCase();
-      if (text.includes('critical') || text.includes('emergency') || text.includes('actively exploited')) {
-        severity = 'critical';
-      } else if (text.includes('high') || text.includes('important') || text.includes('vulnerability')) {
-        severity = 'high';
-      } else if (text.includes('medium') || text.includes('moderate')) {
-        severity = 'medium';
-      }
-
-      // Truncate description
-      const cleanDesc = description
-        .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&')
-        .replace(/<[^>]+>/g, '')
-        .slice(0, 200);
-
-      items.push({
-        title,
-        link,
-        description: cleanDesc + (description.length > 200 ? '...' : ''),
-        pubDate,
-        source,
-        sourceIcon,
-        severity,
-      });
+    // Detect severity from title/description keywords
+    let severity: string | undefined;
+    const text = (title + ' ' + rawDesc).toLowerCase();
+    if (text.includes('critical') || text.includes('emergency') || text.includes('actively exploited')) {
+      severity = 'critical';
+    } else if (text.includes('high') || text.includes('important') || text.includes('vulnerability')) {
+      severity = 'high';
+    } else if (text.includes('medium') || text.includes('moderate')) {
+      severity = 'medium';
     }
+
+    const cleanDesc = rawDesc.slice(0, 200) + (rawDesc.length > 200 ? '...' : '');
+
+    items.push({ title, link, description: cleanDesc, pubDate, source, sourceIcon, severity });
   }
 
   return items;

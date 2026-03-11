@@ -1,7 +1,11 @@
 import type { APIRoute } from 'astro';
 import { createClient } from '@supabase/supabase-js';
+import { checkRateLimit, rateLimitResponse, getClientIP } from '../../lib/rate-limit';
 
 export const prerender = false;
+
+// Rate limit: 5 subscriptions per 15 minutes per IP
+const NEWSLETTER_RATE_LIMIT = { windowMs: 900_000, maxRequests: 5 };
 
 const HUBSPOT_PORTAL_ID = '147940148';
 const HUBSPOT_NEWSLETTER_FORM_GUID = '48612ae2-0011-4bba-b2d3-9fa1770f515b';
@@ -29,6 +33,10 @@ async function verifyTurnstile(token: string): Promise<boolean> {
 }
 
 export const POST: APIRoute = async ({ request }) => {
+  const ip = getClientIP(request);
+  const { allowed, retryAfterMs } = checkRateLimit(`newsletter:${ip}`, NEWSLETTER_RATE_LIMIT);
+  if (!allowed) return rateLimitResponse(retryAfterMs);
+
   try {
     const body = await request.json();
     const { email, lead_magnet } = body;
