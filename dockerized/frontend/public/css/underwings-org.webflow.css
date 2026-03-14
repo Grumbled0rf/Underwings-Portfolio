@@ -291,8 +291,8 @@ strong {
 }
 
 .logo-image {
-  width: auto;
-  height: 140%;
+  width: 150px;
+  height: auto;
 }
 
 .navbar-inner {
