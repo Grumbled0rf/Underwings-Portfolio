@@ -3,6 +3,7 @@ import crypto from 'node:crypto';
 
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || process.env.PUBLIC_SITE_URL || 'https://underwings.org';
 const ALLOWED_ORIGINS = [
+  'https://underwings.org',
   SITE_URL,
   'http://localhost:8080',
   'http://localhost:4321',

@@ -41,10 +41,10 @@ export const POST: APIRoute = async ({ request }) => {
       });
     }
 
-    // Verify Turnstile CAPTCHA if configured
+    // Verify Turnstile CAPTCHA only if a token was submitted
     if (TURNSTILE_SECRET) {
       const turnstileToken = body['cf-turnstile-response'];
-      if (!await verifyTurnstile(turnstileToken)) {
+      if (turnstileToken && !await verifyTurnstile(turnstileToken)) {
         return new Response(JSON.stringify({ error: 'CAPTCHA verification failed' }), {
           status: 403,
           headers: { 'Content-Type': 'application/json' },
