@@ -93,8 +93,7 @@ const schemaArray = schemaToRender === null ? [] : Array.isArray(schemaToRender)
   <!-- RSS -->
   <link rel="alternate" type="application/rss+xml" title="Underwings Blog" href="/rss.xml">
 
-  <!-- Calendly -->
-  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+  <!-- Calendly loaded lazily on first click (not on page load) -->
 
   <!-- DNS Prefetch -->
   <link rel="dns-prefetch" href="//assets.calendly.com">
@@ -559,16 +558,29 @@ const schemaArray = schemaToRender === null ? [] : Array.isArray(schemaToRender)
   <script is:inline nonce={nonce} src="https://cdn.prod.website-files.com/gsap/3.14.2/gsap.min.js" type="text/javascript" integrity="sha384-sG0Hv1tP1lZCk9KQmrIbY/XNwi+OY84GQqhMscbnsoBFqAz8KNCil1kvfL3Hbbk2" crossorigin="anonymous" defer></script>
   <script is:inline nonce={nonce} src="https://cdn.prod.website-files.com/gsap/3.14.2/ScrambleTextPlugin.min.js" type="text/javascript" integrity="sha384-WLYL9YzLSUMXVSCeTvIeNU1RjveFpJK9drY7FtmMDfLeYdVjyx2/JoVDt/ujHexr" crossorigin="anonymous" defer></script>
   <script is:inline nonce={nonce} src="/js/scramble-init.js" defer></script>
-  <script is:inline nonce={nonce} src="https://assets.calendly.com/assets/external/widget.js"></script>
   <script is:inline nonce={nonce}>
-  document.addEventListener('click', function(e) {
-    var trigger = e.target.closest('[data-calendly-open]');
-    if (!trigger) return;
-    e.preventDefault();
-    if (typeof Calendly !== 'undefined') {
-      Calendly.initPopupWidget({ url: 'https://calendly.com/manoj-underwings/30min' });
+  (function() {
+    var calendlyLoaded = false;
+    function loadCalendly(cb) {
+      if (calendlyLoaded) { cb(); return; }
+      var css = document.createElement('link');
+      css.rel = 'stylesheet';
+      css.href = 'https://assets.calendly.com/assets/external/widget.css';
+      document.head.appendChild(css);
+      var js = document.createElement('script');
+      js.src = 'https://assets.calendly.com/assets/external/widget.js';
+      js.onload = function() { calendlyLoaded = true; cb(); };
+      document.head.appendChild(js);
     }
-  });
+    document.addEventListener('click', function(e) {
+      var trigger = e.target.closest('[data-calendly-open]');
+      if (!trigger) return;
+      e.preventDefault();
+      loadCalendly(function() {
+        Calendly.initPopupWidget({ url: 'https://calendly.com/manoj-underwings/30min' });
+      });
+    });
+  })();
   </script>
 
   <!-- Unified Chat FAB -->
