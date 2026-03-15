@@ -85,6 +85,15 @@ const schemaArray = schemaToRender === null ? [] : Array.isArray(schemaToRender)
   <link rel="canonical" href={canonical}>
   <meta name="keywords" content={keywords}>
 
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YK74VSS684"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YK74VSS684');
+  </script>
+
   <!-- Structured Data -->
   {schemaArray.map(s => (
     <script type="application/ld+json" set:html={JSON.stringify(s)}></script>
