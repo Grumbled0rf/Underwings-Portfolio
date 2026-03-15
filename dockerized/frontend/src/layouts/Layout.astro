@@ -108,18 +108,10 @@ const schemaArray = schemaToRender === null ? [] : Array.isArray(schemaToRender)
   <link rel="preload" as="font" type="font/woff2" href="/fonts/geist-600.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="/fonts/geist-mono-400.woff2" crossorigin>
 
-  <!-- Critical CSS inlined to prevent FOUC while full CSS loads non-blocking -->
-  <style>:root{--colors--black:#171717;--colors--white:white;--sizes--padding-medium:2.5rem;--sizes--main-offset-top:9.3125rem;--colors--dark:#1e1e1e;--colors--transparent:transparent;--colors--dashed-grey:#606060;--colors--green-light-gradient:#24d758;--colors--green-dark-gradient:#27dab4;--colors--white-60:#fff9;--sizes--padding-large:7.5rem;--sizes--heading-wrapper-padding-top:2rem;--sizes--section-wrapper-paddings-vertical:3.75rem;--font--main:"Droid Sans",sans-serif;--font--secondary:Arial,"Helvetica Neue",Helvetica,sans-serif;--sizes--header-padding-top:2.75rem}body{background-color:#171717;color:white;letter-spacing:-.04em;font-family:Geist Mono,sans-serif;font-size:1rem;font-weight:500;line-height:100%}a{text-decoration:none}img{max-width:100%;display:inline-block}.header{z-index:20;position:fixed;inset:0% 0% auto}.header-offset{height:1.75rem}.navbar{background-color:transparent;padding-top:1rem;padding-bottom:1rem}.navbar-inner{flex-flow:row;justify-content:space-between;align-items:center;display:flex;z-index:18;position:relative}.logo{justify-content:flex-start;align-items:center;width:auto;height:1.75rem;padding:0;display:inline-flex}.logo-image{width:150px;height:auto}.noise-wrapper{z-index:2;pointer-events:none;width:100%;height:100%;position:fixed;inset:0%;overflow:hidden}.noise{background-image:url('/images/noise.webp');background-size:256px;width:140vw;height:140vh;position:fixed;animation:noiseAnimation 0.2s steps(2) infinite}.main{z-index:3;padding-top:var(--sizes--main-offset-top);flex-flow:column;flex:1;display:flex;position:relative}</style>
-
-  <!-- Full CSS loaded non-blocking (critical CSS above prevents FOUC) -->
-  <link rel="preload" href="/css/normalize.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <link rel="preload" href="/css/webflow.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <link rel="preload" href="/css/underwings-org.webflow.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript>
-    <link href="/css/normalize.css" rel="stylesheet">
-    <link href="/css/webflow.css" rel="stylesheet">
-    <link href="/css/underwings-org.webflow.css" rel="stylesheet">
-  </noscript>
+  <!-- Styles -->
+  <link href="/css/normalize.css" rel="stylesheet" type="text/css">
+  <link href="/css/webflow.css" rel="stylesheet" type="text/css">
+  <link href="/css/underwings-org.webflow.css" rel="stylesheet" type="text/css">
 
   <style is:global>
     /* Smooth Scroll */
