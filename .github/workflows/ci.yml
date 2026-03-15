@@ -1,0 +1,115 @@
+# ===========================================
+# CI Pipeline - Build & Validate
+# Underwings Technologies
+# ===========================================
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  # ===========================================
+  # Build Frontend (Astro)
+  # ===========================================
+  build-frontend:
+    name: Build Frontend
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: dockerized/frontend
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: dockerized/frontend/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+        env:
+          PUBLIC_SUPABASE_URL: http://localhost:8000
+          PUBLIC_SUPABASE_ANON_KEY: placeholder-for-ci
+          PUBLIC_SITE_URL: https://underwings.org
+
+      - name: Verify build output
+        run: |
+          test -f dist/server/entry.mjs || (echo "Missing server entry" && exit 1)
+          test -f dist/client/sitemap-index.xml || (echo "Missing sitemap" && exit 1)
+          echo "Build output verified"
+
+  # ===========================================
+  # Build Admin Dashboard
+  # ===========================================
+  build-admin:
+    name: Build Admin
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: dockerized/admin
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: dockerized/admin/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Verify build output
+        run: |
+          test -f dist/index.html || (echo "Missing index.html" && exit 1)
+          echo "Admin build verified"
+
+  # ===========================================
+  # Build Docker Images
+  # ===========================================
+  docker-build:
+    name: Docker Build
+    runs-on: ubuntu-latest
+    needs: [build-frontend, build-admin]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build frontend image
+        run: |
+          docker build \
+            --build-arg PUBLIC_SUPABASE_URL=http://localhost:8000 \
+            --build-arg PUBLIC_SUPABASE_ANON_KEY=placeholder-for-ci \
+            -t underwings-frontend:ci \
+            dockerized/frontend
+
+      - name: Build admin image
+        run: docker build -t underwings-admin:ci dockerized/admin
+
+      - name: Build nginx image
+        run: docker build -t underwings-nginx:ci dockerized/nginx
+
+      - name: Verify frontend container starts
+        run: |
+          docker run -d --name frontend-test \
+            -e PUBLIC_SUPABASE_URL=http://localhost:8000 \
+            -e PUBLIC_SUPABASE_ANON_KEY=placeholder \
+            -e PUBLIC_SITE_URL=https://underwings.org \
+            -p 4321:4321 \
+            underwings-frontend:ci
+          sleep 5
+          curl -sf -o /dev/null http://localhost:4321/ && echo "Frontend healthy" || (docker logs frontend-test && exit 1)
+          docker stop frontend-test

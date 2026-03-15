@@ -3,12 +3,31 @@
 *.env.local
 .env.*.local
 
-# Supabase volumes (database data, storage files)
-supabase/volumes/
-
-# Node modules (if any local installs)
+# Dependencies
 node_modules/
+
+# Build outputs
+dist/
+build/
+
+# IDE
+.idea/
+.vscode/
+.cursor/
+.cursorignore
+*.swp
+*.swo
+
+# Astro cache
+.astro/
 
 # OS files
 .DS_Store
 Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Supabase volumes (database data, storage files)
+dockerized/supabase/volumes/
