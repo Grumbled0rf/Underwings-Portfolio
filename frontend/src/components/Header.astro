@@ -72,16 +72,17 @@ const { currentPage = 'home' } = Astro.props;
           </div>
         </div>
 
-        <!-- Mobile hamburger (custom) -->
-        <button class="uw-mobile-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="uw-mobile-drawer">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
       </div>
     </div>
   </div>
 </header>
+
+<!-- Mobile hamburger — outside Webflow nav to avoid event capture -->
+<button class="uw-mobile-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="uw-mobile-drawer">
+  <span></span>
+  <span></span>
+  <span></span>
+</button>
 
 <!-- Mobile drawer overlay -->
 <div id="uw-mobile-drawer" class="uw-drawer" role="dialog" aria-modal="true" aria-label="Navigation menu">
@@ -136,6 +137,16 @@ const { currentPage = 'home' } = Astro.props;
     .uw-mobile-toggle { display: none !important; }
     .uw-drawer { display: none !important; }
     .uw-drawer-backdrop { display: none !important; }
+  }
+
+  /* ── Position toggle outside w-nav ── */
+  .uw-mobile-toggle {
+    position: fixed;
+    top: 0;
+    right: 1.25rem;
+    height: 72px;
+    z-index: 1200;
+    align-items: center;
   }
 
   /* ── Hamburger button ── */
