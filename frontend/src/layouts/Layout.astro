@@ -296,42 +296,138 @@ const schemaArray = schemaToRender === null ? [] : Array.isArray(schemaToRender)
       color: #24d758;
     }
 
-    /* Mobile mega dropdown — show as flat list */
+    /* ============================================
+       MOBILE MENU — Full overlay redesign
+       ============================================ */
     @media screen and (max-width: 991px) {
+
+      /* Overlay panel */
+      .w-nav-menu {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        width: 100% !important;
+        height: 100vh !important;
+        background: rgba(10, 10, 10, 0.97) !important;
+        backdrop-filter: blur(16px) !important;
+        -webkit-backdrop-filter: blur(16px) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        padding: 5rem 2rem 3rem !important;
+        z-index: 999 !important;
+        overflow-y: auto !important;
+        transform: translateX(100%) !important;
+        transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      }
+
+      /* Slide in when open */
+      .w-nav-menu.w--nav-menu-open {
+        transform: translateX(0) !important;
+      }
+
+      /* Nav menu inner — stack vertically */
+      .nav-menu-inner {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 0.25rem !important;
+        width: 100% !important;
+        max-width: 320px !important;
+      }
+
+      /* All nav links */
+      .nav-link.w-nav-link {
+        font-size: 1.5rem !important;
+        font-weight: 600 !important;
+        color: rgba(255,255,255,0.85) !important;
+        padding: 0.65rem 1rem !important;
+        text-align: center !important;
+        width: 100% !important;
+        border-radius: 8px !important;
+        transition: color 0.2s, background 0.2s !important;
+        letter-spacing: -0.01em !important;
+      }
+      .nav-link.w-nav-link:hover,
+      .nav-link.w-nav-link.w--current {
+        color: #24d758 !important;
+        background: rgba(36, 215, 88, 0.06) !important;
+      }
+
+      /* Services section */
       .nav-dropdown {
-        display: block;
+        display: block !important;
+        width: 100% !important;
+        text-align: center !important;
       }
       .nav-dropdown > .nav-link {
-        pointer-events: none;
+        pointer-events: none !important;
+        font-size: 0.7rem !important;
+        font-weight: 700 !important;
+        color: rgba(255,255,255,0.3) !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.12em !important;
+        padding: 1.25rem 1rem 0.35rem !important;
+        background: none !important;
       }
-      .nav-chevron {
-        display: none;
-      }
+      .nav-chevron { display: none !important; }
+
+      /* Services sub-links */
       .nav-mega-content {
-        display: block;
-        position: static;
-        transform: none;
-        background: transparent;
-        border: none;
-        border-radius: 0;
-        padding: 0 0 0 0.5rem;
-        min-width: auto;
-        box-shadow: none;
-        backdrop-filter: none;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        position: static !important;
+        transform: none !important;
+        background: transparent !important;
+        border: none !important;
+        border-radius: 0 !important;
+        padding: 0 !important;
+        min-width: auto !important;
+        box-shadow: none !important;
+        backdrop-filter: none !important;
+        gap: 0 !important;
+        width: 100% !important;
       }
       .nav-mega-item {
-        padding: 0.5rem 0.5rem;
-        border-radius: 6px;
+        justify-content: center !important;
+        padding: 0.5rem 1rem !important;
+        border-radius: 8px !important;
+        width: 100% !important;
+        gap: 0.5rem !important;
       }
-      .nav-mega-icon {
-        display: none;
-      }
-      .nav-mega-desc {
-        display: none;
-      }
+      .nav-mega-icon { display: none !important; }
+      .nav-mega-desc { display: none !important; }
       .nav-mega-title {
-        font-size: 0.8rem;
-        font-weight: 500;
+        font-size: 1rem !important;
+        font-weight: 500 !important;
+        color: rgba(255,255,255,0.75) !important;
+      }
+      .nav-mega-item:hover .nav-mega-title { color: #24d758 !important; }
+
+      /* Divider before CTA */
+      .header-calendly-btn-mobile {
+        display: block !important;
+        margin-top: 1.5rem !important;
+        padding: 0.85rem 2.5rem !important;
+        background: #24d758 !important;
+        color: #000 !important;
+        font-size: 1rem !important;
+        font-weight: 700 !important;
+        border-radius: 8px !important;
+        text-align: center !important;
+        text-decoration: none !important;
+        width: 100% !important;
+        max-width: 320px !important;
+      }
+
+      /* Hamburger icon on top of overlay */
+      .menu-button.w-nav-button {
+        position: relative !important;
+        z-index: 1000 !important;
       }
     }
 
