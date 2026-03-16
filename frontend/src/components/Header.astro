@@ -134,10 +134,10 @@ const { currentPage = 'home' } = Astro.props;
     .w-nav-menu      { display: none !important; }
   }
 
-  /* ── Drawer: hidden on desktop ── */
+  /* ── Drawer: off-screen on desktop via pointer-events only ── */
   @media (min-width: 992px) {
-    .uw-drawer          { display: none !important; }
-    .uw-drawer-backdrop { display: none !important; }
+    .uw-drawer          { pointer-events: none; visibility: hidden; }
+    .uw-drawer-backdrop { pointer-events: none; visibility: hidden; }
   }
 
   /* ── Backdrop ── */
