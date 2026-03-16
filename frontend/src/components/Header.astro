@@ -291,40 +291,50 @@ const { currentPage = 'home' } = Astro.props;
   }
 </style>
 
-<script>
-  const toggle    = document.querySelector('.uw-mobile-toggle') as HTMLButtonElement;
-  const drawer    = document.getElementById('uw-mobile-drawer')!;
-  const backdrop  = document.getElementById('uw-drawer-backdrop')!;
-  const closeBtn  = drawer.querySelector('.uw-drawer-close') as HTMLButtonElement;
+<script is:inline>
+  (function() {
+    function initDrawer() {
+      var toggle   = document.querySelector('.uw-mobile-toggle');
+      var drawer   = document.getElementById('uw-mobile-drawer');
+      var backdrop = document.getElementById('uw-drawer-backdrop');
+      var closeBtn = drawer && drawer.querySelector('.uw-drawer-close');
 
-  function openDrawer() {
-    drawer.classList.add('is-open');
-    backdrop.classList.add('is-open');
-    toggle.classList.add('is-open');
-    toggle.setAttribute('aria-expanded', 'true');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeDrawer() {
-    drawer.classList.remove('is-open');
-    backdrop.classList.remove('is-open');
-    toggle.classList.remove('is-open');
-    toggle.setAttribute('aria-expanded', 'false');
-    document.body.style.overflow = '';
-  }
+      if (!toggle || !drawer || !backdrop || !closeBtn) return;
 
-  toggle.addEventListener('click', () =>
-    drawer.classList.contains('is-open') ? closeDrawer() : openDrawer()
-  );
-  closeBtn.addEventListener('click', closeDrawer);
-  backdrop.addEventListener('click', closeDrawer);
+      function openDrawer() {
+        drawer.classList.add('is-open');
+        backdrop.classList.add('is-open');
+        toggle.classList.add('is-open');
+        toggle.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeDrawer() {
+        drawer.classList.remove('is-open');
+        backdrop.classList.remove('is-open');
+        toggle.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
 
-  // Close on nav link click
-  drawer.querySelectorAll('.uw-drawer-link, .uw-drawer-btn').forEach(el => {
-    el.addEventListener('click', closeDrawer);
-  });
+      toggle.addEventListener('click', function() {
+        drawer.classList.contains('is-open') ? closeDrawer() : openDrawer();
+      });
+      closeBtn.addEventListener('click', closeDrawer);
+      backdrop.addEventListener('click', closeDrawer);
 
-  // Close on Escape
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeDrawer();
-  });
+      drawer.querySelectorAll('.uw-drawer-link, .uw-drawer-btn').forEach(function(el) {
+        el.addEventListener('click', closeDrawer);
+      });
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeDrawer();
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initDrawer);
+    } else {
+      initDrawer();
+    }
+  })();
 </script>
