@@ -17,11 +17,12 @@ const { currentPage = 'home' } = Astro.props;
   <div data-w-id="c0f57989-f5a9-9c1a-60c9-2841a4ab0ea2" data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" class="navbar w-nav">
     <div class="container-medium header-container-medium w-container">
       <div class="navbar-inner">
+
         <a href="/" aria-current={currentPage === 'home' ? 'page' : undefined} class={`logo w-nav-brand ${currentPage === 'home' ? 'w--current' : ''}`}>
           <img src="/images/logowhiteUW.png" loading="lazy" alt="Underwings Cybersecurity Solutions" srcset="/images/logowhiteUW-p-500.png 500w, /images/logowhiteUW.png 639w" sizes="150px" class="logo-image">
         </a>
 
-        <!-- Desktop nav (hidden on mobile via CSS) -->
+        <!-- Desktop nav -->
         <div class="nav-menu-box uw-desktop-nav">
           <nav role="navigation" aria-label="Main navigation" class="nav-menu w-nav-menu">
             <div class="nav-menu-inner">
@@ -58,8 +59,8 @@ const { currentPage = 'home' } = Astro.props;
           </nav>
         </div>
 
-        <!-- Desktop CTA buttons -->
-        <div class="header-cta-button" style="display: flex; align-items: center; gap: 0.6rem;">
+        <!-- Desktop CTA -->
+        <div class="uw-desktop-cta header-cta-button">
           <div class="button">
             <a href="#" class="button-hidden w-button" data-calendly-open>Book a Call</a>
             <div class="button-wrapper"><div class="button-text">Book a Call</div></div>
@@ -72,19 +73,20 @@ const { currentPage = 'home' } = Astro.props;
           </div>
         </div>
 
+        <!-- Webflow hamburger (kept so Webflow layout works; we intercept its click) -->
+        <div class="menu-button w-nav-button" id="uw-wf-hamburger" aria-label="Open menu" aria-expanded="false" role="button" tabindex="0">
+          <div class="menu-button-lines">
+            <div class="menu-button-line menu-button-line-top"></div>
+            <div class="menu-button-line menu-button-line-bottom"></div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
 </header>
 
-<!-- Mobile hamburger — outside Webflow nav to avoid event capture -->
-<button class="uw-mobile-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="uw-mobile-drawer">
-  <span></span>
-  <span></span>
-  <span></span>
-</button>
-
-<!-- Mobile drawer overlay -->
+<!-- Custom mobile drawer -->
 <div id="uw-mobile-drawer" class="uw-drawer" role="dialog" aria-modal="true" aria-label="Navigation menu">
   <div class="uw-drawer-header">
     <a href="/" class="uw-drawer-logo">
@@ -103,9 +105,7 @@ const { currentPage = 'home' } = Astro.props;
     <a href="/services/iso-27001" class="uw-drawer-link">ISO 27001</a>
     <a href="/services/training" class="uw-drawer-link">Training</a>
     <a href="/services/consultation" class="uw-drawer-link">Consultation</a>
-
     <div class="uw-drawer-divider"></div>
-
     <a href="/software" class="uw-drawer-link">Software</a>
     <a href="/updates" class="uw-drawer-link">Updates</a>
     <a href="/about" class="uw-drawer-link">About</a>
@@ -119,7 +119,6 @@ const { currentPage = 'home' } = Astro.props;
   </div>
 </div>
 
-<!-- Backdrop -->
 <div id="uw-drawer-backdrop" class="uw-drawer-backdrop"></div>
 
 <div data-wf--noise--variant="base" class="noise-wrapper">
@@ -127,57 +126,25 @@ const { currentPage = 'home' } = Astro.props;
 </div>
 
 <style is:global>
-  /* ── Hide Webflow's hamburger on mobile ── */
+  /* ── Mobile: hide desktop elements ── */
   @media (max-width: 991px) {
-    .menu-button.w-nav-button { display: none !important; }
-    .uw-desktop-nav { display: none !important; }
-    .header-cta-button { display: none !important; }
+    .uw-desktop-nav  { display: none !important; }
+    .uw-desktop-cta  { display: none !important; }
+    /* Hide Webflow's own nav menu from opening */
+    .w-nav-menu      { display: none !important; }
   }
+
+  /* ── Drawer: hidden on desktop ── */
   @media (min-width: 992px) {
-    .uw-mobile-toggle { display: none !important; }
-    .uw-drawer { display: none !important; }
+    .uw-drawer          { display: none !important; }
     .uw-drawer-backdrop { display: none !important; }
   }
-
-  /* ── Position toggle outside w-nav ── */
-  .uw-mobile-toggle {
-    position: fixed;
-    top: 0;
-    right: 1.25rem;
-    height: 72px;
-    z-index: 1200;
-    align-items: center;
-  }
-
-  /* ── Hamburger button ── */
-  .uw-mobile-toggle {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 5px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 6px;
-    z-index: 1001;
-  }
-  .uw-mobile-toggle span {
-    display: block;
-    width: 24px;
-    height: 2px;
-    background: #fff;
-    border-radius: 2px;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-  }
-  .uw-mobile-toggle.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-  .uw-mobile-toggle.is-open span:nth-child(2) { opacity: 0; }
-  .uw-mobile-toggle.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
   /* ── Backdrop ── */
   .uw-drawer-backdrop {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.6);
+    background: rgba(0,0,0,0.55);
     z-index: 1099;
     opacity: 0;
     pointer-events: none;
@@ -193,15 +160,15 @@ const { currentPage = 'home' } = Astro.props;
     position: fixed;
     top: 0;
     right: 0;
-    width: min(360px, 88vw);
-    height: 100vh;
+    width: min(340px, 85vw);
+    height: 100dvh;
     background: #0d0d0d;
-    border-left: 1px solid rgba(255,255,255,0.07);
+    border-left: 1px solid rgba(255,255,255,0.08);
     z-index: 1100;
     display: flex;
     flex-direction: column;
     transform: translateX(100%);
-    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
     overflow-y: auto;
   }
   .uw-drawer.is-open {
@@ -213,70 +180,62 @@ const { currentPage = 'home' } = Astro.props;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1.25rem 1.5rem;
+    padding: 1.1rem 1.25rem;
     border-bottom: 1px solid rgba(255,255,255,0.07);
     flex-shrink: 0;
   }
   .uw-drawer-logo img { display: block; }
   .uw-drawer-close {
-    background: none;
-    border: none;
-    color: rgba(255,255,255,0.6);
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    color: rgba(255,255,255,0.7);
     cursor: pointer;
-    padding: 4px;
+    padding: 6px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: color 0.2s;
+    transition: background 0.2s, color 0.2s;
   }
-  .uw-drawer-close:hover { color: #fff; }
+  .uw-drawer-close:hover { background: rgba(255,255,255,0.1); color: #fff; }
 
-  /* ── Nav links ── */
+  /* ── Nav section ── */
   .uw-drawer-nav {
     flex: 1;
-    padding: 1.5rem 1.5rem 1rem;
+    padding: 1.25rem 1rem;
     display: flex;
     flex-direction: column;
-    gap: 0.15rem;
+    gap: 0.1rem;
   }
   .uw-drawer-label {
-    font-size: 0.65rem;
+    font-size: 0.625rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: rgba(255,255,255,0.3);
-    padding: 0.25rem 0.75rem 0.5rem;
+    letter-spacing: 0.14em;
+    color: rgba(255,255,255,0.28);
+    padding: 0.5rem 0.75rem 0.4rem;
+    margin-top: 0.25rem;
   }
   .uw-drawer-link {
-    font-size: 1.05rem;
+    font-size: 1rem;
     font-weight: 500;
-    color: rgba(255,255,255,0.8);
+    color: rgba(255,255,255,0.75);
     text-decoration: none;
-    padding: 0.7rem 0.75rem;
+    padding: 0.65rem 0.75rem;
     border-radius: 8px;
-    transition: background 0.18s, color 0.18s;
+    transition: background 0.15s, color 0.15s;
+    display: block;
   }
-  .uw-drawer-link:hover,
-  .uw-drawer-link:active {
-    background: rgba(255,255,255,0.05);
-    color: #fff;
-  }
-  .uw-drawer-link--dim {
-    font-size: 0.9rem;
-    color: rgba(255,255,255,0.45);
-  }
-  .uw-drawer-divider {
-    height: 1px;
-    background: rgba(255,255,255,0.07);
-    margin: 0.75rem 0;
-  }
+  .uw-drawer-link:hover { background: rgba(255,255,255,0.05); color: #fff; }
+  .uw-drawer-link--dim  { color: rgba(255,255,255,0.38); font-size: 0.88rem; }
+  .uw-drawer-divider    { height: 1px; background: rgba(255,255,255,0.07); margin: 0.6rem 0; }
 
-  /* ── CTA buttons ── */
+  /* ── CTA ── */
   .uw-drawer-cta {
-    padding: 1rem 1.5rem 2rem;
+    padding: 0.9rem 1rem 2rem;
     display: flex;
     flex-direction: column;
-    gap: 0.65rem;
+    gap: 0.6rem;
     flex-shrink: 0;
     border-top: 1px solid rgba(255,255,255,0.07);
   }
@@ -286,66 +245,66 @@ const { currentPage = 'home' } = Astro.props;
     text-decoration: none;
     font-size: 0.95rem;
     font-weight: 600;
-    padding: 0.85rem 1rem;
+    padding: 0.8rem 1rem;
     border-radius: 8px;
-    transition: opacity 0.2s;
   }
-  .uw-drawer-btn:active { opacity: 0.8; }
-  .uw-drawer-btn--primary {
-    background: #24d758;
-    color: #000;
-  }
+  .uw-drawer-btn--primary  { background: #24d758; color: #000; }
   .uw-drawer-btn--secondary {
-    background: rgba(255,255,255,0.06);
-    color: #fff;
-    border: 1px solid rgba(255,255,255,0.12);
+    background: transparent;
+    color: rgba(255,255,255,0.8);
+    border: 1px solid rgba(255,255,255,0.15);
   }
+
+  /* ── Hamburger active state (Webflow's button) ── */
+  #uw-wf-hamburger.uw-open .menu-button-line-top    { transform: translateY(5px) rotate(45deg); }
+  #uw-wf-hamburger.uw-open .menu-button-line-bottom { transform: translateY(-5px) rotate(-45deg); }
 </style>
 
 <script is:inline>
-  (function() {
-    function initDrawer() {
-      var toggle   = document.querySelector('.uw-mobile-toggle');
-      var drawer   = document.getElementById('uw-mobile-drawer');
-      var backdrop = document.getElementById('uw-drawer-backdrop');
-      var closeBtn = drawer && drawer.querySelector('.uw-drawer-close');
+(function () {
+  function init() {
+    var hamburger = document.getElementById('uw-wf-hamburger');
+    var drawer    = document.getElementById('uw-mobile-drawer');
+    var backdrop  = document.getElementById('uw-drawer-backdrop');
+    var closeBtn  = drawer ? drawer.querySelector('.uw-drawer-close') : null;
 
-      if (!toggle || !drawer || !backdrop || !closeBtn) return;
+    if (!hamburger || !drawer || !backdrop || !closeBtn) return;
 
-      function openDrawer() {
-        drawer.classList.add('is-open');
-        backdrop.classList.add('is-open');
-        toggle.classList.add('is-open');
-        toggle.setAttribute('aria-expanded', 'true');
-        document.body.style.overflow = 'hidden';
-      }
-      function closeDrawer() {
-        drawer.classList.remove('is-open');
-        backdrop.classList.remove('is-open');
-        toggle.classList.remove('is-open');
-        toggle.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
-      }
-
-      toggle.addEventListener('click', function() {
-        drawer.classList.contains('is-open') ? closeDrawer() : openDrawer();
-      });
-      closeBtn.addEventListener('click', closeDrawer);
-      backdrop.addEventListener('click', closeDrawer);
-
-      drawer.querySelectorAll('.uw-drawer-link, .uw-drawer-btn').forEach(function(el) {
-        el.addEventListener('click', closeDrawer);
-      });
-
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') closeDrawer();
-      });
+    function open() {
+      drawer.classList.add('is-open');
+      backdrop.classList.add('is-open');
+      hamburger.classList.add('uw-open');
+      document.body.style.overflow = 'hidden';
+    }
+    function close() {
+      drawer.classList.remove('is-open');
+      backdrop.classList.remove('is-open');
+      hamburger.classList.remove('uw-open');
+      document.body.style.overflow = '';
     }
 
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initDrawer);
-    } else {
-      initDrawer();
-    }
-  })();
+    // Capture phase — fires BEFORE Webflow's own handler
+    hamburger.addEventListener('click', function (e) {
+      e.stopImmediatePropagation();
+      drawer.classList.contains('is-open') ? close() : open();
+    }, true);
+
+    closeBtn.addEventListener('click', close);
+    backdrop.addEventListener('click', close);
+
+    drawer.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', close);
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') close();
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
 </script>
