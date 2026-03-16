@@ -160,6 +160,15 @@ const schemaArray = schemaToRender === null ? [] : Array.isArray(schemaToRender)
       .header-calendly-btn-mobile {
         display: block;
       }
+      /* Mobile navbar: logo + hamburger only */
+      .header-cta-button {
+        display: none !important;
+      }
+      .navbar-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
     }
 
     /* Global Readability */
