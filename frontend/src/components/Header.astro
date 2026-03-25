@@ -95,7 +95,7 @@ const nonce = Astro.locals.nonce || '';
         <!-- Desktop CTA -->
         <div class="uw-desktop-cta header-cta-button">
           <div class="button">
-            <a href="#" class="button-hidden w-button" data-calendly-open>Book a Call</a>
+            <button type="button" class="button-hidden w-button" data-calendly-open aria-label="Book a call via Calendly">Book a Call</button>
             <div class="button-wrapper"><div class="button-text">Book a Call</div></div>
             <div class="button-accent-gradinet"></div>
           </div>
@@ -168,7 +168,7 @@ const nonce = Astro.locals.nonce || '';
     </nav>
 
     <div class="mob-cta">
-      <a href="#" class="mob-btn mob-btn-green" data-calendly-open>Book a Call</a>
+      <button type="button" class="mob-btn mob-btn-green" data-calendly-open aria-label="Book a call via Calendly">Book a Call</button>
       <a href="/#contact" class="mob-btn mob-btn-outline">Let's Talk</a>
     </div>
 
@@ -403,6 +403,10 @@ const nonce = Astro.locals.nonce || '';
     border-radius: 8px;
     transition: opacity .2s;
     -webkit-tap-highlight-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    width: 100%;
   }
   @media (max-width: 479px) {
     .mob-btn { font-size: .825rem; padding: .6rem .875rem; border-radius: 7px; }
