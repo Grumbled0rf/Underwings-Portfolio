@@ -86,8 +86,8 @@ const schemaArray = schemaToRender === null ? [] : Array.isArray(schemaToRender)
   <meta name="keywords" content={keywords}>
 
   <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YK74VSS684"></script>
-  <script>
+  <script is:inline nonce={nonce} async src="https://www.googletagmanager.com/gtag/js?id=G-YK74VSS684"></script>
+  <script is:inline nonce={nonce}>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
@@ -501,6 +501,258 @@ const schemaArray = schemaToRender === null ? [] : Array.isArray(schemaToRender)
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
       }
+    }
+
+    /* ============================================================
+       COMPREHENSIVE MOBILE RESPONSIVE
+       Fills gaps left by Webflow-generated CSS across all sections
+    ============================================================ */
+
+    /* ── 991px: tablet ───────────────────────────────────────── */
+    @media (max-width: 991px) {
+      /* base type */
+      body          { font-size: 1rem; }
+      .text         { font-size: 1rem; line-height: 1.6; }
+      .text-medium  { font-size: 1rem; line-height: 1.6; }
+      .text-small   { font-size: 0.875rem; }
+      .heading-small{ font-size: 1.6rem; line-height: 1.2; }
+
+      /* sections — reduce vertical breathing room */
+      .section {
+        padding-top: var(--sizes--padding-large, 4rem);
+        padding-bottom: var(--sizes--padding-large, 4rem);
+      }
+
+      /* hero stats row */
+      .hero-stats {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem 1.5rem;
+      }
+      .hero-stat-divider { display: none; }
+      .hero-stat { text-align: center; min-width: 120px; }
+
+      /* buttons — full-width on mobile */
+      .hero-cta-mobile-button .button,
+      .hero-cta-mobile-button .button-hidden { width: 100%; max-width: 320px; }
+
+      /* section-wrapper gaps */
+      .section-wrapper         { gap: 2.5rem; }
+      .section-wrapper-vertical{ gap: 2rem; }
+
+      /* footer newsletter stacks */
+      .footer-newsletter-inner { flex-direction: column; gap: 1.5rem; }
+      .footer-newsletter-form  { max-width: 100%; width: 100%; }
+
+      /* footer top grid → 2 col */
+      .footer-top-content-grid {
+        grid-template-columns: 1fr 1fr !important;
+        grid-template-rows: auto auto;
+      }
+      /* footer 3-col nav grid → 2+1 */
+      .footer-top-part.footer-top-part-grid {
+        grid-template-columns: 1fr 1fr !important;
+      }
+    }
+
+    /* ── 767px: mobile ───────────────────────────────────────── */
+    @media (max-width: 767px) {
+      /* type scale */
+      body          { font-size: 0.9375rem; }
+      .text         { font-size: 0.9375rem; line-height: 1.65; }
+      .text-medium  { font-size: 0.9375rem; line-height: 1.65; }
+      .heading      { font-size: 2rem !important; line-height: 1.15; }
+      .heading-large{ font-size: 2.4rem !important; line-height: 1.1; }
+      .heading-small{ font-size: 1.45rem; line-height: 1.2; }
+
+      /* section vertical padding */
+      .section { padding-top: 3.5rem !important; padding-bottom: 3.5rem !important; }
+      .section.top-padding-small    { padding-top: 2rem !important; }
+      .section.bottom-padding-clear { padding-bottom: 0 !important; }
+      .section.bottom-padding-small { padding-bottom: 1.5rem !important; }
+
+      /* heading wrapper */
+      .heading-wrapper { padding-top: 1.25rem; }
+
+      /* container side gutters */
+      .container-medium,
+      .container { padding-left: 1.25rem !important; padding-right: 1.25rem !important; }
+
+      /* hero heading gap */
+      .hero-heading-wrapper { gap: 1.25rem; }
+      .hero-main-wrapper    { gap: 1.75rem; }
+
+      /* hero stats */
+      .hero-stats { gap: 0.75rem 1.25rem; }
+      .hero-stat-num   { font-size: 1.1rem; }
+      .hero-stat-label { font-size: 0.75rem; }
+
+      /* VAPT homepage cards */
+      .vapt-hp-top {
+        flex-direction: column !important;
+        gap: 1rem;
+      }
+      .vapt-hp-top-left,
+      .vapt-hp-top-right { width: 100% !important; }
+      .vapt-hp-bottom {
+        flex-direction: column !important;
+        gap: 1rem;
+      }
+      .vapt-hp-card { width: 100% !important; }
+
+      /* vertical heading padding (cube section) */
+      .vertical-heading-cube-padding {
+        padding-top: 45vw !important;
+        padding-bottom: 80vw !important;
+      }
+
+      /* footer top grid → full single column */
+      .footer-top-content-grid {
+        grid-template-columns: 1fr !important;
+      }
+      .footer-top-part.footer-top-part-grid {
+        grid-template-columns: 1fr 1fr !important;
+      }
+
+      /* footer newsletter */
+      .footer-newsletter { padding: 2rem 0; }
+      .footer-newsletter-heading { font-size: 1rem; }
+      .footer-newsletter-desc    { font-size: 0.78rem; }
+      .nl-what-you-get { flex-wrap: wrap; gap: 0.35rem; }
+      .nl-what-you-get span { font-size: 0.65rem; padding: 0.2rem 0.45rem; }
+
+      /* footer bottom */
+      .footer-bottom-content-grid {
+        grid-template-columns: 1fr !important;
+        text-align: center;
+      }
+      .copy-text { font-size: 0.8rem; }
+
+      /* buttons */
+      .button         { width: 100%; max-width: 320px; }
+      .button-hidden  { font-size: 0.875rem; }
+      .button-wrapper { padding: 0.75rem 1.25rem; }
+
+      /* lead magnet */
+      .lead-magnet { padding: 1.25rem; gap: 1.25rem; }
+      .lead-magnet-title { font-size: 1rem; }
+
+      /* section-wrapper gaps */
+      .section-wrapper         { gap: 2rem !important; }
+      .section-wrapper-vertical{ gap: 1.75rem !important; }
+    }
+
+    /* ── 479px: small phones ─────────────────────────────────── */
+    @media (max-width: 479px) {
+      /* type */
+      body          { font-size: 0.9rem; }
+      .text         { font-size: 0.9rem; }
+      .text-medium  { font-size: 0.9rem; line-height: 1.6; }
+      .text-small   { font-size: 0.8rem; }
+      .heading      { font-size: 1.75rem !important; }
+      .heading-large{ font-size: 2rem !important; line-height: 1.1; }
+      .heading-small{ font-size: 1.3rem; }
+      code.code      { font-size: 0.85em; }
+
+      /* section padding */
+      .section { padding-top: 2.75rem !important; padding-bottom: 2.75rem !important; }
+      .section.top-padding-small { padding-top: 1.5rem !important; }
+
+      /* container gutters */
+      .container-medium,
+      .container { padding-left: 1rem !important; padding-right: 1rem !important; }
+
+      /* hero heading */
+      .hero-heading-wrapper { gap: 1rem; }
+      .hero-main-wrapper    { gap: 1.25rem; }
+
+      /* hero stats — stack vertically on very small screens */
+      .hero-stats {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0.5rem 1rem;
+        justify-content: center;
+      }
+      .hero-stat  { min-width: 100px; }
+      .hero-stat-num   { font-size: 1rem; }
+      .hero-stat-label { font-size: 0.7rem; }
+
+      /* neon line box */
+      .neon-line-box { width: 60% !important; }
+
+      /* cube vertical heading padding */
+      .vertical-heading-cube-padding {
+        padding-top: 55vw !important;
+        padding-bottom: 90vw !important;
+      }
+
+      /* footer nav 3-col → 1-col on tiny */
+      .footer-top-part.footer-top-part-grid {
+        grid-template-columns: 1fr !important;
+      }
+      .footer-nav-list { margin-bottom: 1.25rem; }
+      .footer-nav-link { font-size: 0.875rem; padding: 0.2rem 0; }
+
+      /* footer newsletter form */
+      .footer-newsletter-input-wrap { flex-direction: column; border-radius: 8px; }
+      .footer-newsletter-input-wrap input {
+        border-radius: 8px 8px 0 0;
+        border-bottom: 1px solid rgba(255,255,255,0.08) !important;
+        padding: 0.7rem 0.875rem;
+      }
+      .footer-newsletter-btn {
+        border-radius: 0 0 8px 8px !important;
+        width: 100%;
+        padding: 0.7rem;
+        font-size: 0.85rem;
+      }
+
+      /* back-to-top */
+      .link-to-top { width: 2rem; height: 2rem; }
+
+      /* section-wrapper gaps */
+      .section-wrapper          { gap: 1.5rem !important; }
+      .section-wrapper-vertical { gap: 1.5rem !important; }
+
+      /* partners logos */
+      .partners-section a img { height: 20px !important; }
+
+      /* blog cards — single column */
+      .blog-grid,
+      [class*="blog-grid"],
+      [class*="cards-grid"] {
+        grid-template-columns: 1fr !important;
+      }
+
+      /* lead magnet */
+      .lead-magnet { padding: 1rem; }
+      .lead-magnet-form { width: 100%; }
+      .lead-magnet-icon { width: 44px !important; height: 44px !important; }
+    }
+
+    /* ── 360px: very small (Galaxy A, old iPhones) ───────────── */
+    @media (max-width: 360px) {
+      body { font-size: 0.875rem; }
+      .heading       { font-size: 1.6rem !important; }
+      .heading-large { font-size: 1.8rem !important; }
+      .heading-small { font-size: 1.2rem; }
+
+      .section { padding-top: 2.25rem !important; padding-bottom: 2.25rem !important; }
+
+      .container-medium,
+      .container { padding-left: 0.875rem !important; padding-right: 0.875rem !important; }
+
+      .hero-stats { gap: 0.4rem 0.75rem; }
+      .hero-stat  { min-width: 90px; }
+
+      /* buttons */
+      .button-wrapper { padding: 0.65rem 1rem; }
+      .button-text    { font-size: 0.825rem; }
+
+      /* footer */
+      .footer-newsletter-heading { font-size: 0.95rem; }
+      .copy-text { font-size: 0.75rem; }
     }
   </style>
 

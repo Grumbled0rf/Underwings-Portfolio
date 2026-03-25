@@ -36,8 +36,8 @@ const schema = {
 <html lang="ar" dir="rtl">
 <head>
   <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YK74VSS684"></script>
-  <script>
+  <script is:inline nonce={Astro.locals.nonce || ""} async src="https://www.googletagmanager.com/gtag/js?id=G-YK74VSS684"></script>
+  <script is:inline nonce={Astro.locals.nonce || ""}>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());

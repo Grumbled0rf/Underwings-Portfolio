@@ -272,6 +272,27 @@ const nonce = Astro.locals.nonce || "";
     }
     .footer-newsletter-form { max-width: 100%; width: 100%; }
     .nl-msg { text-align: center; }
+    .nl-what-you-get { justify-content: center; }
+  }
+  @media (max-width: 479px) {
+    .footer-newsletter { padding: 1.5rem 0; }
+    .footer-newsletter-heading { font-size: 0.95rem; }
+    .footer-newsletter-desc    { font-size: 0.76rem; }
+    .footer-newsletter-input-wrap {
+      flex-direction: column;
+      border-radius: 8px;
+    }
+    .footer-newsletter-input-wrap input {
+      border-radius: 8px 8px 0 0 !important;
+      border-right: none !important;
+      border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+      font-size: 0.85rem;
+    }
+    .footer-newsletter-btn {
+      border-radius: 0 0 8px 8px !important;
+      width: 100%;
+      padding: 0.7rem;
+    }
   }
 </style>
 
