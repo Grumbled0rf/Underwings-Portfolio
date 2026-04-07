@@ -62,7 +62,7 @@ const { currentPage = 'home' } = Astro.props;
         <!-- Desktop CTA -->
         <div class="uw-desktop-cta header-cta-button">
           <div class="button">
-            <a href="#" class="button-hidden w-button" data-calendly-open>Book a Call</a>
+            <button type="button" class="button-hidden w-button" data-calendly-open>Book a Call</button>
             <div class="button-wrapper"><div class="button-text">Book a Call</div></div>
             <div class="button-accent-gradinet"></div>
           </div>
@@ -114,7 +114,7 @@ const { currentPage = 'home' } = Astro.props;
   </nav>
 
   <div class="uw-drawer-cta">
-    <a href="#" class="uw-drawer-btn uw-drawer-btn--primary" data-calendly-open>Book a Call</a>
+    <button type="button" class="uw-drawer-btn uw-drawer-btn--primary" data-calendly-open>Book a Call</button>
     <a href="/#contact" class="uw-drawer-btn uw-drawer-btn--secondary">Let's Talk</a>
   </div>
 </div>
@@ -241,12 +241,16 @@ const { currentPage = 'home' } = Astro.props;
   }
   .uw-drawer-btn {
     display: block;
+    width: 100%;
     text-align: center;
     text-decoration: none;
+    font-family: inherit;
     font-size: 0.95rem;
     font-weight: 600;
     padding: 0.8rem 1rem;
+    border: none;
     border-radius: 8px;
+    cursor: pointer;
   }
   .uw-drawer-btn--primary  { background: #24d758; color: #000; }
   .uw-drawer-btn--secondary {
