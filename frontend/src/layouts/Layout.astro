@@ -129,6 +129,16 @@ const schemaArray = schemaToRender === null ? [] : Array.isArray(schemaToRender)
       scroll-behavior: smooth;
     }
 
+    /* Button reset for .button-hidden overlay (allows <button> to replace <a href="#"> for Calendly triggers) */
+    button.button-hidden {
+      background: none;
+      border: none;
+      font: inherit;
+      color: inherit;
+      cursor: pointer;
+      padding: 0;
+    }
+
     /* Header secondary button — match .button size */
     .header-btn-secondary {
       display: inline-flex;
