@@ -9,6 +9,7 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import PartnerLogos from '../components/PartnerLogos.astro';
+import '../styles/category-hub.css';
 
 const siteUrl = import.meta.env.PUBLIC_SITE_URL || "https://underwings.org";
 
@@ -714,10 +715,145 @@ const schemas = [
                 <span class="hero-stat-label">Based Delivery</span>
               </div>
             </div>
+
+            <!-- Commitment strip -->
+            <div class="commitment-strip hero-fade-in" style="animation-delay: 0.8s">
+              <span class="commit-pill"><span class="commit-ico">💳</span>Published pricing</span>
+              <span class="commit-pill"><span class="commit-ico">⏱</span>48-hour written quote</span>
+              <span class="commit-pill"><span class="commit-ico">🔐</span>Named certified practitioners</span>
+              <span class="commit-pill"><span class="commit-ico">🇦🇪</span>UAE-based delivery</span>
+            </div>
           </div>
         </div>
       </div>
     </section>
+
+    <!-- ============================================================
+         5-Category Architecture — master IA signpost for visitors
+         ============================================================ -->
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
+        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
+      </div>
+      <div class="container">
+        <div class="section-wrapper-vertical section-wrapper-vertical-large">
+          <div class="heading-horizontal">
+            <div class="heading-horizontal-inner">
+              <div class="heading-horizontal-left-part">
+                <div class="label"><div class="text-small color-grey">What We Do</div></div>
+                <h2 class="heading">Five Categories. Fifteen Flagship Services.</h2>
+              </div>
+              <div class="heading-horizontal-right-part">
+                <p class="text-medium">Every service on this site is delivered by a named, certified practitioner. Every service has a published price range. Every scoping call ends with a written quote within 48 hours.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="cat-grid">
+            <a href="/services/offensive-security" class="cat-card" aria-label="Explore Offensive Security services">
+              <div class="cat-card-top">
+                <div class="cat-icon">
+                  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M16 29s10.5-5 10.5-13V7L16 3 5.5 7v9C5.5 24 16 29 16 29z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M11 16l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div class="cat-count">4 services</div>
+              </div>
+              <h3 class="cat-title">Offensive Security</h3>
+              <p class="cat-outcome">See what an attacker would actually do — manual pen tests by OSCP holders, not vulnerability-scan PDFs.</p>
+              <div class="cat-services">
+                <span class="cat-service-pill">Network Pen Test</span>
+                <span class="cat-service-pill">Web App Pen Test</span>
+                <span class="cat-service-pill">Phishing Simulation</span>
+                <span class="cat-service-pill">Vulnerability Assessment</span>
+              </div>
+              <div class="cat-card-bottom">
+                <div class="cat-certs">OSCP · CPTS · CEH</div>
+                <div class="cat-cta"><span>Explore</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              </div>
+            </a>
+
+            <a href="/services/cloud-security" class="cat-card" aria-label="Explore Cloud Security services">
+              <div class="cat-card-top">
+                <div class="cat-icon">
+                  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M9 22a6 6 0 010-12 7.5 7.5 0 0114-1.5A5.5 5.5 0 0125 19" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M11 22h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M14 26l2 2 3-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div class="cat-count">2 services</div>
+              </div>
+              <h3 class="cat-title">Cloud Security</h3>
+              <p class="cat-outcome">Fix the 10 – 30 high-severity Azure and Microsoft 365 misconfigurations most UAE businesses don't know they have.</p>
+              <div class="cat-services">
+                <span class="cat-service-pill">Azure Cloud Security</span>
+                <span class="cat-service-pill">Microsoft 365 Review</span>
+              </div>
+              <div class="cat-card-bottom">
+                <div class="cat-certs">Azure Security · Security+</div>
+                <div class="cat-cta"><span>Explore</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              </div>
+            </a>
+
+            <a href="/services/network-infrastructure" class="cat-card" aria-label="Explore Network &amp; Infrastructure services">
+              <div class="cat-card-top">
+                <div class="cat-icon">
+                  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true"><rect x="5" y="12" width="22" height="9" rx="2" stroke="currentColor" stroke-width="1.5"/><circle cx="11" cy="16.5" r="1.2" fill="currentColor"/><circle cx="16" cy="16.5" r="1.2" fill="currentColor"/><circle cx="21" cy="16.5" r="1.2" fill="currentColor"/><path d="M16 5v7M16 21v7M5 16.5H3M29 16.5h-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                </div>
+                <div class="cat-count">2 services</div>
+              </div>
+              <h3 class="cat-title">Network &amp; Infrastructure</h3>
+              <p class="cat-outcome">Review your FortiGate and security architecture by a rare CCNP + Fortinet + OSCP combination.</p>
+              <div class="cat-services">
+                <span class="cat-service-pill">Firewall &amp; Network Review</span>
+                <span class="cat-service-pill">Security Architecture Review</span>
+              </div>
+              <div class="cat-card-bottom">
+                <div class="cat-certs">CCNP · Fortinet · OSCP</div>
+                <div class="cat-cta"><span>Explore</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              </div>
+            </a>
+
+            <a href="/services/grc" class="cat-card" aria-label="Explore Cybersecurity GRC services">
+              <div class="cat-card-top">
+                <div class="cat-icon">
+                  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true"><rect x="5" y="5" width="22" height="22" rx="3" stroke="currentColor" stroke-width="1.5"/><path d="M5 11h22" stroke="currentColor" stroke-width="1.5"/><path d="M11 18l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div class="cat-count">5 services</div>
+              </div>
+              <h3 class="cat-title">Cybersecurity GRC</h3>
+              <p class="cat-outcome">Get ISO 27001 certified, NESA-ready, or PDPL-compliant — with an ISO 27001 Lead Auditor doing the work.</p>
+              <div class="cat-services">
+                <span class="cat-service-pill">ISO 27001 Gap</span>
+                <span class="cat-service-pill">ISO 27001 Implementation</span>
+                <span class="cat-service-pill">NESA / UAE IA V2</span>
+                <span class="cat-service-pill">UAE PDPL</span>
+                <span class="cat-service-pill">Risk Register</span>
+              </div>
+              <div class="cat-card-bottom">
+                <div class="cat-certs">ISO 27001 LA · GRC Mastery</div>
+                <div class="cat-cta"><span>Explore</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              </div>
+            </a>
+
+            <a href="/services/training-awareness" class="cat-card" aria-label="Explore Training &amp; Awareness services" style="grid-column: span 2;">
+              <div class="cat-card-top">
+                <div class="cat-icon">
+                  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true"><circle cx="11" cy="13" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M4 26c0-4.5 3-7 7-7s7 2.5 7 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="22" cy="13" r="3.2" stroke="currentColor" stroke-width="1.5"/><path d="M22 19c2.5 0 6 1.5 6 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                </div>
+                <div class="cat-count">2 services</div>
+              </div>
+              <h3 class="cat-title">Training &amp; Awareness</h3>
+              <p class="cat-outcome">Train your team using live attack demos delivered by the same people who run the pen tests. Measure real behaviour change.</p>
+              <div class="cat-services">
+                <span class="cat-service-pill">Awareness Training Workshops</span>
+                <span class="cat-service-pill">Tabletop IR Exercise</span>
+              </div>
+              <div class="cat-card-bottom">
+                <div class="cat-certs">CEH · OSCP · GRC Mastery</div>
+                <div class="cat-cta"><span>Explore</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="section bottom-padding-clear top-padding-small">
       <div data-w-id="fd55d787-0c08-9385-40a4-9ba5b4dffa52" class="container-medium">
         <div data-w-id="40aa5f91-6980-e302-7692-795a366815d9" class="cube-content">
@@ -826,8 +962,8 @@ const schemas = [
                   <span>OSCP+</span>
                 </div>
               </div>
-              <a href="/services/vapt" class="nav-link-gradient vapt-hp-link">
-                Learn more about our VAPT process
+              <a href="/services/offensive-security/network-penetration-testing" class="nav-link-gradient vapt-hp-link">
+                Learn more about our pen-testing process
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </a>
             </div>
@@ -848,12 +984,12 @@ const schemas = [
             <div class="heading-horizontal-inner">
               <div class="heading-horizontal-left-part">
                 <div data-w-id="6b22a0dd-39ed-3430-b873-0b94f1ee1f07" class="label">
-                  <div class="text-small color-grey">ISO 27001 & Compliance Services</div>
+                  <div class="text-small color-grey">Cybersecurity GRC</div>
                 </div>
-                <h2 data-w-id="6b22a0dd-39ed-3430-b873-0b94f1ee1f0a" class="heading">Complete ISO 27001 Implementation & Compliance</h2>
+                <h2 data-w-id="6b22a0dd-39ed-3430-b873-0b94f1ee1f0a" class="heading">ISO 27001, NESA, PDPL — Implementation, Not Just Advice</h2>
               </div>
               <div id="w-node-_6b22a0dd-39ed-3430-b873-0b94f1ee1f0c-fb54bfa8" class="heading-horizontal-right-part">
-                <p data-w-id="6b22a0dd-39ed-3430-b873-0b94f1ee1f0d" class="text-medium">End-to-end ISO 27001 implementation services — from gap assessment to certification-readiness. We handle policy development, risk assessments, control implementation, and certification audit preparation. The certificate is issued by your chosen accredited certification body — we get you ready and walk you through the audit.</p>
+                <p data-w-id="6b22a0dd-39ed-3430-b873-0b94f1ee1f0d" class="text-medium">Hands-on GRC delivered by an ISO 27001 Lead Auditor. ISO 27001 gap and implementation, NESA / UAE IA V2 gap assessment, UAE PDPL compliance advisory, and ISO 27005-aligned risk register build. We implement; accredited certification bodies certify — never both.</p>
               </div>
             </div>
           </div>
@@ -1082,7 +1218,7 @@ const schemas = [
           <!-- ISO Section CTA -->
           <div style="display: flex; align-items: center; justify-content: center; gap: 1.5rem; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.08);">
             <p class="text-medium color-grey" style="margin: 0;">Ready to get audit-ready without the chaos?</p>
-            <a href="/services/iso-27001" class="nav-link-gradient" style="font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.4rem; text-decoration: none; white-space: nowrap;">
+            <a href="/services/grc/iso-27001-implementation" class="nav-link-gradient" style="font-size: 0.85rem; display: inline-flex; align-items: center; gap: 0.4rem; text-decoration: none; white-space: nowrap;">
               Start your ISO 27001 journey
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
@@ -1226,8 +1362,9 @@ const schemas = [
             </div>
             <div class="neon-line-shadow"></div>
           </div>
-          <h2 class="heading heading-center about-anim" style="filter:blur(3px);opacity:0"><span class="text-gradient-clip bg-color-green-gradient"><code>We don't just check boxes, we find real vulnerabilities, fix compliance gaps, and train your people</code></span></h2>
-          <p class="text-medium vertical-heading-description vertical-heading-description-medium about-anim" style="max-width: 650px; margin-left: auto; margin-right: auto; text-align: center; filter:blur(3px); opacity:0;">Real-world penetration testing uncovers what scanners miss. Streamlined compliance gets you audit-ready without the chaos. And security-aware employees become your strongest defense — not your weakest link.</p>
+          <h2 class="heading heading-center about-anim" style="filter:blur(3px);opacity:0"><span class="text-gradient-clip bg-color-green-gradient"><code>We don't just check boxes — we find real vulnerabilities, fix compliance gaps, and train your people</code></span></h2>
+          <p class="text-medium vertical-heading-description vertical-heading-description-medium about-anim" style="max-width: 700px; margin-left: auto; margin-right: auto; text-align: center; filter:blur(3px); opacity:0;">A UAE-based cybersecurity services company launching in 2026 — led by <strong style="color:#fff;">Manoj Prabhakaran</strong> (ISO 27001 Lead Auditor, CPTS, CDSA, Azure Security), <strong style="color:#fff;">Nelson Durairaj</strong> (OSCP, CEH, HTB Omniscient), and <strong style="color:#fff;">Vinoth Samiyappa</strong> (CCNP, Fortinet, Azure). Every engagement is led by a named practitioner you can verify. Pen tests end in re-tests. ISO 27001 programs end with an accredited certification body at your door. And we're pursuing our own ISO 27001:2022 certification in 2026 — the same program we deliver to clients, applied to ourselves first.</p>
+          <p class="text-small color-grey about-anim" style="max-width: 600px; margin: 1rem auto 0; text-align: center; filter:blur(3px); opacity:0;"><a href="/about" style="color:#37dc82; text-decoration: underline; text-underline-offset: 3px;">Meet the full team →</a></p>
         </div>
       </div>
       <div class="motion-cubes-section">
@@ -1591,12 +1728,36 @@ const schemas = [
                 <label for="ctf-service">What can we help with? <span class="ctf-req">*</span></label>
                 <select id="ctf-service" name="service" required aria-required="true" aria-invalid="false">
                   <option value="" disabled selected>Select a service</option>
-                  <option value="security-software">Security Software Solutions</option>
-                  <option value="vapt">Penetration Testing (VAPT)</option>
-                  <option value="iso-27001">ISO 27001 Implementation</option>
-                  <option value="training">Security Awareness Training</option>
-                  <option value="multiple">Multiple Services</option>
-                  <option value="other">Other / General Inquiry</option>
+                  <optgroup label="Offensive Security">
+                    <option value="network-penetration-testing">Network Penetration Testing</option>
+                    <option value="web-app-pentest">Web Application Pen Testing</option>
+                    <option value="phishing-simulation">Phishing Simulation</option>
+                    <option value="vulnerability-assessment">Vulnerability Assessment (VA only)</option>
+                  </optgroup>
+                  <optgroup label="Cloud Security">
+                    <option value="azure-security-assessment">Azure Cloud Security Assessment</option>
+                    <option value="m365-security-review">Microsoft 365 Security Review</option>
+                  </optgroup>
+                  <optgroup label="Network &amp; Infrastructure">
+                    <option value="firewall-review">Firewall &amp; Network Security Review</option>
+                    <option value="security-architecture-review">Security Architecture Review</option>
+                  </optgroup>
+                  <optgroup label="Cybersecurity GRC">
+                    <option value="iso-27001-gap">ISO 27001 Gap Assessment</option>
+                    <option value="iso-27001-implementation">ISO 27001 Implementation</option>
+                    <option value="nesa">NESA / UAE IA V2 Gap</option>
+                    <option value="pdpl">UAE PDPL Compliance Advisory</option>
+                    <option value="risk-assessment">Risk Assessment &amp; Register</option>
+                  </optgroup>
+                  <optgroup label="Training &amp; Awareness">
+                    <option value="awareness-training">Security Awareness Training</option>
+                    <option value="tabletop-ir">Tabletop Incident Response Exercise</option>
+                  </optgroup>
+                  <optgroup label="Other">
+                    <option value="security-software">Cybersecurity Software &amp; Tools</option>
+                    <option value="multiple">Multiple Services / Not Sure</option>
+                    <option value="other">Other / General Inquiry</option>
+                  </optgroup>
                 </select>
               </div>
               <div class="ctf-field">
