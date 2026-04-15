@@ -1,0 +1,275 @@
+---
+// ============================================================
+// SERVICE PAGE — Firewall & Network Security Review
+// Category: Network & Infrastructure (Y1 Flagship, Phase 3 Anchor)
+// ============================================================
+
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import '../../../styles/category-hub.css';
+import '../../../styles/service-page.css';
+
+const faqs = [
+  { q: "Do you only review FortiGate, or other firewalls too?", a: "FortiGate is our primary expertise — Vinoth holds Fortinet certifications. We also review Palo Alto (PAN-OS), Cisco ASA/FTD, SonicWall, and pfSense. Vendor-mix environments are normal and we handle them end-to-end." },
+  { q: "Do you need admin access to the firewall?", a: "Ideally yes — a read-only admin account is sufficient and lets us export full configuration, policy, and log settings. If read-only is impossible, we work from an exported configuration file." },
+  { q: "What's the typical finding rate?", a: "On FortiGate environments that haven't had a formal review in 2+ years, we typically find 30 – 200 stale, overly permissive, or misconfigured rules, plus 5 – 15 segmentation gaps. The specific count depends on environment complexity." },
+  { q: "How long does it take?", a: "5 – 8 working days for a single-site single-firewall review. Multi-site, HA-pair, and complex SD-WAN environments extend to 10 – 14 days." },
+  { q: "Is this a penetration test?", a: "No — this is a configuration and design review (no active exploitation). We often recommend pairing it with our Network Penetration Testing service so the design-level findings get validated by active testing." },
+  { q: "Can you help implement the fixes?", a: "Yes. Post-review implementation is offered as follow-on days at a pre-agreed rate, or as a fixed-scope remediation package. Vinoth can work directly with your network team or act as the implementation lead." },
+  { q: "Do you handle Zero Trust migrations?", a: "Zero Trust Architecture design launches in 2027 (you can join the waitlist on the Network & Infrastructure category page). For now, we handle traditional firewall hardening and segmentation uplift." },
+];
+
+const schema = [
+  { "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://underwings.org" },
+    { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://underwings.org/services" },
+    { "@type": "ListItem", "position": 3, "name": "Network & Infrastructure", "item": "https://underwings.org/services/network-infrastructure" },
+    { "@type": "ListItem", "position": 4, "name": "Firewall & Network Security Review", "item": "https://underwings.org/services/network-infrastructure/firewall-network-security-review" }
+  ]},
+  { "@context": "https://schema.org", "@type": "Service", "name": "Firewall & Network Security Review", "serviceType": "Firewall Configuration Review",
+    "provider": { "@type": "Organization", "name": "Underwings Cybersecurity Solutions", "url": "https://underwings.org" },
+    "areaServed": { "@type": "Country", "name": "United Arab Emirates" },
+    "offers": { "@type": "AggregateOffer", "priceCurrency": "AED", "lowPrice": "12000", "highPrice": "30000" },
+    "description": "FortiGate configuration review, firewall rules audit, network segmentation, and routing security review for UAE mid-market.",
+    "url": "https://underwings.org/services/network-infrastructure/firewall-network-security-review"
+  },
+  { "@context": "https://schema.org", "@type": "FAQPage",
+    "mainEntity": faqs.map(f => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } }))
+  }
+];
+
+export const prerender = false;
+---
+
+<Layout
+  title="Firewall & Network Security Review UAE — FortiGate, CCNP-led | Underwings"
+  description="UAE firewall configuration and network security review. FortiGate, Palo Alto, Cisco. CCNP + Fortinet + OSCP combination — rare skill combo in the region. Find the 30 – 200 stale rules most environments carry. AED 12,000 – 30,000."
+  keywords="FortiGate configuration review UAE, firewall rule audit Dubai, network segmentation review UAE, FortiGate consultant UAE, CCNP Fortinet UAE"
+  wfPage="services-page"
+  schema={schema}
+  bodyClass="body svc-compact"
+>
+  <Header currentPage="services" />
+
+  <main id="main" class="main">
+
+    <section class="section bottom-padding-clear top-padding-small">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <nav class="crumbs" aria-label="Breadcrumb">
+          <a href="/">Home</a><span aria-hidden="true">›</span>
+          <a href="/services">Services</a><span aria-hidden="true">›</span>
+          <a href="/services/network-infrastructure">Network &amp; Infrastructure</a><span aria-hidden="true">›</span>
+          <span class="crumbs-current">Firewall &amp; Network Security Review</span>
+        </nav>
+
+        <div class="svc-hero">
+          <div class="label" style="justify-content:center;"><div class="text-small color-grey">Network &amp; Infrastructure — Flagship Service</div></div>
+          <h1 class="heading-large">Firewall &amp; Network Security Review</h1>
+          <p class="text" style="max-width:680px;margin:1rem auto 0;">
+            Deep configuration review of your FortiGate (or Palo Alto / Cisco / SonicWall), firewall rules, network segmentation, and routing security. Led by a practitioner with <strong>CCNP + Fortinet + OSCP</strong> — a rare combination in UAE.
+          </p>
+
+          <div class="svc-hero-badges">
+            <span class="svc-hero-badge svc-hero-badge-price">AED 12,000 – 30,000</span>
+            <span class="svc-hero-badge svc-hero-badge-certs">Fortinet · CCNP · OSCP</span>
+            <span class="svc-hero-badge svc-hero-badge-time">5 – 8 working days</span>
+          </div>
+
+          <div class="svc-hero-ctas">
+            <div class="button">
+              <a href="/#contact?service=firewall-review" class="button-hidden w-button">Book a 30-min Scoping Call →</a>
+              <div class="button-wrapper"><div class="button-text">Book a 30-min Scoping Call →</div></div>
+              <div class="button-accent-gradinet"></div>
+            </div>
+            <a href="#faq" class="svc-hero-cta-secondary">Jump to FAQ</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">What it is</h2>
+        <div class="svc-sec-body">
+          <p>A <strong>deep configuration and design review</strong> of your firewall and network perimeter: rule base, interface policies, VPN configuration, segmentation, routing, logging, SSL inspection, UTM profiles, high availability, and administrative hygiene.</p>
+          <p>We read every rule. We trace every exception. We map the data flows you think exist against the data flows the firewall actually allows. The gap is usually large.</p>
+          <p>The deliverable is a risk-rated findings report and a <strong>target-state design</strong> your network team can implement — with specific CLI commands or Portal steps for every change.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">What this is <em>not</em></h2>
+        <div class="svc-not-list">
+          <div class="svc-not-item"><div class="svc-not-ico"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div><strong>Not a penetration test.</strong> No active exploitation — configuration and design only.</div></div>
+          <div class="svc-not-item"><div class="svc-not-ico"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div><strong>Not a vendor sales call.</strong> Vendor-neutral findings, no licensing upsell.</div></div>
+          <div class="svc-not-item"><div class="svc-not-ico"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div><strong>Not a 90-page compliance dump.</strong> Actionable findings with specific fix commands.</div></div>
+          <div class="svc-not-item"><div class="svc-not-ico"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div><strong>Not delivered by a reseller.</strong> We don't resell Fortinet. We review it.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">Who this is for</h2>
+        <div class="svc-triggers">
+          <div class="svc-trigger"><div class="svc-trigger-num">1</div><div>Your <strong>FortiGate hasn't been reviewed</strong> in 2+ years — or never.</div></div>
+          <div class="svc-trigger"><div class="svc-trigger-num">2</div><div>You inherited the environment after <strong>staff churn</strong> and nobody knows why half the rules exist.</div></div>
+          <div class="svc-trigger"><div class="svc-trigger-num">3</div><div>An <strong>ISO 27001 auditor flagged network segmentation</strong> as a gap.</div></div>
+          <div class="svc-trigger"><div class="svc-trigger-num">4</div><div>You're preparing a <strong>PCI DSS network zone</strong> and need to prove segmentation.</div></div>
+          <div class="svc-trigger"><div class="svc-trigger-num">5</div><div>A <strong>recent incident or near-miss</strong> makes you want the rule base looked at properly.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">What you get</h2>
+        <ul class="svc-deliv-list">
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Configuration review report</strong> — complete rule-base audit with unused, duplicate, overly-permissive, and risky rules flagged.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Segmentation map</strong> — current-state network zones + target-state recommendation with DMZ, management, user, server, OT/ICS zoning.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Findings report</strong> — every finding risk-rated with specific FortiGate CLI / GUI remediation steps.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Hardening recommendations</strong> — UTM profiles, SSL inspection posture, IPS, AV, web filtering, logging to SIEM.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Executive summary</strong> — 2-page CISO/board view.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Walkthrough session</strong> — live review with your network team covering every finding.</div></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">How we deliver</h2>
+        <div class="svc-process-table">
+          <div class="svc-process-row"><div class="svc-process-row-num">01</div><div><div class="svc-process-row-step">Scoping &amp; access</div><div class="svc-process-row-duration">1 – 2 days</div></div><div class="svc-process-row-desc">Asset inventory, read-only admin access or config export, scope agreement.</div></div>
+          <div class="svc-process-row"><div class="svc-process-row-num">02</div><div><div class="svc-process-row-step">Configuration audit</div><div class="svc-process-row-duration">2 – 3 days</div></div><div class="svc-process-row-desc">Rule-base review, policy cleanup candidates, UTM profile audit, logging configuration.</div></div>
+          <div class="svc-process-row"><div class="svc-process-row-num">03</div><div><div class="svc-process-row-step">Segmentation &amp; design review</div><div class="svc-process-row-duration">1 – 2 days</div></div><div class="svc-process-row-desc">Zone mapping, VPN posture, routing security, HA setup, admin access hygiene.</div></div>
+          <div class="svc-process-row"><div class="svc-process-row-num">04</div><div><div class="svc-process-row-step">Reporting</div><div class="svc-process-row-duration">2 days</div></div><div class="svc-process-row-desc">Findings report, segmentation map, executive summary, remediation plan.</div></div>
+          <div class="svc-process-row"><div class="svc-process-row-num">05</div><div><div class="svc-process-row-step">Walkthrough</div><div class="svc-process-row-duration">90 minutes</div></div><div class="svc-process-row-desc">Live session with your network team. Every finding, every fix, every priority.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">Pricing</h2>
+        <div class="svc-pricing">
+          <div class="svc-pricing-card">
+            <h4>Published range</h4>
+            <div class="svc-pricing-range">AED 12k – 30k</div>
+            <p class="svc-pricing-note">Per engagement. Written quote within 48 hours.</p>
+            <p class="svc-pricing-note" style="margin-top:0.75rem;"><strong>What drives the price:</strong></p>
+            <ul class="svc-pricing-drivers">
+              <li>Number of firewalls / HA pairs</li>
+              <li>Rule-base size (100 rules vs. 1,000+)</li>
+              <li>Multi-site / SD-WAN complexity</li>
+              <li>Vendor mix (single vs. multi)</li>
+              <li>Add-on: remediation-support days</li>
+            </ul>
+          </div>
+          <div class="svc-pricing-card">
+            <h4>Commercial terms</h4>
+            <ul class="svc-pricing-terms">
+              <li><strong>Deposit:</strong> 50% at signing</li>
+              <li><strong>Net terms:</strong> Net-30</li>
+              <li><strong>Quote validity:</strong> 30 days</li>
+              <li><strong>Access:</strong> read-only admin or config export</li>
+              <li><strong>No production changes</strong> without your network team</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">Your cert-backed team</h2>
+        <div class="svc-team">
+          <div class="svc-team-card">
+            <p class="svc-team-role">Lead Reviewer</p>
+            <h3 class="svc-team-name">Vinoth Samiyappa</h3>
+            <p class="svc-team-certs">CCNP · Fortinet · Azure · Six Sigma</p>
+            <p class="svc-team-focus"><strong>Focus:</strong> FortiGate configuration, firewall rule-base hygiene, network segmentation, routing security, HA design.</p>
+          </div>
+          <div class="svc-team-card">
+            <p class="svc-team-role">Supervising Practitioner</p>
+            <h3 class="svc-team-name">Manoj Prabhakaran</h3>
+            <p class="svc-team-certs">CPTS · CDSA · Security+ · ISO 27001 Lead Auditor</p>
+            <p class="svc-team-focus"><strong>Focus:</strong> Compliance mapping (ISO 27001, NESA, PCI), risk-rating, report quality.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">Frequently asked questions</h2>
+        <div class="svc-faq">
+          {faqs.map(item => (
+            <details class="svc-faq-item">
+              <summary>{item.q}</summary>
+              <p class="svc-faq-answer" set:html={item.a}></p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">You might also need</h2>
+        <div class="svc-related-grid">
+          <a href="/#contact?service=security-architecture-review" class="svc-related-card">
+            <h4>Security Architecture Review</h4>
+            <p>Broader design review covering VPN, DMZ, access control, and target-state architecture.</p>
+            <div class="svc-related-cta">Contact to scope <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 6h6M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </a>
+          <a href="/services/offensive-security/network-penetration-testing" class="svc-related-card">
+            <h4>Network Penetration Testing</h4>
+            <p>Validate the design findings by having an attacker try to exploit them.</p>
+            <div class="svc-related-cta">Read full details <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 6h6M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </a>
+          <a href="/services/cloud-security/azure-cloud-security-assessment" class="svc-related-card">
+            <h4>Azure Cloud Security Assessment</h4>
+            <p>If you run hybrid (on-prem FortiGate + Azure), review both sides.</p>
+            <div class="svc-related-cta">Read full details <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 6h6M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </a>
+          <a href="/services/grc/iso-27001-implementation" class="svc-related-card">
+            <h4>ISO 27001 Implementation</h4>
+            <p>Network security findings map directly to ISO 27001 Annex A.13 controls.</p>
+            <div class="svc-related-cta">Read full details <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 6h6M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <div class="section-wrapper-vertical" style="align-items:center;text-align:center;">
+          <h2 class="heading" style="max-width:600px;">When did someone last read every rule on your firewall?</h2>
+          <p class="text-medium" style="max-width:600px;">If the answer is "a long time ago" — book a scoping call. Written quote in 48 hours. We can start inside 1 week.</p>
+          <div class="button">
+            <a href="/#contact?service=firewall-review" class="button-hidden w-button">Book a Scoping Call →</a>
+            <div class="button-wrapper"><div class="button-text">Book a Scoping Call →</div></div>
+            <div class="button-accent-gradinet"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Layout>

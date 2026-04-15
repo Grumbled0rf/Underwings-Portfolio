@@ -1,0 +1,225 @@
+---
+// ============================================================
+// SERVICE PAGE — Phishing Simulation & Social Engineering (LIGHTER TEMPLATE)
+// Category: Offensive Security (Y1 Flagship — easy upsell)
+// ============================================================
+
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import '../../../styles/category-hub.css';
+import '../../../styles/service-page.css';
+
+const faqs = [
+  { q: "What do you actually send?", a: "Realistic phishing scenarios tailored to your industry, common UAE attack patterns, and lookalike brand themes (DMCC, Emirates, HSBC UAE, Microsoft Teams, DHL, courier tracking, internal IT password-reset templates). We vary the difficulty — easy, medium, hard — and measure click rates per group." },
+  { q: "Is this legal / ethical?", a: "Yes — phishing simulations are standard industry practice and explicitly permitted under UAE employment and cyber law when conducted by the employer. You sign a rules-of-engagement document authorising the campaign. Employees aren't individually punished for clicks; results are used for program improvement." },
+  { q: "How many users can you test?", a: "From 10 to 5,000+ per campaign. Pricing scales gently with user count; the core effort is campaign design and reporting, not per-user." },
+  { q: "Do you include vishing (voice phishing)?", a: "Optional add-on — we can include a smaller-scale vishing campaign (10 – 30 calls) to key roles (finance, executive, IT help desk). Useful for measuring resistance to pretext calls. Adds ~AED 3 – 5k depending on scope." },
+];
+
+const schema = [
+  { "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://underwings.org" },
+    { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://underwings.org/services" },
+    { "@type": "ListItem", "position": 3, "name": "Offensive Security", "item": "https://underwings.org/services/offensive-security" },
+    { "@type": "ListItem", "position": 4, "name": "Phishing Simulation", "item": "https://underwings.org/services/offensive-security/phishing-simulation" }
+  ]},
+  { "@context": "https://schema.org", "@type": "Service", "name": "Phishing Simulation & Social Engineering", "serviceType": "Phishing Simulation",
+    "provider": { "@type": "Organization", "name": "Underwings Cybersecurity Solutions", "url": "https://underwings.org" },
+    "areaServed": { "@type": "Country", "name": "United Arab Emirates" },
+    "offers": { "@type": "AggregateOffer", "priceCurrency": "AED", "lowPrice": "8000", "highPrice": "20000" },
+    "description": "UAE phishing simulation and vishing campaigns. Realistic scenarios, click-rate metrics, before/after reporting. Pairs with Security Awareness Training.",
+    "url": "https://underwings.org/services/offensive-security/phishing-simulation"
+  },
+  { "@context": "https://schema.org", "@type": "FAQPage",
+    "mainEntity": faqs.map(f => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } }))
+  }
+];
+
+export const prerender = false;
+---
+
+<Layout
+  title="Phishing Simulation UAE — Realistic Campaigns & Click-Rate Metrics | Underwings"
+  description="UAE phishing simulation campaigns. Realistic scenarios tailored to UAE threats, click-rate reporting, before/after metrics. Pairs with Security Awareness Training. AED 8,000 – 20,000."
+  keywords="phishing simulation UAE, phishing campaign Dubai, vishing UAE, social engineering assessment UAE, phishing awareness metrics UAE"
+  wfPage="services-page"
+  schema={schema}
+  bodyClass="body svc-compact"
+>
+  <Header currentPage="services" />
+
+  <main id="main" class="main">
+
+    <section class="section bottom-padding-clear top-padding-small">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <nav class="crumbs" aria-label="Breadcrumb">
+          <a href="/">Home</a><span aria-hidden="true">›</span>
+          <a href="/services">Services</a><span aria-hidden="true">›</span>
+          <a href="/services/offensive-security">Offensive Security</a><span aria-hidden="true">›</span>
+          <span class="crumbs-current">Phishing Simulation</span>
+        </nav>
+
+        <div class="svc-hero">
+          <div class="label" style="justify-content:center;"><div class="text-small color-grey">Offensive Security — Flagship Service</div></div>
+          <h1 class="heading-large">Phishing Simulation &amp; Social Engineering</h1>
+          <p class="text" style="max-width:680px;margin:1rem auto 0;">
+            Realistic phishing and optional vishing campaigns tailored to UAE threat patterns — with before/after click-rate metrics you can actually report to the board. The measurement layer for any security awareness program.
+          </p>
+
+          <div class="svc-hero-badges">
+            <span class="svc-hero-badge svc-hero-badge-price">AED 8,000 – 20,000</span>
+            <span class="svc-hero-badge svc-hero-badge-certs">CEH · CPTS</span>
+            <span class="svc-hero-badge svc-hero-badge-time">2 – 3 weeks</span>
+          </div>
+
+          <div class="svc-hero-ctas">
+            <div class="button">
+              <a href="/#contact?service=phishing-simulation" class="button-hidden w-button">Book a 30-min Scoping Call →</a>
+              <div class="button-wrapper"><div class="button-text">Book a 30-min Scoping Call →</div></div>
+              <div class="button-accent-gradinet"></div>
+            </div>
+            <a href="#faq" class="svc-hero-cta-secondary">Jump to FAQ</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">What it is</h2>
+        <div class="svc-sec-body">
+          <p>Controlled <strong>phishing and social-engineering campaigns</strong> against your workforce — realistic scenarios, authentic-looking lures, tailored to UAE industry and threat patterns. We send; users click (or don't); we report with clear before/after metrics.</p>
+          <p>Using GoPhish as the core platform, we design 3 – 5 scenario variants per campaign, vary the difficulty across easy, medium, and hard, and produce a report that shows overall click rate, reporting rate (how many users flagged the phish), time-to-click distribution, and group-level comparisons (finance vs. dev vs. sales vs. exec). Pair with our Awareness Training for measurable behaviour change across 90-day windows.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">Who this is for</h2>
+        <div class="svc-triggers">
+          <div class="svc-trigger"><div class="svc-trigger-num">1</div><div>You delivered <strong>security awareness training</strong> and need to measure whether click rates actually changed.</div></div>
+          <div class="svc-trigger"><div class="svc-trigger-num">2</div><div>A <strong>real phishing incident</strong> or BEC near-miss has the board asking for a baseline.</div></div>
+          <div class="svc-trigger"><div class="svc-trigger-num">3</div><div>You need <strong>audit evidence</strong> of active phishing defence for ISO 27001 / NESA / PDPL.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">What you get</h2>
+        <ul class="svc-deliv-list">
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Campaign design</strong> — 3 – 5 realistic phishing scenarios varied by difficulty and theme.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Controlled delivery</strong> — campaigns sent in waves, tracked via GoPhish telemetry, with safe-handling of clicked links (no malware, no credential capture beyond the first field).</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Results report</strong> — overall click rate, reporting rate, time-to-click distribution, group comparisons.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Just-in-time training page</strong> — clicked users land on a page explaining the red flags in the lure they fell for.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Executive summary</strong> — 1-page board-consumable metrics and recommendations.</div></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">How we deliver</h2>
+        <div class="svc-process-table">
+          <div class="svc-process-row"><div class="svc-process-row-num">01</div><div><div class="svc-process-row-step">Scoping &amp; scenario design</div><div class="svc-process-row-duration">3 – 5 days</div></div><div class="svc-process-row-desc">Target list, group segmentation, scenario authoring, rules of engagement signed.</div></div>
+          <div class="svc-process-row"><div class="svc-process-row-num">02</div><div><div class="svc-process-row-step">Campaign delivery</div><div class="svc-process-row-duration">3 – 7 days</div></div><div class="svc-process-row-desc">Controlled wave-based delivery via GoPhish, click telemetry captured, just-in-time training page served.</div></div>
+          <div class="svc-process-row"><div class="svc-process-row-num">03</div><div><div class="svc-process-row-step">Reporting</div><div class="svc-process-row-duration">2 – 3 days</div></div><div class="svc-process-row-desc">Results report, executive summary, recommendations for follow-up.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">Pricing</h2>
+        <div class="svc-pricing" style="grid-template-columns:1fr;max-width:540px;">
+          <div class="svc-pricing-card">
+            <h4>Published range</h4>
+            <div class="svc-pricing-range">AED 8k – 20k</div>
+            <p class="svc-pricing-note">Per campaign. Price driven by user count, number of scenarios, and vishing add-on.</p>
+            <ul class="svc-pricing-terms" style="margin-top:0.75rem;">
+              <li><strong>Deposit:</strong> 50% at signing</li>
+              <li><strong>Net terms:</strong> Net-30</li>
+              <li><strong>Quarterly recurring:</strong> 20% discount on 4-campaign agreement</li>
+              <li><strong>Awareness Training bundle:</strong> 10% discount together</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">Your cert-backed lead</h2>
+        <div class="svc-team" style="grid-template-columns:1fr;max-width:540px;">
+          <div class="svc-team-card">
+            <p class="svc-team-role">Lead Operator</p>
+            <h3 class="svc-team-name">Nelson Durairaj</h3>
+            <p class="svc-team-certs">OSCP · eJPT · CEH</p>
+            <p class="svc-team-focus"><strong>Focus:</strong> Scenario design, infrastructure setup, telemetry, results analysis. Also runs the live demos in Security Awareness Training workshops — so the theory and the demonstration come from the same person.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark" id="faq">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">Frequently asked questions</h2>
+        <div class="svc-faq">
+          {faqs.map(item => (
+            <details class="svc-faq-item">
+              <summary>{item.q}</summary>
+              <p class="svc-faq-answer" set:html={item.a}></p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">You might also need</h2>
+        <div class="svc-related-grid" style="grid-template-columns:1fr 1fr;">
+          <a href="/services/training-awareness/security-awareness-training" class="svc-related-card">
+            <h4>Security Awareness Training</h4>
+            <p>The training layer that the phishing sim measures. Best results when bought together.</p>
+            <div class="svc-related-cta">Read full details <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 6h6M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </a>
+          <a href="/services/cloud-security/microsoft-365-security-review" class="svc-related-card">
+            <h4>Microsoft 365 Security Review</h4>
+            <p>Phishing sim measures user behaviour; M365 Review fixes the platform that delivers phishes to their inbox.</p>
+            <div class="svc-related-cta">Read full details <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 6h6M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <div class="section-wrapper-vertical" style="align-items:center;text-align:center;">
+          <h2 class="heading" style="max-width:600px;">What's your actual phishing click rate?</h2>
+          <p class="text-medium" style="max-width:600px;">From AED 8k. 2 – 3 weeks from scoping to board-ready results. Written quote in 48 hours.</p>
+          <div class="button">
+            <a href="/#contact?service=phishing-simulation" class="button-hidden w-button">Book a Scoping Call →</a>
+            <div class="button-wrapper"><div class="button-text">Book a Scoping Call →</div></div>
+            <div class="button-accent-gradinet"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Layout>

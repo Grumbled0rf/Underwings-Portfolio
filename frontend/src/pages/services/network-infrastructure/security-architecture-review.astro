@@ -1,0 +1,275 @@
+---
+// ============================================================
+// SERVICE PAGE — Security Architecture Review
+// Category: Network & Infrastructure (Y1 Flagship, Full Template)
+// ============================================================
+
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import '../../../styles/category-hub.css';
+import '../../../styles/service-page.css';
+
+const faqs = [
+  { q: "What's the difference vs. Firewall & Network Security Review?", a: "The Firewall Review focuses on one device class — firewall configuration, rule base, segmentation. Security Architecture Review is <strong>broader</strong>: it covers the whole enterprise security design — network zones, identity and access architecture, remote access (VPN / ZTNA), DMZ, data flows, cloud-on-prem boundaries, segmentation model, logging and monitoring architecture. Often they're bought together." },
+  { q: "Do you produce a target-state architecture?", a: "Yes — that's the core deliverable. Current-state architecture diagram + target-state architecture diagram + gap analysis + prioritised migration roadmap. The target state is implementable, not aspirational." },
+  { q: "How long does it take?", a: "2 – 3 weeks for a typical single-site mid-market organisation. Multi-site / hybrid-cloud environments extend to 4 – 5 weeks. Complexity-driven, not size-driven." },
+  { q: "Do you include implementation support?", a: "Not in the base engagement. Implementation is offered as a follow-on at a pre-agreed day rate. Many clients execute their own implementation using the roadmap we produce — we designed it so your team can." },
+  { q: "What do you need from us?", a: "Current-state network diagrams (if available), interviews with network / infra / security / IT-ops leads, read-only access to key devices and cloud tenants for validation, and one executive sponsor who can answer 'why do we do it this way?' questions." },
+  { q: "Is this useful as ISO 27001 / NESA audit evidence?", a: "Yes. A documented security architecture with current / target / roadmap is a standing auditor request for Annex A.8 / A.13 controls and NESA technical governance." },
+  { q: "Can you review Zero Trust / ZTNA readiness?", a: "Yes — we assess your current architecture against ZTNA principles (identity-first, least-privilege, segmentation, no-implicit-trust). Full Zero Trust Architecture Design is a separate 2027 service; this Review positions you to start that program." },
+];
+
+const schema = [
+  { "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://underwings.org" },
+    { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://underwings.org/services" },
+    { "@type": "ListItem", "position": 3, "name": "Network & Infrastructure", "item": "https://underwings.org/services/network-infrastructure" },
+    { "@type": "ListItem", "position": 4, "name": "Security Architecture Review", "item": "https://underwings.org/services/network-infrastructure/security-architecture-review" }
+  ]},
+  { "@context": "https://schema.org", "@type": "Service", "name": "Security Architecture Review", "serviceType": "Security Architecture Review",
+    "provider": { "@type": "Organization", "name": "Underwings Cybersecurity Solutions", "url": "https://underwings.org" },
+    "areaServed": { "@type": "Country", "name": "United Arab Emirates" },
+    "offers": { "@type": "AggregateOffer", "priceCurrency": "AED", "lowPrice": "15000", "highPrice": "35000" },
+    "description": "Enterprise security architecture review for UAE — network zones, identity, remote access, DMZ, segmentation, target-state design and migration roadmap.",
+    "url": "https://underwings.org/services/network-infrastructure/security-architecture-review"
+  },
+  { "@context": "https://schema.org", "@type": "FAQPage",
+    "mainEntity": faqs.map(f => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } }))
+  }
+];
+
+export const prerender = false;
+---
+
+<Layout
+  title="Security Architecture Review UAE — Target-State Design & Roadmap | Underwings"
+  description="UAE enterprise security architecture review. Network zones, identity, VPN / ZTNA, DMZ, segmentation. Current-state + target-state design + migration roadmap. CCNP + Security+ + Fortinet led. AED 15,000 – 35,000."
+  keywords="security architecture review UAE, enterprise security design Dubai, network segmentation UAE, ZTNA readiness UAE, target-state architecture UAE"
+  wfPage="services-page"
+  schema={schema}
+  bodyClass="body svc-compact"
+>
+  <Header currentPage="services" />
+
+  <main id="main" class="main">
+
+    <section class="section bottom-padding-clear top-padding-small">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <nav class="crumbs" aria-label="Breadcrumb">
+          <a href="/">Home</a><span aria-hidden="true">›</span>
+          <a href="/services">Services</a><span aria-hidden="true">›</span>
+          <a href="/services/network-infrastructure">Network &amp; Infrastructure</a><span aria-hidden="true">›</span>
+          <span class="crumbs-current">Security Architecture Review</span>
+        </nav>
+
+        <div class="svc-hero">
+          <div class="label" style="justify-content:center;"><div class="text-small color-grey">Network &amp; Infrastructure — Flagship Service</div></div>
+          <h1 class="heading-large">Security Architecture Review</h1>
+          <p class="text" style="max-width:720px;margin:1rem auto 0;">
+            A broad review of your enterprise security architecture — network zones, identity, remote access, DMZ, cloud / on-prem boundaries, segmentation, logging, and monitoring. Current-state map, target-state design, and an implementable migration roadmap.
+          </p>
+
+          <div class="svc-hero-badges">
+            <span class="svc-hero-badge svc-hero-badge-price">AED 15,000 – 35,000</span>
+            <span class="svc-hero-badge svc-hero-badge-certs">CCNP · Security+ · Fortinet</span>
+            <span class="svc-hero-badge svc-hero-badge-time">2 – 3 weeks</span>
+          </div>
+
+          <div class="svc-hero-ctas">
+            <div class="button">
+              <a href="/#contact?service=security-architecture-review" class="button-hidden w-button">Book a 30-min Scoping Call →</a>
+              <div class="button-wrapper"><div class="button-text">Book a 30-min Scoping Call →</div></div>
+              <div class="button-accent-gradinet"></div>
+            </div>
+            <a href="#faq" class="svc-hero-cta-secondary">Jump to FAQ</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">What it is</h2>
+        <div class="svc-sec-body">
+          <p>A senior consulting engagement that takes a <strong>whole-enterprise view</strong> of how your security design works today — and produces a <strong>target-state architecture</strong> and migration roadmap your team can actually implement.</p>
+          <p>We look at network zoning and segmentation, identity and access architecture (Active Directory / Entra ID / federation), remote access models (VPN, ZTNA, jump hosts), DMZ and internet-edge design, cloud-on-prem boundaries, east-west traffic controls, logging and monitoring architecture, backup and DR paths, and the administrative controls around all of it.</p>
+          <p>The deliverable is a current-state architecture diagram, a target-state architecture diagram, a gap analysis, and a <strong>prioritised migration roadmap</strong> — 90-day quick wins, 6-month program, 12-month full target state.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">What this is <em>not</em></h2>
+        <div class="svc-not-list">
+          <div class="svc-not-item"><div class="svc-not-ico"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div><strong>Not a firewall audit.</strong> Broader scope — whole-stack architecture. Firewall review is a companion service.</div></div>
+          <div class="svc-not-item"><div class="svc-not-ico"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div><strong>Not an implementation engagement.</strong> We design; your team (or ours, separately) implements.</div></div>
+          <div class="svc-not-item"><div class="svc-not-ico"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div><strong>Not a penetration test.</strong> Design review, not active exploitation.</div></div>
+          <div class="svc-not-item"><div class="svc-not-ico"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div><strong>Not aspirational.</strong> Target states are implementable with your budget and team — not fantasy architectures.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">Who this is for</h2>
+        <div class="svc-triggers">
+          <div class="svc-trigger"><div class="svc-trigger-num">1</div><div>You <strong>grew fast</strong> and the security architecture was inherited from earlier stages — nobody sat down and designed it.</div></div>
+          <div class="svc-trigger"><div class="svc-trigger-num">2</div><div>You're <strong>planning a significant IT investment</strong> (new cloud, Zero Trust pilot, identity re-platform) and want architecture guidance first.</div></div>
+          <div class="svc-trigger"><div class="svc-trigger-num">3</div><div>Your <strong>auditor flagged segmentation or design issues</strong> as a systemic finding.</div></div>
+          <div class="svc-trigger"><div class="svc-trigger-num">4</div><div>You <strong>acquired or merged</strong> and need to integrate two different security architectures.</div></div>
+          <div class="svc-trigger"><div class="svc-trigger-num">5</div><div>A <strong>CISO or Head of IT transition</strong> has put the architecture on the agenda and needs a defensible baseline.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">What you get</h2>
+        <ul class="svc-deliv-list">
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Current-state architecture diagram</strong> — network zones, identity, remote access, DMZ, cloud / on-prem boundaries, data flows, admin paths.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Design review findings</strong> — every issue with risk rating, root cause, and remediation direction.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Target-state architecture diagram</strong> — the design your organisation should move toward, implementable within your budget and team.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Gap analysis</strong> — every delta between current and target state, with effort estimates.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Migration roadmap</strong> — 90-day quick wins, 6-month program, 12-month full roll-out.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Executive summary</strong> — 2-page board-consumable version.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Workshop delivery</strong> — 2-hour architecture walkthrough with IT / security leadership.</div></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">How we deliver</h2>
+        <div class="svc-process-table">
+          <div class="svc-process-row"><div class="svc-process-row-num">01</div><div><div class="svc-process-row-step">Scoping &amp; discovery</div><div class="svc-process-row-duration">2 – 3 days</div></div><div class="svc-process-row-desc">Architecture scope, stakeholder interviews, document gathering (diagrams, policies), access provisioning.</div></div>
+          <div class="svc-process-row"><div class="svc-process-row-num">02</div><div><div class="svc-process-row-step">Current-state mapping</div><div class="svc-process-row-duration">3 – 5 days</div></div><div class="svc-process-row-desc">Interview-led architecture reconstruction, technical validation, data-flow mapping, admin-path tracing.</div></div>
+          <div class="svc-process-row"><div class="svc-process-row-num">03</div><div><div class="svc-process-row-step">Design review &amp; findings</div><div class="svc-process-row-duration">2 – 4 days</div></div><div class="svc-process-row-desc">Risk-rated findings, design pattern analysis, compliance-framework alignment (ISO / NESA).</div></div>
+          <div class="svc-process-row"><div class="svc-process-row-num">04</div><div><div class="svc-process-row-step">Target-state design</div><div class="svc-process-row-duration">3 – 4 days</div></div><div class="svc-process-row-desc">Target architecture authoring, gap analysis, effort estimation, roadmap sequencing.</div></div>
+          <div class="svc-process-row"><div class="svc-process-row-num">05</div><div><div class="svc-process-row-step">Workshop &amp; handover</div><div class="svc-process-row-duration">2 hours</div></div><div class="svc-process-row-desc">Live architecture walkthrough with IT and security leadership covering design rationale and roadmap sequencing.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">Pricing</h2>
+        <div class="svc-pricing">
+          <div class="svc-pricing-card">
+            <h4>Published range</h4>
+            <div class="svc-pricing-range">AED 15k – 35k</div>
+            <p class="svc-pricing-note">Per engagement. Written quote within 48 hours.</p>
+            <p class="svc-pricing-note" style="margin-top:0.75rem;"><strong>What drives the price:</strong></p>
+            <ul class="svc-pricing-drivers">
+              <li>Architecture scope (single-site vs. multi-site / hybrid-cloud)</li>
+              <li>Number of stakeholder interviews</li>
+              <li>Compliance-framework alignment workload (ISO / NESA / PCI)</li>
+              <li>Existing documentation maturity</li>
+              <li>Add-on: implementation-support days</li>
+            </ul>
+          </div>
+          <div class="svc-pricing-card">
+            <h4>Commercial terms</h4>
+            <ul class="svc-pricing-terms">
+              <li><strong>Deposit:</strong> 50% at signing</li>
+              <li><strong>Net terms:</strong> Net-30</li>
+              <li><strong>Quote validity:</strong> 30 days</li>
+              <li><strong>Firewall Review combined:</strong> 10% discount when bought together</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">Your cert-backed team</h2>
+        <div class="svc-team">
+          <div class="svc-team-card">
+            <p class="svc-team-role">Lead Architect</p>
+            <h3 class="svc-team-name">Vinoth Samiyappa</h3>
+            <p class="svc-team-certs">CCNP · Fortinet · Azure · Six Sigma</p>
+            <p class="svc-team-focus"><strong>Focus:</strong> Network architecture, segmentation design, VPN / ZTNA, hub-spoke, target-state design.</p>
+          </div>
+          <div class="svc-team-card">
+            <p class="svc-team-role">Supervising Practitioner</p>
+            <h3 class="svc-team-name">Manoj Prabhakaran</h3>
+            <p class="svc-team-certs">CPTS · CDSA · ISO 27001 Lead Auditor · Azure Cloud Security</p>
+            <p class="svc-team-focus"><strong>Focus:</strong> Identity architecture, cloud-on-prem boundaries, compliance-framework alignment.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">Frequently asked questions</h2>
+        <div class="svc-faq">
+          {faqs.map(item => (
+            <details class="svc-faq-item">
+              <summary>{item.q}</summary>
+              <p class="svc-faq-answer" set:html={item.a}></p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">You might also need</h2>
+        <div class="svc-related-grid">
+          <a href="/services/network-infrastructure/firewall-network-security-review" class="svc-related-card">
+            <h4>Firewall &amp; Network Security Review</h4>
+            <p>Deep dive into FortiGate / firewall rule base — combine for 10% discount.</p>
+            <div class="svc-related-cta">Read full details <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 6h6M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </a>
+          <a href="/services/offensive-security/network-penetration-testing" class="svc-related-card">
+            <h4>Network Penetration Testing</h4>
+            <p>Validate the architecture findings by having an attacker try to exploit them.</p>
+            <div class="svc-related-cta">Read full details <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 6h6M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </a>
+          <a href="/services/cloud-security/azure-cloud-security-assessment" class="svc-related-card">
+            <h4>Azure Cloud Security Assessment</h4>
+            <p>If the architecture has significant cloud footprint — review the cloud side too.</p>
+            <div class="svc-related-cta">Read full details <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 6h6M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </a>
+          <a href="/services/grc/iso-27001-implementation" class="svc-related-card">
+            <h4>ISO 27001 Implementation</h4>
+            <p>Architecture review feeds directly into ISO 27001 Annex A.8 / A.13 control implementation.</p>
+            <div class="svc-related-cta">Read full details <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 6h6M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <div class="section-wrapper-vertical" style="align-items:center;text-align:center;">
+          <h2 class="heading" style="max-width:600px;">Does anyone have the current architecture diagram? Does anyone believe it's accurate?</h2>
+          <p class="text-medium" style="max-width:600px;">Book a 30-minute scoping call. Written quote in 48 hours. 2 – 3 weeks to a defensible architecture and a roadmap your team can implement.</p>
+          <div class="button">
+            <a href="/#contact?service=security-architecture-review" class="button-hidden w-button">Book a Scoping Call →</a>
+            <div class="button-wrapper"><div class="button-text">Book a Scoping Call →</div></div>
+            <div class="button-accent-gradinet"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Layout>

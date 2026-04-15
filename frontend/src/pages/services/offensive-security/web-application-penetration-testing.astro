@@ -1,0 +1,278 @@
+---
+// ============================================================
+// SERVICE PAGE — Web Application Penetration Testing
+// Category: Offensive Security (Y1 Flagship — high-volume service)
+// ============================================================
+
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import '../../../styles/category-hub.css';
+import '../../../styles/service-page.css';
+
+const faqs = [
+  { q: "What do you actually test?", a: "OWASP Top 10 (2021) as a baseline — broken access control, injection, authentication flaws, cryptographic failures, security misconfiguration, vulnerable components, SSRF, and more. Plus: API authentication and authorisation flaws, business-logic flaws unique to your application, file upload handling, session management, and client-side security. Coverage is manual; we use automation to assist, not to substitute for testing judgement." },
+  { q: "Is this a black-box, grey-box, or white-box test?", a: "Grey-box by default — we test with valid user credentials for each role to maximise coverage. Black-box (no credentials, external perspective only) is available for realism exercises. White-box (source code + credentials) is available for highest-depth engagements. Most clients choose grey-box as the best cost-to-coverage ratio." },
+  { q: "How do you handle production testing?", a: "We define safe testing windows and explicitly exclude destructive actions (mass data modification, account lockouts, DoS-style traffic). For logged-in tests we provision our own test accounts rather than using real user accounts. We never load user uploads, never store real user data, and every artefact we create during testing is cleaned up and documented." },
+  { q: "How long does a typical engagement take?", a: "For a single application with 50 – 200 authenticated endpoints, 2 – 3 weeks end-to-end (scoping + testing + reporting + walkthrough). Larger applications or API-heavy platforms extend to 3 – 4 weeks. Expedited 1.5-week delivery available with a 20% expedite fee." },
+  { q: "Do you test REST, GraphQL, and SOAP APIs?", a: "Yes — all three, plus WebSocket and gRPC. Our methodology covers authentication bypass, authorisation flaws, mass-assignment, rate-limit bypass, injection, BOLA/IDOR, and data-exposure classes specific to API surfaces." },
+  { q: "What about mobile apps?", a: "Mobile apps are tested through their backing APIs in this engagement. If you need full mobile-client binary analysis (static + dynamic on the device), scope it as a separate engagement — the tooling and methodology are distinct." },
+  { q: "Will this satisfy compliance requirements?", a: "Yes — our reports include scope, methodology, dates, named tester credentials, CVSS-scored findings, remediation guidance, and re-test validation. Usable as audit evidence for ISO 27001, SOC 2, PCI DSS, HIPAA, NESA, ADHICS, and similar frameworks." },
+  { q: "Is the re-test included?", a: "Yes. One re-test of critical and high findings within 30 days of final report is included in the base fee. We issue a separate re-test report confirming remediation. Additional re-tests beyond the first are charged separately." },
+];
+
+const schema = [
+  { "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://underwings.org" },
+    { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://underwings.org/services" },
+    { "@type": "ListItem", "position": 3, "name": "Offensive Security", "item": "https://underwings.org/services/offensive-security" },
+    { "@type": "ListItem", "position": 4, "name": "Web Application Penetration Testing", "item": "https://underwings.org/services/offensive-security/web-application-penetration-testing" }
+  ]},
+  { "@context": "https://schema.org", "@type": "Service", "name": "Web Application Penetration Testing", "serviceType": "Web Application Penetration Testing",
+    "provider": { "@type": "Organization", "name": "Underwings Cybersecurity Solutions", "url": "https://underwings.org" },
+    "areaServed": { "@type": "Country", "name": "United Arab Emirates" },
+    "offers": { "@type": "AggregateOffer", "priceCurrency": "AED", "lowPrice": "15000", "highPrice": "40000" },
+    "description": "Manual web application and API penetration testing in UAE — OWASP Top 10, API security, authentication flaws, business-logic testing. Led by OSCP/CPTS-certified practitioners.",
+    "url": "https://underwings.org/services/offensive-security/web-application-penetration-testing"
+  },
+  { "@context": "https://schema.org", "@type": "FAQPage",
+    "mainEntity": faqs.map(f => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } }))
+  }
+];
+
+export const prerender = false;
+---
+
+<Layout
+  title="Web Application Penetration Testing UAE — OWASP, API, Manual Testing | Underwings"
+  description="UAE web application penetration testing by OSCP/CPTS-certified practitioners. OWASP Top 10, API security, authentication bypass, business-logic testing. Manual, not vuln-scan PDFs. AED 15,000 – 40,000."
+  keywords="web application penetration testing UAE, API penetration testing Dubai, OWASP Top 10 pentest UAE, WAPT Abu Dhabi, web app security audit UAE, business logic testing"
+  wfPage="services-page"
+  schema={schema}
+  bodyClass="body svc-compact"
+>
+  <Header currentPage="services" />
+
+  <main id="main" class="main">
+
+    <section class="section bottom-padding-clear top-padding-small">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <nav class="crumbs" aria-label="Breadcrumb">
+          <a href="/">Home</a><span aria-hidden="true">›</span>
+          <a href="/services">Services</a><span aria-hidden="true">›</span>
+          <a href="/services/offensive-security">Offensive Security</a><span aria-hidden="true">›</span>
+          <span class="crumbs-current">Web Application Penetration Testing</span>
+        </nav>
+
+        <div class="svc-hero">
+          <div class="label" style="justify-content:center;"><div class="text-small color-grey">Offensive Security — Flagship Service</div></div>
+          <h1 class="heading-large">Web Application Penetration Testing</h1>
+          <p class="text" style="max-width:720px;margin:1rem auto 0;">
+            Manual, OSCP and CPTS-led testing of your web applications and APIs — covering OWASP Top 10, authentication and authorisation flaws, injection, business-logic abuse, and API-specific attack classes. <strong>Not a scanner report.</strong> Every finding manually validated.
+          </p>
+
+          <div class="svc-hero-badges">
+            <span class="svc-hero-badge svc-hero-badge-price">AED 15,000 – 40,000</span>
+            <span class="svc-hero-badge svc-hero-badge-certs">CPTS · CEH · OSCP</span>
+            <span class="svc-hero-badge svc-hero-badge-time">2 – 3 weeks typical</span>
+          </div>
+
+          <div class="svc-hero-ctas">
+            <div class="button">
+              <a href="/#contact?service=web-app-pentest" class="button-hidden w-button">Book a 30-min Scoping Call →</a>
+              <div class="button-wrapper"><div class="button-text">Book a 30-min Scoping Call →</div></div>
+              <div class="button-accent-gradinet"></div>
+            </div>
+            <a href="#faq" class="svc-hero-cta-secondary">Jump to FAQ</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">What it is</h2>
+        <div class="svc-sec-body">
+          <p>A <strong>manual, authenticated penetration test</strong> of your web application and its backing APIs — performed by a credentialed offensive security practitioner, not an automated scanner.</p>
+          <p>We log in as each user role, walk through the application the way a real user would, and then try everything a real attacker would. We test <strong>authentication and session handling</strong>, <strong>authorisation boundaries</strong> (including IDOR and BOLA), <strong>injection classes</strong> across SQL, NoSQL, OS, XXE, and LDAP, <strong>file upload and deserialisation</strong>, <strong>client-side issues</strong> (XSS, CSRF, clickjacking, CORS), and the <strong>business-logic flaws</strong> that scanners never find because they're specific to what your application actually does.</p>
+          <p>Every engagement ends with a prioritised findings report, a live remediation walkthrough, and <strong>one free re-test</strong> of the critical and high findings within 30 days of your remediation.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">What this is <em>not</em></h2>
+        <div class="svc-not-list">
+          <div class="svc-not-item"><div class="svc-not-ico"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div><strong>Not a vulnerability-scanner PDF.</strong> Scanners assist; humans do the testing.</div></div>
+          <div class="svc-not-item"><div class="svc-not-ico"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div><strong>Not a source-code review.</strong> This is black-box or grey-box dynamic testing. Code review is a separate engagement.</div></div>
+          <div class="svc-not-item"><div class="svc-not-ico"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div><strong>Not a DDoS stress test.</strong> We never intentionally impact availability.</div></div>
+          <div class="svc-not-item"><div class="svc-not-ico"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div><strong>Not a mobile-app engagement.</strong> Backing APIs are tested; full mobile-binary analysis is separate.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">Who this is for</h2>
+        <div class="svc-triggers">
+          <div class="svc-trigger"><div class="svc-trigger-num">1</div><div>You're <strong>launching a new web product</strong> and need a security gate before go-live.</div></div>
+          <div class="svc-trigger"><div class="svc-trigger-num">2</div><div>An <strong>enterprise client or bank</strong> has asked for a pen-test report before contract.</div></div>
+          <div class="svc-trigger"><div class="svc-trigger-num">3</div><div>You're <strong>preparing for ISO 27001, SOC 2, PCI DSS, or NESA audit</strong> and need application-layer evidence.</div></div>
+          <div class="svc-trigger"><div class="svc-trigger-num">4</div><div>You <strong>shipped significant changes</strong> (new auth, payment flow, role model, data model) and need validation.</div></div>
+          <div class="svc-trigger"><div class="svc-trigger-num">5</div><div>You had an <strong>incident or close call</strong> (credential-stuffing attempt, suspicious activity, responsible-disclosure report) and need external assurance.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">What you get</h2>
+        <ul class="svc-deliv-list">
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Rules of engagement</strong> — scope, timeline, testing windows, user roles, out-of-scope exclusions.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Findings report</strong> (typically 25 – 50 pages) — every finding with CVSS, reproduction, screenshots, business impact, specific remediation guidance.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Executive summary</strong> — 1 – 2 pages, board-consumable.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Live remediation walkthrough</strong> — 90 minutes with your dev team on every critical and high finding.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Free first re-test</strong> of critical and high findings within 30 days of remediation.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Clean-up evidence</strong> — every artefact we created during testing removed and documented.</div></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">How we deliver</h2>
+        <div class="svc-process-table">
+          <div class="svc-process-row"><div class="svc-process-row-num">01</div><div><div class="svc-process-row-step">Scoping</div><div class="svc-process-row-duration">2 – 3 days</div></div><div class="svc-process-row-desc">60-minute call, application walkthrough, user-role mapping, credential provisioning, ROE signed.</div></div>
+          <div class="svc-process-row"><div class="svc-process-row-num">02</div><div><div class="svc-process-row-step">Reconnaissance &amp; mapping</div><div class="svc-process-row-duration">2 – 3 days</div></div><div class="svc-process-row-desc">Endpoint enumeration, technology fingerprinting, attack-surface mapping, API documentation review.</div></div>
+          <div class="svc-process-row"><div class="svc-process-row-num">03</div><div><div class="svc-process-row-step">Manual testing</div><div class="svc-process-row-duration">5 – 10 days</div></div><div class="svc-process-row-desc">OWASP Top 10 coverage, authorisation testing across roles, injection, business-logic testing, API-specific attacks, client-side issues.</div></div>
+          <div class="svc-process-row"><div class="svc-process-row-num">04</div><div><div class="svc-process-row-step">Reporting</div><div class="svc-process-row-duration">3 – 5 days</div></div><div class="svc-process-row-desc">Findings compilation, CVSS scoring, reproduction steps, executive summary, internal review pass.</div></div>
+          <div class="svc-process-row"><div class="svc-process-row-num">05</div><div><div class="svc-process-row-step">Walkthrough</div><div class="svc-process-row-duration">90 minutes</div></div><div class="svc-process-row-desc">Live screen-share with your dev team — every critical and high finding, reproducible.</div></div>
+          <div class="svc-process-row"><div class="svc-process-row-num">06</div><div><div class="svc-process-row-step">Re-test</div><div class="svc-process-row-duration">Within 30 days post-remediation</div></div><div class="svc-process-row-desc">Validate fixes on all criticals and highs; issue re-test report.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">Pricing</h2>
+        <div class="svc-pricing">
+          <div class="svc-pricing-card">
+            <h4>Published range</h4>
+            <div class="svc-pricing-range">AED 15k – 40k</div>
+            <p class="svc-pricing-note">Per engagement. Written quote within 48 hours.</p>
+            <p class="svc-pricing-note" style="margin-top:0.75rem;"><strong>What drives the price:</strong></p>
+            <ul class="svc-pricing-drivers">
+              <li>Number of authenticated endpoints / pages</li>
+              <li>Number of user roles and role-based features</li>
+              <li>API surface size and complexity</li>
+              <li>Payment or financial transactions in scope</li>
+              <li>Testing mode (grey-box / black-box / white-box)</li>
+              <li>Timeline (standard 2 – 3 weeks vs. expedited 1.5-week)</li>
+            </ul>
+          </div>
+          <div class="svc-pricing-card">
+            <h4>Commercial terms</h4>
+            <ul class="svc-pricing-terms">
+              <li><strong>Deposit:</strong> 50% at signing; balance on final report</li>
+              <li><strong>Net terms:</strong> Net-30</li>
+              <li><strong>Quote validity:</strong> 30 days</li>
+              <li><strong>Re-test:</strong> 1 × critical/high re-test included</li>
+              <li><strong>Scope changes:</strong> written change request required</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">Your cert-backed team</h2>
+        <div class="svc-team">
+          <div class="svc-team-card">
+            <p class="svc-team-role">Lead Tester</p>
+            <h3 class="svc-team-name">Nelson Durairaj</h3>
+            <p class="svc-team-certs">OSCP · eJPT · CEH · BlackHat Linux · HTB Omniscient</p>
+            <p class="svc-team-focus"><strong>Focus:</strong> Authentication and authorisation testing, injection, business-logic abuse, API security.</p>
+          </div>
+          <div class="svc-team-card">
+            <p class="svc-team-role">Supervising Practitioner</p>
+            <h3 class="svc-team-name">Manoj Prabhakaran</h3>
+            <p class="svc-team-certs">CPTS · CDSA · Security+ · ISO 27001 Lead Auditor</p>
+            <p class="svc-team-focus"><strong>Focus:</strong> Engagement oversight, report quality, audit-evidence alignment, complex business-logic cases.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">Frequently asked questions</h2>
+        <div class="svc-faq">
+          {faqs.map(item => (
+            <details class="svc-faq-item">
+              <summary>{item.q}</summary>
+              <p class="svc-faq-answer" set:html={item.a}></p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">You might also need</h2>
+        <div class="svc-related-grid">
+          <a href="/services/offensive-security/network-penetration-testing" class="svc-related-card">
+            <h4>Network Penetration Testing</h4>
+            <p>If your exposure is broader than just the application — infrastructure, AD, cloud — pair the two.</p>
+            <div class="svc-related-cta">Read full details <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 6h6M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </a>
+          <a href="/services/offensive-security/vulnerability-assessment" class="svc-related-card">
+            <h4>Vulnerability Assessment (VA only)</h4>
+            <p>Lower fee option — scan-and-report for SMEs not ready for full pen testing.</p>
+            <div class="svc-related-cta">Read full details <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 6h6M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </a>
+          <a href="/services/cloud-security/azure-cloud-security-assessment" class="svc-related-card">
+            <h4>Azure Cloud Security Assessment</h4>
+            <p>Application and the Azure infrastructure it runs on — test both for full-stack assurance.</p>
+            <div class="svc-related-cta">Read full details <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 6h6M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </a>
+          <a href="/services/grc/iso-27001-implementation" class="svc-related-card">
+            <h4>ISO 27001 Implementation</h4>
+            <p>Application pen testing is a standing ISO 27001 evidence requirement — we can include it in a broader program.</p>
+            <div class="svc-related-cta">Read full details <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 6h6M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <div class="section-wrapper-vertical" style="align-items:center;text-align:center;">
+          <h2 class="heading" style="max-width:600px;">Launching a product, preparing an audit, or under client pressure for a pen-test report?</h2>
+          <p class="text-medium" style="max-width:600px;">Book a 30-minute scoping call. Written quote within 48 hours. We can start testing inside 1 – 2 weeks.</p>
+          <div class="button">
+            <a href="/#contact?service=web-app-pentest" class="button-hidden w-button">Book a Scoping Call →</a>
+            <div class="button-wrapper"><div class="button-text">Book a Scoping Call →</div></div>
+            <div class="button-accent-gradinet"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Layout>

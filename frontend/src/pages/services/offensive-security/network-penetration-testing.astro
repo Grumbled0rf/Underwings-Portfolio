@@ -1,0 +1,435 @@
+---
+// ============================================================
+// SERVICE PAGE — Network Penetration Testing
+// Category: Offensive Security (Y1 Flagship, Phase 3 Anchor)
+// ============================================================
+
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import '../../../styles/category-hub.css';
+import '../../../styles/service-page.css';
+
+const faqs = [
+  {
+    q: "How is this different from a vulnerability scan?",
+    a: "A vulnerability scan produces a list of potential issues — often thousands, many false-positive. A penetration test validates which issues are actually exploitable, chains them together, and demonstrates real business impact. We use scanners as part of the toolkit because they're fast at coverage — but the testing is manual and the report is human-written."
+  },
+  {
+    q: "Do you use automated tools?",
+    a: "Yes — Nmap, Nessus, Nuclei, BloodHound, Responder, Impacket, Metasploit, and others, alongside custom tooling. Tools don't write the report or decide what to exploit next — our testers do."
+  },
+  {
+    q: "What's the typical timeline from signed scope to final report?",
+    a: "2 – 3 weeks is the standard cadence for a mid-market engagement (20 – 100 hosts, single AD forest). Larger environments or combined external + internal + cloud scopes can extend to 4 – 5 weeks. Expedited delivery in 1.5 weeks is available with a 20% expedite fee."
+  },
+  {
+    q: "What happens if you find a critical vulnerability during testing?",
+    a: "We contact your nominated escalation point — immediately if the issue is actively exploitable from the internet, otherwise within business hours. You can choose to pause testing, keep testing, or remediate in parallel. Your call."
+  },
+  {
+    q: "Can you test production systems?",
+    a: "Yes. We define safe testing windows, exclude known-fragile systems from active exploitation, and use rate-limiting and careful exploitation on production. Most mid-market clients test production — it's where the real risk lives."
+  },
+  {
+    q: "What do you need from us to get started?",
+    a: "A signed Rules of Engagement and Authorisation Letter, an in-scope IP list, escalation contacts, blackout windows, and — for internal testing — VPN access or a staged test device on your internal network."
+  },
+  {
+    q: "Is the first re-test always included?",
+    a: "Yes. One re-test of remediated critical and high findings within 30 days of the final report is included in the base fee. Additional re-tests are charged separately."
+  },
+  {
+    q: "Are your reports suitable as ISO 27001 or SOC 2 audit evidence?",
+    a: "Yes. Our reports include scope definition, methodology, testing dates, named testers and their credentials, CVSS-scored findings, remediation status, and re-test validation — all the elements auditors look for."
+  },
+];
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://underwings.org" },
+      { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://underwings.org/services" },
+      { "@type": "ListItem", "position": 3, "name": "Offensive Security", "item": "https://underwings.org/services/offensive-security" },
+      { "@type": "ListItem", "position": 4, "name": "Network Penetration Testing", "item": "https://underwings.org/services/offensive-security/network-penetration-testing" }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Network Penetration Testing",
+    "serviceType": "Penetration Testing",
+    "provider": { "@type": "Organization", "name": "Underwings Cybersecurity Solutions", "url": "https://underwings.org" },
+    "areaServed": { "@type": "Country", "name": "United Arab Emirates" },
+    "offers": {
+      "@type": "AggregateOffer",
+      "priceCurrency": "AED",
+      "lowPrice": "20000",
+      "highPrice": "60000"
+    },
+    "description": "OSCP-led external and internal network penetration testing in the UAE. Real exploitation, Active Directory attacks, detailed reporting, remediation walkthroughs.",
+    "url": "https://underwings.org/services/offensive-security/network-penetration-testing"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(f => ({
+      "@type": "Question",
+      "name": f.q,
+      "acceptedAnswer": { "@type": "Answer", "text": f.a }
+    }))
+  }
+];
+
+export const prerender = false;
+---
+
+<Layout
+  title="Network Penetration Testing in UAE — OSCP-Led External & Internal | Underwings"
+  description="OSCP-led external and internal network penetration testing in the UAE. Active Directory attacks, lateral movement, real exploitation, detailed reports, remediation walkthroughs. AED 20,000 – 60,000."
+  keywords="network penetration testing UAE, pen test Dubai, OSCP pentester UAE, Active Directory pentest, internal network pen test UAE, external pentest Abu Dhabi"
+  wfPage="services-page"
+  schema={schema}
+  bodyClass="body svc-compact"
+>
+  <Header currentPage="services" />
+
+  <main id="main" class="main">
+
+    <!-- Breadcrumb + Hero -->
+    <section class="section bottom-padding-clear top-padding-small">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
+        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
+      </div>
+      <div class="container-medium">
+        <nav class="crumbs" aria-label="Breadcrumb">
+          <a href="/">Home</a>
+          <span aria-hidden="true">›</span>
+          <a href="/services">Services</a>
+          <span aria-hidden="true">›</span>
+          <a href="/services/offensive-security">Offensive Security</a>
+          <span aria-hidden="true">›</span>
+          <span class="crumbs-current">Network Penetration Testing</span>
+        </nav>
+
+        <div class="svc-hero">
+          <div class="label" style="justify-content:center;">
+            <div class="text-small color-grey">Offensive Security — Flagship Service</div>
+          </div>
+          <h1 class="heading-large">Network Penetration Testing</h1>
+          <p class="text" style="max-width:680px;margin:1rem auto 0;">
+            OSCP-led external and internal network penetration testing — including Active Directory attacks, lateral movement, and real exploitation. <strong>Not a vulnerability scan.</strong> Not a checkbox report.
+          </p>
+
+          <div class="svc-hero-badges">
+            <span class="svc-hero-badge svc-hero-badge-price">AED 20,000 – 60,000</span>
+            <span class="svc-hero-badge svc-hero-badge-certs">OSCP · CPTS · CEH</span>
+            <span class="svc-hero-badge svc-hero-badge-time">2 – 3 weeks typical</span>
+          </div>
+
+          <div class="svc-hero-ctas">
+            <div class="button">
+              <a href="/#contact?service=network-penetration-testing" class="button-hidden w-button">Book a 30-min Scoping Call →</a>
+              <div class="button-wrapper"><div class="button-text">Book a 30-min Scoping Call →</div></div>
+              <div class="button-accent-gradinet"></div>
+            </div>
+            <a href="#faq" class="svc-hero-cta-secondary">Jump to FAQ</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- What it is -->
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
+        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
+      </div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">What it is</h2>
+        <div class="svc-sec-body">
+          <p>A network penetration test is a real-world attack simulation against your external-facing infrastructure, internal network, and Active Directory domain — performed manually by certified offensive security practitioners.</p>
+          <p>We do <strong>not</strong> run a vulnerability scanner and hand you the output. We start where the scanner stops: chaining findings together, escalating privileges, moving laterally, and demonstrating the actual business impact of the weaknesses we find. Where exploitation is feasible, authorised, and safe, we exploit — because the only way to know whether an issue matters is to see what an attacker can do with it.</p>
+          <p>Every engagement ends with a prioritised remediation plan, a live walkthrough session with your team, and one free re-test of the critical findings after you've remediated.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- What it's NOT -->
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
+        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
+      </div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">What this is <em>not</em></h2>
+        <div class="svc-not-list">
+          <div class="svc-not-item">
+            <div class="svc-not-ico" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+            <div><strong>Not a vulnerability scan.</strong> Scans find patterns; pen tests find paths.</div>
+          </div>
+          <div class="svc-not-item">
+            <div class="svc-not-ico" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+            <div><strong>Not a compliance checkbox.</strong> Useful for audit evidence, but compliance is a side effect — not the purpose.</div>
+          </div>
+          <div class="svc-not-item">
+            <div class="svc-not-ico" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+            <div><strong>Not limited to "safe" findings.</strong> We test realistic attack scenarios within the rules of engagement you set.</div>
+          </div>
+          <div class="svc-not-item">
+            <div class="svc-not-ico" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+            <div><strong>Not delivered by juniors.</strong> Every engagement is led by an OSCP or CPTS holder.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Who it's for -->
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
+        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
+      </div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">Who this is for</h2>
+        <p class="svc-sec-body" style="margin-bottom:1.25rem;">You're probably here because one of these is true:</p>
+        <div class="svc-triggers">
+          <div class="svc-trigger">
+            <div class="svc-trigger-num">1</div>
+            <div>You're preparing for an <strong>ISO 27001, SOC 2, or NESA audit</strong> and need third-party pen-test evidence.</div>
+          </div>
+          <div class="svc-trigger">
+            <div class="svc-trigger-num">2</div>
+            <div>An <strong>enterprise client or bank</strong> has asked for a pen-test report as a condition of onboarding.</div>
+          </div>
+          <div class="svc-trigger">
+            <div class="svc-trigger-num">3</div>
+            <div>You <strong>migrated infrastructure</strong> (new cloud, M&amp;A, data-centre move) and need validation before going live.</div>
+          </div>
+          <div class="svc-trigger">
+            <div class="svc-trigger-num">4</div>
+            <div>Your <strong>board or CISO</strong> has asked what your actual attack surface looks like — and "the last vuln scan" isn't the answer.</div>
+          </div>
+          <div class="svc-trigger">
+            <div class="svc-trigger-num">5</div>
+            <div>You had an <strong>incident or near-miss</strong> and need external validation that the gap is closed.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- What you get -->
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
+        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
+      </div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">What you get</h2>
+        <ul class="svc-deliv-list">
+          <li class="svc-deliv-item">
+            <svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div><strong>Scoping document</strong> (1 – 2 pages) — rules of engagement, IP scope, credentials, timeline, escalation contacts, blackout windows.</div>
+          </li>
+          <li class="svc-deliv-item">
+            <svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div><strong>Findings report</strong> (typically 30 – 60 pages) — every finding with CVSS score, reproduction steps, screenshots, business impact, and specific remediation guidance.</div>
+          </li>
+          <li class="svc-deliv-item">
+            <svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div><strong>Executive summary</strong> (1 – 2 pages) — CISO / board / audit-committee consumable. Plain English. No jargon.</div>
+          </li>
+          <li class="svc-deliv-item">
+            <svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div><strong>Live remediation walkthrough</strong> (90 minutes) — your technical team + our lead tester go through every critical and high finding on screen.</div>
+          </li>
+          <li class="svc-deliv-item">
+            <svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div><strong>Free re-test</strong> of remediated critical and high findings within 30 days — we validate that the fixes actually work and issue a re-test report.</div>
+          </li>
+          <li class="svc-deliv-item">
+            <svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div><strong>Clean-up evidence</strong> — every artefact we placed on your systems during testing is removed and documented.</div>
+          </li>
+        </ul>
+        <p class="text-small color-grey" style="margin-top:1rem;max-width:720px;">Reports are delivered as signed PDFs — and as an editable <code>.docx</code> if your auditor needs it.</p>
+      </div>
+    </section>
+
+    <!-- How we deliver -->
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
+        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
+      </div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">How we deliver</h2>
+        <div class="svc-process-table">
+          <div class="svc-process-row">
+            <div class="svc-process-row-num">01</div>
+            <div><div class="svc-process-row-step">Scoping</div><div class="svc-process-row-duration">2 – 3 days</div></div>
+            <div class="svc-process-row-desc">60-minute call, asset inventory, rules of engagement, credentials provisioning, legal authorisation signed.</div>
+          </div>
+          <div class="svc-process-row">
+            <div class="svc-process-row-num">02</div>
+            <div><div class="svc-process-row-step">External reconnaissance</div><div class="svc-process-row-duration">2 – 3 days</div></div>
+            <div class="svc-process-row-desc">OSINT, attack surface mapping, service enumeration, initial external exploitation.</div>
+          </div>
+          <div class="svc-process-row">
+            <div class="svc-process-row-num">03</div>
+            <div><div class="svc-process-row-step">Internal + Active Directory testing</div><div class="svc-process-row-duration">5 – 10 days</div></div>
+            <div class="svc-process-row-desc">Internal network enumeration, credential access, lateral movement, privilege escalation, domain-admin path validation.</div>
+          </div>
+          <div class="svc-process-row">
+            <div class="svc-process-row-num">04</div>
+            <div><div class="svc-process-row-step">Reporting</div><div class="svc-process-row-duration">3 – 5 days</div></div>
+            <div class="svc-process-row-desc">Findings compilation, CVSS scoring, executive summary, internal review pass.</div>
+          </div>
+          <div class="svc-process-row">
+            <div class="svc-process-row-num">05</div>
+            <div><div class="svc-process-row-step">Walkthrough session</div><div class="svc-process-row-duration">90 minutes</div></div>
+            <div class="svc-process-row-desc">Live screen-share through every critical and high finding with your technical team.</div>
+          </div>
+          <div class="svc-process-row">
+            <div class="svc-process-row-num">06</div>
+            <div><div class="svc-process-row-step">Re-test</div><div class="svc-process-row-duration">Within 30 days of remediation</div></div>
+            <div class="svc-process-row-desc">Validate fixes on all criticals and highs; issue re-test report.</div>
+          </div>
+        </div>
+        <p class="text-small color-grey" style="margin-top:1rem;max-width:720px;"><strong>Typical total:</strong> 2 – 3 weeks from signed scoping to delivered report. Expedited delivery (1.5 weeks) available on request with a 20% expedite fee.</p>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
+        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
+      </div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">Pricing</h2>
+        <div class="svc-pricing">
+          <div class="svc-pricing-card">
+            <h4>Published range</h4>
+            <div class="svc-pricing-range">AED 20k – 60k</div>
+            <p class="svc-pricing-note">Per engagement. Scoping call + written quote within 48 hours.</p>
+            <p class="svc-pricing-note" style="margin-top:0.75rem;"><strong>What drives the price:</strong></p>
+            <ul class="svc-pricing-drivers">
+              <li>Number of live hosts in scope</li>
+              <li>External-only vs. internal-only vs. combined</li>
+              <li>Active Directory domain size &amp; trusts</li>
+              <li>Timeline (standard vs. expedited 1.5-week)</li>
+              <li>Re-test iterations beyond the included first re-test</li>
+            </ul>
+          </div>
+          <div class="svc-pricing-card">
+            <h4>Commercial terms</h4>
+            <ul class="svc-pricing-terms">
+              <li><strong>Deposit:</strong> 50% at signing; balance on final report</li>
+              <li><strong>Net terms:</strong> Net-30 from invoice date</li>
+              <li><strong>Quote validity:</strong> 30 days</li>
+              <li><strong>Re-test:</strong> 1 × critical/high re-test included</li>
+              <li><strong>Scope changes:</strong> require written change request</li>
+              <li><strong>No surprise charges.</strong> Ever.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Named team -->
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
+        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
+      </div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">Your cert-backed team</h2>
+        <p class="svc-sec-body" style="margin-bottom:1.5rem;">Every engagement is led by a named practitioner with documented offensive security credentials — never handed to an anonymous junior.</p>
+        <div class="svc-team">
+          <div class="svc-team-card">
+            <p class="svc-team-role">Lead Penetration Tester</p>
+            <h3 class="svc-team-name">Nelson Durairaj</h3>
+            <p class="svc-team-certs">OSCP · eJPT · CEH · BlackHat Linux · HTB Omniscient</p>
+            <p class="svc-team-focus"><strong>Focus:</strong> External + internal network testing, Active Directory exploitation, lateral movement, privilege escalation.</p>
+          </div>
+          <div class="svc-team-card">
+            <p class="svc-team-role">Supervising Practitioner</p>
+            <h3 class="svc-team-name">Manoj Prabhakaran</h3>
+            <p class="svc-team-certs">CPTS · CDSA · Security+ · Azure Cloud Security · ISO 27001 Lead Auditor · HTB Omniscient</p>
+            <p class="svc-team-focus"><strong>Focus:</strong> Engagement oversight, report quality review, complex engagements, audit-evidence alignment.</p>
+          </div>
+        </div>
+        <p class="text-small color-grey" style="margin-top:1.25rem;"><a href="/about" style="color:#37dc82;text-decoration:underline;">See the full team →</a></p>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section" id="faq">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
+        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
+      </div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">Frequently asked questions</h2>
+        <div class="svc-faq">
+          {faqs.map(item => (
+            <details class="svc-faq-item">
+              <summary>{item.q}</summary>
+              <p class="svc-faq-answer" set:html={item.a}></p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Related -->
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
+        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
+      </div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">You might also need</h2>
+        <div class="svc-related-grid">
+          <a href="/#contact?service=web-app-pentest" class="svc-related-card">
+            <h4>Web Application Penetration Testing</h4>
+            <p>If your exposure is primarily via web apps, APIs, or customer portals.</p>
+            <div class="svc-related-cta">Contact to scope <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 6h6M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </a>
+          <a href="/#contact?service=vulnerability-assessment" class="svc-related-card">
+            <h4>Vulnerability Assessment (VA only)</h4>
+            <p>If you're not ready for full pen testing — scan-and-report from AED 5k.</p>
+            <div class="svc-related-cta">Contact to scope <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 6h6M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </a>
+          <a href="/#contact?service=firewall-review" class="svc-related-card">
+            <h4>Firewall &amp; Network Security Review</h4>
+            <p>Pair with pen test findings to fix the network design issues at the root.</p>
+            <div class="svc-related-cta">Contact to scope <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 6h6M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </a>
+          <a href="/services/grc/iso-27001-implementation" class="svc-related-card">
+            <h4>ISO 27001 Implementation</h4>
+            <p>If this pen test is part of a larger compliance program.</p>
+            <div class="svc-related-cta">Read full details <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 6h6M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
+        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
+      </div>
+      <div class="container-medium">
+        <div class="section-wrapper-vertical" style="align-items:center;text-align:center;">
+          <h2 class="heading" style="max-width:600px;">Ready to see what an attacker would actually find?</h2>
+          <p class="text-medium" style="max-width:600px;">
+            Book a 30-minute scoping call. We'll scope your engagement, give you a price range in writing within 48 hours, and answer any question you have about the methodology, timeline, or deliverables.
+          </p>
+          <div class="button">
+            <a href="/#contact?service=network-penetration-testing" class="button-hidden w-button">Book a Scoping Call →</a>
+            <div class="button-wrapper"><div class="button-text">Book a Scoping Call →</div></div>
+            <div class="button-accent-gradinet"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Layout>

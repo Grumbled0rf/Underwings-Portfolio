@@ -1,0 +1,278 @@
+---
+// ============================================================
+// SERVICE PAGE — ISO 27001 Implementation & Certification Support
+// Category: GRC (Y1 Flagship, Phase 3 Anchor — highest GRC revenue)
+// ============================================================
+
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import '../../../styles/category-hub.css';
+import '../../../styles/service-page.css';
+
+const faqs = [
+  { q: "Who actually issues the ISO 27001 certificate?", a: "Never us. A certificate can only be issued by an <strong>accredited certification body</strong> (e.g. BSI, TÜV, Intertek, SGS, Bureau Veritas, or a locally-accredited UAE body). We implement your ISMS and manage the entire implementation program; you contract the certification body independently. This separation is required — no firm is allowed to both implement and certify." },
+  { q: "How long does a full implementation take?", a: "Typical timeline is <strong>4 – 6 months</strong> for a mid-market single-location organisation with a defined ISMS scope. Larger or more complex organisations extend to 8 – 12 months. We scope the timeline in writing during the scoping call." },
+  { q: "What's included vs. what's your responsibility?", a: "Our deliverables: policies, procedures, risk register, Statement of Applicability, mandatory Annex A control implementation guidance, internal audit, management review support, and audit-readiness sign-off. Your responsibility: executive sponsorship, control implementation resources, staff awareness training attendance, certification body fees." },
+  { q: "Can you help us choose a certification body?", a: "Yes. We have working relationships with multiple UAE and GCC-accredited bodies. We'll recommend based on your sector, budget, and the recognition of the certificate in your target markets." },
+  { q: "Do you do internal audits?", a: "Yes. We run a full internal audit against ISO 27001:2022 Annex A as part of the engagement, producing findings and corrective-action tracking before the Stage 1 external audit." },
+  { q: "What if we already have policies in place?", a: "Great — we start with a gap assessment against what you have versus ISO 27001:2022, identify what's reusable, what needs updating, and what needs authoring from scratch. No wasted effort re-creating what already works." },
+  { q: "What happens after certification?", a: "The certification body conducts annual surveillance audits (years 1 and 2) and a recertification audit in year 3. We offer post-certification support packages for ongoing ISMS maintenance, documentation updates, and audit preparation." },
+  { q: "Do you cover ISO 27001:2022 or the old 2013 version?", a: "ISO 27001:2022 — the current version. Annex A was restructured from 114 controls to 93 in 4 themed groups (Organisational, People, Physical, Technological). We implement the current version; migration from 2013 is handled as part of the gap assessment." },
+];
+
+const schema = [
+  { "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://underwings.org" },
+    { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://underwings.org/services" },
+    { "@type": "ListItem", "position": 3, "name": "Cybersecurity GRC", "item": "https://underwings.org/services/grc" },
+    { "@type": "ListItem", "position": 4, "name": "ISO 27001 Implementation & Certification Support", "item": "https://underwings.org/services/grc/iso-27001-implementation" }
+  ]},
+  { "@context": "https://schema.org", "@type": "Service", "name": "ISO 27001 Implementation & Certification Support", "serviceType": "ISO 27001 Implementation",
+    "provider": { "@type": "Organization", "name": "Underwings Cybersecurity Solutions", "url": "https://underwings.org" },
+    "areaServed": { "@type": "Country", "name": "United Arab Emirates" },
+    "offers": { "@type": "AggregateOffer", "priceCurrency": "AED", "lowPrice": "50000", "highPrice": "120000" },
+    "description": "End-to-end ISO 27001:2022 ISMS implementation and certification-body audit support in UAE. Led by ISO 27001 Lead Auditor.",
+    "url": "https://underwings.org/services/grc/iso-27001-implementation"
+  },
+  { "@context": "https://schema.org", "@type": "FAQPage",
+    "mainEntity": faqs.map(f => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } }))
+  }
+];
+
+export const prerender = false;
+---
+
+<Layout
+  title="ISO 27001:2022 Implementation UAE — End-to-End with Lead Auditor | Underwings"
+  description="ISO 27001:2022 ISMS implementation and certification-body audit support in UAE. Led by an ISO 27001 Lead Auditor. Policies, risk register, Statement of Applicability, internal audit, audit-readiness. 4 – 6 months. AED 50,000 – 120,000."
+  keywords="ISO 27001 implementation UAE, ISO 27001 consultant UAE, ISMS implementation Dubai, ISO 27001 certification UAE, ISO 27001 Lead Auditor Abu Dhabi, ISO 27001 2022 UAE"
+  wfPage="services-page"
+  schema={schema}
+  bodyClass="body svc-compact"
+>
+  <Header currentPage="services" />
+
+  <main id="main" class="main">
+
+    <section class="section bottom-padding-clear top-padding-small">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <nav class="crumbs" aria-label="Breadcrumb">
+          <a href="/">Home</a><span aria-hidden="true">›</span>
+          <a href="/services">Services</a><span aria-hidden="true">›</span>
+          <a href="/services/grc">Cybersecurity GRC</a><span aria-hidden="true">›</span>
+          <span class="crumbs-current">ISO 27001 Implementation</span>
+        </nav>
+
+        <div class="svc-hero">
+          <div class="label" style="justify-content:center;"><div class="text-small color-grey">GRC — Flagship Service</div></div>
+          <h1 class="heading-large">ISO 27001 Implementation &amp; Certification Support</h1>
+          <p class="text" style="max-width:720px;margin:1rem auto 0;">
+            End-to-end ISO 27001:2022 ISMS implementation — from gap assessment through policy authoring, risk register, control implementation, internal audit, and accredited-body audit support. <strong>We implement. Accredited bodies certify.</strong> Never both.
+          </p>
+
+          <div class="svc-hero-badges">
+            <span class="svc-hero-badge svc-hero-badge-price">AED 50,000 – 120,000</span>
+            <span class="svc-hero-badge svc-hero-badge-certs">ISO 27001 Lead Auditor · GRC Mastery</span>
+            <span class="svc-hero-badge svc-hero-badge-time">4 – 6 months typical</span>
+          </div>
+
+          <div class="svc-hero-ctas">
+            <div class="button">
+              <a href="/#contact?service=iso-27001-implementation" class="button-hidden w-button">Book a 30-min Scoping Call →</a>
+              <div class="button-wrapper"><div class="button-text">Book a 30-min Scoping Call →</div></div>
+              <div class="button-accent-gradinet"></div>
+            </div>
+            <a href="#faq" class="svc-hero-cta-secondary">Jump to FAQ</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">What it is</h2>
+        <div class="svc-sec-body">
+          <p>A full, <strong>hands-on ISO 27001:2022 ISMS implementation</strong> program — delivered by an ISO 27001 Lead Auditor who has built ISMS programs from scratch and read the standard cover-to-cover, not just skimmed the Annex.</p>
+          <p>Every engagement produces <strong>a working ISMS</strong>, not a shelf of policies nobody reads. Policies are authored to your organisation (not generic templates), controls are implemented with your technical team, risks are assessed and treated with documented justification, and the internal audit is genuine — not a tick-box rehearsal for the external auditor.</p>
+          <p>You leave the engagement with a certified ISMS and a team that can run it. We step back after certification; we do not hold the keys to your own program.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">What this is <em>not</em></h2>
+        <div class="svc-not-list">
+          <div class="svc-not-item"><div class="svc-not-ico"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div><strong>Not a policy-template reseller.</strong> Policies authored to your organisation, not copy-paste from a template library.</div></div>
+          <div class="svc-not-item"><div class="svc-not-ico"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div><strong>Not a compliance-in-a-box subscription.</strong> We deliver a program, not a SaaS rental.</div></div>
+          <div class="svc-not-item"><div class="svc-not-ico"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div><strong>Not a certifier.</strong> An accredited certification body issues the certificate. We partner with them; we're never both implementer and certifier.</div></div>
+          <div class="svc-not-item"><div class="svc-not-ico"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div><strong>Not a lock-in.</strong> You own everything we produce. No hidden dependencies on our team after certification.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">Who this is for</h2>
+        <div class="svc-triggers">
+          <div class="svc-trigger"><div class="svc-trigger-num">1</div><div>An <strong>enterprise client or bank</strong> has asked for ISO 27001 certification as a condition of contract.</div></div>
+          <div class="svc-trigger"><div class="svc-trigger-num">2</div><div>You're pursuing <strong>UAE government or semi-government tenders</strong> that require ISO 27001.</div></div>
+          <div class="svc-trigger"><div class="svc-trigger-num">3</div><div>Your <strong>board has mandated</strong> ISO 27001 as a strategic risk-management investment.</div></div>
+          <div class="svc-trigger"><div class="svc-trigger-num">4</div><div>You're a <strong>SaaS or fintech</strong> selling to enterprise — ISO 27001 is the default procurement question.</div></div>
+          <div class="svc-trigger"><div class="svc-trigger-num">5</div><div>You're aligning <strong>PDPL, NESA, and ISO 27001</strong> into a single compliance program.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">What you get</h2>
+        <ul class="svc-deliv-list">
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>ISMS scope &amp; context documentation</strong> — boundary definition, interested parties, internal/external issues.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Full policy set</strong> — information security policy, access control, cryptography, HR security, asset management, incident response, BCP, supplier security, plus sub-policies as scope requires (typically 12 – 18 documents).</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Risk register</strong> — ISO 27005-aligned, with risk assessment, treatment decisions, residual risk, and owner accountability.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Statement of Applicability (SoA)</strong> — every Annex A:2022 control, applicable Y/N, implemented Y/N, justification.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Procedures &amp; records templates</strong> — incident log, access review log, training records, supplier assessments, internal audit evidence, management review minutes.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Internal audit</strong> — full ISMS audit against Clause 4 – 10 and Annex A, with findings and corrective-action tracking.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Management review support</strong> — agenda, pre-reading pack, minutes template, decision log.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Stage 1 &amp; Stage 2 audit support</strong> — we attend, translate auditor findings, and run remediation for any non-conformities.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Staff awareness training</strong> — ISMS kick-off session and annual awareness deck; optional add-on for ongoing training via our Awareness Training service.</div></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">How we deliver (4 – 6 month program)</h2>
+        <div class="svc-process-table">
+          <div class="svc-process-row"><div class="svc-process-row-num">M1</div><div><div class="svc-process-row-step">Scoping &amp; gap assessment</div><div class="svc-process-row-duration">Weeks 1 – 4</div></div><div class="svc-process-row-desc">ISMS scope workshop, context analysis, Annex A:2022 gap assessment, risk methodology agreement, certification body shortlist.</div></div>
+          <div class="svc-process-row"><div class="svc-process-row-num">M2</div><div><div class="svc-process-row-step">Risk &amp; SoA</div><div class="svc-process-row-duration">Weeks 5 – 8</div></div><div class="svc-process-row-desc">Asset register, risk assessment against identified threats, risk treatment plan, Statement of Applicability authoring.</div></div>
+          <div class="svc-process-row"><div class="svc-process-row-num">M3</div><div><div class="svc-process-row-step">Policies &amp; procedures</div><div class="svc-process-row-duration">Weeks 9 – 12</div></div><div class="svc-process-row-desc">Policy authoring and review cycles, procedure development, record templates, supplier-security assessment framework.</div></div>
+          <div class="svc-process-row"><div class="svc-process-row-num">M4</div><div><div class="svc-process-row-step">Control implementation</div><div class="svc-process-row-duration">Weeks 13 – 16</div></div><div class="svc-process-row-desc">Technical controls implementation with your team, awareness training delivery, access review cycles start, incident log operational.</div></div>
+          <div class="svc-process-row"><div class="svc-process-row-num">M5</div><div><div class="svc-process-row-step">Internal audit &amp; mgmt review</div><div class="svc-process-row-duration">Weeks 17 – 20</div></div><div class="svc-process-row-desc">Full internal ISMS audit, corrective actions, first management review, readiness assessment for external audit.</div></div>
+          <div class="svc-process-row"><div class="svc-process-row-num">M6</div><div><div class="svc-process-row-step">Stage 1 &amp; Stage 2 audit</div><div class="svc-process-row-duration">Weeks 21 – 24</div></div><div class="svc-process-row-desc">Stage 1 documentation review, remediation of any findings, Stage 2 implementation audit, certificate issued by accredited body.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">Pricing</h2>
+        <div class="svc-pricing">
+          <div class="svc-pricing-card">
+            <h4>Published range</h4>
+            <div class="svc-pricing-range">AED 50k – 120k</div>
+            <p class="svc-pricing-note">Our implementation fee. Certification body audit fees are separate and contracted directly with the certifier (typically AED 25k – 60k depending on body and scope).</p>
+            <p class="svc-pricing-note" style="margin-top:0.75rem;"><strong>What drives the price:</strong></p>
+            <ul class="svc-pricing-drivers">
+              <li>ISMS scope size (single site vs. multi-site, departments, subsidiaries)</li>
+              <li>Existing policy maturity (greenfield vs. partial)</li>
+              <li>Number of applicable Annex A controls</li>
+              <li>Technical control implementation complexity</li>
+              <li>Timeline (standard 4 – 6 mo vs. expedited)</li>
+            </ul>
+          </div>
+          <div class="svc-pricing-card">
+            <h4>Commercial terms</h4>
+            <ul class="svc-pricing-terms">
+              <li><strong>Deposit:</strong> 30% at signing (larger engagement)</li>
+              <li><strong>Milestone invoicing:</strong> 30% M2, 30% M4, 10% on certificate</li>
+              <li><strong>Net terms:</strong> Net-30</li>
+              <li><strong>Quote validity:</strong> 30 days</li>
+              <li><strong>Certification body:</strong> contracted separately</li>
+              <li><strong>Post-cert support:</strong> optional retainer</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">Your cert-backed lead</h2>
+        <div class="svc-team">
+          <div class="svc-team-card" style="grid-column:1/-1;">
+            <p class="svc-team-role">Engagement Lead &amp; ISO 27001 Lead Auditor</p>
+            <h3 class="svc-team-name">Manoj Prabhakaran</h3>
+            <p class="svc-team-certs">ISO 27001 Lead Auditor · GRC Mastery · CPTS · CDSA · Security+ · Azure Cloud Security</p>
+            <p class="svc-team-focus"><strong>Focus:</strong> ISMS design, policy authoring, risk assessment, SoA, internal audit, certification-body liaison. <strong>Unique angle:</strong> offensive-security background means technical controls get implemented correctly — not just documented.</p>
+          </div>
+        </div>
+        <p class="text-small color-grey" style="margin-top:1.25rem;max-width:640px;">
+          <strong>We practise what we deliver:</strong> Underwings is pursuing its own ISO 27001:2022 certification in 2026. The same program we run for clients, we're applying to ourselves first — because you shouldn't buy an ISMS implementation from a firm that doesn't run one.
+        </p>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">Frequently asked questions</h2>
+        <div class="svc-faq">
+          {faqs.map(item => (
+            <details class="svc-faq-item">
+              <summary>{item.q}</summary>
+              <p class="svc-faq-answer" set:html={item.a}></p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">You might also need</h2>
+        <div class="svc-related-grid">
+          <a href="/#contact?service=iso-27001-gap" class="svc-related-card">
+            <h4>ISO 27001 Gap Assessment</h4>
+            <p>Start with a gap assessment if you're not sure you're ready for full implementation yet.</p>
+            <div class="svc-related-cta">Contact to scope <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 6h6M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </a>
+          <a href="/#contact?service=risk-assessment" class="svc-related-card">
+            <h4>Risk Assessment &amp; Register</h4>
+            <p>Required as ISO 27001 sub-deliverable; also sold standalone to clients not ready for full cert.</p>
+            <div class="svc-related-cta">Contact to scope <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 6h6M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </a>
+          <a href="/services/offensive-security/network-penetration-testing" class="svc-related-card">
+            <h4>Network Penetration Testing</h4>
+            <p>Most ISO 27001 programs require pen-test evidence — we deliver it under the same engagement.</p>
+            <div class="svc-related-cta">Read full details <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 6h6M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </a>
+          <a href="/#contact?service=pdpl" class="svc-related-card">
+            <h4>UAE PDPL Compliance Advisory</h4>
+            <p>PDPL and ISO 27001 share ~60% of control ground — align programs from day one.</p>
+            <div class="svc-related-cta">Contact to scope <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 6h6M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <div class="section-wrapper-vertical" style="align-items:center;text-align:center;">
+          <h2 class="heading" style="max-width:600px;">Audit demand, board mandate, or tender gate pushing you toward ISO 27001?</h2>
+          <p class="text-medium" style="max-width:600px;">Book a 30-minute scoping call. We'll map your current state, scope the program, and send a written quote within 48 hours — plus recommend 2 – 3 suitable accredited certification bodies.</p>
+          <div class="button">
+            <a href="/#contact?service=iso-27001-implementation" class="button-hidden w-button">Book a Scoping Call →</a>
+            <div class="button-wrapper"><div class="button-text">Book a Scoping Call →</div></div>
+            <div class="button-accent-gradinet"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Layout>

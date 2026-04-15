@@ -1,0 +1,271 @@
+---
+// ============================================================
+// SERVICE PAGE — Risk Assessment & Risk Register Build
+// Category: GRC (Y1 Flagship)
+// ============================================================
+
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import '../../../styles/category-hub.css';
+import '../../../styles/service-page.css';
+
+const faqs = [
+  { q: "What methodology do you use?", a: "ISO 27005-aligned qualitative assessment by default — asset-based risk identification, threat and vulnerability mapping, likelihood × impact matrix with defined scoring rubric, risk treatment decisions (avoid / transfer / mitigate / accept) with rationale. Quantitative (FAIR-style) methodology available on request for organisations that want dollar-denominated risk conversations." },
+  { q: "Why buy a risk register as a standalone service?", a: "Three reasons: (1) you're pursuing ISO 27001 and need a risk register ahead of full Implementation, (2) your board or audit committee has asked for an enterprise risk view and your current register is incomplete or outdated, (3) regulatory frameworks (NESA, PDPL, sector-specific) require documented risk management and you don't have it." },
+  { q: "How is this different from ISO 27001 Gap Assessment?", a: "A Gap Assessment measures <em>controls</em> against a standard. A Risk Register identifies <em>risks</em> to your organisation and the treatment decisions made about each. Many clients need both — they answer different questions. Risk Registers are a required sub-deliverable of ISO 27001 Implementation; this service delivers one standalone." },
+  { q: "How long does it take?", a: "2 – 3 weeks for a typical mid-market organisation. Larger or more complex environments (multi-entity, multi-jurisdiction) extend to 4 – 5 weeks. The fieldwork is front-loaded; reporting is typically a third of the timeline." },
+  { q: "Who should be involved from our side?", a: "One executive sponsor, IT leadership, HR leadership, legal / compliance, operations leads, and typically 2 – 3 subject-matter experts per major technology or business area. 45 – 60 minute interviews with each." },
+  { q: "Does this satisfy audit requirements?", a: "Yes — ISO 27001, SOC 2, NESA, PDPL, and most sector-specific frameworks mandate a documented risk management process. Our register provides methodology, identified risks, assessment scores, treatment decisions, owner accountability, and review cadence — all the elements auditors look for." },
+  { q: "What ongoing maintenance do I need?", a: "We build the register and establish the review cadence. Typical cadence: quarterly review of high and critical risks, annual full review. You own maintenance; we can be engaged on retainer for quarterly refresh if you want ongoing support (retainer offering launches in 2027)." },
+  { q: "Do you assess cybersecurity risks only, or broader enterprise risks?", a: "Cybersecurity-focused by default (information assets, systems, data) — that's our expertise. We can include technology-related operational and regulatory risks where they intersect. Broader enterprise risks (financial, strategic, market) are outside our scope and typically handled by a separate enterprise risk function." },
+];
+
+const schema = [
+  { "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://underwings.org" },
+    { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://underwings.org/services" },
+    { "@type": "ListItem", "position": 3, "name": "Cybersecurity GRC", "item": "https://underwings.org/services/grc" },
+    { "@type": "ListItem", "position": 4, "name": "Risk Assessment & Risk Register Build", "item": "https://underwings.org/services/grc/risk-assessment-register" }
+  ]},
+  { "@context": "https://schema.org", "@type": "Service", "name": "Risk Assessment & Risk Register Build", "serviceType": "Cybersecurity Risk Assessment",
+    "provider": { "@type": "Organization", "name": "Underwings Cybersecurity Solutions", "url": "https://underwings.org" },
+    "areaServed": { "@type": "Country", "name": "United Arab Emirates" },
+    "offers": { "@type": "AggregateOffer", "priceCurrency": "AED", "lowPrice": "20000", "highPrice": "45000" },
+    "description": "ISO 27005-aligned cybersecurity risk assessment and risk register build for UAE organisations. Asset identification, threat mapping, treatment decisions, audit-ready documentation.",
+    "url": "https://underwings.org/services/grc/risk-assessment-register"
+  },
+  { "@context": "https://schema.org", "@type": "FAQPage",
+    "mainEntity": faqs.map(f => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } }))
+  }
+];
+
+export const prerender = false;
+---
+
+<Layout
+  title="Cybersecurity Risk Assessment & Register Build UAE — ISO 27005 Aligned | Underwings"
+  description="ISO 27005-aligned cybersecurity risk assessment and risk register build in UAE. Asset-based risk identification, threat mapping, treatment decisions, audit-ready documentation. AED 20,000 – 45,000."
+  keywords="cybersecurity risk assessment UAE, ISO 27005 risk register, information security risk UAE, risk treatment plan UAE, board risk reporting UAE, enterprise cyber risk Dubai"
+  wfPage="services-page"
+  schema={schema}
+  bodyClass="body svc-compact"
+>
+  <Header currentPage="services" />
+
+  <main id="main" class="main">
+
+    <section class="section bottom-padding-clear top-padding-small">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <nav class="crumbs" aria-label="Breadcrumb">
+          <a href="/">Home</a><span aria-hidden="true">›</span>
+          <a href="/services">Services</a><span aria-hidden="true">›</span>
+          <a href="/services/grc">Cybersecurity GRC</a><span aria-hidden="true">›</span>
+          <span class="crumbs-current">Risk Assessment &amp; Risk Register</span>
+        </nav>
+
+        <div class="svc-hero">
+          <div class="label" style="justify-content:center;"><div class="text-small color-grey">GRC — Flagship Service</div></div>
+          <h1 class="heading-large">Risk Assessment &amp; Risk Register Build</h1>
+          <p class="text" style="max-width:720px;margin:1rem auto 0;">
+            ISO 27005-aligned cybersecurity risk assessment for UAE organisations — asset-based risk identification, threat and vulnerability mapping, scored likelihood × impact, and documented treatment decisions. Audit-ready from day one.
+          </p>
+
+          <div class="svc-hero-badges">
+            <span class="svc-hero-badge svc-hero-badge-price">AED 20,000 – 45,000</span>
+            <span class="svc-hero-badge svc-hero-badge-certs">GRC Mastery · ISO 27001 LA</span>
+            <span class="svc-hero-badge svc-hero-badge-time">2 – 3 weeks</span>
+          </div>
+
+          <div class="svc-hero-ctas">
+            <div class="button">
+              <a href="/#contact?service=risk-assessment" class="button-hidden w-button">Book a 30-min Scoping Call →</a>
+              <div class="button-wrapper"><div class="button-text">Book a 30-min Scoping Call →</div></div>
+              <div class="button-accent-gradinet"></div>
+            </div>
+            <a href="#faq" class="svc-hero-cta-secondary">Jump to FAQ</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">What it is</h2>
+        <div class="svc-sec-body">
+          <p>A complete, audit-ready <strong>cybersecurity risk register</strong> and the assessment process that produced it — built to <strong>ISO 27005</strong> methodology and usable as evidence for ISO 27001, SOC 2, NESA, PDPL, and similar frameworks.</p>
+          <p>We identify your information assets and their owners, map the threats relevant to your sector and context, assess existing controls against each threat, score likelihood and impact on a defined rubric, and document the treatment decision for every risk — avoid, transfer, mitigate, or accept — with explicit rationale.</p>
+          <p>The deliverable is not a spreadsheet of generic risks. It's <strong>your risk register</strong>, authored to your actual asset base, with an established review cadence your team can maintain.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">What this is <em>not</em></h2>
+        <div class="svc-not-list">
+          <div class="svc-not-item"><div class="svc-not-ico"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div><strong>Not a generic risk-register template.</strong> Authored to your specific assets and threats.</div></div>
+          <div class="svc-not-item"><div class="svc-not-ico"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div><strong>Not an enterprise risk assessment.</strong> Cybersecurity-focused; broader enterprise risk is separate.</div></div>
+          <div class="svc-not-item"><div class="svc-not-ico"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div><strong>Not a GRC-platform implementation.</strong> Register is delivered as document + spreadsheet. Platform rollout (Vanta, Drata, Sprinto) is separate.</div></div>
+          <div class="svc-not-item"><div class="svc-not-ico"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div><strong>Not permanent — ongoing maintenance is yours.</strong> We build it; you run it (or engage us on retainer in 2027).</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">Who this is for</h2>
+        <div class="svc-triggers">
+          <div class="svc-trigger"><div class="svc-trigger-num">1</div><div>You're <strong>preparing for ISO 27001</strong> and want the risk register in place before full Implementation.</div></div>
+          <div class="svc-trigger"><div class="svc-trigger-num">2</div><div>Your <strong>board or audit committee</strong> has asked for a current, defensible cyber-risk view.</div></div>
+          <div class="svc-trigger"><div class="svc-trigger-num">3</div><div>Your <strong>current risk register is outdated</strong> (older than 18 months) or was authored by a consultant who's long gone.</div></div>
+          <div class="svc-trigger"><div class="svc-trigger-num">4</div><div>A <strong>regulator or insurer</strong> has asked for documented risk management evidence.</div></div>
+          <div class="svc-trigger"><div class="svc-trigger-num">5</div><div>You're moving from <strong>informal risk management</strong> (spreadsheet in someone's head) to a managed program.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">What you get</h2>
+        <ul class="svc-deliv-list">
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Risk methodology document</strong> — scoring rubric, likelihood and impact definitions, risk appetite guidance, treatment categories.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Asset inventory</strong> — information assets, owners, criticality, regulatory context.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Complete risk register</strong> (typically 30 – 80 risks for a mid-market organisation) — identified risk, threat, vulnerability, likelihood score, impact score, risk score, treatment decision, owner, target date.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Risk treatment plan</strong> — actions required, owners, target dates, acceptance statements for risks explicitly accepted.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Risk heat map</strong> — visual likelihood × impact matrix, board-consumable.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Review cadence template</strong> — quarterly review agenda, KRIs to track, escalation thresholds.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Handover workshop</strong> — 90-minute session training your team to maintain the register.</div></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">How we deliver</h2>
+        <div class="svc-process-table">
+          <div class="svc-process-row"><div class="svc-process-row-num">01</div><div><div class="svc-process-row-step">Scoping &amp; methodology</div><div class="svc-process-row-duration">2 – 3 days</div></div><div class="svc-process-row-desc">Scope workshop, methodology selection (qualitative / quantitative), rubric calibration, risk-appetite discussion.</div></div>
+          <div class="svc-process-row"><div class="svc-process-row-num">02</div><div><div class="svc-process-row-step">Asset identification</div><div class="svc-process-row-duration">2 – 3 days</div></div><div class="svc-process-row-desc">Information asset inventory, criticality tiering, owner assignment.</div></div>
+          <div class="svc-process-row"><div class="svc-process-row-num">03</div><div><div class="svc-process-row-step">Threat &amp; risk identification</div><div class="svc-process-row-duration">4 – 6 days</div></div><div class="svc-process-row-desc">Threat modelling workshops, vulnerability assessment, existing-control mapping, risk identification.</div></div>
+          <div class="svc-process-row"><div class="svc-process-row-num">04</div><div><div class="svc-process-row-step">Scoring &amp; treatment</div><div class="svc-process-row-duration">3 – 4 days</div></div><div class="svc-process-row-desc">Likelihood × impact scoring, treatment decision workshops, owner and target-date assignment.</div></div>
+          <div class="svc-process-row"><div class="svc-process-row-num">05</div><div><div class="svc-process-row-step">Documentation &amp; handover</div><div class="svc-process-row-duration">3 – 4 days</div></div><div class="svc-process-row-desc">Full register compilation, methodology document, heat map, review cadence, handover workshop delivery.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">Pricing</h2>
+        <div class="svc-pricing">
+          <div class="svc-pricing-card">
+            <h4>Published range</h4>
+            <div class="svc-pricing-range">AED 20k – 45k</div>
+            <p class="svc-pricing-note">Per engagement. Written quote within 48 hours.</p>
+            <p class="svc-pricing-note" style="margin-top:0.75rem;"><strong>What drives the price:</strong></p>
+            <ul class="svc-pricing-drivers">
+              <li>Organisation size &amp; complexity</li>
+              <li>Number of information assets in scope</li>
+              <li>Methodology (qualitative vs. FAIR-style quantitative)</li>
+              <li>Number of stakeholder interviews</li>
+              <li>Regulatory overlay (NESA, PDPL, sector-specific)</li>
+            </ul>
+          </div>
+          <div class="svc-pricing-card">
+            <h4>Commercial terms</h4>
+            <ul class="svc-pricing-terms">
+              <li><strong>Deposit:</strong> 50% at signing</li>
+              <li><strong>Net terms:</strong> Net-30</li>
+              <li><strong>Quote validity:</strong> 30 days</li>
+              <li><strong>ISO 27001 Implementation bundle:</strong> included as sub-deliverable if bought together</li>
+              <li><strong>Annual refresh:</strong> 30 – 40% of original fee</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">Your cert-backed lead</h2>
+        <div class="svc-team">
+          <div class="svc-team-card" style="grid-column:1/-1;">
+            <p class="svc-team-role">Engagement Lead</p>
+            <h3 class="svc-team-name">Manoj Prabhakaran</h3>
+            <p class="svc-team-certs">ISO 27001 Lead Auditor · GRC Mastery · CPTS · CDSA · Security+ · Azure Cloud Security</p>
+            <p class="svc-team-focus"><strong>Focus:</strong> Risk methodology, threat modelling, treatment design, board-level risk communication. <strong>Angle:</strong> risks assessed by someone with offensive-security background means technical risks get accurate likelihood scoring — not inflated worst-case or dismissed best-case.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">Frequently asked questions</h2>
+        <div class="svc-faq">
+          {faqs.map(item => (
+            <details class="svc-faq-item">
+              <summary>{item.q}</summary>
+              <p class="svc-faq-answer" set:html={item.a}></p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">You might also need</h2>
+        <div class="svc-related-grid">
+          <a href="/services/grc/iso-27001-implementation" class="svc-related-card">
+            <h4>ISO 27001 Implementation</h4>
+            <p>Full ISMS program — risk register is a required sub-deliverable; ours feeds directly.</p>
+            <div class="svc-related-cta">Read full details <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 6h6M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </a>
+          <a href="/services/grc/iso-27001-gap-assessment" class="svc-related-card">
+            <h4>ISO 27001 Gap Assessment</h4>
+            <p>If you want to understand the controls gap before committing to full Implementation.</p>
+            <div class="svc-related-cta">Read full details <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 6h6M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </a>
+          <a href="/services/grc/nesa-uae-ia" class="svc-related-card">
+            <h4>NESA / UAE IA V2 Gap</h4>
+            <p>NESA mandates documented risk management — our register satisfies the requirement.</p>
+            <div class="svc-related-cta">Read full details <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 6h6M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </a>
+          <a href="/services/grc/uae-pdpl-advisory" class="svc-related-card">
+            <h4>UAE PDPL Compliance</h4>
+            <p>PDPL is risk-based — a proper risk register makes Data Protection Impact Assessments straightforward.</p>
+            <div class="svc-related-cta">Read full details <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 6h6M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <div class="section-wrapper-vertical" style="align-items:center;text-align:center;">
+          <h2 class="heading" style="max-width:600px;">Board asking for the cyber-risk view? Auditor asking for the register?</h2>
+          <p class="text-medium" style="max-width:600px;">Book a 30-minute scoping call. 2 – 3 weeks to a defensible, audit-ready risk register. Written quote within 48 hours.</p>
+          <div class="button">
+            <a href="/#contact?service=risk-assessment" class="button-hidden w-button">Book a Scoping Call →</a>
+            <div class="button-wrapper"><div class="button-text">Book a Scoping Call →</div></div>
+            <div class="button-accent-gradinet"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Layout>

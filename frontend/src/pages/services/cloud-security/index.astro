@@ -1,0 +1,285 @@
+---
+// ===========================================
+// CATEGORY HUB — Cloud Security
+// 2 flagship services + Y2/Y3 coming-soon roadmap
+// ===========================================
+
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import '../../../styles/category-hub.css';
+
+const flagship = [
+  {
+    slug: "azure-cloud-security-assessment",
+    title: "Azure Cloud Security Assessment",
+    tagline: "Azure tenant, Entra ID, RBAC, storage, NSGs, Defender for Cloud — reviewed against CIS Azure Benchmark and Microsoft best practices.",
+    price: "AED 15,000 – 35,000",
+    certs: ["Azure Security"],
+    lead: "Manoj Prabhakaran",
+    hasPage: true,
+    href: "/services/cloud-security/azure-cloud-security-assessment",
+  },
+  {
+    slug: "microsoft-365-security-review",
+    title: "Microsoft 365 Security Review",
+    tagline: "Exchange, SharePoint, Teams, Conditional Access, MFA, DLP — the Microsoft 365 posture most UAE organisations haven't configured.",
+    price: "AED 10,000 – 25,000",
+    certs: ["Azure Security", "Security+"],
+    lead: "Vinoth Samiyappa",
+    hasPage: true,
+    href: "/services/cloud-security/microsoft-365-security-review",
+  },
+];
+
+const comingY2 = [
+  { slug: "aws-cloud-security-assessment", title: "AWS Cloud Security Assessment", desc: "CIS AWS benchmark, IAM, VPC, S3, GuardDuty. Launching when AWS adoption in our UAE client base crosses threshold." },
+];
+
+const comingY3 = [
+  { slug: "gcp-cloud-security-assessment", title: "GCP Cloud Security Assessment", desc: "CIS GCP benchmark, IAM, Cloud Logging, Security Command Center. Demand-driven rollout." },
+  { slug: "cnapp-implementation", title: "Cloud Native Application Protection (CNAPP) Implementation", desc: "Unified CSPM + CWPP + CIEM platform rollout — for mid-market organisations with complex multi-cloud footprints." },
+];
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://underwings.org" },
+      { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://underwings.org/services" },
+      { "@type": "ListItem", "position": 3, "name": "Cloud Security", "item": "https://underwings.org/services/cloud-security" }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Cloud Security Services — Underwings",
+    "itemListElement": flagship.map((s, i) => ({ "@type": "ListItem", "position": i + 1, "name": s.title }))
+  }
+];
+
+export const prerender = false;
+---
+
+<Layout
+  title="Cloud Security in UAE — Azure & Microsoft 365 Assessments | Underwings"
+  description="UAE cloud security assessments against CIS Azure Benchmark and Microsoft 365 best practices. Entra ID, Conditional Access, Defender posture. Fix the 10 – 30 high-severity misconfigurations most UAE businesses don't know they have."
+  keywords="Azure security assessment UAE, Microsoft 365 security review UAE, cloud security Dubai, Entra ID security UAE, CIS Azure benchmark assessment"
+  wfPage="services-page"
+  schema={schema}
+  bodyClass="body svc-compact"
+>
+  <Header currentPage="services" />
+
+  <main id="main" class="main">
+
+    <section class="section bottom-padding-clear top-padding-small">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
+        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
+      </div>
+      <div class="container-medium">
+        <nav class="crumbs" aria-label="Breadcrumb">
+          <a href="/">Home</a>
+          <span aria-hidden="true">›</span>
+          <a href="/services">Services</a>
+          <span aria-hidden="true">›</span>
+          <span class="crumbs-current">Cloud Security</span>
+        </nav>
+
+        <div class="hero">
+          <div class="hero-main-wrapper">
+            <div class="hero-heading-wrapper">
+              <div class="label">
+                <div class="text-small color-grey">Category — 2 flagship services</div>
+              </div>
+              <h1 class="heading-large hero-heading-large">Cloud Security — <span class="text-gradient-clip bg-color-green-gradient">Fix the Misconfigurations You Don't Know You Have</span></h1>
+              <p class="text text-center" style="max-width:680px;margin:0 auto;">
+                Most UAE mid-market organisations run their entire business on Azure and Microsoft 365 — and most haven't configured security beyond the default Conditional Access policy. We fix that.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="cert-ribbon">
+          <span class="cert-ribbon-label">Powered by</span>
+          <span class="cert-chip">Azure Security</span>
+          <span class="cert-chip">Security+</span>
+          <span class="cert-chip">CDSA</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
+        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
+      </div>
+      <div class="container">
+        <div class="section-wrapper-vertical section-wrapper-vertical-large">
+          <div class="heading-horizontal">
+            <div class="heading-horizontal-inner">
+              <div class="heading-horizontal-left-part">
+                <h2 class="heading">Flagship services — available now</h2>
+              </div>
+              <div class="heading-horizontal-right-part">
+                <p class="text-medium">CIS-benchmarked, evidence-led, delivered with a named cloud security practitioner.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="flag-grid">
+            {flagship.map((svc) => (
+              <a href={svc.href} class="flag-card" aria-label={`Learn about ${svc.title}`}>
+                <div class="flag-card-head">
+                  <span class="flag-price">{svc.price}</span>
+                  {svc.hasPage ? (
+                    <span class="flag-badge flag-badge-ready">Full page</span>
+                  ) : (
+                    <span class="flag-badge flag-badge-contact">Contact to scope</span>
+                  )}
+                </div>
+                <h3 class="flag-title">{svc.title}</h3>
+                <p class="flag-tagline">{svc.tagline}</p>
+                <div class="flag-card-foot">
+                  <span class="flag-lead">Led by {svc.lead}</span>
+                  <span class="flag-certs">{svc.certs.join(" · ")}</span>
+                </div>
+                <div class="flag-cta">
+                  <span>{svc.hasPage ? "Read full details" : "Start a scoping call"}</span>
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
+        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
+      </div>
+      <div class="container">
+        <div class="section-wrapper-vertical section-wrapper-vertical-large">
+          <div class="heading-horizontal">
+            <div class="heading-horizontal-inner">
+              <div class="heading-horizontal-left-part">
+                <h2 class="heading">Year 2 — 2027 roadmap</h2>
+              </div>
+              <div class="heading-horizontal-right-part">
+                <p class="text-medium">Additions driven by client demand.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="soon-grid">
+            {comingY2.map((svc) => (
+              <div class="soon-card" data-service-slug={svc.slug}>
+                <div class="soon-card-head">
+                  <span class="soon-badge soon-badge-2027">2027</span>
+                </div>
+                <h3 class="soon-title">{svc.title}</h3>
+                <p class="soon-desc">{svc.desc}</p>
+                <form class="soon-form" data-waitlist-form data-service-slug={svc.slug} data-service-year="2027">
+                  <input type="email" name="email" placeholder="you@company.com" aria-label={`Email for ${svc.title} waitlist`} required />
+                  <button type="submit" class="soon-btn">Add me to 2027 waitlist →</button>
+                  <p class="soon-msg" aria-live="polite"></p>
+                </form>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
+        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
+      </div>
+      <div class="container">
+        <div class="section-wrapper-vertical section-wrapper-vertical-large">
+          <div class="heading-horizontal">
+            <div class="heading-horizontal-inner">
+              <div class="heading-horizontal-left-part">
+                <h2 class="heading">Year 3 — 2028 roadmap</h2>
+              </div>
+              <div class="heading-horizontal-right-part">
+                <p class="text-medium">Multi-cloud expansion when client demand justifies the investment.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="soon-grid">
+            {comingY3.map((svc) => (
+              <div class="soon-card" data-service-slug={svc.slug}>
+                <div class="soon-card-head">
+                  <span class="soon-badge soon-badge-2028">2028</span>
+                </div>
+                <h3 class="soon-title">{svc.title}</h3>
+                <p class="soon-desc">{svc.desc}</p>
+                <form class="soon-form" data-waitlist-form data-service-slug={svc.slug} data-service-year="2028">
+                  <input type="email" name="email" placeholder="you@company.com" aria-label={`Email for ${svc.title} waitlist`} required />
+                  <button type="submit" class="soon-btn">Add me to 2028 waitlist →</button>
+                  <p class="soon-msg" aria-live="polite"></p>
+                </form>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
+        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
+      </div>
+      <div class="container-medium">
+        <div class="section-wrapper-vertical">
+          <div class="heading-horizontal">
+            <div class="heading-horizontal-inner">
+              <div class="heading-horizontal-left-part">
+                <h2 class="heading">Why this matters for UAE</h2>
+              </div>
+              <div class="heading-horizontal-right-part">
+                <p class="text-medium">Microsoft is the UAE default. Security configuration isn't.</p>
+              </div>
+            </div>
+          </div>
+          <div class="why-uae-body">
+            <p>The UAE has one of the highest Microsoft cloud-adoption rates in the region. Government mandates, TRA policies, and enterprise procurement preference all push UAE organisations toward Azure and Microsoft 365 as the default stack.</p>
+            <p>Yet most UAE mid-market organisations run out-of-the-box configurations. Every assessment we've seen has <strong>10 – 30 high-severity misconfigurations</strong> that take hours, not months, to fix: over-permissive Conditional Access policies, storage accounts open to the internet, misconfigured Entra ID roles, unused Microsoft Defender licences, SharePoint guest-access policies left wide open.</p>
+            <p>This is <strong>the highest-ROI cloud security work available</strong> — and it's work we deliver in 1 – 2 weeks, not 3 months.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
+        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
+      </div>
+      <div class="container-medium">
+        <div class="section-wrapper-vertical" style="align-items:center;text-align:center;">
+          <h2 class="heading" style="max-width:560px;">Moved to Azure? Using M365 for everything? When did you last audit the security configuration?</h2>
+          <p class="text-medium" style="max-width:580px;">
+            A free 30-minute scoping call and a CIS-benchmarked assessment will tell you what's open, what's risky, and what to fix first.
+          </p>
+          <div class="button">
+            <a href="/#contact?service=cloud-security" class="button-hidden w-button">Book a Free Scoping Call</a>
+            <div class="button-wrapper">
+              <div class="button-text">Book a Free Scoping Call</div>
+            </div>
+            <div class="button-accent-gradinet"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Layout>
+
+<script src="/js/waitlist.js" defer></script>

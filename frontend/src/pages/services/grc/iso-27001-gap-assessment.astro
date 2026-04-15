@@ -1,0 +1,270 @@
+---
+// ============================================================
+// SERVICE PAGE — ISO 27001 Gap Assessment
+// Category: GRC (Y1 Flagship — Gateway service to Implementation)
+// ============================================================
+
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import '../../../styles/category-hub.css';
+import '../../../styles/service-page.css';
+
+const faqs = [
+  { q: "How is a Gap Assessment different from a full Implementation?", a: "A Gap Assessment measures where you are today against ISO 27001:2022 Annex A controls and produces a remediation roadmap. It does not author policies, implement controls, or prepare you for certification. That's the Implementation service. Many clients run a Gap Assessment first to <strong>scope the Implementation engagement</strong> — it de-risks budgeting and timeline conversations." },
+  { q: "What do I walk away with?", a: "A gap-assessment report covering all 93 Annex A:2022 controls (applicable Yes/No, current-state implementation, evidence observed, gap severity) plus a prioritised 90-day / 6-month / 12-month remediation roadmap with effort estimates for each gap. Executive summary included." },
+  { q: "How long does it take?", a: "3 – 5 working days of fieldwork for a single-site mid-market organisation. Plus 2 – 3 days of reporting. Delivered end-to-end in 2 – 3 weeks calendar time from scoping." },
+  { q: "What do I need to provide?", a: "Read-only access to key systems (HR system, Active Directory, ticketing, code repo, cloud tenant), existing policies and procedures (if any), one executive sponsor, and time for interviews with 5 – 10 staff across IT, HR, legal, and operations." },
+  { q: "Will this show me a pass / fail?", a: "No — ISO 27001 isn't binary. The report shows the <strong>maturity of each control</strong> on a 0 – 4 scale (non-existent, ad-hoc, defined, managed, optimised) and whether each gap is a blocker for certification. A competent accredited certification body would use similar categorisation." },
+  { q: "Can you implement the gaps you find?", a: "Yes — roll straight into our ISO 27001 Implementation service. Clients who do both get a <strong>15% discount on the Implementation fee</strong> because we've already done the gap work." },
+  { q: "Is this report useful for a certification audit?", a: "Not directly — the accredited certification body runs its own assessment. But the gap report is extremely useful as <strong>input</strong> to remediation work before you contract the certification body. Skipping it costs most organisations months of wasted effort." },
+  { q: "Is it useful if we're not pursuing certification?", a: "Yes. Many clients use the gap assessment to improve their security program without pursuing a certificate. The roadmap is valuable on its own; certification is optional." },
+];
+
+const schema = [
+  { "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://underwings.org" },
+    { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://underwings.org/services" },
+    { "@type": "ListItem", "position": 3, "name": "Cybersecurity GRC", "item": "https://underwings.org/services/grc" },
+    { "@type": "ListItem", "position": 4, "name": "ISO 27001 Gap Assessment", "item": "https://underwings.org/services/grc/iso-27001-gap-assessment" }
+  ]},
+  { "@context": "https://schema.org", "@type": "Service", "name": "ISO 27001 Gap Assessment", "serviceType": "ISO 27001 Gap Assessment",
+    "provider": { "@type": "Organization", "name": "Underwings Cybersecurity Solutions", "url": "https://underwings.org" },
+    "areaServed": { "@type": "Country", "name": "United Arab Emirates" },
+    "offers": { "@type": "AggregateOffer", "priceCurrency": "AED", "lowPrice": "20000", "highPrice": "40000" },
+    "description": "ISO 27001:2022 gap assessment in UAE — current-state assessment against all 93 Annex A controls and prioritised remediation roadmap. Led by ISO 27001 Lead Auditor.",
+    "url": "https://underwings.org/services/grc/iso-27001-gap-assessment"
+  },
+  { "@context": "https://schema.org", "@type": "FAQPage",
+    "mainEntity": faqs.map(f => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } }))
+  }
+];
+
+export const prerender = false;
+---
+
+<Layout
+  title="ISO 27001 Gap Assessment UAE — Current-State Review + Roadmap | Underwings"
+  description="UAE ISO 27001:2022 gap assessment. All 93 Annex A controls reviewed. Prioritised 90-day / 6-month / 12-month remediation roadmap. Led by ISO 27001 Lead Auditor. AED 20,000 – 40,000."
+  keywords="ISO 27001 gap assessment UAE, ISO 27001 readiness review Dubai, ISMS gap analysis UAE, ISO 27001 consultant UAE, ISO 27001 Lead Auditor Abu Dhabi"
+  wfPage="services-page"
+  schema={schema}
+  bodyClass="body svc-compact"
+>
+  <Header currentPage="services" />
+
+  <main id="main" class="main">
+
+    <section class="section bottom-padding-clear top-padding-small">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <nav class="crumbs" aria-label="Breadcrumb">
+          <a href="/">Home</a><span aria-hidden="true">›</span>
+          <a href="/services">Services</a><span aria-hidden="true">›</span>
+          <a href="/services/grc">Cybersecurity GRC</a><span aria-hidden="true">›</span>
+          <span class="crumbs-current">ISO 27001 Gap Assessment</span>
+        </nav>
+
+        <div class="svc-hero">
+          <div class="label" style="justify-content:center;"><div class="text-small color-grey">GRC — Flagship Service</div></div>
+          <h1 class="heading-large">ISO 27001 Gap Assessment</h1>
+          <p class="text" style="max-width:720px;margin:1rem auto 0;">
+            A hands-on, evidence-based review of your current security posture against <strong>all 93 ISO 27001:2022 Annex A controls</strong> — with a prioritised remediation roadmap your team can actually execute. The fastest way to know how far you are from certification.
+          </p>
+
+          <div class="svc-hero-badges">
+            <span class="svc-hero-badge svc-hero-badge-price">AED 20,000 – 40,000</span>
+            <span class="svc-hero-badge svc-hero-badge-certs">ISO 27001 Lead Auditor</span>
+            <span class="svc-hero-badge svc-hero-badge-time">2 – 3 weeks</span>
+          </div>
+
+          <div class="svc-hero-ctas">
+            <div class="button">
+              <a href="/#contact?service=iso-27001-gap" class="button-hidden w-button">Book a 30-min Scoping Call →</a>
+              <div class="button-wrapper"><div class="button-text">Book a 30-min Scoping Call →</div></div>
+              <div class="button-accent-gradinet"></div>
+            </div>
+            <a href="#faq" class="svc-hero-cta-secondary">Jump to FAQ</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">What it is</h2>
+        <div class="svc-sec-body">
+          <p>A focused, 2 – 3 week engagement that answers one question with evidence: <strong>how ready are we for ISO 27001:2022 certification today, and what does it take to get there</strong>.</p>
+          <p>We interview your team, review your existing policies and processes, observe technical controls, and measure every one of the 93 Annex A:2022 controls against its required maturity. Where a control is missing, we tell you. Where it exists but isn't documented, we tell you. Where it's documented but not implemented, we tell you the hardest way — by trying to validate it.</p>
+          <p>The deliverable is a <strong>maturity-rated gap report</strong> plus a <strong>prioritised remediation roadmap</strong> (90-day quick wins, 6-month program, 12-month full readiness). That's the input your next meeting needs: scope, effort, budget, timeline.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">What this is <em>not</em></h2>
+        <div class="svc-not-list">
+          <div class="svc-not-item"><div class="svc-not-ico"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div><strong>Not a certification audit.</strong> Only an accredited body can audit and certify. This is diagnostic.</div></div>
+          <div class="svc-not-item"><div class="svc-not-ico"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div><strong>Not an Implementation project.</strong> We find gaps; we don't author policies or implement controls in this engagement.</div></div>
+          <div class="svc-not-item"><div class="svc-not-ico"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div><strong>Not a generic checklist.</strong> Evidence-based — we observe, interview, validate, then rate.</div></div>
+          <div class="svc-not-item"><div class="svc-not-ico"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div><strong>Not a pen test.</strong> If you need active-exploit validation of findings, pair with our Network Pen Test service.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">Who this is for</h2>
+        <div class="svc-triggers">
+          <div class="svc-trigger"><div class="svc-trigger-num">1</div><div>You're <strong>exploring ISO 27001</strong> and need to scope effort, cost, and timeline before committing to full Implementation.</div></div>
+          <div class="svc-trigger"><div class="svc-trigger-num">2</div><div>A <strong>board directive or client contract</strong> requires ISO 27001 and you need a defensible baseline to plan from.</div></div>
+          <div class="svc-trigger"><div class="svc-trigger-num">3</div><div>You're <strong>re-certifying</strong> in 12 months and want a mid-cycle maturity health check.</div></div>
+          <div class="svc-trigger"><div class="svc-trigger-num">4</div><div>You ran an <strong>internal gap check</strong> but want external validation before going to an accredited body.</div></div>
+          <div class="svc-trigger"><div class="svc-trigger-num">5</div><div>You have <strong>existing policies from a prior consultancy</strong> but no confidence they reflect reality.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">What you get</h2>
+        <ul class="svc-deliv-list">
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Scope document</strong> — boundary definition, interested parties, ISMS scope agreement.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Gap assessment report</strong> — all 93 Annex A:2022 controls with applicability, maturity (0 – 4), current implementation, evidence observed, gap severity.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Remediation roadmap</strong> — prioritised 90-day / 6-month / 12-month plan with effort estimates per gap.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Executive summary</strong> — 2-page board-consumable posture brief with maturity heat map.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Implementation scope paper</strong> — what a full ISO 27001 Implementation engagement would look like for your organisation (effort, cost, timeline).</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Walkthrough session</strong> — 90-minute live review with your technical and executive teams.</div></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">How we deliver</h2>
+        <div class="svc-process-table">
+          <div class="svc-process-row"><div class="svc-process-row-num">01</div><div><div class="svc-process-row-step">Scoping</div><div class="svc-process-row-duration">1 – 2 days</div></div><div class="svc-process-row-desc">ISMS scope workshop, interested parties, data flows, systems in scope, interview list.</div></div>
+          <div class="svc-process-row"><div class="svc-process-row-num">02</div><div><div class="svc-process-row-step">Fieldwork — interviews &amp; evidence</div><div class="svc-process-row-duration">3 – 5 days</div></div><div class="svc-process-row-desc">Interviews with 5 – 10 staff (IT, HR, legal, ops), policy review, technical control observation, sampling.</div></div>
+          <div class="svc-process-row"><div class="svc-process-row-num">03</div><div><div class="svc-process-row-step">Control-by-control assessment</div><div class="svc-process-row-duration">2 – 3 days</div></div><div class="svc-process-row-desc">Every Annex A:2022 control rated on maturity 0 – 4 with evidence reference and gap severity.</div></div>
+          <div class="svc-process-row"><div class="svc-process-row-num">04</div><div><div class="svc-process-row-step">Reporting</div><div class="svc-process-row-duration">2 – 3 days</div></div><div class="svc-process-row-desc">Gap report, remediation roadmap, executive summary, Implementation scope paper.</div></div>
+          <div class="svc-process-row"><div class="svc-process-row-num">05</div><div><div class="svc-process-row-step">Walkthrough</div><div class="svc-process-row-duration">90 minutes</div></div><div class="svc-process-row-desc">Live session covering every critical gap + the 90-day / 6-month / 12-month roadmap.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">Pricing</h2>
+        <div class="svc-pricing">
+          <div class="svc-pricing-card">
+            <h4>Published range</h4>
+            <div class="svc-pricing-range">AED 20k – 40k</div>
+            <p class="svc-pricing-note">Per engagement. Written quote within 48 hours of scoping call.</p>
+            <p class="svc-pricing-note" style="margin-top:0.75rem;"><strong>What drives the price:</strong></p>
+            <ul class="svc-pricing-drivers">
+              <li>ISMS scope size (single site vs. multi-site)</li>
+              <li>Number of interviews required</li>
+              <li>Existing documentation maturity (greenfield vs. partial)</li>
+              <li>Sector complexity (regulated vs. general)</li>
+              <li>Number of in-scope technical systems</li>
+            </ul>
+          </div>
+          <div class="svc-pricing-card">
+            <h4>Commercial terms</h4>
+            <ul class="svc-pricing-terms">
+              <li><strong>Deposit:</strong> 50% at signing</li>
+              <li><strong>Net terms:</strong> Net-30</li>
+              <li><strong>Quote validity:</strong> 30 days</li>
+              <li><strong>Implementation upgrade:</strong> 15% discount on Implementation fee if you roll straight over within 60 days</li>
+              <li><strong>Deliverable:</strong> PDF + editable DOCX</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">Your cert-backed lead</h2>
+        <div class="svc-team">
+          <div class="svc-team-card" style="grid-column:1/-1;">
+            <p class="svc-team-role">Lead Assessor &amp; ISO 27001 Lead Auditor</p>
+            <h3 class="svc-team-name">Manoj Prabhakaran</h3>
+            <p class="svc-team-certs">ISO 27001 Lead Auditor · GRC Mastery · CPTS · CDSA · Security+ · Azure Cloud Security</p>
+            <p class="svc-team-focus"><strong>Focus:</strong> Gap diagnosis, maturity rating methodology, roadmap design, Implementation scoping. <strong>Unique angle:</strong> offensive-security background means technical controls get assessed by someone who knows how attackers would exploit them — not just someone reading the standard.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">Frequently asked questions</h2>
+        <div class="svc-faq">
+          {faqs.map(item => (
+            <details class="svc-faq-item">
+              <summary>{item.q}</summary>
+              <p class="svc-faq-answer" set:html={item.a}></p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">You might also need</h2>
+        <div class="svc-related-grid">
+          <a href="/services/grc/iso-27001-implementation" class="svc-related-card">
+            <h4>ISO 27001 Implementation</h4>
+            <p>The natural next step once you know the gaps — end-to-end implementation with accredited-body audit support.</p>
+            <div class="svc-related-cta">Read full details <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 6h6M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </a>
+          <a href="/services/grc/risk-assessment-register" class="svc-related-card">
+            <h4>Risk Assessment &amp; Risk Register</h4>
+            <p>Standalone risk program — useful if you want the risk register before committing to full Implementation.</p>
+            <div class="svc-related-cta">Read full details <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 6h6M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </a>
+          <a href="/services/grc/nesa-uae-ia" class="svc-related-card">
+            <h4>NESA / UAE IA V2 Gap Assessment</h4>
+            <p>Pair ISO 27001 Gap with NESA Gap for a combined engagement — saves time and money vs. running sequentially.</p>
+            <div class="svc-related-cta">Read full details <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 6h6M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </a>
+          <a href="/services/offensive-security/network-penetration-testing" class="svc-related-card">
+            <h4>Network Penetration Testing</h4>
+            <p>Most ISO 27001 programs need pen-test evidence — we deliver it under the same engagement.</p>
+            <div class="svc-related-cta">Read full details <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 6h6M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <div class="section-wrapper-vertical" style="align-items:center;text-align:center;">
+          <h2 class="heading" style="max-width:600px;">Not sure how far you are from ISO 27001?</h2>
+          <p class="text-medium" style="max-width:600px;">A 2 – 3 week gap assessment gives you a defensible baseline, a prioritised roadmap, and the numbers to plan the next step. Written quote within 48 hours.</p>
+          <div class="button">
+            <a href="/#contact?service=iso-27001-gap" class="button-hidden w-button">Book a Scoping Call →</a>
+            <div class="button-wrapper"><div class="button-text">Book a Scoping Call →</div></div>
+            <div class="button-accent-gradinet"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Layout>

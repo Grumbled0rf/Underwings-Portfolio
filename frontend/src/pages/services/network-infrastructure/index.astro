@@ -1,0 +1,246 @@
+---
+// ===========================================
+// CATEGORY HUB — Network & Infrastructure
+// 2 flagship services + Y2 coming-soon roadmap
+// ===========================================
+
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import '../../../styles/category-hub.css';
+
+const flagship = [
+  {
+    slug: "firewall-network-security-review",
+    title: "Firewall & Network Security Review",
+    tagline: "FortiGate configs, firewall rules, network segmentation, routing security — reviewed by the rare CCNP + Fortinet + OSCP combination.",
+    price: "AED 12,000 – 30,000",
+    certs: ["Fortinet", "CCNP", "OSCP"],
+    lead: "Vinoth Samiyappa",
+    hasPage: true,
+    href: "/services/network-infrastructure/firewall-network-security-review",
+  },
+  {
+    slug: "security-architecture-review",
+    title: "Security Architecture Review",
+    tagline: "Network zones, VPN, DMZ, access control, segmentation. Risk-rated findings and a target-state architecture you can actually implement.",
+    price: "AED 15,000 – 35,000",
+    certs: ["CCNP", "Security+", "Fortinet"],
+    lead: "Vinoth Samiyappa",
+    hasPage: true,
+    href: "/services/network-infrastructure/security-architecture-review",
+  },
+];
+
+const comingY2 = [
+  { slug: "zero-trust-architecture-design", title: "Zero Trust Architecture Design", desc: "End-to-end ZTNA design — identity-driven, least-privilege, segmentation-first. For clients ready to replace VPN and flat networks." },
+  { slug: "network-segmentation-implementation", title: "Network Segmentation Implementation", desc: "Hands-on segmentation delivery — VLAN redesign, microsegmentation, PCI zone carve-out. Built with your network team, documented for your auditor." },
+];
+
+const comingY3 = [];
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://underwings.org" },
+      { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://underwings.org/services" },
+      { "@type": "ListItem", "position": 3, "name": "Network & Infrastructure", "item": "https://underwings.org/services/network-infrastructure" }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Network & Infrastructure Security Services — Underwings",
+    "itemListElement": flagship.map((s, i) => ({ "@type": "ListItem", "position": i + 1, "name": s.title }))
+  }
+];
+
+export const prerender = false;
+---
+
+<Layout
+  title="Network & Infrastructure Security in UAE — FortiGate Reviews, Architecture | Underwings"
+  description="UAE network security services — FortiGate firewall reviews, network segmentation, security architecture design. Rare CCNP + Fortinet + OSCP combination. Find and fix 30 – 200 stale or over-permissive firewall rules typical in UAE mid-market."
+  keywords="FortiGate configuration review UAE, firewall security audit Dubai, network segmentation UAE, security architecture review UAE, CCNP Fortinet consultant"
+  wfPage="services-page"
+  schema={schema}
+  bodyClass="body svc-compact"
+>
+  <Header currentPage="services" />
+
+  <main id="main" class="main">
+
+    <section class="section bottom-padding-clear top-padding-small">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
+        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
+      </div>
+      <div class="container-medium">
+        <nav class="crumbs" aria-label="Breadcrumb">
+          <a href="/">Home</a>
+          <span aria-hidden="true">›</span>
+          <a href="/services">Services</a>
+          <span aria-hidden="true">›</span>
+          <span class="crumbs-current">Network &amp; Infrastructure</span>
+        </nav>
+
+        <div class="hero">
+          <div class="hero-main-wrapper">
+            <div class="hero-heading-wrapper">
+              <div class="label">
+                <div class="text-small color-grey">Category — 2 flagship services</div>
+              </div>
+              <h1 class="heading-large hero-heading-large">Network &amp; Infrastructure Security — <span class="text-gradient-clip bg-color-green-gradient">Reviewed by a Rare Combo</span></h1>
+              <p class="text text-center" style="max-width:680px;margin:0 auto;">
+                FortiGate and security architecture reviews by a practitioner who holds CCNP, Fortinet, and OSCP together. In the UAE market, that combination is almost nobody.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="cert-ribbon">
+          <span class="cert-ribbon-label">Powered by</span>
+          <span class="cert-chip">CCNP</span>
+          <span class="cert-chip">Fortinet</span>
+          <span class="cert-chip">Security+</span>
+          <span class="cert-chip">OSCP</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
+        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
+      </div>
+      <div class="container">
+        <div class="section-wrapper-vertical section-wrapper-vertical-large">
+          <div class="heading-horizontal">
+            <div class="heading-horizontal-inner">
+              <div class="heading-horizontal-left-part">
+                <h2 class="heading">Flagship services — available now</h2>
+              </div>
+              <div class="heading-horizontal-right-part">
+                <p class="text-medium">Led by Vinoth Samiyappa — CCNP + Fortinet + Azure + Six Sigma. Hands-on network engineering meets security assessment.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="flag-grid">
+            {flagship.map((svc) => (
+              <a href={svc.href} class="flag-card" aria-label={`Learn about ${svc.title}`}>
+                <div class="flag-card-head">
+                  <span class="flag-price">{svc.price}</span>
+                  {svc.hasPage ? (
+                    <span class="flag-badge flag-badge-ready">Full page</span>
+                  ) : (
+                    <span class="flag-badge flag-badge-contact">Contact to scope</span>
+                  )}
+                </div>
+                <h3 class="flag-title">{svc.title}</h3>
+                <p class="flag-tagline">{svc.tagline}</p>
+                <div class="flag-card-foot">
+                  <span class="flag-lead">Led by {svc.lead}</span>
+                  <span class="flag-certs">{svc.certs.join(" · ")}</span>
+                </div>
+                <div class="flag-cta">
+                  <span>{svc.hasPage ? "Read full details" : "Start a scoping call"}</span>
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
+        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
+      </div>
+      <div class="container">
+        <div class="section-wrapper-vertical section-wrapper-vertical-large">
+          <div class="heading-horizontal">
+            <div class="heading-horizontal-inner">
+              <div class="heading-horizontal-left-part">
+                <h2 class="heading">Year 2 — 2027 roadmap</h2>
+              </div>
+              <div class="heading-horizontal-right-part">
+                <p class="text-medium">Implementation services that build on Year-1 assessment work.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="soon-grid">
+            {comingY2.map((svc) => (
+              <div class="soon-card" data-service-slug={svc.slug}>
+                <div class="soon-card-head">
+                  <span class="soon-badge soon-badge-2027">2027</span>
+                </div>
+                <h3 class="soon-title">{svc.title}</h3>
+                <p class="soon-desc">{svc.desc}</p>
+                <form class="soon-form" data-waitlist-form data-service-slug={svc.slug} data-service-year="2027">
+                  <input type="email" name="email" placeholder="you@company.com" aria-label={`Email for ${svc.title} waitlist`} required />
+                  <button type="submit" class="soon-btn">Add me to 2027 waitlist →</button>
+                  <p class="soon-msg" aria-live="polite"></p>
+                </form>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
+        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
+      </div>
+      <div class="container-medium">
+        <div class="section-wrapper-vertical">
+          <div class="heading-horizontal">
+            <div class="heading-horizontal-inner">
+              <div class="heading-horizontal-left-part">
+                <h2 class="heading">Why this matters for UAE</h2>
+              </div>
+              <div class="heading-horizontal-right-part">
+                <p class="text-medium">Flat networks. Stale rule sets. Perimeter trust.</p>
+              </div>
+            </div>
+          </div>
+          <div class="why-uae-body">
+            <p>Most UAE mid-market networks are <strong>flat, perimeter-trusting</strong>, and running firewall rule sets that haven't been reviewed in years. FortiGate is the dominant platform in the region — and most organisations we've seen have <strong>30 – 200 stale or overly permissive rules</strong> that an attacker would exploit in minutes.</p>
+            <p>Paired with our penetration testing work, a firewall and architecture review gives you the full picture: <strong>how the network is designed vs. how an attacker would actually move through it</strong>. Two perspectives, one team, one coordinated program.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
+        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
+      </div>
+      <div class="container-medium">
+        <div class="section-wrapper-vertical" style="align-items:center;text-align:center;">
+          <h2 class="heading" style="max-width:560px;">When did someone last review your firewall rules?</h2>
+          <p class="text-medium" style="max-width:580px;">
+            Book a free 30-minute scoping call. We'll scope the review, deliver a risk-rated findings report, and walk your network team through every change we recommend.
+          </p>
+          <div class="button">
+            <a href="/#contact?service=network-infrastructure" class="button-hidden w-button">Book a Free Scoping Call</a>
+            <div class="button-wrapper">
+              <div class="button-text">Book a Free Scoping Call</div>
+            </div>
+            <div class="button-accent-gradinet"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Layout>
+
+<script src="/js/waitlist.js" defer></script>

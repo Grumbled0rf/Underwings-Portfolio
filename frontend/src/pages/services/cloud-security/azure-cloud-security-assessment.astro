@@ -1,0 +1,276 @@
+---
+// ============================================================
+// SERVICE PAGE — Azure Cloud Security Assessment
+// Category: Cloud Security (Y1 Flagship, Phase 3 Anchor)
+// ============================================================
+
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import '../../../styles/category-hub.css';
+import '../../../styles/service-page.css';
+
+const faqs = [
+  { q: "What exactly do you review?", a: "Your entire Azure tenant and Entra ID configuration — subscriptions, RBAC, Conditional Access, MFA policies, privileged identities, storage accounts, network security groups, virtual networks, Key Vault, and Microsoft Defender for Cloud posture. Measured against CIS Microsoft Azure Foundations Benchmark plus Microsoft's own security best practices." },
+  { q: "Do you need admin access?", a: "We ask for a Security Reader role on all subscriptions + Global Reader on Entra ID. This is sufficient for a complete audit and requires no elevated privileges that could affect production." },
+  { q: "How long does it take?", a: "Typical single-subscription assessment is 5 – 7 working days from access provisioning to final report. Multi-subscription or complex Entra ID environments extend to 10 – 14 days." },
+  { q: "Do you use automated tools?", a: "Yes — ScoutSuite, Prowler, Microsoft Secure Score, and Defender for Cloud outputs are inputs to our process. But tools produce noisy output; what you pay for is the manual validation, prioritisation, and business-context remediation guidance." },
+  { q: "Do you provide a remediation plan?", a: "Yes. Every finding is CVSS-scored with specific remediation steps, estimated effort, and where possible the exact Azure CLI / PowerShell command or Portal path to fix it. We also offer a follow-on implementation engagement if you want us to execute the fixes with your team." },
+  { q: "Is this useful for ISO 27001 / NESA / PDPL evidence?", a: "Yes. Our reports include scope, methodology, benchmarked controls (mapped to ISO 27001 Annex A, CIS, and relevant UAE frameworks), findings, and remediation — directly usable as audit evidence for the cloud-infrastructure controls." },
+  { q: "Can you assess multiple tenants?", a: "Yes. Multi-tenant engagements are scoped as separate reviews per tenant; pricing scales with tenant count and subscription counts." },
+];
+
+const schema = [
+  { "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://underwings.org" },
+    { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://underwings.org/services" },
+    { "@type": "ListItem", "position": 3, "name": "Cloud Security", "item": "https://underwings.org/services/cloud-security" },
+    { "@type": "ListItem", "position": 4, "name": "Azure Cloud Security Assessment", "item": "https://underwings.org/services/cloud-security/azure-cloud-security-assessment" }
+  ]},
+  { "@context": "https://schema.org", "@type": "Service", "name": "Azure Cloud Security Assessment", "serviceType": "Cloud Security Assessment",
+    "provider": { "@type": "Organization", "name": "Underwings Cybersecurity Solutions", "url": "https://underwings.org" },
+    "areaServed": { "@type": "Country", "name": "United Arab Emirates" },
+    "offers": { "@type": "AggregateOffer", "priceCurrency": "AED", "lowPrice": "15000", "highPrice": "35000" },
+    "description": "Azure tenant security assessment against CIS Azure Benchmark — Entra ID, RBAC, storage, NSGs, Defender for Cloud posture.",
+    "url": "https://underwings.org/services/cloud-security/azure-cloud-security-assessment"
+  },
+  { "@context": "https://schema.org", "@type": "FAQPage",
+    "mainEntity": faqs.map(f => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } }))
+  }
+];
+
+export const prerender = false;
+---
+
+<Layout
+  title="Azure Cloud Security Assessment UAE — CIS Benchmark & Entra ID Review | Underwings"
+  description="UAE Azure cloud security assessment against CIS Azure Foundations Benchmark. Entra ID, RBAC, Conditional Access, storage, NSG, Defender for Cloud. AED 15,000 – 35,000. Led by Azure Security certified practitioner."
+  keywords="Azure security assessment UAE, CIS Azure Benchmark UAE, Entra ID security audit, Azure cloud security Dubai, Conditional Access review UAE, Microsoft Defender for Cloud assessment"
+  wfPage="services-page"
+  schema={schema}
+  bodyClass="body svc-compact"
+>
+  <Header currentPage="services" />
+
+  <main id="main" class="main">
+
+    <section class="section bottom-padding-clear top-padding-small">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <nav class="crumbs" aria-label="Breadcrumb">
+          <a href="/">Home</a><span aria-hidden="true">›</span>
+          <a href="/services">Services</a><span aria-hidden="true">›</span>
+          <a href="/services/cloud-security">Cloud Security</a><span aria-hidden="true">›</span>
+          <span class="crumbs-current">Azure Cloud Security Assessment</span>
+        </nav>
+
+        <div class="svc-hero">
+          <div class="label" style="justify-content:center;"><div class="text-small color-grey">Cloud Security — Flagship Service</div></div>
+          <h1 class="heading-large">Azure Cloud Security Assessment</h1>
+          <p class="text" style="max-width:680px;margin:1rem auto 0;">
+            CIS-benchmarked review of your Azure tenant, Entra ID, RBAC, storage, network security groups, and Defender for Cloud posture. Every assessment finds <strong>10 – 30 high-severity misconfigurations</strong> UAE organisations don't know they have.
+          </p>
+
+          <div class="svc-hero-badges">
+            <span class="svc-hero-badge svc-hero-badge-price">AED 15,000 – 35,000</span>
+            <span class="svc-hero-badge svc-hero-badge-certs">Azure Security</span>
+            <span class="svc-hero-badge svc-hero-badge-time">5 – 10 working days</span>
+          </div>
+
+          <div class="svc-hero-ctas">
+            <div class="button">
+              <a href="/#contact?service=azure-security-assessment" class="button-hidden w-button">Book a 30-min Scoping Call →</a>
+              <div class="button-wrapper"><div class="button-text">Book a 30-min Scoping Call →</div></div>
+              <div class="button-accent-gradinet"></div>
+            </div>
+            <a href="#faq" class="svc-hero-cta-secondary">Jump to FAQ</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">What it is</h2>
+        <div class="svc-sec-body">
+          <p>A full security posture assessment of your Azure cloud environment — benchmarked against <strong>CIS Microsoft Azure Foundations Benchmark</strong> and Microsoft's own security best practices. We review identity, access, compute, network, storage, monitoring, and tenant-level governance controls.</p>
+          <p>We do <strong>not</strong> just hand you the output of Microsoft Secure Score. We validate every finding manually, prioritise by real business impact, and produce a remediation plan your engineers can actually execute — with the specific PowerShell, Azure CLI, or Portal path for every fix.</p>
+          <p>Delivered with a named Azure Security practitioner and a structured handover so your team leaves the engagement with knowledge, not just a report.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">What this is <em>not</em></h2>
+        <div class="svc-not-list">
+          <div class="svc-not-item"><div class="svc-not-ico"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div><strong>Not a Secure Score screenshot.</strong> We validate, prioritise, and context-fit every finding.</div></div>
+          <div class="svc-not-item"><div class="svc-not-ico"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div><strong>Not a penetration test.</strong> If you need active cloud-exploit validation, pair this with our pen-test service.</div></div>
+          <div class="svc-not-item"><div class="svc-not-ico"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div><strong>Not a license-upsell exercise.</strong> We recommend what you need, not what earns the highest vendor margin.</div></div>
+          <div class="svc-not-item"><div class="svc-not-ico"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div><strong>Not months of drag.</strong> Most assessments complete in 5 – 10 working days.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">Who this is for</h2>
+        <div class="svc-triggers">
+          <div class="svc-trigger"><div class="svc-trigger-num">1</div><div>You <strong>migrated to Azure</strong> in the last 12 – 24 months and never did a security baseline review.</div></div>
+          <div class="svc-trigger"><div class="svc-trigger-num">2</div><div>Your auditor flagged <strong>cloud infrastructure controls</strong> as a gap in your last ISO 27001 / NESA assessment.</div></div>
+          <div class="svc-trigger"><div class="svc-trigger-num">3</div><div>A <strong>Microsoft Secure Score below 50%</strong> has been on the exec dashboard for months with no progress.</div></div>
+          <div class="svc-trigger"><div class="svc-trigger-num">4</div><div>You're preparing for <strong>Defender for Cloud</strong> rollout and want to fix the basics first.</div></div>
+          <div class="svc-trigger"><div class="svc-trigger-num">5</div><div>A <strong>tenant-wide incident</strong> (guest access, phishing, misconfigured sharing) made the board nervous.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">What you get</h2>
+        <ul class="svc-deliv-list">
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Scope document</strong> — subscriptions, Entra ID tenant, roles, control families in scope.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>CIS benchmark compliance report</strong> — every control, current state, pass / fail, justification.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Findings report</strong> — CVSS-scored, with reproduction steps, business impact, and specific remediation commands.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Executive summary</strong> — 2-page C-suite version with risk heat map and 90-day remediation roadmap.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Remediation walkthrough</strong> — 90-minute live session with your Azure admin team.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Control mapping</strong> — findings mapped to ISO 27001 Annex A, NESA / UAE IA V2, and PDPL controls for audit reuse.</div></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">How we deliver</h2>
+        <div class="svc-process-table">
+          <div class="svc-process-row"><div class="svc-process-row-num">01</div><div><div class="svc-process-row-step">Scoping</div><div class="svc-process-row-duration">1 – 2 days</div></div><div class="svc-process-row-desc">Subscription inventory, access provisioning (Security Reader + Global Reader), scope agreement.</div></div>
+          <div class="svc-process-row"><div class="svc-process-row-num">02</div><div><div class="svc-process-row-step">Automated scan baseline</div><div class="svc-process-row-duration">1 day</div></div><div class="svc-process-row-desc">ScoutSuite, Prowler, Secure Score, Defender for Cloud exports captured as baseline.</div></div>
+          <div class="svc-process-row"><div class="svc-process-row-num">03</div><div><div class="svc-process-row-step">Manual validation &amp; deep-dive</div><div class="svc-process-row-duration">3 – 6 days</div></div><div class="svc-process-row-desc">Every finding manually validated. Entra ID roles, Conditional Access, PIM, guest access, storage exposure, NSG audit, Key Vault, PrivateLink coverage.</div></div>
+          <div class="svc-process-row"><div class="svc-process-row-num">04</div><div><div class="svc-process-row-step">Reporting</div><div class="svc-process-row-duration">2 – 3 days</div></div><div class="svc-process-row-desc">Findings report, executive summary, CIS compliance matrix, ISO/NESA/PDPL control mapping.</div></div>
+          <div class="svc-process-row"><div class="svc-process-row-num">05</div><div><div class="svc-process-row-step">Walkthrough &amp; handover</div><div class="svc-process-row-duration">90 minutes</div></div><div class="svc-process-row-desc">Live session with your Azure team covering every critical and high finding + 90-day roadmap.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">Pricing</h2>
+        <div class="svc-pricing">
+          <div class="svc-pricing-card">
+            <h4>Published range</h4>
+            <div class="svc-pricing-range">AED 15k – 35k</div>
+            <p class="svc-pricing-note">Per engagement. Written quote within 48 hours of scoping call.</p>
+            <p class="svc-pricing-note" style="margin-top:0.75rem;"><strong>What drives the price:</strong></p>
+            <ul class="svc-pricing-drivers">
+              <li>Number of subscriptions in scope</li>
+              <li>Entra ID tenant size &amp; federation complexity</li>
+              <li>Number of regions / resource groups</li>
+              <li>Defender for Cloud plan coverage</li>
+              <li>Add-on: remediation-support days</li>
+            </ul>
+          </div>
+          <div class="svc-pricing-card">
+            <h4>Commercial terms</h4>
+            <ul class="svc-pricing-terms">
+              <li><strong>Deposit:</strong> 50% at signing</li>
+              <li><strong>Net terms:</strong> Net-30</li>
+              <li><strong>Quote validity:</strong> 30 days</li>
+              <li><strong>Access:</strong> Security Reader + Global Reader only</li>
+              <li><strong>Deliverable:</strong> PDF + editable DOCX</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">Your cert-backed team</h2>
+        <div class="svc-team">
+          <div class="svc-team-card">
+            <p class="svc-team-role">Lead Assessor</p>
+            <h3 class="svc-team-name">Manoj Prabhakaran</h3>
+            <p class="svc-team-certs">CPTS · CDSA · Security+ · Azure Cloud Security · ISO 27001 Lead Auditor</p>
+            <p class="svc-team-focus"><strong>Focus:</strong> Azure tenant architecture, Entra ID, Conditional Access, PIM, compliance mapping.</p>
+          </div>
+          <div class="svc-team-card">
+            <p class="svc-team-role">Supporting Engineer</p>
+            <h3 class="svc-team-name">Vinoth Samiyappa</h3>
+            <p class="svc-team-certs">CCNP · Fortinet · Azure · Six Sigma</p>
+            <p class="svc-team-focus"><strong>Focus:</strong> Network security groups, virtual networks, PrivateLink, hub-spoke validation.</p>
+          </div>
+        </div>
+        <p class="text-small color-grey" style="margin-top:1.25rem;"><a href="/about" style="color:#37dc82;text-decoration:underline;">See the full team →</a></p>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">Frequently asked questions</h2>
+        <div class="svc-faq">
+          {faqs.map(item => (
+            <details class="svc-faq-item">
+              <summary>{item.q}</summary>
+              <p class="svc-faq-answer" set:html={item.a}></p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">You might also need</h2>
+        <div class="svc-related-grid">
+          <a href="/#contact?service=m365-security-review" class="svc-related-card">
+            <h4>Microsoft 365 Security Review</h4>
+            <p>Exchange, SharePoint, Teams, Conditional Access, DLP — frequent companion to Azure assessment.</p>
+            <div class="svc-related-cta">Contact to scope <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 6h6M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </a>
+          <a href="/services/offensive-security/network-penetration-testing" class="svc-related-card">
+            <h4>Network Penetration Testing</h4>
+            <p>Validate the misconfigurations we find by having an attacker try to exploit them.</p>
+            <div class="svc-related-cta">Read full details <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 6h6M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </a>
+          <a href="/services/grc/iso-27001-implementation" class="svc-related-card">
+            <h4>ISO 27001 Implementation</h4>
+            <p>Cloud-infrastructure controls map directly to ISO 27001 Annex A — use the assessment as audit evidence.</p>
+            <div class="svc-related-cta">Read full details <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 6h6M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </a>
+          <a href="/#contact?service=firewall-review" class="svc-related-card">
+            <h4>Firewall &amp; Network Security Review</h4>
+            <p>If you have a hybrid environment with on-prem FortiGate + Azure.</p>
+            <div class="svc-related-cta">Contact to scope <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 6h6M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <div class="section-wrapper-vertical" style="align-items:center;text-align:center;">
+          <h2 class="heading" style="max-width:600px;">When did you last review your Azure security baseline?</h2>
+          <p class="text-medium" style="max-width:600px;">If the answer is "never" or "when we migrated," book a scoping call. Written quote in 48 hours. Engagement starts in 1 – 2 weeks.</p>
+          <div class="button">
+            <a href="/#contact?service=azure-security-assessment" class="button-hidden w-button">Book a Scoping Call →</a>
+            <div class="button-wrapper"><div class="button-text">Book a Scoping Call →</div></div>
+            <div class="button-accent-gradinet"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Layout>

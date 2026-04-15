@@ -1,0 +1,271 @@
+---
+// ============================================================
+// SERVICE PAGE — NESA / UAE IA V2 Gap Assessment
+// Category: GRC (Y1 Flagship — UAE differentiator, govt-adjacent)
+// ============================================================
+
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import '../../../styles/category-hub.css';
+import '../../../styles/service-page.css';
+
+const faqs = [
+  { q: "What's the difference between NESA and UAE IA V2?", a: "UAE IA (Information Assurance) Standard V2 is the current national standard, issued by the Signals Intelligence Agency (SIA, formerly NESA — the National Electronic Security Authority). People still use \"NESA\" colloquially for the framework. V2 is the updated version that most UAE critical-sector and government-adjacent entities are now being assessed against." },
+  { q: "Does NESA apply to my organisation?", a: "If you're a critical-information-infrastructure entity, a government entity, or a supplier to either, yes — directly. If you're in the broader UAE business ecosystem, NESA increasingly appears in enterprise procurement as a posture question. Even when not directly mandated, NESA alignment is often a differentiator." },
+  { q: "What's the difference between NESA and ISO 27001?", a: "ISO 27001 is an international voluntary certification covering ISMS management. NESA / UAE IA V2 is a UAE national standard with specific controls designed for critical-infrastructure and government-adjacent entities. Significant overlap with ISO 27001 exists (~50 – 60%), but NESA has UAE-specific controls around cross-border data, national security, and supply-chain assurance that ISO 27001 doesn't explicitly cover." },
+  { q: "Do you get us certified?", a: "NESA / UAE IA V2 isn't a certification in the ISO sense — it's compliance assessed by the issuing authority or an authorised auditor against the standard's controls. We deliver the <strong>gap assessment</strong> and remediation roadmap; formal assessment against the standard is conducted by designated auditors. Where applicable we support your authorised-auditor engagement." },
+  { q: "How long does the gap assessment take?", a: "3 – 4 weeks end-to-end for a typical mid-market organisation. Larger or multi-entity engagements extend to 5 – 6 weeks. The controls framework is deep — we don't rush coverage." },
+  { q: "Can you combine this with ISO 27001 Gap?", a: "Yes — and many clients do. Running both assessments in parallel saves 15 – 20% versus sequential engagements because interview and documentation work overlaps significantly. Ask us about the combined engagement during scoping." },
+  { q: "What evidence do you produce?", a: "A controls-by-controls assessment report with maturity rating and gap severity, a prioritised remediation roadmap, an executive summary, and a mapping document showing where existing ISO 27001 / CIS / NIST controls already satisfy NESA requirements (avoiding duplicate work)." },
+  { q: "Do you cover ADHICS and Dubai ISR too?", a: "ADHICS (Abu Dhabi healthcare) is scoped separately — similar framework, sector-specific controls. Dubai ISR v2 is on our 2027 roadmap (join the waitlist on the GRC category page) and will be added when our Dubai-government engagement pipeline justifies it." },
+];
+
+const schema = [
+  { "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://underwings.org" },
+    { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://underwings.org/services" },
+    { "@type": "ListItem", "position": 3, "name": "Cybersecurity GRC", "item": "https://underwings.org/services/grc" },
+    { "@type": "ListItem", "position": 4, "name": "NESA / UAE IA V2 Gap Assessment", "item": "https://underwings.org/services/grc/nesa-uae-ia" }
+  ]},
+  { "@context": "https://schema.org", "@type": "Service", "name": "NESA / UAE IA V2 Gap Assessment", "serviceType": "UAE IA V2 Gap Assessment",
+    "provider": { "@type": "Organization", "name": "Underwings Cybersecurity Solutions", "url": "https://underwings.org" },
+    "areaServed": { "@type": "Country", "name": "United Arab Emirates" },
+    "offers": { "@type": "AggregateOffer", "priceCurrency": "AED", "lowPrice": "20000", "highPrice": "50000" },
+    "description": "NESA / UAE Information Assurance Standard V2 gap assessment — controls-by-controls review, maturity ratings, prioritised roadmap. GRC Mastery + ISO 27001 LA led.",
+    "url": "https://underwings.org/services/grc/nesa-uae-ia"
+  },
+  { "@context": "https://schema.org", "@type": "FAQPage",
+    "mainEntity": faqs.map(f => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } }))
+  }
+];
+
+export const prerender = false;
+---
+
+<Layout
+  title="NESA / UAE IA V2 Gap Assessment — National Standards Compliance | Underwings"
+  description="UAE IA V2 / NESA gap assessment for government-adjacent entities, critical infrastructure, and suppliers. Controls review, maturity rating, prioritised roadmap. AED 20,000 – 50,000."
+  keywords="NESA gap assessment UAE, UAE IA V2 compliance, NESA consultant UAE, UAE Information Assurance Standard, SIA compliance UAE, critical infrastructure security UAE"
+  wfPage="services-page"
+  schema={schema}
+  bodyClass="body svc-compact"
+>
+  <Header currentPage="services" />
+
+  <main id="main" class="main">
+
+    <section class="section bottom-padding-clear top-padding-small">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <nav class="crumbs" aria-label="Breadcrumb">
+          <a href="/">Home</a><span aria-hidden="true">›</span>
+          <a href="/services">Services</a><span aria-hidden="true">›</span>
+          <a href="/services/grc">Cybersecurity GRC</a><span aria-hidden="true">›</span>
+          <span class="crumbs-current">NESA / UAE IA V2</span>
+        </nav>
+
+        <div class="svc-hero">
+          <div class="label" style="justify-content:center;"><div class="text-small color-grey">GRC — Flagship Service</div></div>
+          <h1 class="heading-large">NESA / UAE IA V2 Gap Assessment</h1>
+          <p class="text" style="max-width:720px;margin:1rem auto 0;">
+            Controls-by-controls assessment of your posture against the UAE Information Assurance Standard V2 — the national framework applied to critical-infrastructure entities, government-adjacent organisations, and their suppliers. Delivered by a GRC Mastery + ISO 27001 Lead Auditor practitioner.
+          </p>
+
+          <div class="svc-hero-badges">
+            <span class="svc-hero-badge svc-hero-badge-price">AED 20,000 – 50,000</span>
+            <span class="svc-hero-badge svc-hero-badge-certs">GRC Mastery · ISO 27001 LA</span>
+            <span class="svc-hero-badge svc-hero-badge-time">3 – 4 weeks</span>
+          </div>
+
+          <div class="svc-hero-ctas">
+            <div class="button">
+              <a href="/#contact?service=nesa" class="button-hidden w-button">Book a 30-min Scoping Call →</a>
+              <div class="button-wrapper"><div class="button-text">Book a 30-min Scoping Call →</div></div>
+              <div class="button-accent-gradinet"></div>
+            </div>
+            <a href="#faq" class="svc-hero-cta-secondary">Jump to FAQ</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">What it is</h2>
+        <div class="svc-sec-body">
+          <p>A focused, 3 – 4 week assessment of your current cybersecurity posture against the <strong>UAE Information Assurance Standard V2</strong> — the national-level controls framework covering governance, risk management, information lifecycle, asset and supply-chain security, and technical defence-in-depth.</p>
+          <p>We review your existing controls, interview key stakeholders across IT, operations, HR, and legal, observe the technical and procedural evidence, and map every UAE IA V2 control to its current implementation maturity. The output is a gap report, a prioritised remediation roadmap, and a mapping of existing ISO 27001 / NIST / CIS work to the NESA framework — so remediation doesn't duplicate effort.</p>
+          <p>Led by a practitioner holding <strong>GRC Mastery</strong> and <strong>ISO 27001 Lead Auditor</strong> credentials with hands-on experience in UAE regulated-sector environments.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">What this is <em>not</em></h2>
+        <div class="svc-not-list">
+          <div class="svc-not-item"><div class="svc-not-ico"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div><strong>Not a formal certification audit.</strong> Authorised auditors perform formal assessment; we are a pre-assessment gap partner.</div></div>
+          <div class="svc-not-item"><div class="svc-not-ico"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div><strong>Not implementation work.</strong> We identify gaps and produce a roadmap; remediation is a separate engagement.</div></div>
+          <div class="svc-not-item"><div class="svc-not-ico"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div><strong>Not generic checklist scoring.</strong> Evidence-based — we observe, interview, validate, rate.</div></div>
+          <div class="svc-not-item"><div class="svc-not-ico"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div><strong>Not duplicate work.</strong> Existing ISO 27001 / CIS / NIST programs are mapped — you don't re-build what already satisfies NESA.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">Who this is for</h2>
+        <div class="svc-triggers">
+          <div class="svc-trigger"><div class="svc-trigger-num">1</div><div>You're a <strong>critical-infrastructure entity</strong> (energy, utilities, transport, telecom, financial services).</div></div>
+          <div class="svc-trigger"><div class="svc-trigger-num">2</div><div>You're a <strong>supplier to UAE government</strong> or a semi-government entity with NESA flow-down obligations.</div></div>
+          <div class="svc-trigger"><div class="svc-trigger-num">3</div><div>A <strong>tender or procurement question</strong> has asked about NESA posture.</div></div>
+          <div class="svc-trigger"><div class="svc-trigger-num">4</div><div>You already have <strong>ISO 27001 in place</strong> and need to understand the delta to NESA.</div></div>
+          <div class="svc-trigger"><div class="svc-trigger-num">5</div><div>You're preparing for a <strong>formal NESA / UAE IA V2 assessment</strong> and want to know the gaps before an authorised auditor finds them.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">What you get</h2>
+        <ul class="svc-deliv-list">
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Scope &amp; applicability document</strong> — what parts of your organisation are in scope and which UAE IA V2 control families apply.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Controls-by-controls assessment report</strong> — every applicable control with current state, maturity rating (0 – 4), evidence observed, gap severity.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Cross-framework mapping</strong> — where your ISO 27001 / CIS / NIST evidence already satisfies NESA (to avoid duplicate work).</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Prioritised remediation roadmap</strong> — 90-day / 6-month / 12-month plan with effort estimates.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Executive summary</strong> — 2-page board-consumable posture brief with maturity heat map.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Procurement-ready posture statement</strong> — a document you can use in response to client / tender questions about NESA compliance.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Walkthrough session</strong> — 90-minute live review with your IT and executive teams.</div></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">How we deliver</h2>
+        <div class="svc-process-table">
+          <div class="svc-process-row"><div class="svc-process-row-num">01</div><div><div class="svc-process-row-step">Scoping &amp; applicability</div><div class="svc-process-row-duration">3 – 5 days</div></div><div class="svc-process-row-desc">Scope workshop, control-family applicability assessment, interview list, document-request list.</div></div>
+          <div class="svc-process-row"><div class="svc-process-row-num">02</div><div><div class="svc-process-row-step">Fieldwork — interviews &amp; evidence</div><div class="svc-process-row-duration">5 – 8 days</div></div><div class="svc-process-row-desc">Stakeholder interviews, policy and procedure review, technical control observation, sampling.</div></div>
+          <div class="svc-process-row"><div class="svc-process-row-num">03</div><div><div class="svc-process-row-step">Controls assessment &amp; mapping</div><div class="svc-process-row-duration">3 – 5 days</div></div><div class="svc-process-row-desc">Maturity rating per control, cross-framework mapping, gap-severity scoring.</div></div>
+          <div class="svc-process-row"><div class="svc-process-row-num">04</div><div><div class="svc-process-row-step">Reporting</div><div class="svc-process-row-duration">3 – 4 days</div></div><div class="svc-process-row-desc">Controls report, remediation roadmap, executive summary, procurement-ready posture statement.</div></div>
+          <div class="svc-process-row"><div class="svc-process-row-num">05</div><div><div class="svc-process-row-step">Walkthrough</div><div class="svc-process-row-duration">90 minutes</div></div><div class="svc-process-row-desc">Live session covering gaps, roadmap priorities, and remediation sequencing.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">Pricing</h2>
+        <div class="svc-pricing">
+          <div class="svc-pricing-card">
+            <h4>Published range</h4>
+            <div class="svc-pricing-range">AED 20k – 50k</div>
+            <p class="svc-pricing-note">Per engagement. Written quote within 48 hours.</p>
+            <p class="svc-pricing-note" style="margin-top:0.75rem;"><strong>What drives the price:</strong></p>
+            <ul class="svc-pricing-drivers">
+              <li>Organisation scope (single entity vs. multi-entity / group)</li>
+              <li>Number of applicable control families</li>
+              <li>Technical environment complexity</li>
+              <li>Supply-chain and third-party assessment scope</li>
+              <li>Existing ISO 27001 / CIS / NIST maturity (drives mapping workload)</li>
+            </ul>
+          </div>
+          <div class="svc-pricing-card">
+            <h4>Commercial terms</h4>
+            <ul class="svc-pricing-terms">
+              <li><strong>Deposit:</strong> 50% at signing</li>
+              <li><strong>Net terms:</strong> Net-30</li>
+              <li><strong>Quote validity:</strong> 30 days</li>
+              <li><strong>Combined with ISO 27001 Gap:</strong> 15 – 20% discount</li>
+              <li><strong>Deliverable:</strong> PDF + editable DOCX</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">Your cert-backed lead</h2>
+        <div class="svc-team">
+          <div class="svc-team-card" style="grid-column:1/-1;">
+            <p class="svc-team-role">Engagement Lead</p>
+            <h3 class="svc-team-name">Manoj Prabhakaran</h3>
+            <p class="svc-team-certs">ISO 27001 Lead Auditor · GRC Mastery · CPTS · CDSA · Security+ · Azure Cloud Security</p>
+            <p class="svc-team-focus"><strong>Focus:</strong> UAE IA V2 control mapping, cross-framework alignment, maturity assessment, roadmap design for UAE-regulated sectors.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">Frequently asked questions</h2>
+        <div class="svc-faq">
+          {faqs.map(item => (
+            <details class="svc-faq-item">
+              <summary>{item.q}</summary>
+              <p class="svc-faq-answer" set:html={item.a}></p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">You might also need</h2>
+        <div class="svc-related-grid">
+          <a href="/services/grc/iso-27001-gap-assessment" class="svc-related-card">
+            <h4>ISO 27001 Gap Assessment</h4>
+            <p>Combine with NESA for a 15 – 20% discount vs. sequential engagements.</p>
+            <div class="svc-related-cta">Read full details <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 6h6M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </a>
+          <a href="/services/grc/risk-assessment-register" class="svc-related-card">
+            <h4>Risk Assessment &amp; Register</h4>
+            <p>NESA mandates a documented risk management process — our risk register satisfies the requirement.</p>
+            <div class="svc-related-cta">Read full details <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 6h6M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </a>
+          <a href="/services/grc/uae-pdpl-advisory" class="svc-related-card">
+            <h4>UAE PDPL Compliance Advisory</h4>
+            <p>PDPL and NESA overlap on privacy and data-handling — run them together for efficient coverage.</p>
+            <div class="svc-related-cta">Read full details <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 6h6M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </a>
+          <a href="/services/offensive-security/network-penetration-testing" class="svc-related-card">
+            <h4>Network Penetration Testing</h4>
+            <p>NESA technical controls require penetration-test evidence — we deliver both under one program.</p>
+            <div class="svc-related-cta">Read full details <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 6h6M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <div class="section-wrapper-vertical" style="align-items:center;text-align:center;">
+          <h2 class="heading" style="max-width:600px;">Preparing for a NESA assessment — or responding to a tender question about UAE IA V2?</h2>
+          <p class="text-medium" style="max-width:600px;">Book a 30-minute scoping call. We'll assess applicability, scope the engagement, and send a written quote within 48 hours.</p>
+          <div class="button">
+            <a href="/#contact?service=nesa" class="button-hidden w-button">Book a Scoping Call →</a>
+            <div class="button-wrapper"><div class="button-text">Book a Scoping Call →</div></div>
+            <div class="button-accent-gradinet"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Layout>
