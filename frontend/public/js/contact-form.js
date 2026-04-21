@@ -83,7 +83,7 @@
       });
     })
     .catch(function(err) {
-      console.error('HubSpot submit error:', err);
+      console.error('Contact form submit error:', err);
       if (btn) btn.classList.remove('is-loading');
       form.parentElement.querySelector('.w-form-fail').style.display = 'flex';
     })

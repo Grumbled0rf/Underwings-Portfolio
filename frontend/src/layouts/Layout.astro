@@ -17,10 +17,10 @@ export interface Props {
 
 const {
   title = "Underwings – Cybersecurity Solutions & Software Sales",
-  description = "Underwings is a cybersecurity startup providing VAPT, ISO 27001 implementation, security awareness training, and security software sales in India & UAE.",
+  description = "Underwings is a cybersecurity startup providing VAPT, ISO 27001 implementation, security awareness training, and security software sales in UAE.",
   ogImage = "/images/og-image.png",
   canonical = Astro.url.href,
-  keywords = "cybersecurity UAE, VAPT services Dubai, ISO 27001 implementation, security software sales, penetration testing UAE, cybersecurity training",
+  keywords = "cybersecurity UAE, VAPT services Abu Dhabi, ISO 27001 implementation, security software sales, penetration testing UAE, cybersecurity training",
   wfPage = "6920627afaad5c7afb54bfa8",
   schema,
   bodyClass = "body",
@@ -37,11 +37,11 @@ const defaultSchema = {
   "name": "Underwings Cybersecurity Solutions",
   "url": siteUrl,
   "logo": `${siteUrl}/images/logowhiteUW.png`,
-  "description": "Cybersecurity startup offering security software sales, VAPT services, ISO 27001 implementation, and security awareness training in India & UAE.",
+  "description": "Cybersecurity startup offering security software sales, VAPT services, ISO 27001 implementation, and security awareness training in UAE.",
   "address": {
     "@type": "PostalAddress",
     "addressCountry": "AE",
-    "addressRegion": "Dubai"
+    "addressRegion": "Abu Dhabi"
   },
   "contactPoint": {
     "@type": "ContactPoint",
@@ -72,26 +72,35 @@ const schemaArray = schemaToRender === null ? [] : Array.isArray(schemaToRender)
   <meta property="og:image:height" content="630">
   <meta property="og:locale" content="en_AE">
 
-  <!-- hreflang: en ↔ ar cross-linking -->
-  <link rel="alternate" hreflang="en" href={siteUrl}>
-  <link rel="alternate" hreflang="ar" href={`${siteUrl}/ar`}>
-  <link rel="alternate" hreflang="x-default" href={siteUrl}>
+  <!-- hreflang: en ↔ ar cross-linking (self-referencing per page) -->
+  {(Astro.url.pathname === '/' || Astro.url.pathname === '/ar') ? (
+    <>
+      <link rel="alternate" hreflang="en" href={siteUrl}>
+      <link rel="alternate" hreflang="ar" href={`${siteUrl}/ar`}>
+      <link rel="alternate" hreflang="x-default" href={siteUrl}>
+    </>
+  ) : (
+    <>
+      <link rel="alternate" hreflang="en" href={`${siteUrl}${Astro.url.pathname}`}>
+      <link rel="alternate" hreflang="x-default" href={`${siteUrl}${Astro.url.pathname}`}>
+    </>
+  )}
   <meta content="summary_large_image" name="twitter:card">
   <meta content="width=device-width, initial-scale=1" name="viewport">
   <meta name="robots" content="index, follow">
   <meta name="author" content="Underwings Cybersecurity Solutions">
   <meta name="geo.region" content="AE">
-  <meta name="geo.placename" content="Dubai, UAE">
+  <meta name="geo.placename" content="Abu Dhabi, UAE">
   <link rel="canonical" href={canonical}>
   <meta name="keywords" content={keywords}>
 
   <!-- Google Analytics -->
-  <script is:inline nonce={nonce} async src="https://www.googletagmanager.com/gtag/js?id=G-YK74VSS684"></script>
+  <script is:inline nonce={nonce} async src="https://www.googletagmanager.com/gtag/js?id=G-YZG3QCH600"></script>
   <script is:inline nonce={nonce}>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-YK74VSS684');
+    gtag('config', 'G-YZG3QCH600');
   </script>
 
   <!-- Structured Data -->
@@ -109,7 +118,6 @@ const schemaArray = schemaToRender === null ? [] : Array.isArray(schemaToRender)
   <link rel="dns-prefetch" href="//assets.calendly.com">
   <link rel="dns-prefetch" href="//d3e54v103j8qbb.cloudfront.net">
   <link rel="dns-prefetch" href="//cdn.prod.website-files.com">
-  <link rel="dns-prefetch" href="//js-eu1.hs-scripts.com">
   <link rel="preconnect" href="https://d3e54v103j8qbb.cloudfront.net" crossorigin>
   <link rel="preconnect" href="https://cdn.prod.website-files.com" crossorigin>
 
@@ -179,6 +187,10 @@ const schemaArray = schemaToRender === null ? [] : Array.isArray(schemaToRender)
     .text {
       font-size: 1.0625rem;
       line-height: 1.6;
+    }
+    /* Semantic monospace — replaces <code> used purely for styling */
+    .mono {
+      font-family: ui-monospace, "JetBrains Mono", Menlo, Consolas, monospace;
     }
     .text-medium {
       font-size: 1.1rem;
@@ -294,6 +306,53 @@ const schemaArray = schemaToRender === null ? [] : Array.isArray(schemaToRender)
     }
     .nav-mega-item:hover .nav-mega-title {
       color: #24d758;
+    }
+    /* Featured "Scope Builder" entry — visually set apart from the 5 categories */
+    .nav-mega-item-featured {
+      margin-top: 0.4rem;
+      padding-top: 0.85rem;
+      border-top: 1px solid rgba(36, 215, 88, 0.18);
+      background: linear-gradient(135deg, rgba(36,215,88,0.06) 0%, rgba(36,215,88,0.015) 100%);
+    }
+    .nav-mega-item-featured:hover {
+      background: linear-gradient(135deg, rgba(36,215,88,0.11) 0%, rgba(36,215,88,0.03) 100%);
+    }
+    .nav-mega-icon-featured { color: #24d758; }
+    .nav-mega-badge {
+      display: inline-block;
+      margin-left: 0.45rem;
+      padding: 0.08rem 0.4rem;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #24d758;
+      background: rgba(36,215,88,0.14);
+      border: 1px solid rgba(36,215,88,0.3);
+      border-radius: 100px;
+      vertical-align: middle;
+    }
+
+    /* Mobile featured link */
+    .mob-link-featured {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      color: #24d758 !important;
+      background: linear-gradient(135deg, rgba(36,215,88,0.08) 0%, rgba(36,215,88,0.02) 100%) !important;
+      border: 1px solid rgba(36,215,88,0.22) !important;
+      border-radius: 10px !important;
+      margin: 0.35rem 0 !important;
+    }
+    .mob-link-pill {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.55rem;
+      background: rgba(36,215,88,0.14);
+      border: 1px solid rgba(36,215,88,0.3);
+      border-radius: 100px;
     }
 
     /* Mobile mega dropdown — desktop only styles kept */
@@ -661,7 +720,7 @@ const schemaArray = schemaToRender === null ? [] : Array.isArray(schemaToRender)
       .heading      { font-size: 1.75rem !important; }
       .heading-large{ font-size: 2rem !important; line-height: 1.1; }
       .heading-small{ font-size: 1.3rem; }
-      code.code      { font-size: 0.85em; }
+      code.code, .mono.code { font-size: 0.85em; }
 
       /* section padding */
       .section { padding-top: 2.75rem !important; padding-bottom: 2.75rem !important; }
@@ -1272,32 +1331,19 @@ const schemaArray = schemaToRender === null ? [] : Array.isArray(schemaToRender)
   <script is:inline nonce={nonce}>
   (function() {
     var consent = localStorage.getItem('uw-cookie-consent');
-    if (consent === 'accepted') {
-      loadHubSpot();
-    } else if (consent !== 'declined') {
+    if (consent !== 'accepted' && consent !== 'declined') {
       document.getElementById('uw-cookie-banner').style.display = 'block';
     }
 
     document.getElementById('uw-cookie-accept').addEventListener('click', function() {
       localStorage.setItem('uw-cookie-consent', 'accepted');
       document.getElementById('uw-cookie-banner').style.display = 'none';
-      loadHubSpot();
     });
 
     document.getElementById('uw-cookie-decline').addEventListener('click', function() {
       localStorage.setItem('uw-cookie-consent', 'declined');
       document.getElementById('uw-cookie-banner').style.display = 'none';
     });
-
-    function loadHubSpot() {
-      if (document.getElementById('hs-script-loader')) return;
-      var s = document.createElement('script');
-      s.id = 'hs-script-loader';
-      s.src = '//js-eu1.hs-scripts.com/147940148.js';
-      s.async = true;
-      s.defer = true;
-      document.head.appendChild(s);
-    }
   })();
   </script>
 

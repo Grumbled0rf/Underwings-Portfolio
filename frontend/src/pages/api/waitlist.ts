@@ -33,7 +33,7 @@ const VALID_SERVICE_SLUGS = new Set<string>([
   // Network & Infrastructure — Y2
   'zero-trust-architecture-design', 'network-segmentation-implementation',
   // GRC — Y2
-  'incident-response-retainer', 'iso-27701', 'nist-csf-risk-reporting', 'vciso-retainer',
+  'incident-response-retainer', 'iso-27701', 'nist-csf-risk-reporting',
   'pci-dss-v4', 'dubai-isr-v2', 'third-party-risk',
   // GRC — Y3
   'nca-ecc-sama', 'cobit-2019', 'iso-42001', 'dora-nis2',

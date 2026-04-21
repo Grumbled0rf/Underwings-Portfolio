@@ -1,0 +1,304 @@
+---
+// ============================================================
+// SERVICE PAGE — Mobile Application Penetration Testing
+// Category: Offensive Security (Y1 Flagship)
+// Methodology: OWASP MASTG / MASVS, NIST SP 800-115
+// ============================================================
+
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import '../../../styles/category-hub.css';
+import '../../../styles/service-page.css';
+
+const faqs = [
+  { q: "Do you test iOS, Android, or both?", a: "Both. We test native iOS (Swift/Objective-C), native Android (Kotlin/Java), and cross-platform builds (React Native, Flutter, Xamarin). Per-platform pricing is per binary — one iOS build and one Android build of the same app are two scopes." },
+  { q: "What methodology do you follow?", a: "OWASP MASTG (Mobile Application Security Testing Guide) and OWASP MASVS (Mobile Application Security Verification Standard), aligned to NIST SP 800-115. Our test plan covers all 8 MASVS control groups: architecture, data storage, cryptography, authentication, network, platform interaction, code quality, and resilience." },
+  { q: "Do I need to give you a jailbroken / rooted device?", a: "No — we provide our own instrumented test devices (both jailbroken iOS and rooted Android) plus non-rooted devices to test both attack paths. You provide the app binary (IPA/APK) and test credentials." },
+  { q: "What do you actually test?", a: "Static analysis of the binary (decompilation, hardcoded secrets, insecure libraries, obfuscation quality), dynamic analysis (runtime inspection, method hooking with Frida, SSL pinning bypass, local storage inspection), network traffic analysis (API calls, TLS config, certificate validation), platform-specific attacks (deep links, IPC, keychain/keystore misuse, WebView issues), and authentication/authorization flaws against the backing API." },
+  { q: "Will this also test the backing API?", a: "Light API testing is included (authentication bypass, authorization, mass-assignment against endpoints the app calls). For full API pen testing — every endpoint, all HTTP verbs, full OWASP API Top 10 — add a separate Web App / API pen test engagement." },
+  { q: "How long does a typical engagement take?", a: "Single platform (iOS or Android), standard complexity: 7–10 days end-to-end. Both platforms of the same app: 10–14 days. Add 2–3 days for heavily obfuscated binaries or anti-tamper-protected apps." },
+  { q: "Will this satisfy compliance requirements?", a: "Yes. Our reports are audit-grade for ISO 27001, SOC 2, PCI DSS (if card data is handled in-app), HIPAA, ADHICS (healthcare apps in UAE), and UAE IA V2. We include CVSS-scored findings, MASVS control mapping, and remediation guidance." },
+  { q: "Is the re-test included?", a: "Yes — one re-test of critical and high findings within 30 days of remediation is included. We re-verify on both the original platform build and any patched build you ship." },
+];
+
+const schema = [
+  { "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://underwings.org" },
+    { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://underwings.org/services" },
+    { "@type": "ListItem", "position": 3, "name": "Offensive Security", "item": "https://underwings.org/services/offensive-security" },
+    { "@type": "ListItem", "position": 4, "name": "Mobile Application Penetration Testing", "item": "https://underwings.org/services/offensive-security/mobile-application-penetration-testing" }
+  ]},
+  { "@context": "https://schema.org", "@type": "Service", "name": "Mobile Application Penetration Testing", "serviceType": "Mobile Application Penetration Testing",
+    "provider": { "@type": "Organization", "name": "Underwings Cybersecurity Solutions", "url": "https://underwings.org" },
+    "areaServed": { "@type": "Country", "name": "United Arab Emirates" },
+    "offers": { "@type": "AggregateOffer", "priceCurrency": "AED", "lowPrice": "18000", "highPrice": "45000" },
+    "description": "Manual iOS and Android mobile application penetration testing in UAE — OWASP MASTG and MASVS aligned. Static + dynamic analysis, runtime instrumentation, network, storage, and platform-attack coverage.",
+    "url": "https://underwings.org/services/offensive-security/mobile-application-penetration-testing"
+  },
+  { "@context": "https://schema.org", "@type": "FAQPage",
+    "mainEntity": faqs.map(f => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } }))
+  }
+];
+
+export const prerender = false;
+---
+
+<Layout
+  title="Mobile App Penetration Testing UAE | Underwings"
+  description="UAE mobile application penetration testing (iOS and Android) by OSCP/CPTS-certified practitioners. OWASP MASTG, MASVS, static + dynamic analysis, runtime instrumentation. AED 18,000 – 45,000."
+  keywords="mobile penetration testing UAE, iOS pentest Dubai, Android pentest UAE, OWASP MASTG UAE, mobile app security Abu Dhabi, MASVS audit UAE"
+  wfPage="services-page"
+  schema={schema}
+  bodyClass="body svc-compact"
+>
+  <Header currentPage="services" />
+
+  <main id="main" class="main">
+
+    <section class="section bottom-padding-clear top-padding-small">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <nav class="crumbs" aria-label="Breadcrumb">
+          <a href="/">Home</a><span aria-hidden="true">›</span>
+          <a href="/services">Services</a><span aria-hidden="true">›</span>
+          <a href="/services/offensive-security">Offensive Security</a><span aria-hidden="true">›</span>
+          <span class="crumbs-current">Mobile Application Penetration Testing</span>
+        </nav>
+
+        <div class="svc-hero">
+          <div class="label" style="justify-content:center;"><div class="text-small color-grey">Offensive Security — Flagship Service</div></div>
+          <h1 class="heading-large">Mobile Application Penetration Testing</h1>
+          <p class="text" style="max-width:720px;margin:1rem auto 0;">
+            Manual iOS and Android penetration testing — OWASP <strong>MASTG</strong> and <strong>MASVS</strong> aligned. Static decompilation, runtime instrumentation with Frida, network inspection, local-storage audit, and platform-specific attacks. <strong>Not an automated APK scanner.</strong>
+          </p>
+
+          <div class="svc-hero-badges">
+            <span class="svc-hero-badge svc-hero-badge-price">AED 18,000 – 45,000</span>
+            <span class="svc-hero-badge svc-hero-badge-certs">OSCP · CPTS · CEH</span>
+            <span class="svc-hero-badge svc-hero-badge-time">7 – 14 days typical</span>
+          </div>
+
+          <div class="svc-hero-ctas">
+            <div class="button">
+              <a href="/#contact?service=mobile-pentest" class="button-hidden w-button">Book a 30-min Scoping Call →</a>
+              <div class="button-wrapper"><div class="button-text">Book a 30-min Scoping Call →</div></div>
+              <div class="button-accent-gradinet"></div>
+            </div>
+            <a href="#faq" class="svc-hero-cta-secondary">Jump to FAQ</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">What it is</h2>
+        <div class="svc-sec-body">
+          <p>A <strong>manual penetration test of your mobile app</strong> on iOS, Android, or both — executed by a credentialed offensive practitioner, not a binary-analysis SaaS tool.</p>
+          <p>We decompile your binary and inspect it for hardcoded secrets, insecure library usage, and obfuscation weaknesses. We then run the app on instrumented devices — both jailbroken/rooted and stock — and attack it at runtime: <strong>Frida method hooking</strong>, <strong>SSL pinning bypass</strong>, <strong>local-storage inspection</strong> (keychain, keystore, shared preferences, SQLite, files), <strong>deep-link and IPC abuse</strong>, <strong>WebView injection</strong>, and the <strong>API authentication and authorisation flaws</strong> the app exposes through its backend calls.</p>
+          <p>Every engagement ends with a MASVS-mapped findings report, a live remediation walkthrough, and <strong>one free re-test</strong> of critical and high findings within 30 days.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">MASVS coverage — 8 control groups</h2>
+        <div class="svc-sec-body">
+          <p class="text-small color-grey" style="margin-bottom:1.5rem;">We test every application against the full OWASP Mobile Application Security Verification Standard control set.</p>
+        </div>
+        <div class="svc-triggers">
+          <div class="svc-trigger"><div class="svc-trigger-num">V1</div><div><strong>Architecture, design &amp; threat modelling</strong> — security controls mapped against the app's threat surface.</div></div>
+          <div class="svc-trigger"><div class="svc-trigger-num">V2</div><div><strong>Data storage &amp; privacy</strong> — keychain/keystore misuse, sensitive data in logs, clipboard, backups, screenshots.</div></div>
+          <div class="svc-trigger"><div class="svc-trigger-num">V3</div><div><strong>Cryptography</strong> — weak algorithms, key management, hardcoded keys, insecure random, TLS config.</div></div>
+          <div class="svc-trigger"><div class="svc-trigger-num">V4</div><div><strong>Authentication &amp; session management</strong> — bypass, brute-force protection, biometric handling, token storage.</div></div>
+          <div class="svc-trigger"><div class="svc-trigger-num">V5</div><div><strong>Network communication</strong> — certificate validation, pinning, MITM resilience, plaintext transmission.</div></div>
+          <div class="svc-trigger"><div class="svc-trigger-num">V6</div><div><strong>Platform interaction</strong> — IPC, deep links, WebView, custom URL schemes, intent hijacking.</div></div>
+          <div class="svc-trigger"><div class="svc-trigger-num">V7</div><div><strong>Code quality &amp; build</strong> — debuggable flags, memory protections, third-party library vulnerabilities.</div></div>
+          <div class="svc-trigger"><div class="svc-trigger-num">V8</div><div><strong>Resilience &amp; anti-tamper</strong> — root/jailbreak detection, repackaging protection, runtime integrity.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">What this is <em>not</em></h2>
+        <div class="svc-not-list">
+          <div class="svc-not-item"><div class="svc-not-ico"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div><strong>Not an APK-scanner PDF.</strong> MobSF output is a starting point, not a deliverable.</div></div>
+          <div class="svc-not-item"><div class="svc-not-ico"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div><strong>Not a full API pen test.</strong> Light API coverage included; full API Top 10 is a separate engagement.</div></div>
+          <div class="svc-not-item"><div class="svc-not-ico"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div><strong>Not an app-store review substitute.</strong> Apple and Google store reviews don't assess security.</div></div>
+          <div class="svc-not-item"><div class="svc-not-ico"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div><strong>Not a source-code review.</strong> This is dynamic + static binary analysis; code review is separate.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">Who this is for</h2>
+        <div class="svc-triggers">
+          <div class="svc-trigger"><div class="svc-trigger-num">1</div><div>You're <strong>launching a new mobile app</strong> (fintech, healthtech, e-commerce) and need a security gate before store submission.</div></div>
+          <div class="svc-trigger"><div class="svc-trigger-num">2</div><div>Your app <strong>handles payments, health data, or personally-identifiable information</strong> and regulators or enterprise clients expect evidence.</div></div>
+          <div class="svc-trigger"><div class="svc-trigger-num">3</div><div>You're <strong>preparing for ISO 27001, PCI DSS, ADHICS, or SOC 2</strong> audit and the auditor asked about mobile coverage.</div></div>
+          <div class="svc-trigger"><div class="svc-trigger-num">4</div><div>You had a <strong>responsible-disclosure report</strong> or suspicious activity tied to the mobile client.</div></div>
+          <div class="svc-trigger"><div class="svc-trigger-num">5</div><div>You're <strong>selling B2B</strong> and an enterprise customer has asked for a mobile pen test report before contract.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">What you get</h2>
+        <ul class="svc-deliv-list">
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Rules of engagement</strong> — platforms in scope, binary delivery method, test accounts, testing windows.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Findings report</strong> (typically 20 – 40 pages) — every finding with CVSS, MASVS control mapping, reproduction, screenshots, remediation guidance.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Executive summary</strong> — 1 – 2 pages, board-consumable.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Frida scripts + PoC artefacts</strong> delivered so your dev team can reproduce every finding locally.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Live remediation walkthrough</strong> — 90 minutes with your mobile dev team.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Free first re-test</strong> of critical and high findings within 30 days of remediation.</div></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">How we deliver</h2>
+        <div class="svc-process-table">
+          <div class="svc-process-row"><div class="svc-process-row-num">01</div><div><div class="svc-process-row-step">Scoping</div><div class="svc-process-row-duration">2 days</div></div><div class="svc-process-row-desc">60-minute call, app walkthrough, platform scope, test-account provisioning, ROE signed, binary delivery.</div></div>
+          <div class="svc-process-row"><div class="svc-process-row-num">02</div><div><div class="svc-process-row-step">Static analysis</div><div class="svc-process-row-duration">1 – 2 days</div></div><div class="svc-process-row-desc">Decompilation (jadx, Hopper), manifest review, hardcoded secrets, library CVE sweep, obfuscation assessment.</div></div>
+          <div class="svc-process-row"><div class="svc-process-row-num">03</div><div><div class="svc-process-row-step">Dynamic + runtime</div><div class="svc-process-row-duration">3 – 6 days</div></div><div class="svc-process-row-desc">Frida instrumentation, SSL pinning bypass, storage inspection, IPC/deep-link abuse, WebView, auth and session testing.</div></div>
+          <div class="svc-process-row"><div class="svc-process-row-num">04</div><div><div class="svc-process-row-step">Reporting</div><div class="svc-process-row-duration">2 – 3 days</div></div><div class="svc-process-row-desc">Findings compilation, CVSS + MASVS mapping, reproduction steps, executive summary, internal review pass.</div></div>
+          <div class="svc-process-row"><div class="svc-process-row-num">05</div><div><div class="svc-process-row-step">Walkthrough</div><div class="svc-process-row-duration">90 minutes</div></div><div class="svc-process-row-desc">Live screen-share with your mobile dev team — every critical and high finding, reproducible with scripts.</div></div>
+          <div class="svc-process-row"><div class="svc-process-row-num">06</div><div><div class="svc-process-row-step">Re-test</div><div class="svc-process-row-duration">Within 30 days post-remediation</div></div><div class="svc-process-row-desc">Validate fixes on the patched build; issue re-test report.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <a href="/services/offensive-security/scope-builder" class="svc-scope-hint">
+          <span class="svc-scope-hint-ico"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 4h12v10H3z" stroke="currentColor" stroke-width="1.4"/><path d="M3 8h12M7 12h2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></span>
+          <div class="svc-scope-hint-body"><strong>Not sure of the right scope?</strong><span>Answer 4 questions in 2 minutes — we'll recommend scope, indicative AED pricing, and email the full brief.</span></div>
+          <span class="svc-scope-hint-cta">Open Scope Builder <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 6h6M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </a>
+        <h2 class="svc-sec-title">Pricing</h2>
+        <div class="svc-pricing">
+          <div class="svc-pricing-card">
+            <h4>Published range</h4>
+            <div class="svc-pricing-range">AED 18k – 45k</div>
+            <p class="svc-pricing-note">Per engagement. Written quote within 48 hours.</p>
+            <p class="svc-pricing-note" style="margin-top:0.75rem;"><strong>What drives the price:</strong></p>
+            <ul class="svc-pricing-drivers">
+              <li>Single platform (iOS or Android) vs. both</li>
+              <li>Native vs. cross-platform build (React Native, Flutter)</li>
+              <li>App complexity — number of screens, roles, flows</li>
+              <li>Payment, health data, or PII in scope</li>
+              <li>Obfuscation and anti-tamper protections present</li>
+              <li>Timeline (standard vs. expedited)</li>
+            </ul>
+          </div>
+          <div class="svc-pricing-card">
+            <h4>Commercial terms</h4>
+            <ul class="svc-pricing-terms">
+              <li><strong>Deposit:</strong> 50% at signing; balance on final report</li>
+              <li><strong>Net terms:</strong> Net-30</li>
+              <li><strong>Quote validity:</strong> 30 days</li>
+              <li><strong>Re-test:</strong> 1 × critical/high re-test included</li>
+              <li><strong>Scope changes:</strong> written change request required</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">Your cert-backed team</h2>
+        <div class="svc-team">
+          <div class="svc-team-card">
+            <p class="svc-team-role">Lead Tester</p>
+            <h3 class="svc-team-name">Nelson Durairaj</h3>
+            <p class="svc-team-certs">OSCP · eJPT · CEH · BlackHat Linux · HTB Omniscient</p>
+            <p class="svc-team-focus"><strong>Focus:</strong> Mobile runtime instrumentation, SSL pinning bypass, authentication flaws, API abuse from mobile clients.</p>
+          </div>
+          <div class="svc-team-card">
+            <p class="svc-team-role">Supervising Practitioner</p>
+            <h3 class="svc-team-name">Manoj Prabhakaran</h3>
+            <p class="svc-team-certs">CPTS · CDSA · Security+ · ISO 27001 Lead Auditor</p>
+            <p class="svc-team-focus"><strong>Focus:</strong> Engagement oversight, MASVS evidence mapping, audit alignment, report quality.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark" id="faq">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">Frequently asked questions</h2>
+        <div class="svc-faq">
+          {faqs.map(item => (
+            <details class="svc-faq-item">
+              <summary>{item.q}</summary>
+              <p class="svc-faq-answer" set:html={item.a}></p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">You might also need</h2>
+        <div class="svc-related-grid">
+          <a href="/services/offensive-security/web-application-penetration-testing" class="svc-related-card">
+            <h4>Web Application Penetration Testing</h4>
+            <p>If your mobile app shares a backend with a web app, test the full API surface end-to-end.</p>
+            <div class="svc-related-cta">Read full details <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 6h6M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </a>
+          <a href="/services/offensive-security/network-penetration-testing" class="svc-related-card">
+            <h4>Network Penetration Testing</h4>
+            <p>Mobile app plus infrastructure exposure — pair both for full-stack assurance.</p>
+            <div class="svc-related-cta">Read full details <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 6h6M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </a>
+          <a href="/services/offensive-security/vulnerability-assessment" class="svc-related-card">
+            <h4>Vulnerability Assessment (VA only)</h4>
+            <p>Lower-fee option for SMEs not yet ready for a full mobile pen test.</p>
+            <div class="svc-related-cta">Read full details <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 6h6M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </a>
+          <a href="/services/grc/iso-27001-implementation" class="svc-related-card">
+            <h4>ISO 27001 Implementation</h4>
+            <p>Mobile app pen testing is audit evidence for ISO 27001 Annex A 8.8 — we can include it in a broader program.</p>
+            <div class="svc-related-cta">Read full details <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 6h6M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <div class="section-wrapper-vertical" style="align-items:center;text-align:center;">
+          <h2 class="heading" style="max-width:600px;">Shipping a mobile app that handles payments, health data, or PII?</h2>
+          <p class="text-medium" style="max-width:600px;">Book a 30-minute scoping call. Written quote within 48 hours. We can start testing inside 1 – 2 weeks.</p>
+          <div class="button">
+            <a href="/#contact?service=mobile-pentest" class="button-hidden w-button">Book a Scoping Call →</a>
+            <div class="button-wrapper"><div class="button-text">Book a Scoping Call →</div></div>
+            <div class="button-accent-gradinet"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Layout>

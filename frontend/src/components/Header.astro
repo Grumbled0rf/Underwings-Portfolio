@@ -87,6 +87,15 @@ const nonce = Astro.locals.nonce || '';
                     </div>
                     <div><span class="nav-mega-title">Training &amp; Awareness</span><span class="nav-mega-desc">Workshops &amp; tabletop exercises that measurably stick</span></div>
                   </a>
+                  <a href="/services/offensive-security/scope-builder" class="nav-mega-item nav-mega-item-featured" role="menuitem">
+                    <div class="nav-mega-icon nav-mega-icon-featured" aria-hidden="true">
+                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 4h14v12H3z" stroke="currentColor" stroke-width="1.3"/><path d="M3 8h14M7 12h2M7 4v12" stroke="currentColor" stroke-width="1.3"/></svg>
+                    </div>
+                    <div>
+                      <span class="nav-mega-title">Scope Builder <span class="nav-mega-badge">2 min</span></span>
+                      <span class="nav-mega-desc">Interactive pen-test quote — indicative AED pricing + compliance map, emailed</span>
+                    </div>
+                  </a>
                 </div>
               </div>
               <a data-name="scramble" href="/software" class={`nav-link nav-link-gradient w-nav-link ${currentPage === 'software' ? 'w--current' : ''}`}>Software</a>
@@ -166,6 +175,10 @@ const nonce = Astro.locals.nonce || '';
       <a href="/services/network-infrastructure"  class="mob-link">Network &amp; Infrastructure</a>
       <a href="/services/grc"                     class="mob-link">Cybersecurity GRC</a>
       <a href="/services/training-awareness"      class="mob-link">Training &amp; Awareness</a>
+      <a href="/services/offensive-security/scope-builder" class="mob-link mob-link-featured">
+        Scope Builder
+        <span class="mob-link-pill">Free · 2 min</span>
+      </a>
       <div class="mob-divider"></div>
       <a href="/software" class="mob-link">Software</a>
       <a href="/updates"  class="mob-link">Updates</a>

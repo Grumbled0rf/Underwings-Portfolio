@@ -18,11 +18,96 @@ services:
       - ./nginx/ssl:/etc/nginx/ssl:ro
       - /etc/letsencrypt:/etc/letsencrypt:ro
       - /var/www/certbot:/var/www/certbot:ro
+      - ./apps:/home/deployer/underwings/apps:ro
     depends_on:
       - frontend
       - admin
       - studio
       - kong
+      - stalwart
+      - webmail
+      - krayin
+    restart: always
+    networks:
+      - underwings-network
+
+  # ===========================================
+  # ROUNDCUBE - Webmail
+  # https://webmail.underwings.org
+  # ===========================================
+  webmail:
+    image: roundcube/roundcubemail:latest-apache
+    container_name: underwings-webmail
+    environment:
+      - ROUNDCUBEMAIL_DEFAULT_HOST=stalwart
+      - ROUNDCUBEMAIL_DEFAULT_PORT=143
+      - ROUNDCUBEMAIL_SMTP_SERVER=tls://stalwart
+      - ROUNDCUBEMAIL_SMTP_PORT=587
+      - ROUNDCUBEMAIL_DB_TYPE=sqlite
+      - ROUNDCUBEMAIL_DB_DSN=sqlite:////var/roundcube/db/roundcube.db
+      - ROUNDCUBEMAIL_SKIN=underwings
+      - ROUNDCUBEMAIL_PLUGINS=archive,zipdownload,managesieve,strip_domain
+      - ROUNDCUBEMAIL_UPLOAD_MAX_FILESIZE=25M
+      - ROUNDCUBEMAIL_ASPELL_DICTS=en
+    volumes:
+      - ./roundcube/db:/var/roundcube/db
+      - ./roundcube/config:/var/roundcube/config
+      - ./roundcube/config/custom.php:/var/www/html/config/custom.php:ro
+      - ./roundcube/skin:/var/www/html/skins/underwings:ro
+      - ./roundcube/skin/watermark.html:/var/www/html/public_html/watermark.html:ro
+      - ./roundcube/plugins/strip_domain:/var/www/html/plugins/strip_domain:ro
+    depends_on:
+      stalwart:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost/index.php || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+    restart: always
+    networks:
+      - underwings-network
+
+  # ===========================================
+  # STALWART MAIL SERVER
+  # SMTP: 25, 465, 587 | IMAP: 143, 993
+  # Admin UI proxied via nginx at /mail-admin/
+  # ===========================================
+  stalwart:
+    image: stalwartlabs/stalwart:latest
+    container_name: underwings-mail
+    hostname: mail.underwings.org
+    ports:
+      - "25:25"    # SMTP (inbound from internet)
+      - "465:465"  # SMTPS submission (implicit TLS)
+      - "587:587"  # SMTP submission (STARTTLS)
+      - "143:143"  # IMAP
+      - "993:993"  # IMAPS (implicit TLS)
+    volumes:
+      - ./stalwart/config:/opt/stalwart/etc
+      - ./stalwart/data:/opt/stalwart/data
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+    environment:
+      - TZ=Asia/Dubai
+      # Initial admin credentials — change after first login
+      - STALWART_FALLBACK_ADMIN=${MAIL_ADMIN_USER:-admin}
+      - STALWART_FALLBACK_ADMIN_PASS=${MAIL_ADMIN_PASS}
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_BIND_SERVICE   # bind ports < 1024
+      - CHOWN
+      - SETUID
+      - SETGID
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c 'echo > /dev/tcp/127.0.0.1/25' 2>/dev/null || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
     restart: always
     networks:
       - underwings-network
@@ -46,6 +131,13 @@ services:
       - PUBLIC_TURNSTILE_SITE_KEY=${TURNSTILE_SITE_KEY}
       - TURNSTILE_SECRET_KEY=${TURNSTILE_SECRET_KEY}
       - SUPABASE_SERVICE_ROLE_KEY=${SERVICE_ROLE_KEY}
+      # Krayin CRM integration
+      - KRAYIN_WEBHOOK_URL=http://krayin/webhook-contact.php
+      - KRAYIN_WEBHOOK_TOKEN=${KRAYIN_WEBHOOK_TOKEN}
+      # SMTP for welcome emails
+      - SMTP_HOST=stalwart
+      - SMTP_USER=newsletter
+      - SMTP_PASS=Newsletter@1415!
     restart: always
     networks:
       - underwings-network
@@ -136,8 +228,8 @@ services:
       GOTRUE_JWT_SECRET: ${JWT_SECRET}
       GOTRUE_EXTERNAL_EMAIL_ENABLED: "true"
       GOTRUE_MAILER_AUTOCONFIRM: "false"
-      GOTRUE_SMTP_HOST: ${SMTP_HOST}
-      GOTRUE_SMTP_PORT: ${SMTP_PORT}
+      GOTRUE_SMTP_HOST: stalwart        # internal → Stalwart container
+      GOTRUE_SMTP_PORT: 587
       GOTRUE_SMTP_USER: ${SMTP_USER}
       GOTRUE_SMTP_PASS: ${SMTP_PASS}
       GOTRUE_SMTP_ADMIN_EMAIL: ${SMTP_FROM}
@@ -146,6 +238,8 @@ services:
       GOTRUE_MAILER_URLPATHS_RECOVERY: ${SITE_URL}/auth/reset-password
     depends_on:
       db:
+        condition: service_healthy
+      stalwart:
         condition: service_healthy
     restart: always
     networks:
@@ -281,6 +375,115 @@ services:
     restart: always
     networks:
       - underwings-network
+
+  # ===========================================
+  # KEILA — Email Marketing & Newsletters
+  # mail.underwings.org (reusing listmonk subdomain)
+  # ===========================================
+  keila:
+    image: pentacent/keila:0.19.0
+    container_name: underwings-keila
+    environment:
+      - SECRET_KEY_BASE=${KEILA_SECRET_KEY_BASE}
+      - DB_URL=postgres://keila:KeilaUnderwings2026x@db:5432/keila
+      - URL_HOST=mailmonk.underwings.org
+      - TZ=Asia/Dubai
+      - URL_SCHEMA=https
+      - URL_PORT=443
+      - PORT=4000
+      - MAILER_SMTP_HOST=stalwart
+      - MAILER_SMTP_PORT=587
+      - MAILER_SMTP_FROM_EMAIL=newsletter@underwings.org
+      - MAILER_SMTP_USER=newsletter
+      - MAILER_SMTP_PASSWORD=Newsletter@1415!
+      - MAILER_ENABLE_STARTTLS=false
+      - KEILA_USER=admin@underwings.org
+      - KEILA_PASSWORD=#Underwings@1415!
+      - DISABLE_REGISTRATION=true
+      - USER_CONTENT_DIR=/opt/app/uploads
+    volumes:
+      - keila-uploads:/opt/app/uploads
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: always
+    networks:
+      - underwings-network
+
+  # ===========================================
+  # KRAYIN CRM — Open Source Laravel CRM
+  # crm.underwings.org
+  # ===========================================
+  krayin:
+    image: webkul/krayin:2.2.0
+    container_name: underwings-krayin
+    environment:
+      - APP_NAME=Underwings CRM
+      - APP_ENV=production
+      - APP_DEBUG=false
+      - APP_URL=https://crm.underwings.org
+      - TZ=Asia/Dubai
+      - APP_LOCALE=en
+      - APP_CURRENCY=USD
+      - DB_CONNECTION=mysql
+      - DB_HOST=krayin-db
+      - DB_PORT=3306
+      - DB_DATABASE=krayin
+      - DB_USERNAME=krayin
+      - DB_PASSWORD=KrCrmUnderwings2026x
+      - CACHE_DRIVER=file
+      - SESSION_DRIVER=file
+      - QUEUE_CONNECTION=sync
+      - MAIL_MAILER=smtp
+      - MAIL_HOST=stalwart
+      - MAIL_PORT=587
+      - MAIL_USERNAME=noreply@underwings.org
+      - MAIL_PASSWORD=${SMTP_PASS}
+      - MAIL_ENCRYPTION=tls
+      - MAIL_FROM_ADDRESS=crm@underwings.org
+      - MAIL_FROM_NAME=Underwings CRM
+    volumes:
+      - krayin-storage:/var/www/html/storage
+      - ./krayin/webhook-contact.php:/var/www/laravel-crm/public/webhook-contact.php:ro
+      - ./krayin/login.blade.php:/var/www/laravel-crm/packages/Webkul/Admin/src/Resources/views/sessions/login.blade.php:ro
+      - ./krayin/AppServiceProvider.php:/var/www/laravel-crm/app/Providers/AppServiceProvider.php:ro
+      - ./krayin/bootstrap-app.php:/var/www/laravel-crm/bootstrap/app.php:ro
+    depends_on:
+      krayin-db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:80/ || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    restart: always
+    networks:
+      - underwings-network
+
+  krayin-db:
+    image: mariadb:11
+    container_name: underwings-krayin-db
+    environment:
+      MARIADB_ROOT_PASSWORD: KrRootUnderwings2026x
+      MARIADB_DATABASE: krayin
+      MARIADB_USER: krayin
+      MARIADB_PASSWORD: KrCrmUnderwings2026x
+    volumes:
+      - krayin-db-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "healthcheck.sh --connect --innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: always
+    networks:
+      - underwings-network
+
+volumes:
+  krayin-db-data:
+  krayin-storage:
+  keila-uploads:
 
 networks:
   underwings-network:

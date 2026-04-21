@@ -4,6 +4,7 @@
 // ===========================================
 
 import { createClient } from '@supabase/supabase-js';
+import Chart from 'chart.js/auto';
 
 // Initialize Supabase
 const supabaseUrl = window.SUPABASE_URL || 'http://localhost:8000';
@@ -437,6 +438,9 @@ function navigateTo(page) {
     case 'clients':
       loadClients();
       break;
+    case 'analytics':
+      initAnalyticsPage();
+      break;
   }
 }
 
@@ -581,6 +585,8 @@ window.editPost = async function(id) {
     document.getElementById('post-slug').value = post.slug;
     document.getElementById('post-slug').dataset.autoGenerate = 'false';
     document.getElementById('post-excerpt').value = post.excerpt || '';
+    document.getElementById('post-meta-title').value = post.meta_title || '';
+    document.getElementById('post-meta-description').value = post.meta_description || '';
     document.getElementById('post-content').value = post.content || '';
     document.getElementById('post-category').value = post.category || '';
     document.getElementById('post-status').value = post.status;
@@ -620,6 +626,8 @@ postForm.addEventListener('submit', async (e) => {
   const title = document.getElementById('post-title').value;
   const slug = document.getElementById('post-slug').value || generateSlug(title);
   const excerpt = document.getElementById('post-excerpt').value;
+  const meta_title = document.getElementById('post-meta-title').value.trim() || null;
+  const meta_description = document.getElementById('post-meta-description').value.trim() || null;
   const content = document.getElementById('post-content').value;
   const category = document.getElementById('post-category').value;
   const status = document.getElementById('post-status').value;
@@ -629,6 +637,8 @@ postForm.addEventListener('submit', async (e) => {
     title,
     slug,
     excerpt,
+    meta_title,
+    meta_description,
     content,
     category,
     status,
@@ -1398,6 +1408,543 @@ document.getElementById('post-title')?.addEventListener('input', (e) => {
 
 document.getElementById('post-slug')?.addEventListener('input', (e) => {
   e.target.dataset.autoGenerate = 'false';
+});
+
+// ===========================================
+// ANALYTICS MODULE — Google Analytics 4 Data API
+// ===========================================
+
+let gaTokenClient = null;
+let gaAccessToken = null;
+let gaTokenExpiry = 0;
+let gaChartSessions = null;
+let gaChartSources = null;
+let gaChartDevices = null;
+let gaCurrentRange = '30daysAgo';
+let gaCustomStart = null;
+let gaCustomEnd = null;
+let gaPageInitialized = false;
+
+function gaGetConfig() {
+  return {
+    clientId: localStorage.getItem('ga_client_id') || '',
+    propertyId: localStorage.getItem('ga_property_id') || ''
+  };
+}
+
+function gaIsTokenValid() {
+  return !!gaAccessToken && Date.now() < gaTokenExpiry - 60000;
+}
+
+function gaInitTokenClient() {
+  const { clientId } = gaGetConfig();
+  if (!clientId || typeof google === 'undefined') return false;
+  gaTokenClient = google.accounts.oauth2.initTokenClient({
+    client_id: clientId,
+    scope: 'https://www.googleapis.com/auth/analytics.readonly',
+    callback: (resp) => {
+      if (resp.error) { console.error('GA OAuth error:', resp.error); return; }
+      gaAccessToken = resp.access_token;
+      gaTokenExpiry = Date.now() + (resp.expires_in * 1000);
+      gaLoadAll();
+    }
+  });
+  return true;
+}
+
+function gaConnect() {
+  const { clientId, propertyId } = gaGetConfig();
+  if (!clientId || !propertyId) {
+    alert('Please configure your Google OAuth Client ID and GA4 Property ID in Settings → Google Analytics first.');
+    return;
+  }
+  if (!gaTokenClient && !gaInitTokenClient()) {
+    alert('Google Identity Services is not loaded yet. Please wait a moment and try again.');
+    return;
+  }
+  gaTokenClient.requestAccessToken({ prompt: '' });
+}
+
+async function gaFetch(endpoint, body) {
+  if (!gaIsTokenValid()) return null;
+  const { propertyId } = gaGetConfig();
+  if (!propertyId) return null;
+  try {
+    const res = await fetch(
+      `https://analyticsdata.googleapis.com/v1beta/properties/${propertyId}:${endpoint}`,
+      {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${gaAccessToken}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      }
+    );
+    if (res.status === 401) { gaAccessToken = null; gaRenderConnect(); return null; }
+    if (!res.ok) { console.error('GA API error', res.status, await res.text()); return null; }
+    return res.json();
+  } catch (e) { console.error('GA fetch error', e); return null; }
+}
+
+function gaDateRange() {
+  if (gaCurrentRange === 'custom' && gaCustomStart && gaCustomEnd) {
+    return { startDate: gaCustomStart, endDate: gaCustomEnd };
+  }
+  return { startDate: gaCurrentRange, endDate: 'today' };
+}
+
+async function gaLoadAll() {
+  gaRenderLoading();
+  const dr = gaDateRange();
+
+  const [summary, timeSeries, pages, devices, sources, countries] = await Promise.all([
+    gaFetch('runReport', {
+      dateRanges: [dr],
+      metrics: [
+        { name: 'sessions' }, { name: 'totalUsers' }, { name: 'newUsers' },
+        { name: 'screenPageViews' }, { name: 'averageSessionDuration' }, { name: 'bounceRate' }
+      ]
+    }),
+    gaFetch('runReport', {
+      dateRanges: [dr],
+      dimensions: [{ name: 'date' }],
+      metrics: [{ name: 'sessions' }, { name: 'screenPageViews' }],
+      orderBys: [{ dimension: { dimensionName: 'date' } }],
+      limit: 366
+    }),
+    gaFetch('runReport', {
+      dateRanges: [dr],
+      dimensions: [{ name: 'pagePath' }],
+      metrics: [{ name: 'screenPageViews' }, { name: 'sessions' }, { name: 'averageSessionDuration' }],
+      orderBys: [{ metric: { metricName: 'screenPageViews' }, desc: true }],
+      limit: 10
+    }),
+    gaFetch('runReport', {
+      dateRanges: [dr],
+      dimensions: [{ name: 'deviceCategory' }],
+      metrics: [{ name: 'sessions' }],
+      orderBys: [{ metric: { metricName: 'sessions' }, desc: true }]
+    }),
+    gaFetch('runReport', {
+      dateRanges: [dr],
+      dimensions: [{ name: 'sessionDefaultChannelGrouping' }],
+      metrics: [{ name: 'sessions' }],
+      orderBys: [{ metric: { metricName: 'sessions' }, desc: true }],
+      limit: 7
+    }),
+    gaFetch('runReport', {
+      dateRanges: [dr],
+      dimensions: [{ name: 'country' }],
+      metrics: [{ name: 'sessions' }],
+      orderBys: [{ metric: { metricName: 'sessions' }, desc: true }],
+      limit: 8
+    })
+  ]);
+
+  if (!summary) { gaRenderConnect(); return; }
+  gaRenderDashboard(summary, timeSeries, pages, devices, sources, countries);
+}
+
+// ── Formatting helpers ──────────────────────────────────────
+function gaFmtNum(n) {
+  const v = parseInt(n) || 0;
+  if (v >= 1000000) return (v / 1000000).toFixed(1) + 'M';
+  if (v >= 1000) return (v / 1000).toFixed(1) + 'K';
+  return v.toLocaleString();
+}
+function gaFmtDuration(secs) {
+  const s = Math.round(parseFloat(secs) || 0);
+  if (s < 60) return s + 's';
+  const m = Math.floor(s / 60), r = s % 60;
+  return m + 'm ' + (r ? r + 's' : '');
+}
+function gaFmtPct(v) { return (parseFloat(v) * 100).toFixed(1) + '%'; }
+function gaFmtDate(d) {
+  // d = "20240115"
+  const y = d.slice(0,4), mo = d.slice(4,6), day = d.slice(6,8);
+  return new Date(`${y}-${mo}-${day}`).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+}
+
+// ── State renders ───────────────────────────────────────────
+function gaRenderConnect() {
+  document.getElementById('ga-connect-state').style.display = 'flex';
+  document.getElementById('ga-dashboard').style.display = 'none';
+  document.getElementById('ga-loading-state').style.display = 'none';
+}
+
+function gaRenderLoading() {
+  document.getElementById('ga-connect-state').style.display = 'none';
+  document.getElementById('ga-loading-state').style.display = 'flex';
+  document.getElementById('ga-dashboard').style.display = 'none';
+}
+
+function gaRenderDashboard(summary, timeSeries, pages, devices, sources, countries) {
+  document.getElementById('ga-connect-state').style.display = 'none';
+  document.getElementById('ga-loading-state').style.display = 'none';
+  document.getElementById('ga-dashboard').style.display = 'block';
+
+  // KPIs
+  const row = summary?.rows?.[0];
+  if (row) {
+    const [sessions, users, newUsers, pvs, dur, bounce] = row.metricValues;
+    document.getElementById('ga-kpi-sessions').textContent = gaFmtNum(sessions.value);
+    document.getElementById('ga-kpi-users').textContent    = gaFmtNum(users.value);
+    document.getElementById('ga-kpi-newusers').textContent = gaFmtNum(newUsers.value);
+    document.getElementById('ga-kpi-pvs').textContent      = gaFmtNum(pvs.value);
+    document.getElementById('ga-kpi-duration').textContent = gaFmtDuration(dur.value);
+    document.getElementById('ga-kpi-bounce').textContent   = gaFmtPct(bounce.value);
+  }
+
+  // Sessions over time chart
+  gaRenderSessionsChart(timeSeries);
+
+  // Top pages
+  gaRenderPagesTable(pages);
+
+  // Devices
+  gaRenderDevicesChart(devices);
+
+  // Sources
+  gaRenderSourcesChart(sources);
+
+  // Countries
+  gaRenderCountries(countries);
+}
+
+// ── Sessions over time chart ───────────────────────────────
+function gaRenderSessionsChart(data) {
+  const rows = data?.rows || [];
+  const labels = rows.map(r => gaFmtDate(r.dimensionValues[0].value));
+  const sessions = rows.map(r => parseInt(r.metricValues[0].value));
+  const pvs = rows.map(r => parseInt(r.metricValues[1].value));
+
+  const ctx = document.getElementById('ga-chart-sessions')?.getContext('2d');
+  if (!ctx) return;
+
+  if (gaChartSessions) gaChartSessions.destroy();
+
+  const gradient = ctx.createLinearGradient(0, 0, 0, 260);
+  gradient.addColorStop(0, 'rgba(36,215,88,0.18)');
+  gradient.addColorStop(1, 'rgba(36,215,88,0)');
+
+  gaChartSessions = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [
+        {
+          label: 'Sessions',
+          data: sessions,
+          borderColor: '#24d758',
+          backgroundColor: gradient,
+          borderWidth: 2,
+          fill: true,
+          tension: 0.4,
+          pointRadius: labels.length > 90 ? 0 : 3,
+          pointHoverRadius: 5,
+          pointBackgroundColor: '#24d758'
+        },
+        {
+          label: 'Pageviews',
+          data: pvs,
+          borderColor: 'rgba(139,92,246,0.7)',
+          backgroundColor: 'transparent',
+          borderWidth: 1.5,
+          borderDash: [4, 3],
+          fill: false,
+          tension: 0.4,
+          pointRadius: 0,
+          pointHoverRadius: 4,
+          pointBackgroundColor: '#8b5cf6'
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      aspectRatio: 3,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#1a1a1a',
+          borderColor: 'rgba(255,255,255,0.1)',
+          borderWidth: 1,
+          titleColor: 'rgba(255,255,255,0.6)',
+          bodyColor: '#ffffff',
+          padding: 10,
+          callbacks: {
+            label: (ctx) => ` ${ctx.dataset.label}: ${ctx.parsed.y.toLocaleString()}`
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { display: false },
+          border: { display: false },
+          ticks: {
+            color: 'rgba(255,255,255,0.3)',
+            font: { size: 11 },
+            maxTicksLimit: 10,
+            maxRotation: 0
+          }
+        },
+        y: {
+          grid: { color: 'rgba(255,255,255,0.05)', drawBorder: false },
+          border: { display: false, dash: [3, 3] },
+          ticks: {
+            color: 'rgba(255,255,255,0.3)',
+            font: { size: 11 },
+            callback: v => gaFmtNum(v)
+          }
+        }
+      }
+    }
+  });
+}
+
+// ── Devices donut chart ────────────────────────────────────
+function gaRenderDevicesChart(data) {
+  const rows = data?.rows || [];
+  const total = rows.reduce((s, r) => s + parseInt(r.metricValues[0].value), 0);
+  const labels = rows.map(r => r.dimensionValues[0].value);
+  const values = rows.map(r => parseInt(r.metricValues[0].value));
+  const colors = ['#24d758', '#3b82f6', '#8b5cf6', '#f59e0b', '#ef4444'];
+
+  const ctx = document.getElementById('ga-chart-devices')?.getContext('2d');
+  if (!ctx) return;
+  if (gaChartDevices) gaChartDevices.destroy();
+
+  gaChartDevices = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels,
+      datasets: [{
+        data: values,
+        backgroundColor: colors,
+        borderColor: '#111111',
+        borderWidth: 3,
+        hoverOffset: 4
+      }]
+    },
+    options: {
+      responsive: true,
+      cutout: '72%',
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#1a1a1a',
+          borderColor: 'rgba(255,255,255,0.1)',
+          borderWidth: 1,
+          bodyColor: '#fff',
+          callbacks: {
+            label: (ctx) => ` ${ctx.label}: ${gaFmtNum(ctx.parsed)} (${gaFmtPct(ctx.parsed / total)})`
+          }
+        }
+      }
+    }
+  });
+
+  // Legend
+  const legend = document.getElementById('ga-devices-legend');
+  if (legend) {
+    legend.innerHTML = rows.map((r, i) => {
+      const v = parseInt(r.metricValues[0].value);
+      const pct = total > 0 ? ((v / total) * 100).toFixed(1) : '0.0';
+      const name = r.dimensionValues[0].value;
+      return `<div class="ga-legend-item">
+        <span class="ga-legend-dot" style="background:${colors[i]}"></span>
+        <span class="ga-legend-name">${esc(name)}</span>
+        <span class="ga-legend-val">${gaFmtNum(v)}</span>
+        <span class="ga-legend-pct">${pct}%</span>
+      </div>`;
+    }).join('');
+  }
+}
+
+// ── Sources horizontal bar chart ──────────────────────────
+function gaRenderSourcesChart(data) {
+  const rows = data?.rows || [];
+  const labels = rows.map(r => r.dimensionValues[0].value || 'Direct');
+  const values = rows.map(r => parseInt(r.metricValues[0].value));
+  const channelColors = {
+    'Organic Search': '#24d758', 'Direct': '#3b82f6', 'Organic Social': '#8b5cf6',
+    'Email': '#f59e0b', 'Referral': '#14b8a6', 'Paid Search': '#ef4444',
+    'Affiliates': '#ec4899', '(Other)': '#6b7280'
+  };
+  const barColors = labels.map(l => channelColors[l] || '#6b7280');
+
+  const ctx = document.getElementById('ga-chart-sources')?.getContext('2d');
+  if (!ctx) return;
+  if (gaChartSources) gaChartSources.destroy();
+
+  gaChartSources = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{
+        data: values,
+        backgroundColor: barColors.map(c => c + '99'),
+        borderColor: barColors,
+        borderWidth: 1,
+        borderRadius: 6,
+        borderSkipped: false
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#1a1a1a',
+          borderColor: 'rgba(255,255,255,0.1)',
+          borderWidth: 1,
+          bodyColor: '#fff',
+          callbacks: {
+            label: (ctx) => ` Sessions: ${ctx.parsed.x.toLocaleString()}`
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { color: 'rgba(255,255,255,0.05)' },
+          border: { display: false },
+          ticks: { color: 'rgba(255,255,255,0.3)', font: { size: 11 }, callback: v => gaFmtNum(v) }
+        },
+        y: {
+          grid: { display: false },
+          border: { display: false },
+          ticks: { color: 'rgba(255,255,255,0.55)', font: { size: 11 } }
+        }
+      }
+    }
+  });
+}
+
+// ── Top pages table ────────────────────────────────────────
+function gaRenderPagesTable(data) {
+  const tbody = document.getElementById('ga-pages-tbody');
+  if (!tbody) return;
+  const rows = data?.rows || [];
+  if (!rows.length) { tbody.innerHTML = '<tr><td colspan="3" class="empty-state">No data</td></tr>'; return; }
+
+  const maxPvs = Math.max(...rows.map(r => parseInt(r.metricValues[0].value)));
+
+  tbody.innerHTML = rows.map(r => {
+    const path = r.dimensionValues[0].value || '/';
+    const pvs = parseInt(r.metricValues[0].value);
+    const dur = gaFmtDuration(r.metricValues[2].value);
+    const pct = maxPvs > 0 ? ((pvs / maxPvs) * 100).toFixed(0) : 0;
+    return `<tr>
+      <td>
+        <div class="ga-page-path" title="${esc(path)}">${esc(path)}</div>
+        <div class="ga-page-bar"><div class="ga-page-bar-fill" style="width:${pct}%"></div></div>
+      </td>
+      <td class="ga-td-right">${gaFmtNum(pvs)}</td>
+      <td class="ga-td-right">${dur}</td>
+    </tr>`;
+  }).join('');
+}
+
+// ── Countries list ─────────────────────────────────────────
+function gaRenderCountries(data) {
+  const el = document.getElementById('ga-countries-list');
+  if (!el) return;
+  const rows = data?.rows || [];
+  if (!rows.length) { el.innerHTML = '<p class="empty-state">No data</p>'; return; }
+
+  const maxS = Math.max(...rows.map(r => parseInt(r.metricValues[0].value)));
+
+  el.innerHTML = rows.map(r => {
+    const country = r.dimensionValues[0].value || 'Unknown';
+    const sessions = parseInt(r.metricValues[0].value);
+    const pct = maxS > 0 ? ((sessions / maxS) * 100).toFixed(0) : 0;
+    return `<div class="ga-country-row">
+      <span class="ga-country-name">${esc(country)}</span>
+      <div class="ga-country-bar-wrap"><div class="ga-country-bar" style="width:${pct}%"></div></div>
+      <span class="ga-country-sessions">${gaFmtNum(sessions)}</span>
+    </div>`;
+  }).join('');
+}
+
+// ── Page init ──────────────────────────────────────────────
+function initAnalyticsPage() {
+  if (!gaPageInitialized) {
+    gaPageInitialized = true;
+
+    // Load Google Identity Services
+    if (typeof google === 'undefined') {
+      const s = document.createElement('script');
+      s.src = 'https://accounts.google.com/gsi/client';
+      s.async = true;
+      s.defer = true;
+      s.onload = () => gaInitTokenClient();
+      document.head.appendChild(s);
+    } else {
+      gaInitTokenClient();
+    }
+
+    // Connect button
+    document.getElementById('ga-connect-btn')?.addEventListener('click', gaConnect);
+
+    // Date range buttons
+    document.querySelectorAll('.ga-range-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.ga-range-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        gaCurrentRange = btn.dataset.range;
+        const custom = document.getElementById('ga-custom-range');
+        if (gaCurrentRange === 'custom') {
+          custom.style.display = 'flex';
+        } else {
+          custom.style.display = 'none';
+          if (gaIsTokenValid()) gaLoadAll();
+        }
+      });
+    });
+
+    // Custom date apply
+    document.getElementById('ga-apply-custom')?.addEventListener('click', () => {
+      gaCustomStart = document.getElementById('ga-date-start').value;
+      gaCustomEnd   = document.getElementById('ga-date-end').value;
+      if (!gaCustomStart || !gaCustomEnd) { alert('Please select both start and end dates.'); return; }
+      if (gaIsTokenValid()) gaLoadAll();
+      else gaConnect();
+    });
+
+    // Refresh button
+    document.getElementById('ga-refresh-btn')?.addEventListener('click', () => {
+      if (gaIsTokenValid()) gaLoadAll();
+      else gaConnect();
+    });
+  }
+
+  // Populate settings inputs if already saved
+  const { clientId, propertyId } = gaGetConfig();
+  const ciEl = document.getElementById('ga-client-id');
+  const piEl = document.getElementById('ga-property-id');
+  if (ciEl && !ciEl.value && clientId) ciEl.value = clientId;
+  if (piEl && !piEl.value && propertyId) piEl.value = propertyId;
+
+  if (gaIsTokenValid()) {
+    gaLoadAll();
+  } else {
+    gaRenderConnect();
+    // Silent re-request if we have config
+    if (gaGetConfig().clientId && typeof google !== 'undefined') {
+      gaInitTokenClient();
+      gaTokenClient?.requestAccessToken({ prompt: '' });
+    }
+  }
+}
+
+// GA Settings save
+document.getElementById('save-ga-config')?.addEventListener('click', () => {
+  const clientId = document.getElementById('ga-client-id')?.value?.trim();
+  const propertyId = document.getElementById('ga-property-id')?.value?.trim();
+  if (clientId) localStorage.setItem('ga_client_id', clientId);
+  if (propertyId) localStorage.setItem('ga_property_id', propertyId);
+  alert('Google Analytics configuration saved.');
 });
 
 // ===========================================

@@ -1,0 +1,49 @@
+# Underwings Cybersecurity Solutions
+
+> UAE-based cybersecurity services company. Offensive security, cloud security, network & infrastructure, GRC (ISO 27001 / NESA / PDPL), and training & awareness. Services delivered by named, certified practitioners (OSCP, CPTS, ISO 27001 Lead Auditor, CCNP, Security+, Azure Security).
+
+Contact: contact@underwings.org
+Location: Abu Dhabi, United Arab Emirates
+
+## Services
+
+- [Offensive Security](https://underwings.org/services/offensive-security): Network and web application penetration testing, phishing simulation, vulnerability assessment. OSCP / CPTS certified. Manual testing, not vuln-scan PDFs.
+- [Cloud Security](https://underwings.org/services/cloud-security): Azure and Microsoft 365 security assessments against CIS benchmarks. Entra ID, Conditional Access, Defender posture.
+- [Network & Infrastructure](https://underwings.org/services/network-infrastructure): FortiGate firewall reviews, network segmentation, security architecture design. CCNP + Fortinet + OSCP led.
+- [GRC](https://underwings.org/services/grc): ISO 27001:2022 gap assessment and implementation, NESA / UAE IA V2, UAE PDPL advisory, ISO 27005 risk register build. Led by ISO 27001 Lead Auditor.
+- [Training & Awareness](https://underwings.org/services/training-awareness): Security awareness training workshops and tabletop incident response exercises led by OSCP-certified pen-testers.
+
+## Flagship Service Pages
+
+- [Network Penetration Testing](https://underwings.org/services/offensive-security/network-penetration-testing)
+- [Web Application Penetration Testing](https://underwings.org/services/offensive-security/web-application-penetration-testing)
+- [Vulnerability Assessment](https://underwings.org/services/offensive-security/vulnerability-assessment)
+- [Phishing Simulation](https://underwings.org/services/offensive-security/phishing-simulation)
+- [Azure Cloud Security Assessment](https://underwings.org/services/cloud-security/azure-cloud-security-assessment)
+- [Microsoft 365 Security Review](https://underwings.org/services/cloud-security/microsoft-365-security-review)
+- [Firewall & Network Security Review](https://underwings.org/services/network-infrastructure/firewall-network-security-review)
+- [Security Architecture Review](https://underwings.org/services/network-infrastructure/security-architecture-review)
+- [ISO 27001 Gap Assessment](https://underwings.org/services/grc/iso-27001-gap-assessment)
+- [ISO 27001:2022 Implementation](https://underwings.org/services/grc/iso-27001-implementation)
+- [NESA / UAE IA V2 Gap Assessment](https://underwings.org/services/grc/nesa-uae-ia)
+- [UAE PDPL Compliance Advisory](https://underwings.org/services/grc/uae-pdpl-advisory)
+- [Risk Assessment & Register Build](https://underwings.org/services/grc/risk-assessment-register)
+- [Security Awareness Training](https://underwings.org/services/training-awareness/security-awareness-training)
+- [Tabletop Incident Response Exercise](https://underwings.org/services/training-awareness/tabletop-incident-response)
+
+## Company
+
+- [About Underwings](https://underwings.org/about): Company background, named team, certifications, mission.
+- [Careers](https://underwings.org/careers): Hiring page.
+- [Brand Guidelines](https://underwings.org/brand): Logo, palette, typography.
+- [Software Sales](https://underwings.org/software): Cybersecurity software reselling with full implementation and support.
+
+## Content
+
+- [Blog](https://underwings.org/blog): In-depth articles on UAE cybersecurity, compliance (ISO 27001, NESA, PDPL), penetration testing, and security awareness.
+- [Threat Intelligence Updates](https://underwings.org/updates): Aggregated advisories from CISA, The Hacker News, BleepingComputer.
+
+## Optional
+
+- [Privacy Policy](https://underwings.org/privacy-policy)
+- [Arabic homepage](https://underwings.org/ar)

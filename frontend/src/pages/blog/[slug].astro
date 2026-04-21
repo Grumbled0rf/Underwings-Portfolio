@@ -28,9 +28,14 @@ const formattedDate = post.published_at
     })
   : '';
 
-// Get related posts
-const allPosts = await getBlogPosts(4);
-const relatedPosts = allPosts.filter(p => p.id !== post.id).slice(0, 3);
+// Get related posts — pull the full pool, pick same-category first,
+// then fill with recency. Ensures every post cross-links to 3 peers,
+// not just the 4 newest posts (which would starve older posts of inbound links).
+const allPosts = await getBlogPosts(50);
+const poolExcludingSelf = allPosts.filter(p => p.id !== post.id);
+const sameCategory = poolExcludingSelf.filter(p => p.category && p.category === post.category);
+const otherPosts = poolExcludingSelf.filter(p => !sameCategory.includes(p));
+const relatedPosts = [...sameCategory, ...otherPosts].slice(0, 3);
 
 // Convert markdown to sanitized HTML
 function markdownToHtml(markdown) {
@@ -43,14 +48,19 @@ const wordCount = (post.content || '').split(/\s+/).length;
 const readingTime = Math.max(1, Math.round(wordCount / 230));
 
 const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://underwings.org';
+const fallbackOgImage = `${siteUrl}/images/og-image.png`;
+const articleImage = post.featured_image ? `${siteUrl}${post.featured_image}` : fallbackOgImage;
+const articlePublished = post.published_at || post.created_at || new Date().toISOString();
+const articleModified = post.updated_at || articlePublished;
+
 const articleSchema = {
   "@context": "https://schema.org",
   "@type": "Article",
   "headline": post.title,
   "description": post.excerpt || post.meta_description || '',
-  "image": post.featured_image ? `${siteUrl}${post.featured_image}` : undefined,
-  "datePublished": post.published_at,
-  "dateModified": post.updated_at || post.published_at,
+  "image": articleImage,
+  "datePublished": articlePublished,
+  "dateModified": articleModified,
   "author": {
     "@type": "Organization",
     "name": "Underwings Cybersecurity Solutions",
@@ -76,7 +86,7 @@ const breadcrumbSchema = {
 ---
 
 <Layout
-  title={`${post.title} - Underwings Blog`}
+  title={(post.meta_title && post.meta_title.trim()) || `${post.title} | Underwings`}
   description={post.excerpt || post.meta_description || `Read ${post.title} on Underwings Cybersecurity Solutions blog.`}
   ogImage={post.featured_image}
   schema={[articleSchema, breadcrumbSchema]}
@@ -197,7 +207,7 @@ const breadcrumbSchema = {
               <div>
                 <div class="post-footer-written">Written by</div>
                 <div class="post-footer-name">{post.author_name || 'Underwings Team'}</div>
-                <div class="post-footer-bio">Cybersecurity insights from the Underwings Cybersecurity Solutions team — OSCP & CPTS certified professionals serving businesses in India and UAE.</div>
+                <div class="post-footer-bio">Cybersecurity insights from the Underwings Cybersecurity Solutions team — OSCP & CPTS certified professionals serving businesses in UAE.</div>
               </div>
             </div>
           </div>
@@ -434,12 +444,12 @@ const breadcrumbSchema = {
 
   /* ---- Layout containers ---- */
   .post-container-wide {
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 2rem;
   }
   .post-container-reading {
-    max-width: 820px;
+    max-width: 960px;
     margin: 0 auto;
     padding: 0 2rem;
   }

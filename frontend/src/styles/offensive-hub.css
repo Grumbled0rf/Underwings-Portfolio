@@ -1,0 +1,476 @@
+/* ===============================================================
+   Offensive Security Hub — additional components
+   Pre-engagement entry cards, scope chips, 8-stage PTES timeline,
+   compliance table, transparent pricing table, deliverables grid.
+   =============================================================== */
+
+/* ── Methodology ribbon (sibling of cert-ribbon) ─────────────── */
+.method-ribbon {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem 0.6rem;
+  margin: 1.5rem auto 0;
+  padding: 0.75rem 1rem;
+  max-width: 860px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.method-ribbon-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-right: 0.25rem;
+}
+.method-chip {
+  display: inline-flex;
+  padding: 0.3rem 0.75rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: #9fe7bf;
+  background: rgba(55, 220, 130, 0.06);
+  border: 1px solid rgba(55, 220, 130, 0.2);
+  border-radius: 100px;
+  white-space: nowrap;
+}
+
+/* ── Pre-engagement entry cards (3 columns) ──────────────────── */
+.entry-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  width: 100%;
+}
+@media (max-width: 991px) { .entry-grid { grid-template-columns: 1fr; } }
+
+.entry-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.75rem 1.5rem;
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 18px;
+  color: rgba(255,255,255,0.86);
+  text-decoration: none;
+  transition: background 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+.entry-card:hover {
+  background: rgba(55, 220, 130, 0.05);
+  border-color: rgba(55, 220, 130, 0.3);
+  transform: translateY(-2px);
+}
+.entry-card-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #37dc82;
+  background: rgba(55, 220, 130, 0.12);
+  border: 1px solid rgba(55, 220, 130, 0.3);
+  border-radius: 10px;
+}
+.entry-card-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 0.25rem 0 0;
+  color: #fff;
+}
+.entry-card-desc {
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: rgba(255,255,255,0.68);
+  margin: 0;
+  flex: 1;
+}
+.entry-card-cta {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #37dc82;
+  margin-top: 0.25rem;
+}
+
+.entry-card-featured {
+  background: linear-gradient(135deg, rgba(55,220,130,0.09) 0%, rgba(55,220,130,0.03) 100%);
+  border-color: rgba(55,220,130,0.35);
+  position: relative;
+}
+.entry-card-featured::after {
+  content: "Lead-qualifying wizard";
+  position: absolute;
+  top: 0.75rem;
+  right: 0.85rem;
+  padding: 0.22rem 0.6rem;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #37dc82;
+  background: rgba(55,220,130,0.12);
+  border: 1px solid rgba(55,220,130,0.32);
+  border-radius: 100px;
+  pointer-events: none;
+}
+.entry-card-featured:hover {
+  background: linear-gradient(135deg, rgba(55,220,130,0.14) 0%, rgba(55,220,130,0.05) 100%);
+  border-color: rgba(55,220,130,0.55);
+}
+
+/* ── Scope Builder inline CTA (used on flagship service pages) ─── */
+.svc-scope-hint {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  margin: 0 0 2rem;
+  background: linear-gradient(135deg, rgba(55,220,130,0.06) 0%, rgba(55,220,130,0.02) 100%);
+  border: 1px solid rgba(55,220,130,0.28);
+  border-radius: 14px;
+  color: rgba(255,255,255,0.88);
+  text-decoration: none;
+  transition: all 180ms ease;
+}
+.svc-scope-hint:hover {
+  background: linear-gradient(135deg, rgba(55,220,130,0.1) 0%, rgba(55,220,130,0.04) 100%);
+  border-color: rgba(55,220,130,0.5);
+  transform: translateY(-1px);
+}
+.svc-scope-hint-ico {
+  flex-shrink: 0;
+  width: 2.25rem;
+  height: 2.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #37dc82;
+  background: rgba(55,220,130,0.14);
+  border: 1px solid rgba(55,220,130,0.35);
+  border-radius: 10px;
+}
+.svc-scope-hint-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+.svc-scope-hint-body strong {
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: #fff;
+}
+.svc-scope-hint-body span {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.5;
+}
+.svc-scope-hint-cta {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #37dc82;
+  white-space: nowrap;
+}
+@media (max-width: 640px) {
+  .svc-scope-hint { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+  .svc-scope-hint-cta { align-self: flex-end; }
+}
+
+/* ── Scope selector chips ────────────────────────────────────── */
+.scope-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.9rem;
+  width: 100%;
+}
+@media (max-width: 991px) { .scope-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .scope-grid { grid-template-columns: 1fr; } }
+
+.scope-chip {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 1.1rem 1.15rem;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 14px;
+  color: rgba(255,255,255,0.86);
+  text-decoration: none;
+  transition: background 150ms ease, border-color 150ms ease;
+}
+.scope-chip:hover {
+  background: rgba(55, 220, 130, 0.06);
+  border-color: rgba(55, 220, 130, 0.35);
+}
+.scope-new {
+  position: absolute;
+  top: 0.7rem;
+  right: 0.7rem;
+  padding: 0.15rem 0.55rem;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #000;
+  background: #37dc82;
+  border-radius: 100px;
+}
+.scope-chip-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+  padding-right: 2.5rem;
+  line-height: 1.3;
+}
+.scope-chip-desc {
+  font-size: 0.84rem;
+  line-height: 1.45;
+  color: rgba(255,255,255,0.62);
+  margin: 0;
+  flex: 1;
+}
+.scope-chip-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #37dc82;
+  margin-top: 0.25rem;
+}
+.scope-footnote {
+  text-align: center;
+  font-size: 0.88rem;
+  color: rgba(255,255,255,0.6);
+  margin: 1.25rem 0 0;
+}
+.scope-footnote strong { color: #37dc82; }
+
+/* ── 8-stage PTES timeline ───────────────────────────────────── */
+.ptes-stages {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  counter-reset: ptes;
+}
+@media (max-width: 767px) { .ptes-stages { grid-template-columns: 1fr; } }
+
+.ptes-stage {
+  display: flex;
+  gap: 1rem;
+  padding: 1.1rem 1.2rem;
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+}
+.ptes-stage-client {
+  background: rgba(55, 220, 130, 0.05);
+  border-color: rgba(55, 220, 130, 0.28);
+}
+.ptes-stage-num {
+  flex-shrink: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.88rem;
+  font-weight: 700;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  color: #37dc82;
+  background: rgba(55, 220, 130, 0.1);
+  border: 1px solid rgba(55, 220, 130, 0.28);
+  border-radius: 10px;
+  letter-spacing: 0.05em;
+}
+.ptes-stage-body { flex: 1; min-width: 0; }
+.ptes-stage-name {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.02rem;
+  font-weight: 600;
+  color: #fff;
+  margin: 0 0 0.3rem;
+  line-height: 1.3;
+}
+.ptes-stage-desc {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: rgba(255,255,255,0.68);
+  margin: 0;
+}
+.ptes-client-tag {
+  display: inline-flex;
+  padding: 0.1rem 0.55rem;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #37dc82;
+  background: rgba(55, 220, 130, 0.14);
+  border: 1px solid rgba(55, 220, 130, 0.32);
+  border-radius: 100px;
+}
+
+/* ── Flagship grid — 5-card layout ───────────────────────────── */
+.flag-grid-five {
+  grid-template-columns: repeat(3, 1fr);
+}
+@media (max-width: 991px) { .flag-grid-five { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .flag-grid-five { grid-template-columns: 1fr; } }
+
+.flag-badge-new {
+  color: #000;
+  background: #37dc82;
+  border-color: #37dc82;
+}
+
+/* ── Compliance table ───────────────────────────────────────── */
+.compliance-table-wrap,
+.price-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.02);
+}
+.compliance-table,
+.price-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+  min-width: 640px;
+}
+.compliance-table th,
+.compliance-table td,
+.price-table th,
+.price-table td {
+  padding: 0.95rem 1.15rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  vertical-align: top;
+  color: rgba(255,255,255,0.82);
+  line-height: 1.5;
+}
+.compliance-table tbody tr:last-child td,
+.price-table tbody tr:last-child td {
+  border-bottom: none;
+}
+.compliance-table th,
+.price-table th {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  background: rgba(255,255,255,0.03);
+}
+.compliance-table tbody tr:hover,
+.price-table tbody tr:hover {
+  background: rgba(55, 220, 130, 0.04);
+}
+.compliance-table a {
+  color: #9fe7bf;
+  text-decoration: none;
+  font-weight: 600;
+  border-bottom: 1px dashed rgba(55, 220, 130, 0.35);
+  transition: color 140ms ease, border-color 140ms ease;
+}
+.compliance-table a:hover {
+  color: #37dc82;
+  border-bottom-color: #37dc82;
+}
+
+/* ── Pricing table ──────────────────────────────────────────── */
+.price-callout {
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.25rem;
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.85);
+  background: rgba(55, 220, 130, 0.08);
+  border: 1px solid rgba(55, 220, 130, 0.28);
+  border-radius: 12px;
+  line-height: 1.55;
+}
+.price-callout strong { color: #37dc82; }
+
+.price-table td:nth-child(2) {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-weight: 600;
+  color: #37dc82;
+  white-space: nowrap;
+}
+.price-table td:nth-child(3) {
+  color: rgba(255,255,255,0.6);
+  white-space: nowrap;
+}
+
+.price-footnote {
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.55);
+  margin: 1.25rem 0 0;
+}
+.price-footnote strong { color: rgba(255,255,255,0.82); }
+
+/* ── Deliverables grid ──────────────────────────────────────── */
+.deliverables-grid {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+@media (max-width: 991px) { .deliverables-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .deliverables-grid { grid-template-columns: 1fr; } }
+
+.deliverable-item {
+  padding: 1.35rem 1.3rem;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+}
+.deliverable-num {
+  display: inline-block;
+  padding: 0.2rem 0.55rem;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #37dc82;
+  background: rgba(55, 220, 130, 0.1);
+  border: 1px solid rgba(55, 220, 130, 0.25);
+  border-radius: 6px;
+  margin-bottom: 0.65rem;
+}
+.deliverable-item h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  margin: 0 0 0.4rem;
+  line-height: 1.3;
+}
+.deliverable-item p {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: rgba(255,255,255,0.66);
+  margin: 0;
+}

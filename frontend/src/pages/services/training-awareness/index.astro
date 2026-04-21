@@ -61,7 +61,7 @@ export const prerender = false;
 ---
 
 <Layout
-  title="Security Awareness Training & Tabletop IR in UAE | Underwings"
+  title="Security Awareness Training & IR Drills UAE | Underwings"
   description="UAE security awareness workshops and tabletop incident response exercises that measurably stick. Live attack demos by OSCP-certified practitioners. HR + compliance friendly. Annual repeat buy."
   keywords="security awareness training UAE, tabletop incident response UAE, phishing awareness Dubai, cybersecurity training UAE, IR tabletop exercise"
   wfPage="services-page"
@@ -245,4 +245,4 @@ export const prerender = false;
   <Footer />
 </Layout>
 
-<script src="/js/waitlist.js" defer></script>
+<script is:inline nonce={Astro.locals.nonce || ""} src="/js/waitlist.js" defer></script>
