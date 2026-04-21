@@ -140,6 +140,42 @@ const nonce = Astro.locals.nonce || '';
   </div>
 </header>
 
+<!-- Custom mobile drawer -->
+<div id="uw-mobile-drawer" class="uw-drawer" role="dialog" aria-modal="true" aria-label="Navigation menu">
+  <div class="uw-drawer-header">
+    <a href="/" class="uw-drawer-logo">
+      <img src="/images/logowhiteUW.png" alt="Underwings" width="130">
+    </a>
+    <button class="uw-drawer-close" aria-label="Close menu">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+        <path d="M2 2l18 18M20 2L2 20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+
+  <nav class="uw-drawer-nav">
+    <span class="uw-drawer-label">Services</span>
+    <a href="/services/offensive-security" class="uw-drawer-link">Offensive Security</a>
+    <a href="/services/cloud-security" class="uw-drawer-link">Cloud Security</a>
+    <a href="/services/network-infrastructure" class="uw-drawer-link">Network &amp; Infrastructure</a>
+    <a href="/services/grc" class="uw-drawer-link">Cybersecurity GRC</a>
+    <a href="/services/training-awareness" class="uw-drawer-link">Training &amp; Awareness</a>
+    <div class="uw-drawer-divider"></div>
+    <a href="/software" class="uw-drawer-link">Software</a>
+    <a href="/updates" class="uw-drawer-link">Updates</a>
+    <a href="/about" class="uw-drawer-link">About</a>
+    <a href="/blog" class="uw-drawer-link">Blog</a>
+    <a href="/portal" class="uw-drawer-link uw-drawer-link--dim">Client Portal</a>
+  </nav>
+
+  <div class="uw-drawer-cta">
+    <button type="button" class="uw-drawer-btn uw-drawer-btn--primary" data-calendly-open aria-label="Book a call via Calendly">Book a Call</button>
+    <a href="/#contact" class="uw-drawer-btn uw-drawer-btn--secondary">Let's Talk</a>
+  </div>
+</div>
+
+<div id="uw-drawer-backdrop" class="uw-drawer-backdrop"></div>
+
 <!-- Noise (kept exactly as original) -->
 <div data-wf--noise--variant="base" class="noise-wrapper">
   <div data-w-id="71d94dcc-6696-ef8a-8008-1058c6cb48e2" class="noise"></div>
@@ -415,18 +451,18 @@ const nonce = Astro.locals.nonce || '';
 
   .mob-btn {
     display: block;
+    width: 100%;
     text-align: center;
     text-decoration: none;
+    font-family: inherit;
     font-size: .9rem;
     font-weight: 600;
     padding: .7rem 1rem;
+    border: none;
     border-radius: 8px;
+    cursor: pointer;
     transition: opacity .2s;
     -webkit-tap-highlight-color: transparent;
-    border: none;
-    cursor: pointer;
-    font-family: inherit;
-    width: 100%;
   }
   @media (max-width: 479px) {
     .mob-btn { font-size: .825rem; padding: .6rem .875rem; border-radius: 7px; }
