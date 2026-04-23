@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 540" role="img" aria-labelledby="title desc">
+  <title id="title">Under Our Wings — protection, mentorship, care</title>
+  <desc id="desc">An illustration of two stylized wings sheltering a company's ecosystem of people, devices, cloud, database and network under a green protective dome.</desc>
+
+  <defs>
+    <linearGradient id="uwGreen" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#24d758"/>
+      <stop offset="100%" stop-color="#27dab4"/>
+    </linearGradient>
+    <linearGradient id="uwGreenSoft" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#24d758" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#24d758" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="uwGlow" cx="50%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#24d758" stop-opacity="0.22"/>
+      <stop offset="70%" stop-color="#24d758" stop-opacity="0.04"/>
+      <stop offset="100%" stop-color="#24d758" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="uwBlur" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="4"/>
+    </filter>
+    <pattern id="uwDots" x="0" y="0" width="22" height="22" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="1" fill="rgba(36,215,88,0.12)"/>
+    </pattern>
+  </defs>
+
+  <!-- Dots backdrop -->
+  <rect width="860" height="540" fill="url(#uwDots)"/>
+
+  <!-- Soft radial glow behind the whole composition -->
+  <ellipse cx="430" cy="260" rx="360" ry="220" fill="url(#uwGlow)"/>
+
+  <!-- Protective dome arc -->
+  <path d="M 120 360 Q 430 40 740 360" fill="none" stroke="url(#uwGreen)" stroke-width="1.5" stroke-opacity="0.55" stroke-dasharray="2 6" stroke-linecap="round"/>
+  <path d="M 170 360 Q 430 100 690 360" fill="none" stroke="url(#uwGreen)" stroke-width="1" stroke-opacity="0.35" stroke-dasharray="2 6" stroke-linecap="round"/>
+
+  <!-- LEFT WING -->
+  <g transform="translate(430, 230)">
+    <g>
+      <!-- Outer wing silhouette -->
+      <path d="M 0 -10
+               C -60 -70, -150 -90, -240 -60
+               C -300 -35, -330 10, -320 60
+               C -270 40, -220 38, -180 50
+               C -140 38, -100 32, -60 40
+               C -30 30, -10 10, 0 -10 Z"
+            fill="url(#uwGreenSoft)" stroke="url(#uwGreen)" stroke-width="1.8" stroke-linejoin="round"/>
+      <!-- Feather lines -->
+      <path d="M -20 0 C -80 -30, -160 -45, -230 -30" fill="none" stroke="url(#uwGreen)" stroke-width="1.3" stroke-linecap="round" stroke-opacity="0.75"/>
+      <path d="M -20 14 C -80 -5, -170 -5, -250 18" fill="none" stroke="url(#uwGreen)" stroke-width="1.3" stroke-linecap="round" stroke-opacity="0.65"/>
+      <path d="M -20 28 C -70 25, -170 30, -235 55" fill="none" stroke="url(#uwGreen)" stroke-width="1.3" stroke-linecap="round" stroke-opacity="0.55"/>
+      <!-- Feather tips -->
+      <path d="M -232 -28 l -10 -6" stroke="url(#uwGreen)" stroke-width="1.3" stroke-linecap="round"/>
+      <path d="M -252 22 l -12 -3" stroke="url(#uwGreen)" stroke-width="1.3" stroke-linecap="round"/>
+      <path d="M -240 56 l -14 2" stroke="url(#uwGreen)" stroke-width="1.3" stroke-linecap="round"/>
+    </g>
+  </g>
+
+  <!-- RIGHT WING (mirror) -->
+  <g transform="translate(430, 230) scale(-1, 1)">
+    <g>
+      <path d="M 0 -10
+               C -60 -70, -150 -90, -240 -60
+               C -300 -35, -330 10, -320 60
+               C -270 40, -220 38, -180 50
+               C -140 38, -100 32, -60 40
+               C -30 30, -10 10, 0 -10 Z"
+            fill="url(#uwGreenSoft)" stroke="url(#uwGreen)" stroke-width="1.8" stroke-linejoin="round"/>
+      <path d="M -20 0 C -80 -30, -160 -45, -230 -30" fill="none" stroke="url(#uwGreen)" stroke-width="1.3" stroke-linecap="round" stroke-opacity="0.75"/>
+      <path d="M -20 14 C -80 -5, -170 -5, -250 18" fill="none" stroke="url(#uwGreen)" stroke-width="1.3" stroke-linecap="round" stroke-opacity="0.65"/>
+      <path d="M -20 28 C -70 25, -170 30, -235 55" fill="none" stroke="url(#uwGreen)" stroke-width="1.3" stroke-linecap="round" stroke-opacity="0.55"/>
+      <path d="M -232 -28 l -10 -6" stroke="url(#uwGreen)" stroke-width="1.3" stroke-linecap="round"/>
+      <path d="M -252 22 l -12 -3" stroke="url(#uwGreen)" stroke-width="1.3" stroke-linecap="round"/>
+      <path d="M -240 56 l -14 2" stroke="url(#uwGreen)" stroke-width="1.3" stroke-linecap="round"/>
+    </g>
+  </g>
+
+  <!-- Central Shield + U mark -->
+  <g transform="translate(430, 205)">
+    <!-- Shield -->
+    <path d="M 0 -60
+             L 44 -46
+             L 44 10
+             C 44 44, 24 66, 0 78
+             C -24 66, -44 44, -44 10
+             L -44 -46 Z"
+          fill="#0f0f0f" stroke="url(#uwGreen)" stroke-width="2.2" stroke-linejoin="round"/>
+    <!-- U mark -->
+    <path d="M -17 -26
+             C -18 -10, -18 6, -13 16
+             C -8 26, -2 30, 0 30
+             C 2 30, 8 26, 13 16
+             C 18 6, 18 -10, 17 -26"
+          fill="none" stroke="url(#uwGreen)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="-18" cy="-26" r="3.5" fill="url(#uwGreen)"/>
+    <circle cx="18" cy="-26" r="3.5" fill="url(#uwGreen)"/>
+  </g>
+
+  <!-- Connection filaments from shield down to ecosystem -->
+  <g stroke="url(#uwGreen)" stroke-width="1.2" stroke-dasharray="3 4" stroke-opacity="0.5" fill="none">
+    <path d="M 430 300 Q 260 360 180 430"/>
+    <path d="M 430 300 Q 340 370 320 440"/>
+    <path d="M 430 300 L 430 445"/>
+    <path d="M 430 300 Q 520 370 540 440"/>
+    <path d="M 430 300 Q 600 360 680 430"/>
+  </g>
+
+  <!-- ECOSYSTEM ROW (bottom) -->
+  <g transform="translate(0, 0)">
+    <!-- 1. People -->
+    <g transform="translate(180, 430)">
+      <circle r="30" fill="#151515" stroke="url(#uwGreen)" stroke-width="1.6"/>
+      <circle cx="0" cy="-4" r="6.5" fill="none" stroke="url(#uwGreen)" stroke-width="1.6"/>
+      <path d="M -11 12 C -11 4, -6 0, 0 0 C 6 0, 11 4, 11 12" fill="none" stroke="url(#uwGreen)" stroke-width="1.6" stroke-linecap="round"/>
+      <text y="52" text-anchor="middle" fill="#aaaaaa" font-family="Geist, system-ui" font-size="11" letter-spacing="0.8">PEOPLE</text>
+    </g>
+    <!-- 2. Devices (laptop) -->
+    <g transform="translate(320, 440)">
+      <circle r="30" fill="#151515" stroke="url(#uwGreen)" stroke-width="1.6"/>
+      <rect x="-12" y="-8" width="24" height="14" rx="1.5" fill="none" stroke="url(#uwGreen)" stroke-width="1.6"/>
+      <path d="M -15 8 h 30" stroke="url(#uwGreen)" stroke-width="1.6" stroke-linecap="round"/>
+      <text y="52" text-anchor="middle" fill="#aaaaaa" font-family="Geist, system-ui" font-size="11" letter-spacing="0.8">DEVICES</text>
+    </g>
+    <!-- 3. Cloud -->
+    <g transform="translate(430, 445)">
+      <circle r="30" fill="#151515" stroke="url(#uwGreen)" stroke-width="1.6"/>
+      <path d="M -12 3 a 7 7 0 0 1 6 -9 a 9 9 0 0 1 15 1 a 6 6 0 0 1 3 10 h -21 a 5 5 0 0 1 -3 -2 z" fill="none" stroke="url(#uwGreen)" stroke-width="1.6" stroke-linejoin="round"/>
+      <text y="52" text-anchor="middle" fill="#aaaaaa" font-family="Geist, system-ui" font-size="11" letter-spacing="0.8">CLOUD</text>
+    </g>
+    <!-- 4. Data -->
+    <g transform="translate(540, 440)">
+      <circle r="30" fill="#151515" stroke="url(#uwGreen)" stroke-width="1.6"/>
+      <ellipse cx="0" cy="-8" rx="12" ry="4" fill="none" stroke="url(#uwGreen)" stroke-width="1.6"/>
+      <path d="M -12 -8 v 13 a 12 4 0 0 0 24 0 v -13 M -12 0 a 12 4 0 0 0 24 0" fill="none" stroke="url(#uwGreen)" stroke-width="1.6"/>
+      <text y="52" text-anchor="middle" fill="#aaaaaa" font-family="Geist, system-ui" font-size="11" letter-spacing="0.8">DATA</text>
+    </g>
+    <!-- 5. Network -->
+    <g transform="translate(680, 430)">
+      <circle r="30" fill="#151515" stroke="url(#uwGreen)" stroke-width="1.6"/>
+      <circle cx="0" cy="0" r="10" fill="none" stroke="url(#uwGreen)" stroke-width="1.6"/>
+      <path d="M -10 0 h 20 M 0 -10 v 20" stroke="url(#uwGreen)" stroke-width="1.2"/>
+      <path d="M -9 -5 C -4 -9, 4 -9, 9 -5 M -9 5 C -4 9, 4 9, 9 5" fill="none" stroke="url(#uwGreen)" stroke-width="1.2"/>
+      <text y="52" text-anchor="middle" fill="#aaaaaa" font-family="Geist, system-ui" font-size="11" letter-spacing="0.8">NETWORK</text>
+    </g>
+  </g>
+
+  <!-- Floating side glyphs: threats being deflected -->
+  <g stroke="#ff6a6a" stroke-width="1.3" fill="none" opacity="0.55">
+    <path d="M 70 140 l 10 10 M 74 138 l -6 14 M 84 142 l -10 10"/>
+    <path d="M 780 160 l -10 10 M 776 158 l 6 14 M 766 162 l 10 10"/>
+    <path d="M 100 60 l 8 8 M 104 58 l -5 12"/>
+    <path d="M 740 70 l -8 8 M 736 68 l 5 12"/>
+  </g>
+</svg>

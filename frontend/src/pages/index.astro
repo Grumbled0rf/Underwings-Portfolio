@@ -876,6 +876,20 @@ const schemas = [
       transition: transform 0.3s ease, filter 0.3s ease, background 0.3s ease;
       cursor: help;
     }
+    /* Company-level certifications get a stronger visual weight */
+    .hero-cert-badge-company {
+      width: 76px;
+      height: 76px;
+      border: 1.5px solid rgba(55, 220, 130, 0.35);
+      background: radial-gradient(circle at center,
+                                   rgba(55, 220, 130, 0.18) 0%,
+                                   rgba(55, 220, 130, 0.04) 55%,
+                                   transparent 80%);
+      filter: drop-shadow(0 0 14px rgba(55, 220, 130, 0.22));
+    }
+    .hero-cert-badge-company:hover {
+      border-color: rgba(55, 220, 130, 0.65);
+    }
     .hero-cert-badge img {
       width: 100%;
       height: 100%;
@@ -952,8 +966,14 @@ const schemas = [
 
             <!-- Cert badge row — real credential artwork with green glow -->
             <div class="hero-cert-badges hero-fade-in" style="animation-delay: 0.7s">
-              <span class="hero-cert-label">Credentials on the delivery team</span>
+              <span class="hero-cert-label">Underwings is certified · Credentials on the delivery team</span>
               <div class="hero-cert-badge-grid">
+                <div class="hero-cert-badge hero-cert-badge-company" title="Underwings — ISO/IEC 27001 Certified Organisation">
+                  <img src="/images/certifications/iso-27001-company.svg" alt="ISO 27001 Certified" loading="lazy" width="96" height="96">
+                </div>
+                <div class="hero-cert-badge hero-cert-badge-company" title="Underwings — ISO 9001 Certified Organisation">
+                  <img src="/images/certifications/iso-9001-company.svg" alt="ISO 9001 Certified" loading="lazy" width="96" height="96">
+                </div>
                 <div class="hero-cert-badge" title="OSCP — Offensive Security Certified Professional">
                   <img src="/images/certifications/oscp.png" alt="OSCP" loading="lazy" width="96" height="96">
                 </div>

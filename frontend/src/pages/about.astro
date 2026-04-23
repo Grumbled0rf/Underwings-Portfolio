@@ -60,6 +60,49 @@ export const prerender = false;
       </div>
     </section>
 
+    <!-- ============ THE NAME ============ -->
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
+        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
+      </div>
+      <div class="container">
+        <div class="uw-name">
+          <div class="uw-name-copy">
+            <div class="label" style="margin-bottom: 0.75rem;">
+              <div class="text-small color-grey">The Name</div>
+            </div>
+            <h2 class="heading">Why <span class="text-gradient-clip bg-color-green-gradient">Underwings</span></h2>
+            <p class="uw-name-idiom">
+              <span class="uw-name-quote-mark" aria-hidden="true">"</span>
+              <em>take someone under your wing</em>
+              <span class="uw-name-quote-mark" aria-hidden="true">"</span>
+              <span class="uw-name-idiom-def">— to protect, mentor, and take care of someone.</span>
+            </p>
+            <p class="text-medium uw-name-body">
+              That's exactly the relationship we want with every business we work with. Cybersecurity is rarely a one-off transaction — it's a long game of trust, guidance, and quiet, consistent protection. The name <strong>Underwings</strong> is our commitment: your ecosystem — your people, devices, data, cloud and networks — sits <strong>under our wings</strong>, shielded above real-world cyber risk by a team that actually cares whether you're safe.
+            </p>
+            <div class="uw-name-split">
+              <div class="uw-name-split-item">
+                <span class="uw-name-split-word">Under</span>
+                <span class="uw-name-split-meaning">We operate quietly beneath your business — guarding, mentoring, lifting.</span>
+              </div>
+              <div class="uw-name-split-item">
+                <span class="uw-name-split-word">Wings</span>
+                <span class="uw-name-split-meaning">A shield wide enough to cover your whole ecosystem, not just one asset.</span>
+              </div>
+            </div>
+            <p class="uw-name-tagline">
+              <span class="uw-name-tagline-label">Our tagline</span>
+              <span class="uw-name-tagline-text">Your Ecosystem, Under Our Wings. <span class="text-gradient-clip bg-color-green-gradient">Shielded Above Real-World Cyber Risk.</span></span>
+            </p>
+          </div>
+          <div class="uw-name-visual" aria-hidden="true">
+            <img src="/brand/underwings-name-meaning.svg" alt="" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ============ OUR STORY / MISSION ============ -->
     <section class="section bg-color-dark">
       <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
@@ -568,6 +611,144 @@ export const prerender = false;
     .about-team-grid {
       grid-template-columns: 1fr;
     }
+  }
+
+  /* ---- The Name (why Underwings) ---- */
+  .uw-name {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    gap: 3.5rem;
+    align-items: center;
+  }
+  .uw-name-copy { max-width: 560px; }
+  .uw-name-idiom {
+    margin: 1.5rem 0 1.25rem;
+    font-family: 'Geist', system-ui, sans-serif;
+    font-size: 1.4rem;
+    color: rgba(255,255,255,0.92);
+    line-height: 1.4;
+    letter-spacing: -0.02em;
+  }
+  .uw-name-idiom em {
+    font-style: italic;
+    color: #24d758;
+    font-weight: 500;
+  }
+  .uw-name-quote-mark {
+    font-family: 'Geist', system-ui, serif;
+    color: rgba(36,215,88,0.5);
+    font-size: 1.35em;
+    font-weight: 500;
+    line-height: 0;
+    vertical-align: -0.1em;
+  }
+  .uw-name-idiom-def {
+    display: block;
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.55);
+    font-style: normal;
+    margin-top: 0.55rem;
+    letter-spacing: 0;
+  }
+  .uw-name-body {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.72);
+    margin-bottom: 2rem;
+  }
+  .uw-name-body strong { color: #fff; font-weight: 600; }
+  .uw-name-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding: 1.25rem;
+    border: 1px dashed rgba(36,215,88,0.22);
+    border-radius: 12px;
+    background: rgba(36,215,88,0.025);
+  }
+  .uw-name-split-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  .uw-name-split-word {
+    font-family: 'Geist Mono', ui-monospace, monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: #24d758;
+    font-weight: 600;
+  }
+  .uw-name-split-meaning {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.5;
+  }
+  .uw-name-tagline {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1.25rem 1.5rem;
+    background: rgba(255,255,255,0.03);
+    border-left: 3px solid #24d758;
+    border-radius: 0 10px 10px 0;
+    margin: 0;
+  }
+  .uw-name-tagline-label {
+    font-family: 'Geist Mono', ui-monospace, monospace;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: rgba(255,255,255,0.4);
+  }
+  .uw-name-tagline-text {
+    font-family: 'Geist', system-ui, sans-serif;
+    font-size: 1.08rem;
+    line-height: 1.45;
+    color: #fff;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+  }
+  .uw-name-visual {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .uw-name-visual::before {
+    content: '';
+    position: absolute;
+    inset: -40px;
+    background: radial-gradient(ellipse at center, rgba(36,215,88,0.1) 0%, rgba(36,215,88,0.02) 45%, transparent 70%);
+    pointer-events: none;
+    filter: blur(10px);
+    z-index: 0;
+  }
+  .uw-name-visual img {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 520px;
+    height: auto;
+    animation: uwNameFloat 7s ease-in-out infinite;
+  }
+  @keyframes uwNameFloat {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-10px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .uw-name-visual img { animation: none; }
+  }
+  @media (max-width: 991px) {
+    .uw-name { grid-template-columns: 1fr; gap: 2.5rem; text-align: center; }
+    .uw-name-copy { max-width: 640px; margin: 0 auto; }
+    .uw-name-tagline { border-left: none; border-top: 3px solid #24d758; border-radius: 10px; }
+    .uw-name-visual img { max-width: 420px; margin: 0 auto; }
+  }
+  @media (max-width: 560px) {
+    .uw-name-idiom { font-size: 1.15rem; }
+    .uw-name-split { grid-template-columns: 1fr; }
   }
 </style>
 

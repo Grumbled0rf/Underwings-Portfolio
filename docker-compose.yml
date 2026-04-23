@@ -46,7 +46,9 @@ services:
       - ROUNDCUBEMAIL_DB_TYPE=sqlite
       - ROUNDCUBEMAIL_DB_DSN=sqlite:////var/roundcube/db/roundcube.db
       - ROUNDCUBEMAIL_SKIN=underwings
-      - ROUNDCUBEMAIL_PLUGINS=archive,zipdownload,managesieve,strip_domain
+      # strip_domain plugin disabled: Stalwart login name is now the full email,
+      # Roundcube must pass the full email unchanged (no stripping).
+      - ROUNDCUBEMAIL_PLUGINS=archive,zipdownload,managesieve
       - ROUNDCUBEMAIL_UPLOAD_MAX_FILESIZE=25M
       - ROUNDCUBEMAIL_ASPELL_DICTS=en
     volumes:
@@ -55,7 +57,6 @@ services:
       - ./roundcube/config/custom.php:/var/www/html/config/custom.php:ro
       - ./roundcube/skin:/var/www/html/skins/underwings:ro
       - ./roundcube/skin/watermark.html:/var/www/html/public_html/watermark.html:ro
-      - ./roundcube/plugins/strip_domain:/var/www/html/plugins/strip_domain:ro
     depends_on:
       stalwart:
         condition: service_healthy

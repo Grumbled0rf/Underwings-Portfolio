@@ -95,32 +95,329 @@ export const prerender = false;
   schema={schema}
   bodyClass="body svc-compact"
 >
+  <Fragment slot="head">
+    <style is:inline>
+    /* Neon Line Sweep */
+    .neon-line-animate { animation: neonFadeIn 0.8s ease-out 0.3s both; }
+    .neon-line-animate .neon-line-parent { animation: neonColorIn 1s ease-out 0.6s both; }
+    .neon-line-animate .neon-line-inner { transform: translate3d(-50%, 0, 0); animation: neonSweep 3s ease-in-out 0.8s infinite; }
+    .neon-line-animate .neon-line-shadow { opacity: 0; animation: neonGlow 3s ease-in-out 0.8s infinite; }
+    @keyframes neonFadeIn { from { filter: blur(3px); opacity: 0; } to { filter: blur(0); opacity: 1; } }
+    @keyframes neonColorIn { from { filter: grayscale(100%); } to { filter: grayscale(0%); } }
+    @keyframes neonSweep { 0% { transform: translate3d(-50%, 0, 0); } 50% { transform: translate3d(0%, 0, 0); } 100% { transform: translate3d(-50%, 0, 0); } }
+    @keyframes neonGlow { 0%, 100% { opacity: 0.4; } 50% { opacity: 0.9; } }
+
+    /* Hero blur-fade in */
+    .hero-fade-in { animation: heroFadeIn 0.8s ease-out both; animation-delay: 0.5s; }
+    @keyframes heroFadeIn {
+      from { filter: blur(3px); opacity: 0; transform: translateY(1rem); }
+      to   { filter: blur(0);   opacity: 1; transform: translateY(0); }
+    }
+
+    /* Animated eyebrow label */
+    .svc-hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.38rem 0.9rem;
+      border-radius: 100px;
+      background: rgba(36,215,88,0.06);
+      border: 1px solid rgba(36,215,88,0.22);
+      font-family: 'Geist Mono', ui-monospace, monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #24d758;
+    }
+    .svc-hero-pulse {
+      width: 7px; height: 7px; border-radius: 50%; background: #24d758;
+      box-shadow: 0 0 0 0 rgba(36,215,88,0.55);
+      animation: svcHeroPulse 2.2s ease-out infinite;
+    }
+    @keyframes svcHeroPulse {
+      0%   { box-shadow: 0 0 0 0 rgba(36,215,88,0.55); opacity: 1; }
+      70%  { box-shadow: 0 0 0 10px rgba(36,215,88,0); opacity: 0.7; }
+      100% { box-shadow: 0 0 0 0 rgba(36,215,88,0); opacity: 1; }
+    }
+
+    /* Stats strip */
+    .svc-hero-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin: 2.25rem auto 0;
+      max-width: 760px;
+      padding: 1.1rem 1.5rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      position: relative;
+      overflow: hidden;
+    }
+    .svc-hero-stats::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at top, rgba(36,215,88,0.06) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .svc-hero-stat { display: flex; flex-direction: column; gap: 0.15rem; align-items: center; text-align: center; position: relative; z-index: 1; }
+    .svc-hero-stat-num {
+      font-family: 'Geist Mono', ui-monospace, monospace;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #24d758;
+      letter-spacing: -0.01em;
+    }
+    .svc-hero-stat-label {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    @media (max-width: 720px) {
+      .svc-hero-stats { grid-template-columns: repeat(2, 1fr); gap: 0.9rem 0.5rem; padding: 1rem; }
+      .svc-hero-stat-num { font-size: 1.15rem; }
+    }
+
+    /* Rotating category word (typewriter) */
+    .svc-hero-rotator {
+      position: relative;
+      display: inline-block;
+      min-width: 26ch;
+      text-align: left;
+      vertical-align: baseline;
+      white-space: nowrap;
+    }
+    .svc-hero-rotator-word {
+      display: inline-block;
+      background: linear-gradient(90deg, #24d758 0%, #27dab4 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      transition: text-shadow 0.25s ease;
+    }
+    @media (max-width: 560px) {
+      .svc-hero-rotator { min-width: 0; white-space: normal; }
+    }
+    .svc-hero-rotator.is-typing .svc-hero-rotator-word,
+    .svc-hero-rotator.is-deleting .svc-hero-rotator-word {
+      text-shadow: 0 0 22px rgba(36,215,88,0.25);
+    }
+    .svc-hero-rotator-caret {
+      display: inline-block;
+      width: 2px;
+      height: 0.95em;
+      margin-left: 4px;
+      background: linear-gradient(180deg, #24d758, #27dab4);
+      vertical-align: -0.08em;
+      border-radius: 2px;
+      box-shadow: 0 0 10px rgba(36,215,88,0.6);
+      animation: rotCaretBlink 0.9s ease-in-out infinite;
+    }
+    /* While typing, the caret is solid (no blink); blinks only on pause */
+    .svc-hero-rotator.is-typing .svc-hero-rotator-caret,
+    .svc-hero-rotator.is-deleting .svc-hero-rotator-caret {
+      animation: none;
+      opacity: 1;
+    }
+    @keyframes rotCaretBlink {
+      0%, 49%   { opacity: 1; }
+      50%, 100% { opacity: 0.15; }
+    }
+
+    /* Dual CTA row */
+    .svc-hero-cta-row {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+    .svc-hero-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 1.5rem;
+      border-radius: 10px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      letter-spacing: -0.005em;
+      text-decoration: none;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+      font-family: inherit;
+    }
+    .svc-hero-btn-primary {
+      background: linear-gradient(135deg, #24d758, #27dab4);
+      color: #0a0a0a;
+      box-shadow: 0 4px 18px rgba(36,215,88,0.18);
+    }
+    .svc-hero-btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(36,215,88,0.28);
+    }
+    .svc-hero-btn-secondary {
+      background: rgba(255,255,255,0.04);
+      color: #fff;
+      border-color: rgba(255,255,255,0.15);
+    }
+    .svc-hero-btn-secondary:hover {
+      background: rgba(36,215,88,0.06);
+      border-color: rgba(36,215,88,0.35);
+    }
+    .svc-hero-btn svg { transition: transform 0.2s ease; }
+    .svc-hero-btn:hover svg { transform: translateX(3px); }
+
+    /* Micro-trust row */
+    .svc-hero-microtrust {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      margin-top: 1.1rem;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.48);
+      flex-wrap: wrap;
+    }
+    .svc-hero-microtrust-dot { color: rgba(255,255,255,0.2); }
+
+    /* Stats count-up */
+    .svc-hero-stat-num[data-target] { font-variant-numeric: tabular-nums; }
+
+    /* Soft orb backdrop + animated grid */
+    .svc-hero-wrap { position: relative; overflow: hidden; }
+    .svc-hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(36,215,88,0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(36,215,88,0.045) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: radial-gradient(ellipse 60% 70% at 50% 30%, #000 0%, transparent 75%);
+      -webkit-mask-image: radial-gradient(ellipse 60% 70% at 50% 30%, #000 0%, transparent 75%);
+      pointer-events: none;
+      z-index: 0;
+      animation: svcGridDrift 24s linear infinite;
+    }
+    @keyframes svcGridDrift {
+      from { background-position: 0 0, 0 0; }
+      to   { background-position: 56px 56px, 56px 56px; }
+    }
+    .svc-hero-orb {
+      position: absolute;
+      width: 520px; height: 520px;
+      top: -180px; left: 50%;
+      transform: translateX(-50%);
+      background: radial-gradient(circle, rgba(36,215,88,0.08) 0%, rgba(36,215,88,0.02) 35%, transparent 65%);
+      filter: blur(20px);
+      pointer-events: none;
+      z-index: 0;
+      animation: svcOrbDrift 9s ease-in-out infinite;
+    }
+    @keyframes svcOrbDrift {
+      0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.85; }
+      50%      { transform: translateX(-50%) translateY(18px); opacity: 1; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-fade-in, .neon-line-animate, .neon-line-animate .neon-line-parent,
+      .neon-line-animate .neon-line-inner, .neon-line-animate .neon-line-shadow,
+      .svc-hero-pulse, .svc-hero-orb, .svc-hero-grid,
+      .svc-hero-rotator-word, .svc-hero-rotator-caret {
+        animation: none !important;
+      }
+      .hero-fade-in { opacity: 1; filter: none; transform: none; }
+    }
+    </style>
+  </Fragment>
+
   <Header currentPage="services" />
 
   <main id="main" class="main">
 
     <!-- Hero -->
-    <section class="section bottom-padding-clear top-padding-small">
+    <section class="section bottom-padding-clear top-padding-small svc-hero-wrap">
       <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
         <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
       </div>
-      <div class="container-medium">
+      <div class="svc-hero-grid" aria-hidden="true"></div>
+      <div class="svc-hero-orb" aria-hidden="true"></div>
+      <div class="container-medium" style="position: relative; z-index: 1;">
         <div class="hero">
           <div class="hero-main-wrapper">
-            <div class="hero-heading-wrapper">
-              <div class="label">
-                <div class="text-small color-grey">What We Do</div>
+            <div class="neon-line-box neon-line-animate">
+              <div class="neon-line-parent">
+                <div class="neon-line-inner"></div>
               </div>
-              <h1 class="heading-large hero-heading-large">Cybersecurity Services — <span class="text-gradient-clip bg-color-green-gradient">Five Categories, Fifteen Flagship Services</span></h1>
-              <p class="text text-center" style="max-width:640px;margin:0 auto;">
-                Every service on this site is delivered by a named, certified practitioner. Every service has a published price range. Every scoping call ends with a written quote within 48 hours.
+              <div class="neon-line-shadow"></div>
+            </div>
+            <div class="hero-heading-wrapper">
+              <span class="svc-hero-eyebrow hero-fade-in">
+                <span class="svc-hero-pulse" aria-hidden="true"></span>
+                What We Do
+              </span>
+              <h1 class="heading-large hero-heading-large hero-fade-in" style="animation-delay: 0.2s">
+                Your partner in<br>
+                <span class="svc-hero-rotator" aria-live="polite">
+                  <span class="svc-hero-rotator-word" data-rotate='["Offensive Security","Cloud Security","Network &amp; Infrastructure","Cybersecurity GRC","Training &amp; Awareness"]'>Offensive Security</span><span class="svc-hero-rotator-caret" aria-hidden="true"></span>
+                </span>
+              </h1>
+              <p class="text text-center hero-fade-in" style="animation-delay: 0.4s; max-width:680px; margin:0 auto;">
+                Five categories. Fifteen flagship services. Every engagement delivered by a <strong>named, certified practitioner</strong> — with published pricing and a written quote within 48 hours.
               </p>
             </div>
+
+            <!-- Dual CTA -->
+            <div class="svc-hero-cta-row hero-fade-in" style="animation-delay: 0.55s">
+              <a href="/services/offensive-security/scope-builder" class="svc-hero-btn svc-hero-btn-primary">
+                <span>Get a Pen-Test Quote in 2 min</span>
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+                  <path d="M1.5 7.5h12M8 2l5.5 5.5L8 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+              <button type="button" data-calendly-open class="svc-hero-btn svc-hero-btn-secondary" aria-label="Book a call via Calendly">
+                <span>Book a 30-min Call</span>
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+                  <path d="M1.5 7.5h12M8 2l5.5 5.5L8 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+
+            <!-- Micro-trust -->
+            <p class="svc-hero-microtrust hero-fade-in" style="animation-delay: 0.7s">
+              <span>Free scoping call</span>
+              <span class="svc-hero-microtrust-dot" aria-hidden="true">·</span>
+              <span>No sales pressure</span>
+              <span class="svc-hero-microtrust-dot" aria-hidden="true">·</span>
+              <span>OSCP + ISO 27001 LA on every engagement</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Animated stats strip -->
+        <div class="svc-hero-stats hero-fade-in" style="animation-delay: 0.85s">
+          <div class="svc-hero-stat">
+            <span class="svc-hero-stat-num" data-target="5" data-suffix="">0</span>
+            <span class="svc-hero-stat-label">Categories</span>
+          </div>
+          <div class="svc-hero-stat">
+            <span class="svc-hero-stat-num" data-target="15" data-suffix="">0</span>
+            <span class="svc-hero-stat-label">Flagship Services</span>
+          </div>
+          <div class="svc-hero-stat">
+            <span class="svc-hero-stat-num" data-target="48" data-suffix="h">0h</span>
+            <span class="svc-hero-stat-label">Written Quote</span>
+          </div>
+          <div class="svc-hero-stat">
+            <span class="svc-hero-stat-num" data-target="100" data-suffix="%">0%</span>
+            <span class="svc-hero-stat-label">UAE-Based</span>
           </div>
         </div>
 
         <!-- Commitment strip -->
-        <div class="commitment-strip">
+        <div class="commitment-strip hero-fade-in" style="animation-delay: 1s">
           <span class="commit-pill"><span class="commit-ico">💳</span>Published pricing</span>
           <span class="commit-pill"><span class="commit-ico">⏱</span>48-hour written quote</span>
           <span class="commit-pill"><span class="commit-ico">🔐</span>Named certified practitioners</span>
@@ -128,6 +425,96 @@ export const prerender = false;
         </div>
       </div>
     </section>
+
+    <!-- Hero JS — category rotator + stat count-up -->
+    <script is:inline nonce={Astro.locals.nonce || ""}>
+    (function() {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      // Rotating word — typewriter effect
+      var rotator = document.querySelector('.svc-hero-rotator-word[data-rotate]');
+      var wrap    = document.querySelector('.svc-hero-rotator');
+      if (rotator && wrap) {
+        var words;
+        try { words = JSON.parse(rotator.getAttribute('data-rotate')); } catch (e) { words = []; }
+        if (words.length > 1) {
+          // Start with an empty string so we type the first word from scratch.
+          rotator.textContent = '';
+
+          var wordIdx = 0;
+          var charIdx = 0;
+          var deleting = false;
+
+          // Timings (ms)
+          var TYPE_MIN = 55, TYPE_MAX = 110;   // per-char type jitter for organic rhythm
+          var DELETE_SPEED = 32;               // deleting is faster & even
+          var HOLD_FULL = 1400;                // pause at full word
+          var HOLD_EMPTY = 240;                // pause before typing next
+
+          function setState(s) {
+            wrap.classList.remove('is-typing', 'is-deleting');
+            if (s) wrap.classList.add(s);
+          }
+
+          function tick() {
+            var word = words[wordIdx];
+
+            if (!deleting) {
+              setState('is-typing');
+              charIdx++;
+              rotator.textContent = word.slice(0, charIdx);
+              if (charIdx === word.length) {
+                setState(null);
+                deleting = true;
+                return setTimeout(tick, HOLD_FULL);
+              }
+              var jitter = TYPE_MIN + Math.random() * (TYPE_MAX - TYPE_MIN);
+              return setTimeout(tick, jitter);
+            } else {
+              setState('is-deleting');
+              charIdx--;
+              rotator.textContent = word.slice(0, charIdx);
+              if (charIdx === 0) {
+                setState(null);
+                deleting = false;
+                wordIdx = (wordIdx + 1) % words.length;
+                return setTimeout(tick, HOLD_EMPTY);
+              }
+              return setTimeout(tick, DELETE_SPEED);
+            }
+          }
+
+          // Kick off after the hero fade-in delay so it starts with the heading.
+          setTimeout(tick, 700);
+        }
+      }
+
+      // Stat count-up
+      var stats = document.querySelectorAll('.svc-hero-stat-num[data-target]');
+      if (!stats.length || typeof IntersectionObserver === 'undefined') return;
+      var animated = new WeakSet();
+      var io = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (!entry.isIntersecting) return;
+          var el = entry.target;
+          if (animated.has(el)) return;
+          animated.add(el);
+          var target = parseInt(el.getAttribute('data-target'), 10) || 0;
+          var suffix = el.getAttribute('data-suffix') || '';
+          var dur = 1200;
+          var start = performance.now();
+          function tick(now) {
+            var t = Math.min(1, (now - start) / dur);
+            var eased = 1 - Math.pow(1 - t, 3);
+            el.textContent = Math.round(target * eased) + suffix;
+            if (t < 1) requestAnimationFrame(tick);
+          }
+          requestAnimationFrame(tick);
+        });
+      }, { threshold: 0.4 });
+      stats.forEach(function(s) { io.observe(s); });
+    })();
+    </script>
 
     <!-- Category Grid -->
     <section class="section bg-color-dark">
