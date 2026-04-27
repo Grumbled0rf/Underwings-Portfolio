@@ -144,16 +144,16 @@ const TIMELINE_LABELS: Record<string, string> = {
 
 // ── Server-side pricing engine (mirrors client) ────────────────
 const PRICES = {
-  network_ext:   { low: 20000, high: 45000 },
-  network_int:   { low: 35000, high: 65000 },
-  web:           { low: 15000, high: 40000 },
-  mobile_one:    { low: 18000, high: 35000 },
-  mobile_both:   { low: 30000, high: 55000 },
-  api:           { low: 15000, high: 35000 },
-  cloud:         { low: 12000, high: 25000 },
-  phishing_base: { low:  8000, high: 15000 },
-  phishing_add:  { low:  3000, high:  5000 },
-  va_only:       { low:  5000, high: 15000 },
+  network_ext:   { low: 15000, high: 36000 },
+  network_int:   { low: 26000, high: 52000 },
+  web:           { low: 12000, high: 32000 },
+  mobile_one:    { low: 14000, high: 28000 },
+  mobile_both:   { low: 22000, high: 44000 },
+  api:           { low: 12000, high: 28000 },
+  cloud:         { low:  9000, high: 20000 },
+  phishing_base: { low:  3500, high:  9000 },
+  phishing_add:  { low:  2000, high:  3500 },
+  va_only:       { low:  3500, high: 10000 },
 };
 const SIZE_MULT: Record<string, number> = { xs: 0.85, s: 1.0, m: 1.15, l: 1.3 };
 const URGENT_MULT = 1.2;
@@ -369,7 +369,7 @@ function buildScopingBriefHTML(name: string, ans: Answers, quote: Quote): string
   </td></tr>
   <tr><td style="padding:28px 32px;text-align:center;font-family:-apple-system,sans-serif">
     <p style="margin:0 0 8px;color:#444;font-size:12px">&copy; ${year} Underwings Cybersecurity Solutions</p>
-    <p style="margin:0 0 8px;color:#333;font-size:11px">Dubai, UAE</p>
+    <p style="margin:0 0 8px;color:#333;font-size:11px">United Arab Emirates</p>
     <p style="margin:0"><a href="https://underwings.org" style="color:#37dc82;font-size:12px;text-decoration:none">underwings.org</a> &nbsp;&middot;&nbsp; <a href="https://www.linkedin.com/company/underwings-technologies" style="color:#555;font-size:12px;text-decoration:none">LinkedIn</a></p>
   </td></tr>
 </table></td></tr></table>
@@ -427,7 +427,7 @@ https://underwings.org/#contact?service=offensive-security
 Reply to this email with any questions.
 
 — Underwings Cybersecurity Solutions
-  Dubai, UAE · underwings.org
+  United Arab Emirates · underwings.org
 `;
 }
 

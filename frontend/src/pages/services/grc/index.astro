@@ -18,7 +18,7 @@ const flagship = [
     slug: "iso-27001-implementation",
     title: "ISO 27001 Implementation & Certification Support",
     tagline: "End-to-end from policy authoring to accredited-body audit.",
-    price: "AED 50,000 – 120,000",
+    price: "AED 36,000 – 88,000",
     certs: ["ISO 27001 LA", "GRC Mastery"],
     lead: "Manoj Prabhakaran",
     hasPage: true,
@@ -28,7 +28,7 @@ const flagship = [
     slug: "iso-27001-gap-assessment",
     title: "ISO 27001 Gap Assessment",
     tagline: "Current-state assessment + prioritised remediation roadmap.",
-    price: "AED 20,000 – 40,000",
+    price: "AED 14,000 – 28,000",
     certs: ["ISO 27001 LA"],
     lead: "Manoj Prabhakaran",
     hasPage: true,
@@ -38,7 +38,7 @@ const flagship = [
     slug: "nesa-uae-ia",
     title: "NESA / UAE IA V2 Gap Assessment",
     tagline: "UAE national standards — full controls assessment for govt-adjacent clients.",
-    price: "AED 20,000 – 50,000",
+    price: "AED 14,000 – 35,000",
     certs: ["GRC Mastery", "ISO 27001 LA"],
     lead: "Manoj Prabhakaran",
     hasPage: true,
@@ -48,7 +48,7 @@ const flagship = [
     slug: "uae-pdpl-advisory",
     title: "UAE PDPL Compliance Advisory",
     tagline: "Data mapping, privacy notices, consent, breach-notification process.",
-    price: "AED 15,000 – 35,000",
+    price: "AED 11,000 – 24,000",
     certs: ["GRC Mastery", "ISO 27001 LA"],
     lead: "Manoj Prabhakaran",
     hasPage: true,
@@ -58,7 +58,7 @@ const flagship = [
     slug: "risk-assessment-register",
     title: "Risk Assessment & Risk Register Build",
     tagline: "ISO 27005-aligned, quantitative where appropriate. Standalone or ISO 27001 sub-deliverable.",
-    price: "AED 20,000 – 45,000",
+    price: "AED 14,000 – 30,000",
     certs: ["GRC Mastery", "ISO 27001 LA"],
     lead: "Manoj Prabhakaran",
     hasPage: true,
@@ -117,16 +117,230 @@ export const prerender = false;
   schema={schema}
   bodyClass="body svc-compact"
 >
+  <Fragment slot="head">
+    <style is:inline>
+      .grc-hero-fade { animation: grcHeroFadeIn 0.8s ease-out both; animation-delay: 0.5s; }
+      @keyframes grcHeroFadeIn {
+        from { filter: blur(3px); opacity: 0; transform: translateY(1rem); }
+        to   { filter: blur(0);   opacity: 1; transform: translateY(0); }
+      }
+
+      .grc-hero-wrap { position: relative; overflow: hidden; }
+      .grc-hero-wrap .hero-heading-wrapper {
+        display: flex; flex-direction: column; align-items: center; gap: 1.1rem;
+      }
+      .grc-hero-wrap .hero-heading-wrapper > * { margin: 0; }
+      .grc-hero-wrap .heading-large.hero-heading-large {
+        line-height: 1.05; letter-spacing: -0.035em;
+      }
+
+      .grc-hero-eyebrow {
+        display: inline-flex; align-items: center; gap: 0.55rem;
+        padding: 0.4rem 0.95rem; border-radius: 100px;
+        background: rgba(36,215,88,0.06);
+        border: 1px solid rgba(36,215,88,0.22);
+        font-family: 'Geist Mono', ui-monospace, monospace;
+        font-size: 0.72rem; letter-spacing: 0.14em;
+        text-transform: uppercase; color: #24d758;
+      }
+      .grc-hero-pulse {
+        width: 7px; height: 7px; border-radius: 50%; background: #24d758;
+        box-shadow: 0 0 0 0 rgba(36,215,88,0.55);
+        animation: grcHeroPulse 2.2s ease-out infinite;
+      }
+      @keyframes grcHeroPulse {
+        0%   { box-shadow: 0 0 0 0 rgba(36,215,88,0.55); opacity: 1; }
+        70%  { box-shadow: 0 0 0 10px rgba(36,215,88,0); opacity: 0.7; }
+        100% { box-shadow: 0 0 0 0 rgba(36,215,88,0); opacity: 1; }
+      }
+
+      .grc-hero-rotator {
+        position: relative; display: inline-block;
+        vertical-align: baseline; white-space: nowrap;
+      }
+      .grc-hero-rotator-word {
+        display: inline-block;
+        background: linear-gradient(90deg, #24d758 0%, #27dab4 100%);
+        -webkit-background-clip: text; background-clip: text;
+        -webkit-text-fill-color: transparent; color: transparent;
+        transition: text-shadow 0.25s ease;
+      }
+      .grc-hero-rotator.is-typing .grc-hero-rotator-word,
+      .grc-hero-rotator.is-deleting .grc-hero-rotator-word {
+        text-shadow: 0 0 22px rgba(36,215,88,0.25);
+      }
+      .grc-hero-rotator-caret {
+        display: inline-block; width: 2px; height: 0.95em;
+        margin-left: 4px;
+        background: linear-gradient(180deg, #24d758, #27dab4);
+        vertical-align: -0.08em; border-radius: 2px;
+        box-shadow: 0 0 10px rgba(36,215,88,0.6);
+        animation: grcHeroCaretBlink 0.9s ease-in-out infinite;
+      }
+      .grc-hero-rotator.is-typing .grc-hero-rotator-caret,
+      .grc-hero-rotator.is-deleting .grc-hero-rotator-caret {
+        animation: none; opacity: 1;
+      }
+      @keyframes grcHeroCaretBlink {
+        0%, 49%   { opacity: 1; }
+        50%, 100% { opacity: 0.15; }
+      }
+      @media (max-width: 560px) {
+        .grc-hero-rotator { white-space: normal; }
+      }
+
+      .grc-hero-cta-row {
+        display: flex; gap: 0.75rem; justify-content: center;
+        flex-wrap: wrap; margin-top: 1.75rem;
+      }
+      .grc-hero-btn {
+        display: inline-flex; align-items: center; gap: 0.5rem;
+        padding: 0.85rem 1.5rem; border-radius: 10px;
+        font-size: 0.92rem; font-weight: 600; letter-spacing: -0.005em;
+        text-decoration: none; border: 1px solid transparent; cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+        font-family: inherit;
+      }
+      .grc-hero-btn-primary {
+        background: linear-gradient(135deg, #24d758, #27dab4); color: #0a0a0a;
+        box-shadow: 0 4px 18px rgba(36,215,88,0.18);
+      }
+      .grc-hero-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(36,215,88,0.28); }
+      .grc-hero-btn-secondary {
+        background: rgba(255,255,255,0.04); color: #fff; border-color: rgba(255,255,255,0.15);
+      }
+      .grc-hero-btn-secondary:hover { background: rgba(36,215,88,0.06); border-color: rgba(36,215,88,0.35); }
+      .grc-hero-btn svg { transition: transform 0.2s ease; }
+      .grc-hero-btn:hover svg { transform: translateX(3px); }
+
+      .grc-hero-microtrust {
+        display: flex; align-items: center; justify-content: center;
+        gap: 0.55rem; margin: 1rem 0 0; font-size: 0.8rem;
+        color: rgba(255,255,255,0.48); flex-wrap: wrap;
+      }
+      .grc-hero-microtrust-dot { color: rgba(255,255,255,0.2); }
+
+      .grc-hero-stats {
+        display: grid; grid-template-columns: repeat(4, 1fr);
+        gap: 1rem; margin: 2.25rem auto 0; max-width: 780px;
+        padding: 1.25rem 1.75rem;
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 14px; position: relative; overflow: hidden;
+      }
+      .grc-hero-stats::before {
+        content: ''; position: absolute; inset: 0;
+        background: radial-gradient(ellipse at top, rgba(36,215,88,0.06) 0%, transparent 65%);
+        pointer-events: none;
+      }
+      .grc-hero-stat { display: flex; flex-direction: column; gap: 0.15rem; align-items: center; text-align: center; position: relative; z-index: 1; }
+      .grc-hero-stat-num {
+        font-family: 'Geist Mono', ui-monospace, monospace;
+        font-size: 1.35rem; font-weight: 700; color: #24d758;
+        letter-spacing: -0.01em; font-variant-numeric: tabular-nums;
+      }
+      .grc-hero-stat-label {
+        font-size: 0.7rem; color: rgba(255,255,255,0.5);
+        text-transform: uppercase; letter-spacing: 0.08em;
+      }
+      @media (max-width: 720px) {
+        .grc-hero-stats { grid-template-columns: repeat(2, 1fr); gap: 0.9rem 0.5rem; padding: 1rem; }
+        .grc-hero-stat-num { font-size: 1.15rem; }
+      }
+
+      .grc-hero-grid {
+        position: absolute; inset: 0;
+        background-image:
+          linear-gradient(rgba(36,215,88,0.045) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(36,215,88,0.045) 1px, transparent 1px);
+        background-size: 56px 56px;
+        mask-image: radial-gradient(ellipse 60% 70% at 50% 30%, #000 0%, transparent 75%);
+        -webkit-mask-image: radial-gradient(ellipse 60% 70% at 50% 30%, #000 0%, transparent 75%);
+        pointer-events: none; z-index: 0;
+        animation: grcHeroGridDrift 24s linear infinite;
+      }
+      @keyframes grcHeroGridDrift {
+        from { background-position: 0 0, 0 0; }
+        to   { background-position: 56px 56px, 56px 56px; }
+      }
+      .grc-hero-orb {
+        position: absolute; width: 520px; height: 520px;
+        top: -180px; left: 50%; transform: translateX(-50%);
+        background: radial-gradient(circle, rgba(36,215,88,0.08) 0%, rgba(36,215,88,0.02) 35%, transparent 65%);
+        filter: blur(20px); pointer-events: none; z-index: 0;
+        animation: grcHeroOrbDrift 9s ease-in-out infinite;
+      }
+      @keyframes grcHeroOrbDrift {
+        0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.85; }
+        50%      { transform: translateX(-50%) translateY(18px); opacity: 1; }
+      }
+
+      .grc-hero-wrap .crumbs { position: relative; z-index: 1; }
+
+      .grc-method-ribbon {
+        display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+        gap: 0.5rem; margin-top: 2.25rem; padding: 0 1rem;
+        position: relative; z-index: 1;
+      }
+      .grc-method-label {
+        font-family: 'Geist Mono', ui-monospace, monospace;
+        font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase;
+        color: rgba(255,255,255,0.4); margin-right: 0.5rem;
+      }
+      .grc-method-chip {
+        font-family: 'Geist Mono', ui-monospace, monospace;
+        font-size: 0.72rem; letter-spacing: 0.04em;
+        padding: 0.35rem 0.7rem; border-radius: 6px;
+        background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(255,255,255,0.1);
+        color: rgba(255,255,255,0.7);
+      }
+
+      /* FAQ */
+      .grc-faq-list { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 0.75rem; }
+      .grc-faq-item {
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 10px;
+        transition: border-color 0.2s ease;
+      }
+      .grc-faq-item:hover { border-color: rgba(255,255,255,0.16); }
+      .grc-faq-item[open] { border-color: rgba(36,215,88,0.25); }
+      .grc-faq-q {
+        list-style: none; cursor: pointer;
+        padding: 1.1rem 1.5rem; font-size: 0.95rem; font-weight: 500; color: #fff;
+        display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+        -webkit-tap-highlight-color: transparent;
+      }
+      .grc-faq-q::-webkit-details-marker { display: none; }
+      .grc-faq-icon { color: rgba(255,255,255,0.5); transition: transform 0.25s ease, color 0.2s ease; flex-shrink: 0; }
+      .grc-faq-item[open] .grc-faq-icon { transform: rotate(180deg); color: #24d758; }
+      .grc-faq-a { padding: 0 1.5rem 1.25rem; color: rgba(255,255,255,0.72); font-size: 0.9rem; line-height: 1.65; }
+
+      @media (max-width: 479px) {
+        .grc-faq-q { padding: 1rem 1.1rem; font-size: 0.9rem; }
+        .grc-faq-a { padding: 0 1.1rem 1rem; font-size: 0.85rem; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .grc-hero-fade, .grc-hero-pulse, .grc-hero-orb, .grc-hero-grid,
+        .grc-hero-rotator-word, .grc-hero-rotator-caret {
+          animation: none !important;
+        }
+        .grc-hero-fade { opacity: 1; filter: none; transform: none; }
+      }
+    </style>
+  </Fragment>
+
   <Header currentPage="services" />
 
   <main id="main" class="main">
 
-    <!-- Breadcrumb + Hero -->
-    <section class="section bottom-padding-clear top-padding-small">
-      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
-        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
-      </div>
-      <div class="container-medium">
+    <!-- Breadcrumb + Animated Hero -->
+    <section class="section bottom-padding-clear top-padding-small grc-hero-wrap">
+      <div class="grc-hero-grid" aria-hidden="true"></div>
+      <div class="grc-hero-orb" aria-hidden="true"></div>
+      <div class="container-medium" style="position: relative; z-index: 1;">
         <nav class="crumbs" aria-label="Breadcrumb">
           <a href="/">Home</a>
           <span aria-hidden="true">›</span>
@@ -138,26 +352,152 @@ export const prerender = false;
         <div class="hero">
           <div class="hero-main-wrapper">
             <div class="hero-heading-wrapper">
-              <div class="label">
-                <div class="text-small color-grey">Category — 5 flagship services</div>
-              </div>
-              <h1 class="heading-large hero-heading-large">Cybersecurity GRC — <span class="text-gradient-clip bg-color-green-gradient">Implementation, Not Just Advice</span></h1>
-              <p class="text text-center" style="max-width:680px;margin:0 auto;">
-                ISO 27001, NESA / UAE IA V2, PDPL, and formal risk programs — delivered hands-on by an ISO 27001 Lead Auditor and GRC Mastery practitioner. We implement. Accredited certification bodies certify. Never both.
+              <span class="grc-hero-eyebrow grc-hero-fade">
+                <span class="grc-hero-pulse" aria-hidden="true"></span>
+                GRC · ISO 27001 LA-led Implementation
+              </span>
+
+              <h1 class="heading-large hero-heading-large grc-hero-fade" style="animation-delay: 0.2s">
+                Implementation, not advice — for<br><span class="grc-hero-rotator" aria-live="polite"><span class="grc-hero-rotator-word" data-rotate='["ISO 27001 Certification","NESA / UAE IA V2","UAE PDPL Readiness","ADHICS Compliance","Risk Register Build","Dubai ISR v2","PCI DSS v4.0"]'>ISO 27001 Certification</span><span class="grc-hero-rotator-caret" aria-hidden="true"></span></span>
+              </h1>
+
+              <p class="text text-center grc-hero-fade" style="animation-delay: 0.4s; max-width:720px; margin:0 auto;">
+                ISO 27001, NESA / UAE IA V2, PDPL, ADHICS, and formal risk programs — delivered hands-on by an
+                <strong>ISO 27001 Lead Auditor</strong>. We implement. Accredited certification bodies certify.
+                <strong>Never both.</strong> No conflict of interest, ever.
               </p>
+            </div>
+
+            <div class="grc-hero-cta-row grc-hero-fade" style="animation-delay: 0.55s">
+              <a href="/#contact?service=grc" class="grc-hero-btn grc-hero-btn-primary">
+                <span>Get a 24-hour quote</span>
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+                  <path d="M1.5 7.5h12M8 2l5.5 5.5L8 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+              <a href="https://wa.me/971505670394?text=Hi%2C%20I%27d%20like%20to%20discuss%20a%20GRC%20%2F%20ISO%2027001%20program"
+                 target="_blank" rel="noopener"
+                 class="grc-hero-btn grc-hero-btn-secondary"
+                 aria-label="Open WhatsApp chat for a GRC quote">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.464 3.488"/>
+                </svg>
+                <span>WhatsApp us</span>
+              </a>
+            </div>
+
+            <p class="grc-hero-microtrust grc-hero-fade" style="animation-delay: 0.7s">
+              <span>ISO 27001 Lead Auditor on every engagement</span>
+              <span class="grc-hero-microtrust-dot" aria-hidden="true">·</span>
+              <span>Implementation only — never the certifier</span>
+              <span class="grc-hero-microtrust-dot" aria-hidden="true">·</span>
+              <span>Audit-ready evidence pack included</span>
+            </p>
+
+            <div class="grc-hero-stats grc-hero-fade" style="animation-delay: 0.85s">
+              <div class="grc-hero-stat">
+                <span class="grc-hero-stat-num" data-target="24" data-suffix="h">0h</span>
+                <span class="grc-hero-stat-label">Quote Turnaround</span>
+              </div>
+              <div class="grc-hero-stat">
+                <span class="grc-hero-stat-num" data-target="90" data-suffix="d">0d</span>
+                <span class="grc-hero-stat-label">Typical ISO Track</span>
+              </div>
+              <div class="grc-hero-stat">
+                <span class="grc-hero-stat-num" data-target="5" data-suffix="">0</span>
+                <span class="grc-hero-stat-label">Frameworks Delivered</span>
+              </div>
+              <div class="grc-hero-stat">
+                <span class="grc-hero-stat-num" data-target="100" data-suffix="%">0%</span>
+                <span class="grc-hero-stat-label">Implementation, not Advice</span>
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="cert-ribbon">
-          <span class="cert-ribbon-label">Powered by</span>
-          <span class="cert-chip">ISO 27001 Lead Auditor</span>
-          <span class="cert-chip">GRC Mastery</span>
-          <span class="cert-chip">CDSA</span>
-          <span class="cert-chip">Security+</span>
+        <div class="grc-method-ribbon grc-hero-fade" style="animation-delay: 1s">
+          <span class="grc-method-label">Standards</span>
+          <span class="grc-method-chip">ISO/IEC 27001:2022</span>
+          <span class="grc-method-chip">ISO/IEC 27002:2022</span>
+          <span class="grc-method-chip">ISO/IEC 27005</span>
+          <span class="grc-method-chip">UAE IA V2</span>
+          <span class="grc-method-chip">ADHICS v2</span>
+          <span class="grc-method-chip">UAE PDPL</span>
+          <span class="grc-method-chip">Dubai ISR v2</span>
         </div>
       </div>
     </section>
+
+    <script is:inline nonce={Astro.locals.nonce || ""}>
+    (function () {
+      function init() {
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        var rotator = document.querySelector('.grc-hero-rotator-word[data-rotate]');
+        var wrap    = document.querySelector('.grc-hero-rotator');
+        if (!reduce && rotator && wrap) {
+          var words;
+          try { words = JSON.parse(rotator.getAttribute('data-rotate')); } catch (e) { words = []; }
+          if (words.length > 1) {
+            rotator.textContent = '';
+            var wordIdx = 0, charIdx = 0, deleting = false;
+            var TYPE_MIN = 55, TYPE_MAX = 110, DELETE_SPEED = 32, HOLD_FULL = 1400, HOLD_EMPTY = 240;
+            function setState(s) { wrap.classList.remove('is-typing', 'is-deleting'); if (s) wrap.classList.add(s); }
+            function tick() {
+              var word = words[wordIdx];
+              if (!deleting) {
+                setState('is-typing'); charIdx++;
+                rotator.textContent = word.slice(0, charIdx);
+                if (charIdx === word.length) { setState(null); deleting = true; return setTimeout(tick, HOLD_FULL); }
+                var jitter = TYPE_MIN + Math.random() * (TYPE_MAX - TYPE_MIN);
+                return setTimeout(tick, jitter);
+              } else {
+                setState('is-deleting'); charIdx--;
+                rotator.textContent = word.slice(0, charIdx);
+                if (charIdx === 0) { setState(null); deleting = false; wordIdx = (wordIdx + 1) % words.length; return setTimeout(tick, HOLD_EMPTY); }
+                return setTimeout(tick, DELETE_SPEED);
+              }
+            }
+            setTimeout(tick, 700);
+          }
+        }
+
+        var hasIO = (typeof IntersectionObserver !== 'undefined');
+        if (!reduce && hasIO) {
+          var stats = document.querySelectorAll('.grc-hero-stat-num[data-target]');
+          if (stats.length) {
+            var animated = new WeakSet();
+            var io = new IntersectionObserver(function (entries) {
+              entries.forEach(function (entry) {
+                if (!entry.isIntersecting) return;
+                var el = entry.target;
+                if (animated.has(el)) return;
+                animated.add(el);
+                var target = parseInt(el.getAttribute('data-target'), 10) || 0;
+                var suffix = el.getAttribute('data-suffix') || '';
+                var dur = 1200, start = performance.now();
+                function tick(now) {
+                  var t = Math.min(1, (now - start) / dur);
+                  var eased = 1 - Math.pow(1 - t, 3);
+                  el.textContent = Math.round(target * eased) + suffix;
+                  if (t < 1) requestAnimationFrame(tick);
+                }
+                requestAnimationFrame(tick);
+              });
+            }, { threshold: 0.4 });
+            stats.forEach(function (s) { io.observe(s); });
+          }
+        } else {
+          document.querySelectorAll('.grc-hero-stat-num[data-target]').forEach(function (el) {
+            var target = parseInt(el.getAttribute('data-target'), 10) || 0;
+            el.textContent = target + (el.getAttribute('data-suffix') || '');
+          });
+        }
+      }
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+      else init();
+    })();
+    </script>
 
     <!-- Flagship Services -->
     <section class="section bg-color-dark">
@@ -305,6 +645,104 @@ export const prerender = false;
             <p>Our team has lived inside these standards — not just read them — and we deliver hands-on programmes that end with audit-ready evidence and operational controls, partnered with accredited certification bodies where a certificate is required. Never both implementer and certifier. Never a conflict of interest.</p>
             <p class="why-uae-dogfood"><strong>We're pursuing our own ISO 27001:2022 certification in 2026 — the same program we deliver to clients, applied to ourselves first.</strong></p>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
+        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
+      </div>
+      <div class="container">
+        <div style="text-align:center; margin-bottom: 2.5rem;">
+          <div class="label" style="display:inline-block; border:1px solid rgba(255,255,255,0.15); border-radius:5.625rem; padding:0.625rem 1rem;">
+            <div class="text-small color-grey">FAQ</div>
+          </div>
+          <h2 class="heading" style="margin-top: 0.75rem; text-align:center;">
+            Common <span class="text-gradient-clip bg-color-green-gradient">questions</span>
+          </h2>
+        </div>
+
+        <div class="grc-faq-list">
+          <details class="grc-faq-item">
+            <summary class="grc-faq-q">
+              Are you also the auditor? Isn't that a conflict of interest?
+              <svg class="grc-faq-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="grc-faq-a">
+              No — and we never will be. We are the <strong>implementer</strong>. The certificate is issued by an
+              <strong>accredited certification body</strong> (DNV, BSI, BV, Intertek, TÜV — your choice). This separation is
+              required by ISO/IEC 17021 and we keep it absolute. Other firms blur this line; we do not.
+              We'll happily make the introduction to a certifier we trust.
+            </div>
+          </details>
+
+          <details class="grc-faq-item">
+            <summary class="grc-faq-q">
+              How long does ISO 27001 take from kickoff to certification?
+              <svg class="grc-faq-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="grc-faq-a">
+              Typical SME path: <strong>4 – 6 months</strong> end-to-end. Gap assessment (2–3 weeks),
+              implementation including risk register, SoA, policies, and controls (8–12 weeks),
+              internal audit + management review (2 weeks), Stage 1 audit (1 week), remediation,
+              Stage 2 audit (1 week). Larger or multi-site organisations need 6–9 months. We provide
+              a date-by-date Gantt at the scoping stage.
+            </div>
+          </details>
+
+          <details class="grc-faq-item">
+            <summary class="grc-faq-q">
+              Will you actually do the work, or just hand us templates?
+              <svg class="grc-faq-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="grc-faq-a">
+              We do the work. Policies are authored to fit *your* business — not generic boilerplate.
+              The risk register is populated from interviews and asset inventories we run with your team.
+              Controls are configured in your systems, not ticked on a spreadsheet. Templates exist
+              as accelerators, but the deliverable is operational evidence, not paperwork.
+            </div>
+          </details>
+
+          <details class="grc-faq-item">
+            <summary class="grc-faq-q">
+              We need ISO 27001 + UAE PDPL + NESA — can you do all three together?
+              <svg class="grc-faq-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="grc-faq-a">
+              Yes — and you should. There's ~70% control overlap between ISO 27001 Annex A, UAE IA V2,
+              and PDPL. We deliver a <strong>unified control set</strong> mapped against all three frameworks,
+              so you implement once and evidence three times. Adding ADHICS v2 (healthcare) or PCI DSS
+              (payments) on top is a matter of mapping, not duplicate effort.
+            </div>
+          </details>
+
+          <details class="grc-faq-item">
+            <summary class="grc-faq-q">
+              What if our scope changes mid-project (acquisition, new region, new product)?
+              <svg class="grc-faq-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="grc-faq-a">
+              Scope changes are normal — we expect them. Every engagement has a written change-control
+              clause: small additions are absorbed, larger ones get a transparent change-order
+              with adjusted timeline and fee. No surprise invoices. The certification scope statement
+              can also be drafted to cover anticipated growth so you don't re-certify after every change.
+            </div>
+          </details>
+
+          <details class="grc-faq-item">
+            <summary class="grc-faq-q">
+              Do you provide ongoing support after certification?
+              <svg class="grc-faq-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="grc-faq-a">
+              Yes. After Stage 2, most clients move onto a maintenance retainer covering: surveillance
+              audit prep, internal audits, management reviews, policy updates, control re-tests, and
+              evidence pack curation. Optional add-on, billed monthly or per surveillance cycle —
+              you stay certified without re-running an implementation project every year.
+            </div>
+          </details>
         </div>
       </div>
     </section>

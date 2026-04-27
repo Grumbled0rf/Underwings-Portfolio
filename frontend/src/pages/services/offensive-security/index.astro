@@ -16,7 +16,7 @@ const flagship = [
     slug: "network-penetration-testing",
     title: "Network Penetration Testing",
     tagline: "External + internal + Active Directory + lateral movement. PTES-aligned, manual, exploit-driven.",
-    price: "AED 20,000 – 60,000",
+    price: "AED 15,000 – 48,000",
     methodology: "PTES · NIST SP 800-115",
     lead: "Nelson Durairaj",
     hasPage: true,
@@ -26,7 +26,7 @@ const flagship = [
     slug: "web-application-penetration-testing",
     title: "Web Application Penetration Testing",
     tagline: "OWASP Top 10, API security, authentication flaws, business-logic testing.",
-    price: "AED 15,000 – 40,000",
+    price: "AED 12,000 – 32,000",
     methodology: "OWASP WSTG · API Top 10",
     lead: "Nelson Durairaj",
     hasPage: true,
@@ -36,7 +36,7 @@ const flagship = [
     slug: "mobile-application-penetration-testing",
     title: "Mobile Application Penetration Testing",
     tagline: "iOS and Android — static + dynamic, Frida runtime instrumentation, MASVS-mapped.",
-    price: "AED 18,000 – 45,000",
+    price: "AED 14,000 – 38,000",
     methodology: "OWASP MASTG · MASVS",
     lead: "Nelson Durairaj",
     hasPage: true,
@@ -47,7 +47,7 @@ const flagship = [
     slug: "phishing-simulation",
     title: "Phishing Simulation & Social Engineering",
     tagline: "Controlled phishing and vishing campaigns with click-rate reporting. Before/after metric for awareness training.",
-    price: "AED 8,000 – 20,000",
+    price: "AED 3,500 – 12,000",
     methodology: "PTES Pre-engagement · NIST SP 800-115",
     lead: "Nelson Durairaj",
     hasPage: true,
@@ -57,7 +57,7 @@ const flagship = [
     slug: "vulnerability-assessment",
     title: "Vulnerability Assessment (VA only)",
     tagline: "Scan-and-prioritise service for SMEs not ready for full pen testing. Fast, affordable, actionable.",
-    price: "AED 5,000 – 15,000",
+    price: "AED 3,500 – 10,000",
     methodology: "NIST SP 800-115",
     lead: "Nelson Durairaj",
     hasPage: true,
@@ -143,16 +143,399 @@ export const prerender = false;
   schema={schema}
   bodyClass="body svc-compact"
 >
+  <Fragment slot="head">
+    <style is:inline>
+    /* Neon Line Sweep */
+    .neon-line-animate { animation: neonFadeIn 0.8s ease-out 0.3s both; }
+    .neon-line-animate .neon-line-parent { animation: neonColorIn 1s ease-out 0.6s both; }
+    .neon-line-animate .neon-line-inner { transform: translate3d(-50%, 0, 0); animation: neonSweep 3s ease-in-out 0.8s infinite; }
+    .neon-line-animate .neon-line-shadow { opacity: 0; animation: neonGlow 3s ease-in-out 0.8s infinite; }
+    @keyframes neonFadeIn { from { filter: blur(3px); opacity: 0; } to { filter: blur(0); opacity: 1; } }
+    @keyframes neonColorIn { from { filter: grayscale(100%); } to { filter: grayscale(0%); } }
+    @keyframes neonSweep { 0% { transform: translate3d(-50%, 0, 0); } 50% { transform: translate3d(0%, 0, 0); } 100% { transform: translate3d(-50%, 0, 0); } }
+    @keyframes neonGlow { 0%, 100% { opacity: 0.4; } 50% { opacity: 0.9; } }
+
+    /* Hero blur-fade in */
+    .hero-fade-in { animation: heroFadeIn 0.8s ease-out both; animation-delay: 0.5s; }
+    @keyframes heroFadeIn {
+      from { filter: blur(3px); opacity: 0; transform: translateY(1rem); }
+      to   { filter: blur(0);   opacity: 1; transform: translateY(0); }
+    }
+
+    .off-hero-wrap { position: relative; overflow: hidden; }
+    .off-hero-wrap .hero-heading-wrapper {
+      display: flex; flex-direction: column; align-items: center; gap: 1.1rem;
+    }
+    .off-hero-wrap .hero-heading-wrapper > * { margin: 0; }
+    .off-hero-wrap .heading-large.hero-heading-large {
+      line-height: 1.05; letter-spacing: -0.035em;
+    }
+
+    /* Eyebrow pill */
+    .off-hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.55rem;
+      padding: 0.4rem 0.95rem; border-radius: 100px;
+      background: rgba(36,215,88,0.06);
+      border: 1px solid rgba(36,215,88,0.22);
+      font-family: 'Geist Mono', ui-monospace, monospace;
+      font-size: 0.72rem; letter-spacing: 0.14em;
+      text-transform: uppercase; color: #24d758;
+    }
+    .off-hero-pulse {
+      width: 7px; height: 7px; border-radius: 50%; background: #24d758;
+      box-shadow: 0 0 0 0 rgba(36,215,88,0.55);
+      animation: offHeroPulse 2.2s ease-out infinite;
+    }
+    @keyframes offHeroPulse {
+      0%   { box-shadow: 0 0 0 0 rgba(36,215,88,0.55); opacity: 1; }
+      70%  { box-shadow: 0 0 0 10px rgba(36,215,88,0); opacity: 0.7; }
+      100% { box-shadow: 0 0 0 0 rgba(36,215,88,0); opacity: 1; }
+    }
+
+    /* Typewriter rotator */
+    .off-hero-rotator {
+      position: relative; display: inline-block;
+      vertical-align: baseline; white-space: nowrap;
+    }
+    .off-hero-rotator-word {
+      display: inline-block;
+      background: linear-gradient(90deg, #24d758 0%, #27dab4 100%);
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; color: transparent;
+      transition: text-shadow 0.25s ease;
+    }
+    .off-hero-rotator.is-typing .off-hero-rotator-word,
+    .off-hero-rotator.is-deleting .off-hero-rotator-word {
+      text-shadow: 0 0 22px rgba(36,215,88,0.25);
+    }
+    .off-hero-rotator-caret {
+      display: inline-block; width: 2px; height: 0.95em;
+      margin-left: 4px;
+      background: linear-gradient(180deg, #24d758, #27dab4);
+      vertical-align: -0.08em; border-radius: 2px;
+      box-shadow: 0 0 10px rgba(36,215,88,0.6);
+      animation: offRotCaretBlink 0.9s ease-in-out infinite;
+    }
+    .off-hero-rotator.is-typing .off-hero-rotator-caret,
+    .off-hero-rotator.is-deleting .off-hero-rotator-caret {
+      animation: none; opacity: 1;
+    }
+    @keyframes offRotCaretBlink {
+      0%, 49%   { opacity: 1; }
+      50%, 100% { opacity: 0.15; }
+    }
+    @media (max-width: 560px) {
+      .off-hero-rotator { white-space: normal; }
+    }
+
+    /* Dual CTA row */
+    .off-hero-cta-row {
+      display: flex; gap: 0.75rem; justify-content: center;
+      flex-wrap: wrap; margin-top: 1.75rem;
+    }
+    .off-hero-btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.85rem 1.5rem; border-radius: 10px;
+      font-size: 0.92rem; font-weight: 600; letter-spacing: -0.005em;
+      text-decoration: none; border: 1px solid transparent; cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+      font-family: inherit;
+    }
+    .off-hero-btn-primary {
+      background: linear-gradient(135deg, #24d758, #27dab4); color: #0a0a0a;
+      box-shadow: 0 4px 18px rgba(36,215,88,0.18);
+    }
+    .off-hero-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(36,215,88,0.28); }
+    .off-hero-btn-secondary {
+      background: rgba(255,255,255,0.04); color: #fff; border-color: rgba(255,255,255,0.15);
+    }
+    .off-hero-btn-secondary:hover { background: rgba(36,215,88,0.06); border-color: rgba(36,215,88,0.35); }
+    .off-hero-btn svg { transition: transform 0.2s ease; }
+    .off-hero-btn:hover svg { transform: translateX(3px); }
+
+    /* Microtrust */
+    .off-hero-microtrust {
+      display: flex; align-items: center; justify-content: center;
+      gap: 0.55rem; margin: 1rem 0 0; font-size: 0.8rem;
+      color: rgba(255,255,255,0.48); flex-wrap: wrap;
+    }
+    .off-hero-microtrust-dot { color: rgba(255,255,255,0.2); }
+
+    /* Stats strip */
+    .off-hero-stats {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1rem; margin: 2.25rem auto 0; max-width: 780px;
+      padding: 1.25rem 1.75rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px; position: relative; overflow: hidden;
+    }
+    .off-hero-stats::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at top, rgba(36,215,88,0.06) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .off-hero-stat { display: flex; flex-direction: column; gap: 0.15rem; align-items: center; text-align: center; position: relative; z-index: 1; }
+    .off-hero-stat-num {
+      font-family: 'Geist Mono', ui-monospace, monospace;
+      font-size: 1.35rem; font-weight: 700; color: #24d758;
+      letter-spacing: -0.01em; font-variant-numeric: tabular-nums;
+    }
+    .off-hero-stat-label {
+      font-size: 0.7rem; color: rgba(255,255,255,0.5);
+      text-transform: uppercase; letter-spacing: 0.08em;
+    }
+    @media (max-width: 720px) {
+      .off-hero-stats { grid-template-columns: repeat(2, 1fr); gap: 0.9rem 0.5rem; padding: 1rem; }
+      .off-hero-stat-num { font-size: 1.15rem; }
+    }
+
+    /* Animated grid + orb backdrop */
+    .off-hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(36,215,88,0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(36,215,88,0.045) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: radial-gradient(ellipse 60% 70% at 50% 30%, #000 0%, transparent 75%);
+      -webkit-mask-image: radial-gradient(ellipse 60% 70% at 50% 30%, #000 0%, transparent 75%);
+      pointer-events: none; z-index: 0;
+      animation: offGridDrift 24s linear infinite;
+    }
+    @keyframes offGridDrift {
+      from { background-position: 0 0, 0 0; }
+      to   { background-position: 56px 56px, 56px 56px; }
+    }
+    .off-hero-orb {
+      position: absolute; width: 520px; height: 520px;
+      top: -180px; left: 50%; transform: translateX(-50%);
+      background: radial-gradient(circle, rgba(36,215,88,0.08) 0%, rgba(36,215,88,0.02) 35%, transparent 65%);
+      filter: blur(20px); pointer-events: none; z-index: 0;
+      animation: offOrbDrift 9s ease-in-out infinite;
+    }
+    @keyframes offOrbDrift {
+      0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.85; }
+      50%      { transform: translateX(-50%) translateY(18px); opacity: 1; }
+    }
+
+    /* Crumbs above the hero */
+    .off-hero-wrap .crumbs { position: relative; z-index: 1; }
+
+    /* Method ribbon tuning */
+    .off-hero-wrap .method-ribbon { margin-top: 2rem; position: relative; z-index: 1; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-fade-in, .neon-line-animate, .neon-line-animate .neon-line-parent,
+      .neon-line-animate .neon-line-inner, .neon-line-animate .neon-line-shadow,
+      .off-hero-pulse, .off-hero-orb, .off-hero-grid,
+      .off-hero-rotator-word, .off-hero-rotator-caret {
+        animation: none !important;
+      }
+      .hero-fade-in { opacity: 1; filter: none; transform: none; }
+    }
+
+    /* ═════════════════════════════════════════════════════════════
+       Section-wide improvements (whole page)
+       ═════════════════════════════════════════════════════════════ */
+
+    /* Scroll reveal — any element with .off-reveal fades + lifts in */
+    .off-reveal {
+      opacity: 0; transform: translateY(18px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+      will-change: opacity, transform;
+    }
+    .off-reveal.is-visible { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .off-reveal { opacity: 1; transform: none; transition: none; }
+    }
+
+    /* Section header: subtle green eyebrow before every h2 */
+    .off-section-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-family: 'Geist Mono', ui-monospace, monospace;
+      font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: #24d758; margin: 0 0 0.5rem;
+    }
+    .off-section-eyebrow::before {
+      content: ''; width: 22px; height: 1px;
+      background: linear-gradient(90deg, #24d758, transparent);
+    }
+
+    /* Section dot grid backdrop — used on lighter sections */
+    .off-section-dotted { position: relative; overflow: hidden; }
+    .off-section-dotted::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(36,215,88,0.06) 1px, transparent 1.5px);
+      background-size: 32px 32px;
+      mask-image: radial-gradient(ellipse 90% 70% at 50% 50%, #000 0%, transparent 80%);
+      -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 50%, #000 0%, transparent 80%);
+      pointer-events: none; z-index: 0;
+    }
+    .off-section-dotted > .container-medium,
+    .off-section-dotted > .container { position: relative; z-index: 1; }
+
+    /* ── Entry cards: add letter to card visually, connector feel ── */
+    .entry-card { position: relative; transition: background 180ms ease, border-color 180ms ease, transform 180ms ease, box-shadow 220ms ease; }
+    .entry-card:hover {
+      box-shadow: 0 18px 40px -20px rgba(36,215,88,0.25);
+    }
+    .entry-card-featured::before {
+      content: ''; position: absolute; inset: 0;
+      border-radius: 18px;
+      background: radial-gradient(circle at 80% -10%, rgba(36,215,88,0.18), transparent 55%);
+      pointer-events: none;
+    }
+    .entry-card-featured > * { position: relative; z-index: 1; }
+
+    /* ── Scope chips: add tiny icon dot + arrow animation ────── */
+    .scope-chip { transition: background 180ms ease, border-color 180ms ease, transform 180ms ease; }
+    .scope-chip:hover { transform: translateY(-2px); }
+    .scope-chip-cta svg { transition: transform 0.2s ease; }
+    .scope-chip:hover .scope-chip-cta svg { transform: translateX(3px); }
+
+    /* ── 8-stage PTES: visual spine + num glow + hover elevation ── */
+    .ptes-stages { position: relative; counter-reset: ptesn; }
+    .ptes-stage {
+      position: relative; transition: background 180ms ease, border-color 180ms ease, transform 180ms ease, box-shadow 220ms ease;
+    }
+    .ptes-stage:hover {
+      transform: translateY(-2px);
+      border-color: rgba(36,215,88,0.35);
+      box-shadow: 0 18px 38px -22px rgba(36,215,88,0.30);
+    }
+    .ptes-stage-num {
+      position: relative; overflow: hidden;
+    }
+    .ptes-stage-num::after {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(circle at 30% 20%, rgba(36,215,88,0.35), transparent 60%);
+      opacity: 0.6; pointer-events: none;
+    }
+
+    /* ── Flagship cards: richer price chip + hover lift ───────── */
+    .flag-card {
+      transition: background 180ms ease, border-color 180ms ease, transform 180ms ease, box-shadow 240ms ease;
+    }
+    .flag-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(36,215,88,0.35);
+      box-shadow: 0 22px 50px -28px rgba(36,215,88,0.32);
+    }
+    .flag-price::before {
+      content: 'AED '; font-weight: 500; color: rgba(255,255,255,0.55);
+      margin-right: 2px;
+    }
+
+    /* ── Compliance table: row accent on hover ────────────────── */
+    .compliance-table tbody tr { transition: background 160ms ease; }
+    .compliance-table td:first-child { position: relative; }
+    .compliance-table tbody tr:hover td:first-child::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+      width: 2px; background: linear-gradient(180deg, #24d758, #27dab4);
+    }
+
+    /* ── Pricing table: highlight bundle rows ─────────────────── */
+    .price-table tbody tr.price-bundle {
+      background: rgba(36,215,88,0.045);
+    }
+    .price-table tbody tr.price-bundle td:first-child { color: #fff; font-weight: 600; }
+    .price-table tbody tr.price-bundle td:first-child::before {
+      content: 'BUNDLE';
+      display: inline-block; margin-right: 0.5rem;
+      padding: 0.12rem 0.5rem; border-radius: 100px;
+      font-family: 'Geist Mono', ui-monospace, monospace;
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.12em;
+      color: #0a0a0a; background: linear-gradient(135deg, #24d758, #27dab4);
+      vertical-align: 2px;
+    }
+
+    /* ── Deliverables: colored number + hover lift ───────────── */
+    .deliverable-item {
+      transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
+    }
+    .deliverable-item:hover {
+      transform: translateY(-2px); border-color: rgba(36,215,88,0.3);
+      background: rgba(36,215,88,0.035);
+    }
+
+    /* ── Coming-soon cards polish ─────────────────────────────── */
+    .soon-card {
+      position: relative; overflow: hidden;
+      transition: border-color 200ms ease, transform 200ms ease;
+    }
+    .soon-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(36,215,88,0.3);
+    }
+    .soon-card::before {
+      content: ''; position: absolute; top: -60px; right: -60px;
+      width: 180px; height: 180px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(36,215,88,0.1), transparent 70%);
+      pointer-events: none;
+    }
+    .soon-card > * { position: relative; z-index: 1; }
+
+    /* ── Why UAE body: blockquote-style left accent bar ─────── */
+    .why-uae-body { position: relative; padding-left: 1.5rem; }
+    .why-uae-body::before {
+      content: ''; position: absolute; left: 0; top: 0.5rem; bottom: 0.5rem;
+      width: 2px; background: linear-gradient(180deg, #24d758, transparent);
+    }
+    .why-uae-body p { font-size: 1.02rem; line-height: 1.7; color: rgba(255,255,255,0.78); }
+    .why-uae-body p strong { color: #fff; }
+
+    /* ── Final CTA: immersive with orb backdrop ──────────────── */
+    .off-final-cta { position: relative; overflow: hidden; }
+    .off-final-cta::before {
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(36,215,88,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(36,215,88,0.05) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: radial-gradient(ellipse 70% 80% at 50% 50%, #000 0%, transparent 75%);
+      -webkit-mask-image: radial-gradient(ellipse 70% 80% at 50% 50%, #000 0%, transparent 75%);
+      pointer-events: none; z-index: 0;
+      animation: offGridDrift 26s linear infinite;
+    }
+    .off-final-cta::after {
+      content: ''; position: absolute; left: 50%; top: 50%;
+      width: 600px; height: 600px;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(36,215,88,0.10) 0%, transparent 60%);
+      filter: blur(24px); pointer-events: none; z-index: 0;
+      animation: offOrbDrift 10s ease-in-out infinite;
+    }
+    .off-final-cta > .container-medium { position: relative; z-index: 1; }
+    .off-final-cta .off-cta-kicker {
+      font-family: 'Geist Mono', ui-monospace, monospace;
+      font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: #24d758;
+    }
+    .off-final-cta h2 {
+      font-size: clamp(1.8rem, 3.2vw, 2.6rem) !important;
+      line-height: 1.15; letter-spacing: -0.02em;
+    }
+    .off-final-cta .off-cta-trust {
+      display: inline-flex; align-items: center; gap: 0.55rem;
+      margin-top: 0.75rem; font-size: 0.8rem;
+      color: rgba(255,255,255,0.48); flex-wrap: wrap; justify-content: center;
+    }
+    .off-final-cta .off-cta-trust-dot { color: rgba(255,255,255,0.2); }
+
+    /* Smooth page transition between sections */
+    .main > section { position: relative; }
+    </style>
+  </Fragment>
+
   <Header currentPage="services" />
 
   <main id="main" class="main">
 
     <!-- Hero -->
-    <section class="section bottom-padding-clear top-padding-small">
-      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
-        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
-      </div>
-      <div class="container-medium">
+    <section class="section bottom-padding-clear top-padding-small off-hero-wrap">
+      <div class="off-hero-grid" aria-hidden="true"></div>
+      <div class="off-hero-orb" aria-hidden="true"></div>
+      <div class="container-medium" style="position: relative; z-index: 1;">
         <nav class="crumbs" aria-label="Breadcrumb">
           <a href="/">Home</a>
           <span aria-hidden="true">›</span>
@@ -163,14 +546,69 @@ export const prerender = false;
 
         <div class="hero">
           <div class="hero-main-wrapper">
-            <div class="hero-heading-wrapper">
-              <div class="label">
-                <div class="text-small color-grey">Penetration Testing — done the way it should be</div>
+            <div class="neon-line-box neon-line-animate">
+              <div class="neon-line-parent">
+                <div class="neon-line-inner"></div>
               </div>
-              <h1 class="heading-large hero-heading-large">Offensive Security — <span class="text-gradient-clip bg-color-green-gradient">Not a Vulnerability Scan</span></h1>
-              <p class="text text-center" style="max-width:720px;margin:0 auto;">
+              <div class="neon-line-shadow"></div>
+            </div>
+
+            <div class="hero-heading-wrapper">
+              <span class="off-hero-eyebrow hero-fade-in">
+                <span class="off-hero-pulse" aria-hidden="true"></span>
+                Offensive Security
+              </span>
+              <h1 class="heading-large hero-heading-large hero-fade-in" style="animation-delay: 0.2s">
+                Manual, exploit-driven<br><span class="off-hero-rotator" aria-live="polite"><span class="off-hero-rotator-word" data-rotate='["Network Pen Tests","Web App Pen Tests","Mobile App Pen Tests","API Security Tests","Phishing Simulations","Vulnerability Assessments"]'>Network Pen Tests</span><span class="off-hero-rotator-caret" aria-hidden="true"></span></span>
+              </h1>
+              <p class="text text-center hero-fade-in" style="animation-delay: 0.4s; max-width:720px; margin:0 auto;">
                 Most UAE clients ask "I need pen testing for compliance" without knowing scope. That's fine — <strong>scoping is our job, not yours</strong>. Our 8-stage PTES-aligned process figures out exactly what your audit, client, or threat model actually needs.
               </p>
+            </div>
+
+            <!-- Dual CTA -->
+            <div class="off-hero-cta-row hero-fade-in" style="animation-delay: 0.55s">
+              <a href="/services/offensive-security/scope-builder" class="off-hero-btn off-hero-btn-primary">
+                <span>Get a Pen-Test Quote in 2 min</span>
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+                  <path d="M1.5 7.5h12M8 2l5.5 5.5L8 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+              <button type="button" data-calendly-open class="off-hero-btn off-hero-btn-secondary" aria-label="Book a scoping call via Calendly">
+                <span>Book a 30-min Scoping Call</span>
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+                  <path d="M1.5 7.5h12M8 2l5.5 5.5L8 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+
+            <!-- Microtrust row -->
+            <p class="off-hero-microtrust hero-fade-in" style="animation-delay: 0.7s">
+              <span>OSCP · CPTS · CEH practitioners</span>
+              <span class="off-hero-microtrust-dot" aria-hidden="true">·</span>
+              <span>Free retest of critical / high findings</span>
+              <span class="off-hero-microtrust-dot" aria-hidden="true">·</span>
+              <span>Written quote in 48 hours</span>
+            </p>
+
+            <!-- Stats strip -->
+            <div class="off-hero-stats hero-fade-in" style="animation-delay: 0.85s">
+              <div class="off-hero-stat">
+                <span class="off-hero-stat-num" data-target="8" data-suffix="">0</span>
+                <span class="off-hero-stat-label">PTES Stages</span>
+              </div>
+              <div class="off-hero-stat">
+                <span class="off-hero-stat-num" data-target="5" data-suffix="">0</span>
+                <span class="off-hero-stat-label">Flagship Services</span>
+              </div>
+              <div class="off-hero-stat">
+                <span class="off-hero-stat-num" data-target="30" data-suffix="d">0d</span>
+                <span class="off-hero-stat-label">Free Retest Window</span>
+              </div>
+              <div class="off-hero-stat">
+                <span class="off-hero-stat-num" data-target="100" data-suffix="%">0%</span>
+                <span class="off-hero-stat-label">Manual Testing</span>
+              </div>
             </div>
           </div>
         </div>
@@ -187,17 +625,113 @@ export const prerender = false;
       </div>
     </section>
 
+    <!-- Hero JS — typewriter rotator + stat count-up + scroll reveal -->
+    <script is:inline nonce={Astro.locals.nonce || ""}>
+    function __offInit() {
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      var rotator = document.querySelector('.off-hero-rotator-word[data-rotate]');
+      var wrap    = document.querySelector('.off-hero-rotator');
+      if (!reduce && rotator && wrap) {
+        var words;
+        try { words = JSON.parse(rotator.getAttribute('data-rotate')); } catch (e) { words = []; }
+        if (words.length > 1) {
+          rotator.textContent = '';
+          var wordIdx = 0, charIdx = 0, deleting = false;
+          var TYPE_MIN = 55, TYPE_MAX = 110, DELETE_SPEED = 32, HOLD_FULL = 1400, HOLD_EMPTY = 240;
+          function setState(s) {
+            wrap.classList.remove('is-typing', 'is-deleting');
+            if (s) wrap.classList.add(s);
+          }
+          function tick() {
+            var word = words[wordIdx];
+            if (!deleting) {
+              setState('is-typing');
+              charIdx++;
+              rotator.textContent = word.slice(0, charIdx);
+              if (charIdx === word.length) {
+                setState(null); deleting = true;
+                return setTimeout(tick, HOLD_FULL);
+              }
+              var jitter = TYPE_MIN + Math.random() * (TYPE_MAX - TYPE_MIN);
+              return setTimeout(tick, jitter);
+            } else {
+              setState('is-deleting');
+              charIdx--;
+              rotator.textContent = word.slice(0, charIdx);
+              if (charIdx === 0) {
+                setState(null); deleting = false;
+                wordIdx = (wordIdx + 1) % words.length;
+                return setTimeout(tick, HOLD_EMPTY);
+              }
+              return setTimeout(tick, DELETE_SPEED);
+            }
+          }
+          setTimeout(tick, 700);
+        }
+      }
+
+      var hasIO = (typeof IntersectionObserver !== 'undefined');
+
+      if (!reduce && hasIO) {
+        var stats = document.querySelectorAll('.off-hero-stat-num[data-target]');
+        if (stats.length) {
+          var animated = new WeakSet();
+          var io = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+              if (!entry.isIntersecting) return;
+              var el = entry.target;
+              if (animated.has(el)) return;
+              animated.add(el);
+              var target = parseInt(el.getAttribute('data-target'), 10) || 0;
+              var suffix = el.getAttribute('data-suffix') || '';
+              var dur = 1200, start = performance.now();
+              function tick(now) {
+                var t = Math.min(1, (now - start) / dur);
+                var eased = 1 - Math.pow(1 - t, 3);
+                el.textContent = Math.round(target * eased) + suffix;
+                if (t < 1) requestAnimationFrame(tick);
+              }
+              requestAnimationFrame(tick);
+            });
+          }, { threshold: 0.4 });
+          stats.forEach(function(s) { io.observe(s); });
+        }
+      }
+
+      // Scroll-reveal for any element with .off-reveal
+      var reveals = document.querySelectorAll('.off-reveal');
+      if (!reveals.length) return;
+      if (reduce || !hasIO) {
+        reveals.forEach(function(r) { r.classList.add('is-visible'); });
+        return;
+      }
+      var ro = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            ro.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
+      reveals.forEach(function(r) { ro.observe(r); });
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', __offInit);
+    } else {
+      __offInit();
+    }
+    </script>
+
     <!-- START HERE — Pre-Engagement entry band -->
-    <section class="section bg-color-dark" id="start-here">
-      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
-        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
-      </div>
+    <section class="section bg-color-dark off-section-dotted" id="start-here">
       <div class="container-medium">
         <div class="section-wrapper-vertical">
-          <div class="heading-horizontal">
+          <div class="heading-horizontal off-reveal">
             <div class="heading-horizontal-inner">
               <div class="heading-horizontal-left-part">
-                <h2 class="heading">Start here — Pre-Engagement</h2>
+                <div class="off-section-eyebrow">Pre-Engagement</div>
+                <h2 class="heading">Start here — pick your path</h2>
               </div>
               <div class="heading-horizontal-right-part">
                 <p class="text-medium">Pick the path that matches where you are. We'll walk you through scoping in a free 30-minute call.</p>
@@ -206,21 +740,21 @@ export const prerender = false;
           </div>
 
           <div class="entry-grid">
-            <a href="#compliance" class="entry-card">
+            <a href="#compliance" class="entry-card off-reveal" style="transition-delay: 0ms">
               <div class="entry-card-num">A</div>
               <h3 class="entry-card-title">I need it for compliance</h3>
               <p class="entry-card-desc">ISO 27001, UAE IA, ADHICS, PCI DSS, SOC 2 — tell us the framework, we'll map exactly which scope your auditor expects.</p>
               <div class="entry-card-cta">See compliance mapping →</div>
             </a>
 
-            <a href="#scoping" class="entry-card">
+            <a href="#scoping" class="entry-card off-reveal" style="transition-delay: 100ms">
               <div class="entry-card-num">B</div>
               <h3 class="entry-card-title">I know what I want tested</h3>
               <p class="entry-card-desc">Network, web app, mobile, API, phishing, cloud — pick your scope chips. Multi-select supported; bundled discounts apply.</p>
               <div class="entry-card-cta">Pick your scope →</div>
             </a>
 
-            <a href="/services/offensive-security/scope-builder" class="entry-card entry-card-featured">
+            <a href="/services/offensive-security/scope-builder" class="entry-card entry-card-featured off-reveal" style="transition-delay: 200ms">
               <div class="entry-card-num">C</div>
               <h3 class="entry-card-title">I'm not sure where to start</h3>
               <p class="entry-card-desc">Answer 4 questions in 2 minutes. We'll recommend scope, show indicative AED pricing, and email you a full scoping brief. No sales call required.</p>
@@ -232,15 +766,13 @@ export const prerender = false;
     </section>
 
     <!-- Scope selector -->
-    <section class="section" id="scoping">
-      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
-        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
-      </div>
+    <section class="section off-section-dotted" id="scoping">
       <div class="container-medium">
         <div class="section-wrapper-vertical">
-          <div class="heading-horizontal">
+          <div class="heading-horizontal off-reveal">
             <div class="heading-horizontal-inner">
               <div class="heading-horizontal-left-part">
+                <div class="off-section-eyebrow">Scoping</div>
                 <h2 class="heading">What can be in scope</h2>
               </div>
               <div class="heading-horizontal-right-part">
@@ -250,8 +782,8 @@ export const prerender = false;
           </div>
 
           <div class="scope-grid">
-            {scopes.map((s) => (
-              <a href={s.href} class="scope-chip" aria-label={`Scope: ${s.label}`}>
+            {scopes.map((s, i) => (
+              <a href={s.href} class="scope-chip off-reveal" style={`transition-delay: ${i * 60}ms`} aria-label={`Scope: ${s.label}`}>
                 {s.isNew && <span class="scope-new">New</span>}
                 <h4 class="scope-chip-label">{s.label}</h4>
                 <p class="scope-chip-desc">{s.desc}</p>
@@ -268,15 +800,13 @@ export const prerender = false;
     </section>
 
     <!-- 8-stage PTES process -->
-    <section class="section bg-color-dark">
-      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
-        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
-      </div>
+    <section class="section bg-color-dark off-section-dotted">
       <div class="container-medium">
         <div class="section-wrapper-vertical">
-          <div class="heading-horizontal">
+          <div class="heading-horizontal off-reveal">
             <div class="heading-horizontal-inner">
               <div class="heading-horizontal-left-part">
+                <div class="off-section-eyebrow">Methodology</div>
                 <h2 class="heading">Our 8-stage penetration testing process</h2>
               </div>
               <div class="heading-horizontal-right-part">
@@ -286,8 +816,8 @@ export const prerender = false;
           </div>
 
           <ol class="ptes-stages">
-            {stages.map((stage) => (
-              <li class={`ptes-stage ${stage.clientFacing ? 'ptes-stage-client' : ''}`}>
+            {stages.map((stage, i) => (
+              <li class={`ptes-stage off-reveal ${stage.clientFacing ? 'ptes-stage-client' : ''}`} style={`transition-delay: ${i * 60}ms`}>
                 <div class="ptes-stage-num">{stage.num}</div>
                 <div class="ptes-stage-body">
                   <h3 class="ptes-stage-name">
@@ -304,15 +834,13 @@ export const prerender = false;
     </section>
 
     <!-- Flagship services -->
-    <section class="section">
-      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
-        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
-      </div>
+    <section class="section off-section-dotted">
       <div class="container">
         <div class="section-wrapper-vertical section-wrapper-vertical-large">
-          <div class="heading-horizontal">
+          <div class="heading-horizontal off-reveal">
             <div class="heading-horizontal-inner">
               <div class="heading-horizontal-left-part">
+                <div class="off-section-eyebrow">Services</div>
                 <h2 class="heading">Flagship services — available now</h2>
               </div>
               <div class="heading-horizontal-right-part">
@@ -322,8 +850,8 @@ export const prerender = false;
           </div>
 
           <div class="flag-grid flag-grid-five">
-            {flagship.map((svc) => (
-              <a href={svc.href} class="flag-card" aria-label={`Learn about ${svc.title}`}>
+            {flagship.map((svc, i) => (
+              <a href={svc.href} class="flag-card off-reveal" style={`transition-delay: ${i * 70}ms`} aria-label={`Learn about ${svc.title}`}>
                 <div class="flag-card-head">
                   <span class="flag-price">{svc.price}</span>
                   {svc.isNew ? (
@@ -352,15 +880,13 @@ export const prerender = false;
     </section>
 
     <!-- Compliance mapping -->
-    <section class="section bg-color-dark" id="compliance">
-      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
-        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
-      </div>
+    <section class="section bg-color-dark off-section-dotted" id="compliance">
       <div class="container-medium">
         <div class="section-wrapper-vertical">
-          <div class="heading-horizontal">
+          <div class="heading-horizontal off-reveal">
             <div class="heading-horizontal-inner">
               <div class="heading-horizontal-left-part">
+                <div class="off-section-eyebrow">Audit Mapping</div>
                 <h2 class="heading">Compliance mapping — which scope your framework needs</h2>
               </div>
               <div class="heading-horizontal-right-part">
@@ -369,7 +895,7 @@ export const prerender = false;
             </div>
           </div>
 
-          <div class="compliance-table-wrap">
+          <div class="compliance-table-wrap off-reveal">
             <table class="compliance-table">
               <thead>
                 <tr>
@@ -394,15 +920,13 @@ export const prerender = false;
     </section>
 
     <!-- Transparent startup pricing -->
-    <section class="section">
-      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
-        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
-      </div>
+    <section class="section off-section-dotted">
       <div class="container-medium">
         <div class="section-wrapper-vertical">
-          <div class="heading-horizontal">
+          <div class="heading-horizontal off-reveal">
             <div class="heading-horizontal-inner">
               <div class="heading-horizontal-left-part">
+                <div class="off-section-eyebrow">Pricing</div>
                 <h2 class="heading">Transparent pricing</h2>
               </div>
               <div class="heading-horizontal-right-part">
@@ -411,11 +935,11 @@ export const prerender = false;
             </div>
           </div>
 
-          <div class="price-callout">
+          <div class="price-callout off-reveal">
             <strong>Founding-client offer —</strong> the first three UAE clients per service line get <strong>25% off</strong> in exchange for a named testimonial and case study rights.
           </div>
 
-          <div class="price-table-wrap">
+          <div class="price-table-wrap off-reveal">
             <table class="price-table">
               <thead>
                 <tr>
@@ -433,8 +957,8 @@ export const prerender = false;
                 <tr><td>Mobile app (both iOS + Android)</td><td>30,000</td><td>10 – 14 days</td></tr>
                 <tr><td>API pentest (standalone)</td><td>15,000</td><td>5 – 10 days</td></tr>
                 <tr><td>Phishing simulation (up to 200 users)</td><td>8,000</td><td>2 weeks campaign</td></tr>
-                <tr><td>Bundle: Network + Web App</td><td>32,000</td><td>2 – 3 weeks</td></tr>
-                <tr><td>Bundle: Full-stack (Network + Web + Mobile)</td><td>55,000</td><td>4 – 5 weeks</td></tr>
+                <tr class="price-bundle"><td>Network + Web App</td><td>32,000</td><td>2 – 3 weeks</td></tr>
+                <tr class="price-bundle"><td>Full-stack: Network + Web + Mobile</td><td>55,000</td><td>4 – 5 weeks</td></tr>
               </tbody>
             </table>
           </div>
@@ -447,15 +971,13 @@ export const prerender = false;
     </section>
 
     <!-- Deliverables -->
-    <section class="section bg-color-dark">
-      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
-        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
-      </div>
+    <section class="section bg-color-dark off-section-dotted">
       <div class="container-medium">
         <div class="section-wrapper-vertical">
-          <div class="heading-horizontal">
+          <div class="heading-horizontal off-reveal">
             <div class="heading-horizontal-inner">
               <div class="heading-horizontal-left-part">
+                <div class="off-section-eyebrow">Deliverables</div>
                 <h2 class="heading">What you actually get</h2>
               </div>
               <div class="heading-horizontal-right-part">
@@ -465,32 +987,32 @@ export const prerender = false;
           </div>
 
           <ul class="deliverables-grid">
-            <li class="deliverable-item">
+            <li class="deliverable-item off-reveal" style="transition-delay: 0ms">
               <div class="deliverable-num">01</div>
               <h4>Executive summary</h4>
               <p>1 – 2 pages, board-consumable. Business impact, risk posture, remediation priority.</p>
             </li>
-            <li class="deliverable-item">
+            <li class="deliverable-item off-reveal" style="transition-delay: 70ms">
               <div class="deliverable-num">02</div>
               <h4>Technical findings report</h4>
               <p>CVSS-scored findings with reproduction steps, screenshots, and remediation guidance. Typically 20 – 50 pages.</p>
             </li>
-            <li class="deliverable-item">
+            <li class="deliverable-item off-reveal" style="transition-delay: 140ms">
               <div class="deliverable-num">03</div>
               <h4>PoC evidence pack</h4>
               <p>Scripts, payloads, Frida hooks — everything your dev team needs to reproduce locally.</p>
             </li>
-            <li class="deliverable-item">
+            <li class="deliverable-item off-reveal" style="transition-delay: 210ms">
               <div class="deliverable-num">04</div>
               <h4>Compliance mapping</h4>
               <p>Findings cross-referenced to ISO 27001 Annex A, UAE IA, ADHICS, PCI DSS controls as relevant.</p>
             </li>
-            <li class="deliverable-item">
+            <li class="deliverable-item off-reveal" style="transition-delay: 280ms">
               <div class="deliverable-num">05</div>
               <h4>Live walkthrough</h4>
               <p>90-minute session with your engineers — every critical and high finding demonstrated live.</p>
             </li>
-            <li class="deliverable-item">
+            <li class="deliverable-item off-reveal" style="transition-delay: 350ms">
               <div class="deliverable-num">06</div>
               <h4>Free 30-day retest</h4>
               <p>Validate your fixes on critical and high findings within 30 days of remediation. Separate retest report issued.</p>
@@ -501,15 +1023,13 @@ export const prerender = false;
     </section>
 
     <!-- Coming 2027 -->
-    <section class="section">
-      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
-        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
-      </div>
+    <section class="section off-section-dotted">
       <div class="container">
         <div class="section-wrapper-vertical section-wrapper-vertical-large">
-          <div class="heading-horizontal">
+          <div class="heading-horizontal off-reveal">
             <div class="heading-horizontal-inner">
               <div class="heading-horizontal-left-part">
+                <div class="off-section-eyebrow">Roadmap</div>
                 <h2 class="heading">Year 2 — 2027 roadmap</h2>
               </div>
               <div class="heading-horizontal-right-part">
@@ -519,8 +1039,8 @@ export const prerender = false;
           </div>
 
           <div class="soon-grid">
-            {comingY2.map((svc) => (
-              <div class="soon-card" data-service-slug={svc.slug}>
+            {comingY2.map((svc, i) => (
+              <div class="soon-card off-reveal" style={`transition-delay: ${i * 80}ms`} data-service-slug={svc.slug}>
                 <div class="soon-card-head">
                   <span class="soon-badge soon-badge-2027">2027</span>
                 </div>
@@ -539,15 +1059,13 @@ export const prerender = false;
     </section>
 
     <!-- Coming 2028 -->
-    <section class="section bg-color-dark">
-      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
-        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
-      </div>
+    <section class="section bg-color-dark off-section-dotted">
       <div class="container">
         <div class="section-wrapper-vertical section-wrapper-vertical-large">
-          <div class="heading-horizontal">
+          <div class="heading-horizontal off-reveal">
             <div class="heading-horizontal-inner">
               <div class="heading-horizontal-left-part">
+                <div class="off-section-eyebrow">Roadmap</div>
                 <h2 class="heading">Year 3 — 2028 roadmap</h2>
               </div>
               <div class="heading-horizontal-right-part">
@@ -557,8 +1075,8 @@ export const prerender = false;
           </div>
 
           <div class="soon-grid">
-            {comingY3.map((svc) => (
-              <div class="soon-card" data-service-slug={svc.slug}>
+            {comingY3.map((svc, i) => (
+              <div class="soon-card off-reveal" style={`transition-delay: ${i * 80}ms`} data-service-slug={svc.slug}>
                 <div class="soon-card-head">
                   <span class="soon-badge soon-badge-2028">2028</span>
                 </div>
@@ -577,15 +1095,13 @@ export const prerender = false;
     </section>
 
     <!-- Why UAE -->
-    <section class="section">
-      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
-        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
-      </div>
+    <section class="section off-section-dotted">
       <div class="container-medium">
         <div class="section-wrapper-vertical">
-          <div class="heading-horizontal">
+          <div class="heading-horizontal off-reveal">
             <div class="heading-horizontal-inner">
               <div class="heading-horizontal-left-part">
+                <div class="off-section-eyebrow">UAE Market</div>
                 <h2 class="heading">Why this matters for UAE</h2>
               </div>
               <div class="heading-horizontal-right-part">
@@ -593,7 +1109,7 @@ export const prerender = false;
               </div>
             </div>
           </div>
-          <div class="why-uae-body">
+          <div class="why-uae-body off-reveal">
             <p>Every UAE enterprise onboarding process — banks, tender committees, enterprise procurement — asks for penetration-test evidence before contract. Most UAE mid-market companies respond with a <em>vulnerability scan PDF</em>. That's not what auditors and procurement teams are asking for, and it's not what keeps you safe.</p>
             <p>We deliver the real thing: <strong>manual, methodical, exploit-driven testing</strong> by named OSCP, CPTS, and CEH practitioners, following PTES, OWASP, and NIST methodology. Scanners and automation are part of the toolkit — but tools don't write the report or decide what to exploit next. Our testers do.</p>
             <p>Every engagement ends with a live walkthrough of findings and a <strong>free retest of critical and high findings within 30 days of remediation</strong>.</p>
@@ -602,23 +1118,39 @@ export const prerender = false;
       </div>
     </section>
 
-    <!-- CTA -->
-    <section class="section bg-color-dark">
-      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
-        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
-      </div>
+    <!-- Final CTA -->
+    <section class="section bg-color-dark off-final-cta">
       <div class="container-medium">
-        <div class="section-wrapper-vertical" style="align-items:center;text-align:center;">
-          <h2 class="heading" style="max-width:620px;">Enterprise client asked for a pen test report? Audit coming up? Mobile app shipping soon?</h2>
-          <p class="text-medium" style="max-width:600px;">
+        <div class="section-wrapper-vertical off-reveal" style="align-items:center;text-align:center;gap:1.25rem;">
+          <span class="off-cta-kicker">Ready when you are</span>
+          <h2 class="heading" style="max-width:720px;">Enterprise client asked for a pen test report?<br>Audit coming up? Mobile app shipping soon?</h2>
+          <p class="text-medium" style="max-width:620px;">
             Book a free 30-minute scoping call. We'll scope your engagement against your actual compliance or commercial need, and send a written quote within 48 hours.
           </p>
-          <div class="button">
-            <a href="/#contact?service=offensive-security" class="button-hidden w-button">Book a Free Scoping Call</a>
-            <div class="button-wrapper">
-              <div class="button-text">Book a Free Scoping Call</div>
-            </div>
-            <div class="button-accent-gradinet"></div>
+
+          <div class="off-hero-cta-row" style="margin-top: 0.25rem;">
+            <a href="/services/offensive-security/scope-builder" class="off-hero-btn off-hero-btn-primary">
+              <span>Start the Scope Builder (2 min)</span>
+              <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+                <path d="M1.5 7.5h12M8 2l5.5 5.5L8 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+            <button type="button" data-calendly-open class="off-hero-btn off-hero-btn-secondary" aria-label="Book a scoping call via Calendly">
+              <span>Book a Free Scoping Call</span>
+              <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+                <path d="M1.5 7.5h12M8 2l5.5 5.5L8 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+
+          <div class="off-cta-trust">
+            <span>NDA-first</span>
+            <span class="off-cta-trust-dot" aria-hidden="true">·</span>
+            <span>No sales pressure</span>
+            <span class="off-cta-trust-dot" aria-hidden="true">·</span>
+            <span>Written quote in 48 hours</span>
+            <span class="off-cta-trust-dot" aria-hidden="true">·</span>
+            <span>Free retest of critical / high</span>
           </div>
         </div>
       </div>

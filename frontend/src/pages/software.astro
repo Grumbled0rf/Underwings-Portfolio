@@ -18,8 +18,8 @@ const serviceSchema = {
     "name": "Underwings Cybersecurity Solutions",
     "url": "https://underwings.org"
   },
-  "description": "Cybersecurity software sales with full implementation, training, and ongoing support. Endpoint protection, SIEM, email security, network security and more.",
-  "areaServed": ["IN", "AE"],
+  "description": "Cybersecurity software sales with full implementation, training, and ongoing support. Endpoint protection, SIEM, email security, network security, and more — quoted in AED and deployed by named engineers.",
+  "areaServed": ["AE", "IN"],
   "serviceType": "Cybersecurity Software Sales & Implementation"
 };
 
@@ -27,59 +27,392 @@ export const prerender = false;
 ---
 
 <Layout
-  title="Cybersecurity Software Sales | Underwings"
-  description="Cybersecurity software sales with full implementation, training, and support. Sophos, Fortinet, ManageEngine, Qualys, and more — deployed and managed for you."
-  keywords="cybersecurity software, security software sales, endpoint protection, SIEM solutions, email security, firewall solutions, security software implementation, Sophos, Fortinet, ManageEngine"
+  title="Cybersecurity Software — Quoted, Deployed, Supported in AED | Underwings"
+  description="Endpoint, SIEM, email, firewall and cloud security software — quoted in AED within 24 hours, deployed by named engineers, supported locally in the UAE. Vendor-neutral recommendations."
+  keywords="cybersecurity software UAE, security software sales AED, EDR UAE, SIEM UAE, endpoint protection UAE, security software bundles, vendor neutral cybersecurity UAE"
   wfPage="software-page"
   schema={serviceSchema}
   bodyClass="body"
 >
+
+  <Fragment slot="head">
+    <style is:inline>
+      /* ───── Hero blur-fade in (staggered) ───── */
+      .sw-hero-fade { animation: swHeroFadeIn 0.8s ease-out both; animation-delay: 0.5s; }
+      @keyframes swHeroFadeIn {
+        from { filter: blur(3px); opacity: 0; transform: translateY(1rem); }
+        to   { filter: blur(0);   opacity: 1; transform: translateY(0); }
+      }
+
+      .sw-hero-wrap { position: relative; overflow: hidden; }
+      .sw-hero-wrap .hero-heading-wrapper {
+        display: flex; flex-direction: column; align-items: center; gap: 1.1rem;
+      }
+      .sw-hero-wrap .hero-heading-wrapper > * { margin: 0; }
+      .sw-hero-wrap .heading-large.hero-heading-large {
+        line-height: 1.05; letter-spacing: -0.035em;
+      }
+
+      /* Eyebrow pill with pulse */
+      .sw-hero-eyebrow {
+        display: inline-flex; align-items: center; gap: 0.55rem;
+        padding: 0.4rem 0.95rem; border-radius: 100px;
+        background: rgba(36,215,88,0.06);
+        border: 1px solid rgba(36,215,88,0.22);
+        font-family: 'Geist Mono', ui-monospace, monospace;
+        font-size: 0.72rem; letter-spacing: 0.14em;
+        text-transform: uppercase; color: #24d758;
+      }
+      .sw-hero-pulse {
+        width: 7px; height: 7px; border-radius: 50%; background: #24d758;
+        box-shadow: 0 0 0 0 rgba(36,215,88,0.55);
+        animation: swHeroPulse 2.2s ease-out infinite;
+      }
+      @keyframes swHeroPulse {
+        0%   { box-shadow: 0 0 0 0 rgba(36,215,88,0.55); opacity: 1; }
+        70%  { box-shadow: 0 0 0 10px rgba(36,215,88,0); opacity: 0.7; }
+        100% { box-shadow: 0 0 0 0 rgba(36,215,88,0); opacity: 1; }
+      }
+
+      /* Typewriter rotator */
+      .sw-hero-rotator {
+        position: relative; display: inline-block;
+        vertical-align: baseline; white-space: nowrap;
+      }
+      .sw-hero-rotator-word {
+        display: inline-block;
+        background: linear-gradient(90deg, #24d758 0%, #27dab4 100%);
+        -webkit-background-clip: text; background-clip: text;
+        -webkit-text-fill-color: transparent; color: transparent;
+        transition: text-shadow 0.25s ease;
+      }
+      .sw-hero-rotator.is-typing .sw-hero-rotator-word,
+      .sw-hero-rotator.is-deleting .sw-hero-rotator-word {
+        text-shadow: 0 0 22px rgba(36,215,88,0.25);
+      }
+      .sw-hero-rotator-caret {
+        display: inline-block; width: 2px; height: 0.95em;
+        margin-left: 4px;
+        background: linear-gradient(180deg, #24d758, #27dab4);
+        vertical-align: -0.08em; border-radius: 2px;
+        box-shadow: 0 0 10px rgba(36,215,88,0.6);
+        animation: swHeroCaretBlink 0.9s ease-in-out infinite;
+      }
+      .sw-hero-rotator.is-typing .sw-hero-rotator-caret,
+      .sw-hero-rotator.is-deleting .sw-hero-rotator-caret {
+        animation: none; opacity: 1;
+      }
+      @keyframes swHeroCaretBlink {
+        0%, 49%   { opacity: 1; }
+        50%, 100% { opacity: 0.15; }
+      }
+      @media (max-width: 560px) {
+        .sw-hero-rotator { white-space: normal; }
+      }
+
+      /* Dual CTA row */
+      .sw-hero-cta-row {
+        display: flex; gap: 0.75rem; justify-content: center;
+        flex-wrap: wrap; margin-top: 1.75rem;
+      }
+      .sw-hero-btn {
+        display: inline-flex; align-items: center; gap: 0.5rem;
+        padding: 0.85rem 1.5rem; border-radius: 10px;
+        font-size: 0.92rem; font-weight: 600; letter-spacing: -0.005em;
+        text-decoration: none; border: 1px solid transparent; cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+        font-family: inherit;
+      }
+      .sw-hero-btn-primary {
+        background: linear-gradient(135deg, #24d758, #27dab4); color: #0a0a0a;
+        box-shadow: 0 4px 18px rgba(36,215,88,0.18);
+      }
+      .sw-hero-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(36,215,88,0.28); }
+      .sw-hero-btn-secondary {
+        background: rgba(255,255,255,0.04); color: #fff; border-color: rgba(255,255,255,0.15);
+      }
+      .sw-hero-btn-secondary:hover { background: rgba(36,215,88,0.06); border-color: rgba(36,215,88,0.35); }
+      .sw-hero-btn svg { transition: transform 0.2s ease; }
+      .sw-hero-btn:hover svg { transform: translateX(3px); }
+
+      /* Microtrust */
+      .sw-hero-microtrust-row {
+        display: flex; align-items: center; justify-content: center;
+        gap: 0.55rem; margin: 1rem 0 0; font-size: 0.8rem;
+        color: rgba(255,255,255,0.48); flex-wrap: wrap;
+      }
+      .sw-hero-microtrust-dot { color: rgba(255,255,255,0.2); }
+
+      /* Stats strip */
+      .sw-hero-stats {
+        display: grid; grid-template-columns: repeat(4, 1fr);
+        gap: 1rem; margin: 2.25rem auto 0; max-width: 780px;
+        padding: 1.25rem 1.75rem;
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 14px; position: relative; overflow: hidden;
+      }
+      .sw-hero-stats::before {
+        content: ''; position: absolute; inset: 0;
+        background: radial-gradient(ellipse at top, rgba(36,215,88,0.06) 0%, transparent 65%);
+        pointer-events: none;
+      }
+      .sw-hero-stat { display: flex; flex-direction: column; gap: 0.15rem; align-items: center; text-align: center; position: relative; z-index: 1; }
+      .sw-hero-stat-num {
+        font-family: 'Geist Mono', ui-monospace, monospace;
+        font-size: 1.35rem; font-weight: 700; color: #24d758;
+        letter-spacing: -0.01em; font-variant-numeric: tabular-nums;
+      }
+      .sw-hero-stat-label {
+        font-size: 0.7rem; color: rgba(255,255,255,0.5);
+        text-transform: uppercase; letter-spacing: 0.08em;
+      }
+      @media (max-width: 720px) {
+        .sw-hero-stats { grid-template-columns: repeat(2, 1fr); gap: 0.9rem 0.5rem; padding: 1rem; }
+        .sw-hero-stat-num { font-size: 1.15rem; }
+      }
+
+      /* Animated grid + orb backdrop */
+      .sw-hero-grid {
+        position: absolute; inset: 0;
+        background-image:
+          linear-gradient(rgba(36,215,88,0.045) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(36,215,88,0.045) 1px, transparent 1px);
+        background-size: 56px 56px;
+        mask-image: radial-gradient(ellipse 60% 70% at 50% 30%, #000 0%, transparent 75%);
+        -webkit-mask-image: radial-gradient(ellipse 60% 70% at 50% 30%, #000 0%, transparent 75%);
+        pointer-events: none; z-index: 0;
+        animation: swHeroGridDrift 24s linear infinite;
+      }
+      @keyframes swHeroGridDrift {
+        from { background-position: 0 0, 0 0; }
+        to   { background-position: 56px 56px, 56px 56px; }
+      }
+      .sw-hero-orb {
+        position: absolute; width: 520px; height: 520px;
+        top: -180px; left: 50%; transform: translateX(-50%);
+        background: radial-gradient(circle, rgba(36,215,88,0.08) 0%, rgba(36,215,88,0.02) 35%, transparent 65%);
+        filter: blur(20px); pointer-events: none; z-index: 0;
+        animation: swHeroOrbDrift 9s ease-in-out infinite;
+      }
+      @keyframes swHeroOrbDrift {
+        0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.85; }
+        50%      { transform: translateX(-50%) translateY(18px); opacity: 1; }
+      }
+
+      /* Vendor ribbon */
+      .sw-hero-ribbon {
+        display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+        gap: 0.5rem; margin-top: 2.25rem; padding: 0 1rem;
+        position: relative; z-index: 1;
+      }
+      .sw-hero-ribbon-label {
+        font-family: 'Geist Mono', ui-monospace, monospace;
+        font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase;
+        color: rgba(255,255,255,0.4); margin-right: 0.5rem;
+      }
+      .sw-hero-chip {
+        font-family: 'Geist Mono', ui-monospace, monospace;
+        font-size: 0.72rem; letter-spacing: 0.04em;
+        padding: 0.35rem 0.7rem; border-radius: 6px;
+        background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(255,255,255,0.1);
+        color: rgba(255,255,255,0.7);
+        transition: border-color 0.2s, color 0.2s, background 0.2s;
+      }
+      .sw-hero-chip:hover {
+        border-color: rgba(36,215,88,0.35);
+        color: #24d758;
+        background: rgba(36,215,88,0.06);
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .sw-hero-fade, .sw-hero-pulse, .sw-hero-orb, .sw-hero-grid,
+        .sw-hero-rotator-word, .sw-hero-rotator-caret {
+          animation: none !important;
+        }
+        .sw-hero-fade { opacity: 1; filter: none; transform: none; }
+      }
+    </style>
+  </Fragment>
 
   <Header currentPage="software" />
 
   <main id="main" class="main">
 
     <!-- ============ HERO ============ -->
-    <section class="section top-padding-small bottom-padding-medium">
-      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
-        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
-      </div>
-      <div class="container-medium">
+    <section class="section bottom-padding-clear top-padding-small sw-hero-wrap">
+      <div class="sw-hero-grid" aria-hidden="true"></div>
+      <div class="sw-hero-orb" aria-hidden="true"></div>
+      <div class="container-medium" style="position: relative; z-index: 1;">
         <div class="hero">
           <div class="hero-main-wrapper">
+
             <div class="hero-heading-wrapper">
-              <div class="sw-label">
-                <div class="text-small color-grey">Software Sales</div>
+              <span class="sw-hero-eyebrow sw-hero-fade">
+                <span class="sw-hero-pulse" aria-hidden="true"></span>
+                Software · Implementation · Support
+              </span>
+
+              <h1 class="heading-large hero-heading-large sw-hero-fade" style="animation-delay: 0.2s">
+                Deployed &amp; supported<br><span class="sw-hero-rotator" aria-live="polite"><span class="sw-hero-rotator-word" data-rotate='["Endpoint Protection","SIEM &amp; Analytics","Email Security","Cloud Security","Network Defence","Vulnerability Management","Identity &amp; Access","Backup &amp; Recovery"]'>Endpoint Protection</span><span class="sw-hero-rotator-caret" aria-hidden="true"></span></span>
+              </h1>
+
+              <p class="text text-center sw-hero-fade" style="animation-delay: 0.4s; max-width:720px; margin:0 auto;">
+                We licence, deploy, harden, and run cybersecurity tools end-to-end —
+                <strong>quoted in AED within 24 hours</strong>, configured by named engineers,
+                supported locally. No shelfware, no vendor handoffs.
+              </p>
+            </div>
+
+            <!-- Dual CTA -->
+            <div class="sw-hero-cta-row sw-hero-fade" style="animation-delay: 0.55s">
+              <a href="/#contact?intent=software-quote" class="sw-hero-btn sw-hero-btn-primary">
+                <span>Get a 24-hour quote</span>
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+                  <path d="M1.5 7.5h12M8 2l5.5 5.5L8 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+              <a href="https://wa.me/971505670394?text=Hi%2C%20I%27d%20like%20a%20quote%20for%20security%20software"
+                 target="_blank" rel="noopener"
+                 class="sw-hero-btn sw-hero-btn-secondary"
+                 aria-label="Open WhatsApp chat for a software quote">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.464 3.488"/>
+                </svg>
+                <span>WhatsApp us</span>
+              </a>
+            </div>
+
+            <!-- Microtrust row -->
+            <p class="sw-hero-microtrust-row sw-hero-fade" style="animation-delay: 0.7s">
+              <span>Quoted in AED</span>
+              <span class="sw-hero-microtrust-dot" aria-hidden="true">·</span>
+              <span>Vendor-neutral advice</span>
+              <span class="sw-hero-microtrust-dot" aria-hidden="true">·</span>
+              <span>Local UAE delivery &amp; support</span>
+            </p>
+
+            <!-- Stats strip with count-up -->
+            <div class="sw-hero-stats sw-hero-fade" style="animation-delay: 0.85s">
+              <div class="sw-hero-stat">
+                <span class="sw-hero-stat-num" data-target="24" data-suffix="h">0h</span>
+                <span class="sw-hero-stat-label">Quote Turnaround</span>
               </div>
-              <h1 class="heading-large hero-heading-large">The Right Security Tools, <span class="text-gradient-clip bg-color-green-gradient">Properly Deployed</span></h1>
-              <p class="text" style="max-width: 680px; margin: 1.5rem auto 0; text-align: center;">We don't just sell licenses — we assess your environment, recommend the right fit, deploy it properly, train your team, and support you long after the sale.</p>
-              <div style="margin-top: 2rem; text-align: center;">
-                <div class="button" style="display: inline-block;">
-                  <a href="/#contact" class="button-hidden w-button">Let's Talk</a>
-                  <div class="button-wrapper">
-                    <div class="button-text">Let's Talk</div>
-                  </div>
-                  <div class="button-accent-gradinet"></div>
-                </div>
+              <div class="sw-hero-stat">
+                <span class="sw-hero-stat-num" data-target="10" data-suffix="+">0+</span>
+                <span class="sw-hero-stat-label">Vendor Categories</span>
+              </div>
+              <div class="sw-hero-stat">
+                <span class="sw-hero-stat-num" data-target="90" data-suffix="d">0d</span>
+                <span class="sw-hero-stat-label">Post-Go-Live Support</span>
+              </div>
+              <div class="sw-hero-stat">
+                <span class="sw-hero-stat-num" data-target="0" data-suffix="" data-text="AED">0</span>
+                <span class="sw-hero-stat-label">All Pricing</span>
               </div>
             </div>
           </div>
         </div>
+
       </div>
     </section>
 
-    <!-- ============ PARTNER LOGOS — hidden until channel partner agreements are in place ============
-    <section class="section top-padding-small bottom-padding-small" style="background: linear-gradient(180deg, rgba(17,17,17,0) 0%, rgba(36,215,88,0.03) 50%, rgba(17,17,17,0) 100%);">
-      <div class="container">
-        <div style="text-align: center;">
-          <p style="color: rgba(255,255,255,0.7); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 2.5rem;">Our Technology Partners</p>
-          <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 3rem;">
-            <PartnerLogos size="large" linkTo="/software" />
-          </div>
-        </div>
-      </div>
-    </section>
-    -->
+    <!-- Hero JS — typewriter rotator + stat count-up -->
+    <script is:inline nonce={Astro.locals.nonce || ""}>
+    (function () {
+      function init() {
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        var rotator = document.querySelector('.sw-hero-rotator-word[data-rotate]');
+        var wrap    = document.querySelector('.sw-hero-rotator');
+        if (!reduce && rotator && wrap) {
+          var words;
+          try { words = JSON.parse(rotator.getAttribute('data-rotate')); } catch (e) { words = []; }
+          if (words.length > 1) {
+            rotator.textContent = '';
+            var wordIdx = 0, charIdx = 0, deleting = false;
+            var TYPE_MIN = 55, TYPE_MAX = 110, DELETE_SPEED = 32, HOLD_FULL = 1400, HOLD_EMPTY = 240;
+            function setState(s) {
+              wrap.classList.remove('is-typing', 'is-deleting');
+              if (s) wrap.classList.add(s);
+            }
+            function tick() {
+              var word = words[wordIdx];
+              if (!deleting) {
+                setState('is-typing');
+                charIdx++;
+                rotator.textContent = word.slice(0, charIdx);
+                if (charIdx === word.length) {
+                  setState(null); deleting = true;
+                  return setTimeout(tick, HOLD_FULL);
+                }
+                var jitter = TYPE_MIN + Math.random() * (TYPE_MAX - TYPE_MIN);
+                return setTimeout(tick, jitter);
+              } else {
+                setState('is-deleting');
+                charIdx--;
+                rotator.textContent = word.slice(0, charIdx);
+                if (charIdx === 0) {
+                  setState(null); deleting = false;
+                  wordIdx = (wordIdx + 1) % words.length;
+                  return setTimeout(tick, HOLD_EMPTY);
+                }
+                return setTimeout(tick, DELETE_SPEED);
+              }
+            }
+            setTimeout(tick, 700);
+          }
+        }
+
+        var hasIO = (typeof IntersectionObserver !== 'undefined');
+        if (!reduce && hasIO) {
+          var stats = document.querySelectorAll('.sw-hero-stat-num[data-target]');
+          if (stats.length) {
+            var animated = new WeakSet();
+            var io = new IntersectionObserver(function (entries) {
+              entries.forEach(function (entry) {
+                if (!entry.isIntersecting) return;
+                var el = entry.target;
+                if (animated.has(el)) return;
+                animated.add(el);
+                var textOverride = el.getAttribute('data-text');
+                if (textOverride) {
+                  el.textContent = textOverride;
+                  return;
+                }
+                var target = parseInt(el.getAttribute('data-target'), 10) || 0;
+                var suffix = el.getAttribute('data-suffix') || '';
+                var dur = 1200, start = performance.now();
+                function tick(now) {
+                  var t = Math.min(1, (now - start) / dur);
+                  var eased = 1 - Math.pow(1 - t, 3);
+                  el.textContent = Math.round(target * eased) + suffix;
+                  if (t < 1) requestAnimationFrame(tick);
+                }
+                requestAnimationFrame(tick);
+              });
+            }, { threshold: 0.4 });
+            stats.forEach(function (s) { io.observe(s); });
+          }
+        } else {
+          // Reduced-motion: set final values immediately
+          document.querySelectorAll('.sw-hero-stat-num[data-target]').forEach(function (el) {
+            var textOverride = el.getAttribute('data-text');
+            if (textOverride) { el.textContent = textOverride; return; }
+            var target = parseInt(el.getAttribute('data-target'), 10) || 0;
+            el.textContent = target + (el.getAttribute('data-suffix') || '');
+          });
+        }
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
+    </script>
 
     <!-- ============ WHY BUY THROUGH US ============ -->
     <section class="section bg-color-dark">
@@ -87,177 +420,212 @@ export const prerender = false;
         <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
       </div>
       <div class="container">
-        <div style="text-align: center; margin-bottom: 3rem;">
+        <div class="sw-section-head">
           <div class="sw-label">
             <div class="text-small color-grey">Why Underwings</div>
           </div>
-          <h2 class="heading heading-center" style="margin-top: 0.75rem;">More Than Just a <span class="text-gradient-clip bg-color-green-gradient">Reseller</span></h2>
+          <h2 class="heading heading-center" style="margin-top: 0.75rem;">
+            More than a <span class="text-gradient-clip bg-color-green-gradient">reseller</span>
+          </h2>
+          <p class="sw-section-sub">
+            A licence is the easy part. The value is in scoping it right, configuring it well, and being
+            reachable when something breaks at 11pm.
+          </p>
         </div>
         <div class="sw-benefits-grid">
           <div class="sw-benefit-card">
             <div class="sw-benefit-icon">
               <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M14 3v22M3 14h22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><rect x="6" y="6" width="16" height="16" rx="3" stroke="currentColor" stroke-width="1.5"/></svg>
             </div>
-            <h3 class="heading-small" style="margin-bottom: 0.5rem;">Expert Deployment</h3>
-            <p class="text-medium color-grey">Proper configuration, integration with your infrastructure, and hardening from day one. No shelfware — every tool works as intended.</p>
+            <h3 class="heading-small sw-benefit-title">Expert deployment</h3>
+            <p class="text-medium color-grey">Configured against vendor + CIS hardening guides from day one. Integrated with your AD, SIEM, and ticketing — not dropped on your IT team to figure out.</p>
           </div>
           <div class="sw-benefit-card">
             <div class="sw-benefit-icon">
               <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M7 20c0-4 3-5 7-5s7 1 7 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="14" cy="10" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M22 10c2 1 3 3 3 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="22" cy="7" r="2.5" stroke="currentColor" stroke-width="1.5"/></svg>
             </div>
-            <h3 class="heading-small" style="margin-bottom: 0.5rem;">Team Training</h3>
-            <p class="text-medium color-grey">Hands-on sessions for your IT and security teams. We make sure your staff can effectively operate and manage every tool.</p>
+            <h3 class="heading-small sw-benefit-title">Hands-on training</h3>
+            <p class="text-medium color-grey">Your IT team learns to operate, tune, and respond — with playbooks and runbooks they keep. So you're not paying for support tickets you could close yourself.</p>
           </div>
           <div class="sw-benefit-card">
             <div class="sw-benefit-icon">
               <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M14 25s-9-5.5-9-13V6l9-3 9 3v6c0 7.5-9 13-9 13z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M10 14l3 3 5-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
-            <h3 class="heading-small" style="margin-bottom: 0.5rem;">Ongoing Support</h3>
-            <p class="text-medium color-grey">Local, responsive support whenever you need it. We're your first point of contact — faster than going vendor-direct.</p>
+            <h3 class="heading-small sw-benefit-title">Local support</h3>
+            <p class="text-medium color-grey">Email, WhatsApp, or phone — answered by the engineer who deployed it. Faster than a vendor hotline; same time zone, same language, same person.</p>
           </div>
           <div class="sw-benefit-card">
             <div class="sw-benefit-icon">
               <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="10" stroke="currentColor" stroke-width="1.5"/><path d="M14 8v6l4 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
-            <h3 class="heading-small" style="margin-bottom: 0.5rem;">Honest Guidance</h3>
-            <p class="text-medium color-grey">We recommend what fits your needs and budget — not what pays us the most. If you don't need it, we'll tell you.</p>
+            <h3 class="heading-small sw-benefit-title">Honest guidance</h3>
+            <p class="text-medium color-grey">Vendor-neutral. We'll tell you when a free, open-source tool fits better — even though it pays us less. Long-term trust beats one-off margin.</p>
           </div>
         </div>
       </div>
     </section>
 
     <!-- ============ SOLUTION CATEGORIES ============ -->
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
+        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
+      </div>
+      <div class="container">
+        <div class="sw-section-head">
+          <div class="sw-label">
+            <div class="text-small color-grey">Solutions</div>
+          </div>
+          <h2 class="heading heading-center" style="margin-top: 0.75rem;">
+            Security software <span class="text-gradient-clip bg-color-green-gradient">categories</span>
+          </h2>
+          <p class="sw-section-sub">
+            Industry-leading vendors across every layer. Don't see what you need? Ask — chances are we can source it.
+          </p>
+        </div>
+        <div class="sw-cat-grid">
+
+          <a href="/#contact?intent=quote-endpoint" class="sw-cat-card">
+            <div class="sw-cat-icon-wrap">
+              <svg class="sw-cat-icon" viewBox="0 0 32 32" fill="none"><rect x="7" y="4" width="18" height="22" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M12 26h8M16 22v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="16" cy="13" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M13 17l3-2 3 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <h3 class="sw-cat-title">Endpoint Protection</h3>
+            <p class="sw-cat-desc">EPP, EDR, and XDR — workstation, server, and mobile defence against ransomware and modern threats.</p>
+            <div class="sw-cat-bestfor"><strong>Best for:</strong> any company with &gt;10 endpoints</div>
+            <span class="sw-cat-link">Get a quote <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </a>
+
+          <a href="/#contact?intent=quote-siem" class="sw-cat-card">
+            <div class="sw-cat-icon-wrap">
+              <svg class="sw-cat-icon" viewBox="0 0 32 32" fill="none"><rect x="4" y="8" width="24" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M4 12h24M8 16h6M8 20h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="24" cy="18" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M24 16v2l1.5 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <h3 class="sw-cat-title">SIEM &amp; Analytics</h3>
+            <p class="sw-cat-desc">Centralised logs, threat correlation, and alerting — from open-source to enterprise-grade, scoped to your log volume.</p>
+            <div class="sw-cat-bestfor"><strong>Best for:</strong> ISO 27001, NESA, SOC build-out</div>
+            <span class="sw-cat-link">Get a quote <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </a>
+
+          <a href="/#contact?intent=quote-email" class="sw-cat-card">
+            <div class="sw-cat-icon-wrap">
+              <svg class="sw-cat-icon" viewBox="0 0 32 32" fill="none"><rect x="5" y="8" width="22" height="16" rx="3" stroke="currentColor" stroke-width="1.5"/><path d="M5 13h22" stroke="currentColor" stroke-width="1.5"/><path d="M10 18h5M10 21h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M22 17l-2 2 2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <h3 class="sw-cat-title">Email Security</h3>
+            <p class="sw-cat-desc">Anti-phishing, BEC defence, malware sandboxing, DMARC enforcement. Closes your #1 attack vector.</p>
+            <div class="sw-cat-bestfor"><strong>Best for:</strong> finance, exec teams, M365 estates</div>
+            <span class="sw-cat-link">Get a quote <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </a>
+
+          <a href="/#contact?intent=quote-network" class="sw-cat-card">
+            <div class="sw-cat-icon-wrap">
+              <svg class="sw-cat-icon" viewBox="0 0 32 32" fill="none"><rect x="4" y="6" width="10" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/><rect x="18" y="6" width="10" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/><rect x="11" y="18" width="10" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M9 14v2a2 2 0 002 2h1M23 14v2a2 2 0 01-2 2h-1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            <h3 class="sw-cat-title">Network Security</h3>
+            <p class="sw-cat-desc">Next-gen firewalls, IDS/IPS, NAC, and secure web gateways — perimeter and east-west defence.</p>
+            <div class="sw-cat-bestfor"><strong>Best for:</strong> on-prem &amp; hybrid networks</div>
+            <span class="sw-cat-link">Get a quote <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </a>
+
+          <a href="/#contact?intent=quote-iam" class="sw-cat-card">
+            <div class="sw-cat-icon-wrap">
+              <svg class="sw-cat-icon" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="12" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M8 26c0-4.4 3.6-8 8-8s8 3.6 8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M20 10l2-2M22 8l-1 3 3-1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <h3 class="sw-cat-title">Identity &amp; Access</h3>
+            <p class="sw-cat-desc">SSO, MFA, PAM, and identity governance. Control who can reach what — and revoke fast when people leave.</p>
+            <div class="sw-cat-bestfor"><strong>Best for:</strong> regulated, audit-driven orgs</div>
+            <span class="sw-cat-link">Get a quote <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </a>
+
+          <a href="/#contact?intent=quote-cloud" class="sw-cat-card">
+            <div class="sw-cat-icon-wrap">
+              <svg class="sw-cat-icon" viewBox="0 0 32 32" fill="none"><path d="M16 6c6 0 10 3 10 6v8c0 3-4 6-10 6S6 23 6 20v-8c0-3 4-6 10-6z" stroke="currentColor" stroke-width="1.5"/><path d="M6 12c0 3 4 6 10 6s10-3 10-6" stroke="currentColor" stroke-width="1.5"/><path d="M6 16c0 3 4 6 10 6s10-3 10-6" stroke="currentColor" stroke-width="1.5"/></svg>
+            </div>
+            <h3 class="sw-cat-title">Cloud Security</h3>
+            <p class="sw-cat-desc">CSPM, CWPP, and CASB for AWS / Azure / GCP / M365 — with CIS-benchmark hardening included.</p>
+            <div class="sw-cat-bestfor"><strong>Best for:</strong> cloud-native &amp; SaaS shops</div>
+            <span class="sw-cat-link">Get a quote <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </a>
+
+          <a href="/#contact?intent=quote-vm" class="sw-cat-card">
+            <div class="sw-cat-icon-wrap">
+              <svg class="sw-cat-icon" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="10" stroke="currentColor" stroke-width="1.5"/><path d="M16 10v6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="16" cy="21" r="1.2" fill="currentColor"/></svg>
+            </div>
+            <h3 class="sw-cat-title">Vulnerability Management</h3>
+            <p class="sw-cat-desc">Continuous scanning, risk-based prioritisation, and remediation tracking. Know what to fix first.</p>
+            <div class="sw-cat-bestfor"><strong>Best for:</strong> ISO/PCI/SOC 2 evidence</div>
+            <span class="sw-cat-link">Get a quote <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </a>
+
+          <a href="/#contact?intent=quote-backup" class="sw-cat-card">
+            <div class="sw-cat-icon-wrap">
+              <svg class="sw-cat-icon" viewBox="0 0 32 32" fill="none"><path d="M8 26V14l8-8 8 8v12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 16l12-12 12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M13 26v-6h6v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <h3 class="sw-cat-title">Backup &amp; Recovery</h3>
+            <p class="sw-cat-desc">Immutable, ransomware-resistant backup and tested DR runbooks. Continuity when — not if — incidents hit.</p>
+            <div class="sw-cat-bestfor"><strong>Best for:</strong> ransomware risk-aware orgs</div>
+            <span class="sw-cat-link">Get a quote <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </a>
+
+          <a href="/#contact?intent=quote-itops" class="sw-cat-card">
+            <div class="sw-cat-icon-wrap">
+              <svg class="sw-cat-icon" viewBox="0 0 32 32" fill="none"><rect x="6" y="4" width="20" height="24" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M11 10h10M11 14h10M11 18h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="22" cy="22" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M22 20v2l1.5 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <h3 class="sw-cat-title">IT Ops &amp; Monitoring</h3>
+            <p class="sw-cat-desc">UEM, ITSM, network monitoring, and asset management — one suite that replaces three tools.</p>
+            <div class="sw-cat-bestfor"><strong>Best for:</strong> lean IT teams, MSP-style ops</div>
+            <span class="sw-cat-link">Get a quote <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ HELP ME CHOOSE (NEW) ============ -->
     <section class="section">
       <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
         <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
       </div>
       <div class="container">
-        <div style="text-align: center; margin-bottom: 3rem;">
+        <div class="sw-section-head">
           <div class="sw-label">
-            <div class="text-small color-grey">Solutions</div>
+            <div class="text-small color-grey">Decision Aid</div>
           </div>
-          <h2 class="heading heading-center" style="margin-top: 0.75rem;">Security Software <span class="text-gradient-clip bg-color-green-gradient">Categories</span></h2>
-          <p class="text-medium" style="max-width: 580px; margin: 1rem auto 0; color: rgba(255,255,255,0.7); text-align: center;">Complete security stack from industry-leading vendors. Contact us for tailored recommendations.</p>
+          <h2 class="heading heading-center" style="margin-top: 0.75rem;">
+            Not sure where to <span class="text-gradient-clip bg-color-green-gradient">start?</span>
+          </h2>
+          <p class="sw-section-sub">
+            Pick the scenario closest to yours. We'll tell you the two or three tools that move the needle most —
+            and what to skip.
+          </p>
         </div>
-        <div class="sw-cat-grid">
 
-          <a href="/#contact" class="sw-cat-card">
-            <div class="sw-cat-icon-wrap">
-              <svg class="sw-cat-icon" viewBox="0 0 32 32" fill="none"><rect x="7" y="4" width="18" height="22" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M12 26h8M16 22v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="16" cy="13" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M13 17l3-2 3 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="sw-choose-grid">
+          <div class="sw-choose-card">
+            <div class="sw-choose-question">"We've never bought security software before."</div>
+            <div class="sw-choose-answer">
+              <strong>Start with:</strong> EDR + email security + MFA tightening.
+              Three tools cover ~80% of real-world threats. Total spend: roughly AED 25–45K all-in.
             </div>
-            <h3 class="sw-cat-title">Endpoint Protection</h3>
-            <p class="sw-cat-desc">EPP, EDR, and XDR solutions. Protect workstations, servers, and mobile devices with next-gen threat detection.</p>
-            <div class="sw-cat-vendors">
-              <span class="sw-vendor-tag">Sophos</span>
-              <span class="sw-vendor-tag">Fortinet</span>
+          </div>
+          <div class="sw-choose-card">
+            <div class="sw-choose-question">"We're going for ISO 27001 / NESA."</div>
+            <div class="sw-choose-answer">
+              <strong>Start with:</strong> SIEM + vulnerability management + PAM + backup.
+              These four create the audit evidence trail. Skip CASB until you have a SaaS sprawl problem.
             </div>
-            <span class="sw-cat-link">Get a quote <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          </a>
-
-          <a href="/#contact" class="sw-cat-card">
-            <div class="sw-cat-icon-wrap">
-              <svg class="sw-cat-icon" viewBox="0 0 32 32" fill="none"><rect x="4" y="8" width="24" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M4 12h24M8 16h6M8 20h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="24" cy="18" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M24 16v2l1.5 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="sw-choose-card">
+            <div class="sw-choose-question">"We had a phishing incident last quarter."</div>
+            <div class="sw-choose-answer">
+              <strong>Start with:</strong> Email security with sandbox + MFA on every privileged account
+              + 30 days of awareness training. Tools alone won't fix it — process matters more here.
             </div>
-            <h3 class="sw-cat-title">SIEM & Analytics</h3>
-            <p class="sw-cat-desc">Centralized log management, threat detection, correlation, and alerting for your security operations center.</p>
-            <div class="sw-cat-vendors">
-              <span class="sw-vendor-tag">Securonix</span>
-              <span class="sw-vendor-tag">Wazuh</span>
-              <span class="sw-vendor-tag">ManageEngine</span>
+          </div>
+          <div class="sw-choose-card">
+            <div class="sw-choose-question">"We're cloud-native, no on-prem."</div>
+            <div class="sw-choose-answer">
+              <strong>Start with:</strong> CSPM + identity governance + endpoint EDR.
+              Network firewalls are mostly a waste of budget for you — your perimeter is identity.
             </div>
-            <span class="sw-cat-link">Get a quote <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          </a>
-
-          <a href="/#contact" class="sw-cat-card">
-            <div class="sw-cat-icon-wrap">
-              <svg class="sw-cat-icon" viewBox="0 0 32 32" fill="none"><rect x="5" y="8" width="22" height="16" rx="3" stroke="currentColor" stroke-width="1.5"/><path d="M5 13h22" stroke="currentColor" stroke-width="1.5"/><path d="M10 18h5M10 21h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M22 17l-2 2 2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </div>
-            <h3 class="sw-cat-title">Email Security</h3>
-            <p class="sw-cat-desc">Advanced protection against phishing, BEC, malware, and spam. Secure your #1 attack vector with AI-powered detection.</p>
-            <div class="sw-cat-vendors">
-              <span class="sw-vendor-tag">Sophos</span>
-              <span class="sw-vendor-tag">Fortinet</span>
-            </div>
-            <span class="sw-cat-link">Get a quote <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          </a>
-
-          <a href="/#contact" class="sw-cat-card">
-            <div class="sw-cat-icon-wrap">
-              <svg class="sw-cat-icon" viewBox="0 0 32 32" fill="none"><rect x="4" y="6" width="10" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/><rect x="18" y="6" width="10" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/><rect x="11" y="18" width="10" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M9 14v2a2 2 0 002 2h1M23 14v2a2 2 0 01-2 2h-1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-            </div>
-            <h3 class="sw-cat-title">Network Security</h3>
-            <p class="sw-cat-desc">Next-gen firewalls, IDS/IPS, network access control, and secure web gateways. Perimeter and internal protection.</p>
-            <div class="sw-cat-vendors">
-              <span class="sw-vendor-tag">Fortinet</span>
-              <span class="sw-vendor-tag">Sophos</span>
-            </div>
-            <span class="sw-cat-link">Get a quote <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          </a>
-
-          <a href="/#contact" class="sw-cat-card">
-            <div class="sw-cat-icon-wrap">
-              <svg class="sw-cat-icon" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="12" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M8 26c0-4.4 3.6-8 8-8s8 3.6 8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M20 10l2-2M22 8l-1 3 3-1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </div>
-            <h3 class="sw-cat-title">Identity & Access</h3>
-            <p class="sw-cat-desc">SSO, MFA, privileged access management, and identity governance. Control who accesses what, and when.</p>
-            <div class="sw-cat-vendors">
-              <span class="sw-vendor-tag">ManageEngine</span>
-            </div>
-            <span class="sw-cat-link">Get a quote <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          </a>
-
-          <a href="/#contact" class="sw-cat-card">
-            <div class="sw-cat-icon-wrap">
-              <svg class="sw-cat-icon" viewBox="0 0 32 32" fill="none"><path d="M16 6c6 0 10 3 10 6v8c0 3-4 6-10 6S6 23 6 20v-8c0-3 4-6 10-6z" stroke="currentColor" stroke-width="1.5"/><path d="M6 12c0 3 4 6 10 6s10-3 10-6" stroke="currentColor" stroke-width="1.5"/><path d="M6 16c0 3 4 6 10 6s10-3 10-6" stroke="currentColor" stroke-width="1.5"/></svg>
-            </div>
-            <h3 class="sw-cat-title">Cloud Security</h3>
-            <p class="sw-cat-desc">CASB, CSPM, workload protection, and cloud-native security for AWS, Azure, and GCP environments.</p>
-            <div class="sw-cat-vendors">
-              <span class="sw-vendor-tag">Qualys</span>
-              <span class="sw-vendor-tag">Rapid7</span>
-            </div>
-            <span class="sw-cat-link">Get a quote <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          </a>
-
-          <a href="/#contact" class="sw-cat-card">
-            <div class="sw-cat-icon-wrap">
-              <svg class="sw-cat-icon" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="10" stroke="currentColor" stroke-width="1.5"/><path d="M16 10v6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="16" cy="21" r="1.2" fill="currentColor"/></svg>
-            </div>
-            <h3 class="sw-cat-title">Vulnerability Management</h3>
-            <p class="sw-cat-desc">Continuous scanning, prioritization, and remediation tracking. Know your attack surface and fix what matters.</p>
-            <div class="sw-cat-vendors">
-              <span class="sw-vendor-tag">Qualys</span>
-              <span class="sw-vendor-tag">Rapid7</span>
-              <span class="sw-vendor-tag">Tenable</span>
-            </div>
-            <span class="sw-cat-link">Get a quote <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          </a>
-
-          <a href="/#contact" class="sw-cat-card">
-            <div class="sw-cat-icon-wrap">
-              <svg class="sw-cat-icon" viewBox="0 0 32 32" fill="none"><path d="M8 26V14l8-8 8 8v12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 16l12-12 12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M13 26v-6h6v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </div>
-            <h3 class="sw-cat-title">Backup & Recovery</h3>
-            <p class="sw-cat-desc">Ransomware-resistant backup and disaster recovery. Ensure business continuity when incidents strike.</p>
-            <div class="sw-cat-vendors">
-              <span class="sw-vendor-tag">Sophos</span>
-            </div>
-            <span class="sw-cat-link">Get a quote <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          </a>
-
-          <a href="/#contact" class="sw-cat-card">
-            <div class="sw-cat-icon-wrap">
-              <svg class="sw-cat-icon" viewBox="0 0 32 32" fill="none"><rect x="6" y="4" width="20" height="24" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M11 10h10M11 14h10M11 18h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="22" cy="22" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M22 20v2l1.5 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </div>
-            <h3 class="sw-cat-title">IT Operations & Monitoring</h3>
-            <p class="sw-cat-desc">Unified endpoint management, IT service desk, network monitoring, and asset management under one roof.</p>
-            <div class="sw-cat-vendors">
-              <span class="sw-vendor-tag">ManageEngine</span>
-              <span class="sw-vendor-tag">Teramind</span>
-            </div>
-            <span class="sw-cat-link">Get a quote <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          </a>
-
+          </div>
         </div>
       </div>
     </section>
@@ -268,17 +636,21 @@ export const prerender = false;
         <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
       </div>
       <div class="container">
-        <div style="text-align: center; margin-bottom: 3rem;">
+        <div class="sw-section-head">
           <div class="sw-label">
             <div class="text-small color-grey">Our Process</div>
           </div>
-          <h2 class="heading heading-center" style="margin-top: 0.75rem;">How We <span class="text-gradient-clip bg-color-green-gradient">Deliver</span></h2>
+          <h2 class="heading heading-center" style="margin-top: 0.75rem;">
+            How we <span class="text-gradient-clip bg-color-green-gradient">deliver</span>
+          </h2>
+          <p class="sw-section-sub">From scoping call to live deployment — typical SMB timeline: 2 to 6 weeks.</p>
         </div>
         <div class="sw-process-grid">
           <div class="sw-process-step">
             <div class="sw-process-num">01</div>
             <h3 class="sw-process-title">Assess</h3>
-            <p class="sw-process-desc">We audit your current stack, understand your risks, compliance requirements, and budget constraints.</p>
+            <div class="sw-process-time">1–3 days</div>
+            <p class="sw-process-desc">Audit your current stack, risks, compliance pressure, and budget. Free 30-min scoping call.</p>
           </div>
           <div class="sw-process-connector">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M14 7l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -286,7 +658,8 @@ export const prerender = false;
           <div class="sw-process-step">
             <div class="sw-process-num">02</div>
             <h3 class="sw-process-title">Recommend</h3>
-            <p class="sw-process-desc">We shortlist the best-fit solutions from our vendor portfolio — no upselling, just what works for you.</p>
+            <div class="sw-process-time">3–5 days</div>
+            <p class="sw-process-desc">Shortlist + side-by-side comparison + AED quote — vendor-neutral, no upselling.</p>
           </div>
           <div class="sw-process-connector">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M14 7l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -294,7 +667,8 @@ export const prerender = false;
           <div class="sw-process-step">
             <div class="sw-process-num">03</div>
             <h3 class="sw-process-title">Deploy</h3>
-            <p class="sw-process-desc">Full implementation, configuration, integration with your infrastructure, and hands-on team training.</p>
+            <div class="sw-process-time">1–4 weeks</div>
+            <p class="sw-process-desc">Configure, integrate, harden, and train your team. Hand-over runbook included.</p>
           </div>
           <div class="sw-process-connector">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M14 7l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -302,29 +676,127 @@ export const prerender = false;
           <div class="sw-process-step">
             <div class="sw-process-num">04</div>
             <h3 class="sw-process-title">Support</h3>
-            <p class="sw-process-desc">Ongoing local support, health checks, and optimization. We're your first call — not a vendor hotline.</p>
+            <div class="sw-process-time">Ongoing</div>
+            <p class="sw-process-desc">90-day warranty + optional retained support. WhatsApp / email — same engineer who deployed it.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ============ CTA ============ -->
+    <!-- ============ FAQ (NEW) ============ -->
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
+        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
+      </div>
+      <div class="container">
+        <div class="sw-section-head">
+          <div class="sw-label">
+            <div class="text-small color-grey">FAQ</div>
+          </div>
+          <h2 class="heading heading-center" style="margin-top: 0.75rem;">
+            Common <span class="text-gradient-clip bg-color-green-gradient">questions</span>
+          </h2>
+        </div>
+
+        <div class="sw-faq-list">
+          <details class="sw-faq-item">
+            <summary class="sw-faq-q">Are you cheaper than buying directly from the vendor?
+              <svg class="sw-faq-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="sw-faq-a">
+              For most products: list price is the same. The difference is the implementation, training,
+              and local support — vendors charge separately for those (or not at all). With us, deployment
+              is bundled, support is local, and you get a single AED invoice instead of vendor billing in USD.
+            </div>
+          </details>
+
+          <details class="sw-faq-item">
+            <summary class="sw-faq-q">What happens if I want to switch vendors later?
+              <svg class="sw-faq-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="sw-faq-a">
+              You own your licences and your data — we don't lock you in. We'll help you migrate cleanly
+              even if it means moving you off a vendor we sell. Long-term trust matters more to us than
+              one product's margin.
+            </div>
+          </details>
+
+          <details class="sw-faq-item">
+            <summary class="sw-faq-q">Do you support only the products you sell, or anything we already own?
+              <svg class="sw-faq-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="sw-faq-a">
+              We can take over support for tools you already have across most major vendors and
+              cloud-native platforms. Tell us what's in place — if we can't support it, we'll tell
+              you upfront.
+            </div>
+          </details>
+
+          <details class="sw-faq-item">
+            <summary class="sw-faq-q">How fast can you actually deploy?
+              <svg class="sw-faq-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="sw-faq-a">
+              EDR for &lt;100 endpoints: 3–5 working days. Email security: 2–4 days.
+              SIEM rollout: 2–4 weeks depending on log sources. Full SMB stack: 4–6 weeks.
+              We can move faster for incident response situations — call if you're under attack.
+            </div>
+          </details>
+
+          <details class="sw-faq-item">
+            <summary class="sw-faq-q">Can I pay annually, monthly, or in instalments?
+              <svg class="sw-faq-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="sw-faq-a">
+              Most licences are annual. Implementation fees can be split 50/50 (start / go-live) or
+              30/30/40 for larger projects. We invoice in AED with full VAT compliance.
+            </div>
+          </details>
+
+          <details class="sw-faq-item">
+            <summary class="sw-faq-q">What if we don't know what we need?
+              <svg class="sw-faq-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="sw-faq-a">
+              That's the most common starting point. Book a free 30-minute scoping call —
+              we'll ask about your environment, risks, and compliance pressure, then send a written
+              recommendation in AED within 24 hours. No obligation.
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FINAL CTA ============ -->
     <section class="section bg-color-grey-gradient">
       <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
         <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
       </div>
       <div class="container">
-        <div style="text-align: center;">
-          <h2 class="heading heading-center">Not Sure What You <span class="text-gradient-clip bg-color-green-gradient">Need?</span></h2>
-          <p class="text-medium" style="max-width: 560px; margin: 1.25rem auto 0; color: rgba(255,255,255,0.7); text-align: center;">Tell us your challenges. We'll assess your environment and recommend the right tools — with a clear quote including implementation and training.</p>
-          <div style="margin-top: 2.5rem;">
-            <div class="button" style="display: inline-block;">
-              <a href="/#contact" class="button-hidden w-button">Get Started</a>
+        <div class="sw-final-cta">
+          <h2 class="heading heading-center">
+            Get a written quote in <span class="text-gradient-clip bg-color-green-gradient">24 hours</span>
+          </h2>
+          <p class="sw-final-sub">
+            Tell us about your environment. We'll send back an AED-priced quote with implementation,
+            training, and the first 90 days of support included — no obligation, no pressure.
+          </p>
+          <div class="sw-hero-ctas" style="justify-content: center; margin-top: 2.5rem;">
+            <div class="button">
+              <a href="/#contact?intent=software-quote" class="button-hidden w-button">Start a conversation</a>
               <div class="button-wrapper">
-                <div class="button-text">Start a Conversation</div>
+                <div class="button-text">Start a conversation</div>
               </div>
               <div class="button-accent-gradinet"></div>
             </div>
+            <a href="https://wa.me/971505670394?text=Hi%2C%20I%27d%20like%20a%20quote%20for%20security%20software"
+               target="_blank" rel="noopener"
+               class="sw-hero-secondary">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.464 3.488"/>
+              </svg>
+              WhatsApp +971 50 567 0394
+            </a>
           </div>
         </div>
       </div>
@@ -337,7 +809,7 @@ export const prerender = false;
 </Layout>
 
 <style is:inline>
-  /* ---- Label fix ---- */
+  /* ---- Label ---- */
   #main .sw-label {
     display: inline-block;
     border: 1px solid rgba(255,255,255,0.15);
@@ -348,9 +820,74 @@ export const prerender = false;
   /* ---- Heading constraint ---- */
   #main .heading.heading-center {
     text-align: center;
-    max-width: 18ch;
+    max-width: 22ch;
     margin-left: auto;
     margin-right: auto;
+  }
+
+  /* ---- Section heads ---- */
+  .sw-section-head {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  .sw-section-sub {
+    max-width: 600px;
+    margin: 1rem auto 0;
+    color: rgba(255,255,255,0.65);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    text-align: center;
+  }
+
+  /* ---- Hero ---- */
+  .sw-hero-sub {
+    max-width: 680px;
+    margin: 1.5rem auto 0;
+    text-align: center;
+    color: rgba(255,255,255,0.78);
+    line-height: 1.65;
+  }
+  .sw-hero-ctas {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+  }
+  .sw-hero-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1.25rem;
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 8px;
+    color: rgba(255,255,255,0.9);
+    background: rgba(255,255,255,0.03);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: border-color 0.2s, background 0.2s, color 0.2s;
+  }
+  .sw-hero-secondary:hover {
+    border-color: rgba(36,215,88,0.4);
+    color: #fff;
+    background: rgba(36,215,88,0.08);
+  }
+  .sw-hero-secondary svg { color: #25d366; }
+  .sw-hero-microtrust {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.25rem;
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.55);
+  }
+  .sw-hero-microtrust span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
   }
 
   /* ---- Benefits Grid ---- */
@@ -381,6 +918,147 @@ export const prerender = false;
     background: rgba(36,215,88,0.08);
     border-radius: 10px;
   }
+  .sw-benefit-title { margin-bottom: 0.5rem; }
+
+  /* ---- Bundles ---- */
+  .sw-bundle-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    align-items: stretch;
+  }
+  .sw-bundle-card {
+    position: relative;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    padding: 2rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.3s ease, transform 0.3s ease;
+  }
+  .sw-bundle-card:hover {
+    border-color: rgba(36,215,88,0.25);
+    transform: translateY(-3px);
+  }
+  .sw-bundle-card-featured {
+    border-color: rgba(36,215,88,0.4);
+    background: linear-gradient(180deg, rgba(36,215,88,0.06) 0%, rgba(255,255,255,0.03) 60%);
+    box-shadow: 0 0 0 1px rgba(36,215,88,0.15), 0 20px 40px rgba(36,215,88,0.05);
+  }
+  .sw-bundle-tag {
+    display: inline-block;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    font-weight: 600;
+    padding: 0.3rem 0.65rem;
+    background: rgba(255,255,255,0.06);
+    color: rgba(255,255,255,0.6);
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    align-self: flex-start;
+  }
+  .sw-bundle-tag-featured {
+    background: linear-gradient(135deg, #24d758, #27dab4);
+    color: #000;
+  }
+  .sw-bundle-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #fff;
+    margin: 0 0 0.4rem;
+    letter-spacing: -0.02em;
+  }
+  .sw-bundle-tagline {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+  }
+  .sw-bundle-price {
+    margin-bottom: 1.25rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .sw-bundle-from {
+    display: block;
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.45);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 0.25rem;
+  }
+  .sw-bundle-amount {
+    display: block;
+    font-size: 1.65rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 0.25rem;
+  }
+  .sw-bundle-period {
+    display: block;
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.5);
+  }
+  .sw-bundle-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem;
+    flex-grow: 1;
+  }
+  .sw-bundle-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.78);
+    line-height: 1.5;
+    padding: 0.4rem 0;
+  }
+  .sw-bundle-list svg { flex-shrink: 0; margin-top: 4px; }
+  .sw-bundle-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px;
+    color: rgba(255,255,255,0.85);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+  }
+  .sw-bundle-cta:hover {
+    background: rgba(36,215,88,0.08);
+    border-color: rgba(36,215,88,0.3);
+    color: #fff;
+  }
+  .sw-bundle-cta-featured {
+    background: linear-gradient(135deg, #24d758, #27dab4);
+    color: #000;
+    border-color: transparent;
+    font-weight: 600;
+  }
+  .sw-bundle-cta-featured:hover {
+    background: linear-gradient(135deg, #2bea61, #2eedc0);
+    color: #000;
+  }
+  .sw-bundle-disclaimer {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.45);
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+  }
 
   /* ---- Categories Grid ---- */
   .sw-cat-grid {
@@ -403,9 +1081,7 @@ export const prerender = false;
     background: rgba(255,255,255,0.05);
     transform: translateY(-3px);
   }
-  .sw-cat-icon-wrap {
-    margin-bottom: 1.25rem;
-  }
+  .sw-cat-icon-wrap { margin-bottom: 1.25rem; }
   .sw-cat-icon {
     width: 2.5rem;
     height: 2.5rem;
@@ -413,9 +1089,7 @@ export const prerender = false;
     opacity: 0.75;
     transition: opacity 0.3s ease;
   }
-  .sw-cat-card:hover .sw-cat-icon {
-    opacity: 1;
-  }
+  .sw-cat-card:hover .sw-cat-icon { opacity: 1; }
   .sw-cat-title {
     font-size: 1.3rem;
     font-weight: 500;
@@ -427,8 +1101,19 @@ export const prerender = false;
     font-size: 0.9rem;
     color: rgba(255,255,255,0.7);
     line-height: 1.55;
+    margin-bottom: 0.85rem;
+  }
+  .sw-cat-bestfor {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.5);
     margin-bottom: 1rem;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px dashed rgba(255,255,255,0.08);
     flex-grow: 1;
+  }
+  .sw-cat-bestfor strong {
+    color: rgba(36,215,88,0.85);
+    font-weight: 600;
   }
   .sw-cat-vendors {
     display: flex;
@@ -454,8 +1139,38 @@ export const prerender = false;
     margin-top: auto;
     transition: color 0.3s ease;
   }
-  .sw-cat-card:hover .sw-cat-link {
+  .sw-cat-card:hover .sw-cat-link { color: #24d758; }
+
+  /* ---- Help me choose ---- */
+  .sw-choose-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+  .sw-choose-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-left: 3px solid rgba(36,215,88,0.4);
+    border-radius: 10px;
+    padding: 1.5rem 1.75rem;
+  }
+  .sw-choose-question {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #fff;
+    margin-bottom: 0.75rem;
+    font-style: italic;
+    letter-spacing: -0.01em;
+  }
+  .sw-choose-answer {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+  }
+  .sw-choose-answer strong {
     color: #24d758;
+    font-weight: 600;
+    margin-right: 0.25rem;
   }
 
   /* ---- Process Grid ---- */
@@ -477,14 +1192,26 @@ export const prerender = false;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.5rem;
     line-height: 1;
   }
   .sw-process-title {
     font-size: 1.2rem;
     font-weight: 600;
     color: #fff;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.35rem;
+  }
+  .sw-process-time {
+    display: inline-block;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: rgba(36,215,88,0.85);
+    background: rgba(36,215,88,0.08);
+    border: 1px solid rgba(36,215,88,0.2);
+    padding: 0.2rem 0.55rem;
+    border-radius: 4px;
+    margin-bottom: 0.75rem;
   }
   .sw-process-desc {
     font-size: 0.85rem;
@@ -497,20 +1224,83 @@ export const prerender = false;
     flex-shrink: 0;
   }
 
+  /* ---- FAQ ---- */
+  .sw-faq-list {
+    max-width: 760px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .sw-faq-item {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    transition: border-color 0.2s ease;
+  }
+  .sw-faq-item:hover { border-color: rgba(255,255,255,0.16); }
+  .sw-faq-item[open] { border-color: rgba(36,215,88,0.25); }
+  .sw-faq-q {
+    list-style: none;
+    cursor: pointer;
+    padding: 1.1rem 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .sw-faq-q::-webkit-details-marker { display: none; }
+  .sw-faq-icon {
+    color: rgba(255,255,255,0.5);
+    transition: transform 0.25s ease, color 0.2s ease;
+    flex-shrink: 0;
+  }
+  .sw-faq-item[open] .sw-faq-icon {
+    transform: rotate(180deg);
+    color: #24d758;
+  }
+  .sw-faq-a {
+    padding: 0 1.5rem 1.25rem;
+    color: rgba(255,255,255,0.72);
+    font-size: 0.9rem;
+    line-height: 1.65;
+  }
+
+  /* ---- Final CTA ---- */
+  .sw-final-cta { text-align: center; }
+  .sw-final-sub {
+    max-width: 600px;
+    margin: 1.25rem auto 0;
+    color: rgba(255,255,255,0.7);
+    font-size: 0.95rem;
+    line-height: 1.65;
+    text-align: center;
+  }
+
   /* ---- Responsive ---- */
   @media (max-width: 991px) {
     .sw-cat-grid { grid-template-columns: repeat(2, 1fr); }
+    .sw-bundle-grid { grid-template-columns: 1fr; max-width: 480px; margin-left: auto; margin-right: auto; }
     .sw-process-grid { flex-wrap: wrap; gap: 2rem; }
     .sw-process-connector { display: none; }
     .sw-process-step { min-width: 45%; }
+    .sw-choose-grid { grid-template-columns: 1fr; }
   }
   @media (max-width: 768px) {
     .sw-benefits-grid { grid-template-columns: 1fr; }
+    .sw-hero-ctas { flex-direction: column; align-items: stretch; }
+    .sw-hero-secondary { justify-content: center; }
   }
   @media (max-width: 479px) {
     .sw-cat-grid { grid-template-columns: 1fr; }
     .sw-process-step { min-width: 100%; }
+    .sw-faq-q { padding: 1rem 1.1rem; font-size: 0.9rem; }
+    .sw-faq-a { padding: 0 1.1rem 1rem; font-size: 0.85rem; }
   }
 </style>
 
-<script is:inline nonce={Astro.locals.nonce || ""} src="/js/stagger-animate.js" data-selector=".sw-benefit-card, .sw-cat-card, .sw-process-step"></script>
+<script is:inline nonce={Astro.locals.nonce || ""} src="/js/stagger-animate.js" data-selector=".sw-benefit-card, .sw-cat-card, .sw-process-step, .sw-choose-card, .sw-faq-item"></script>

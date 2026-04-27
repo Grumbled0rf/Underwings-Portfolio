@@ -13,37 +13,364 @@ export const prerender = false;
   keywords="Underwings Cybersecurity Solutions, cybersecurity company UAE, security consulting Abu Dhabi, about Underwings"
   wfPage="about-page"
 >
+  <Fragment slot="head">
+    <style is:inline>
+    /* Neon line sweep */
+    .neon-line-animate { animation: neonFadeIn 0.8s ease-out 0.3s both; }
+    .neon-line-animate .neon-line-parent { animation: neonColorIn 1s ease-out 0.6s both; }
+    .neon-line-animate .neon-line-inner { transform: translate3d(-50%, 0, 0); animation: neonSweep 3s ease-in-out 0.8s infinite; }
+    .neon-line-animate .neon-line-shadow { opacity: 0; animation: neonGlow 3s ease-in-out 0.8s infinite; }
+    @keyframes neonFadeIn { from { filter: blur(3px); opacity: 0; } to { filter: blur(0); opacity: 1; } }
+    @keyframes neonColorIn { from { filter: grayscale(100%); } to { filter: grayscale(0%); } }
+    @keyframes neonSweep { 0% { transform: translate3d(-50%, 0, 0); } 50% { transform: translate3d(0%, 0, 0); } 100% { transform: translate3d(-50%, 0, 0); } }
+    @keyframes neonGlow { 0%, 100% { opacity: 0.4; } 50% { opacity: 0.9; } }
+
+    .ab-fade { animation: abFade 0.8s ease-out both; }
+    @keyframes abFade {
+      from { filter: blur(3px); opacity: 0; transform: translateY(1rem); }
+      to   { filter: blur(0);   opacity: 1; transform: translateY(0); }
+    }
+
+    /* Hero wrap */
+    .ab-hero { position: relative; overflow: hidden; }
+    .ab-hero .hero-heading-wrapper { display: flex; flex-direction: column; align-items: center; gap: 1.1rem; }
+    .ab-hero .hero-heading-wrapper > * { margin: 0; }
+    .ab-hero .heading-large.hero-heading-large { line-height: 1.05; letter-spacing: -0.035em; }
+
+    .ab-hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(36,215,88,0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(36,215,88,0.045) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: radial-gradient(ellipse 60% 70% at 50% 30%, #000 0%, transparent 75%);
+      -webkit-mask-image: radial-gradient(ellipse 60% 70% at 50% 30%, #000 0%, transparent 75%);
+      pointer-events: none; z-index: 0;
+      animation: abGridDrift 26s linear infinite;
+    }
+    @keyframes abGridDrift {
+      from { background-position: 0 0, 0 0; }
+      to   { background-position: 56px 56px, 56px 56px; }
+    }
+    .ab-hero-orb {
+      position: absolute; width: 520px; height: 520px;
+      top: -180px; left: 50%; transform: translateX(-50%);
+      background: radial-gradient(circle, rgba(36,215,88,0.08) 0%, rgba(36,215,88,0.02) 35%, transparent 65%);
+      filter: blur(20px); pointer-events: none; z-index: 0;
+      animation: abOrbDrift 10s ease-in-out infinite;
+    }
+    @keyframes abOrbDrift {
+      0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.85; }
+      50%      { transform: translateX(-50%) translateY(18px); opacity: 1; }
+    }
+    .ab-hero > .container-medium { position: relative; z-index: 1; }
+
+    .ab-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.55rem;
+      padding: 0.4rem 0.95rem; border-radius: 100px;
+      background: rgba(36,215,88,0.06);
+      border: 1px solid rgba(36,215,88,0.22);
+      font-family: 'Geist Mono', ui-monospace, monospace;
+      font-size: 0.72rem; letter-spacing: 0.14em;
+      text-transform: uppercase; color: #24d758;
+    }
+    .ab-eyebrow-dot {
+      width: 7px; height: 7px; border-radius: 50%; background: #24d758;
+      box-shadow: 0 0 0 0 rgba(36,215,88,0.55);
+      animation: abPulse 2.2s ease-out infinite;
+    }
+    @keyframes abPulse {
+      0%   { box-shadow: 0 0 0 0 rgba(36,215,88,0.55); opacity: 1; }
+      70%  { box-shadow: 0 0 0 10px rgba(36,215,88,0); opacity: 0.7; }
+      100% { box-shadow: 0 0 0 0 rgba(36,215,88,0); opacity: 1; }
+    }
+
+    /* Section eyebrow (small green pill above h2) */
+    .ab-section-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-family: 'Geist Mono', ui-monospace, monospace;
+      font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: #24d758; margin: 0 0 0.75rem;
+    }
+    .ab-section-eyebrow::before {
+      content: ''; width: 22px; height: 1px;
+      background: linear-gradient(90deg, #24d758, transparent);
+    }
+
+    /* Dot grid backdrop for sections */
+    .ab-dotted { position: relative; overflow: hidden; }
+    .ab-dotted::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(36,215,88,0.06) 1px, transparent 1.5px);
+      background-size: 32px 32px;
+      mask-image: radial-gradient(ellipse 90% 70% at 50% 50%, #000 0%, transparent 80%);
+      -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 50%, #000 0%, transparent 80%);
+      pointer-events: none; z-index: 0;
+    }
+    .ab-dotted > .container,
+    .ab-dotted > .container-medium { position: relative; z-index: 1; }
+
+    /* Scroll reveal */
+    .ab-reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .ab-reveal.is-visible { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .ab-reveal { opacity: 1; transform: none; transition: none; }
+      .ab-fade, .ab-hero-grid, .ab-hero-orb, .ab-eyebrow-dot, .neon-line-animate,
+      .neon-line-animate .neon-line-parent, .neon-line-animate .neon-line-inner,
+      .neon-line-animate .neon-line-shadow { animation: none !important; }
+      .ab-fade { opacity: 1; filter: none; transform: none; }
+    }
+
+    /* Story section: pull-quote accent + numbered count */
+    .about-story-left { position: relative; padding-left: 1rem; }
+    .about-story-left::before {
+      content: ''; position: absolute; left: 0; top: 0.25rem;
+      width: 2px; height: 60%;
+      background: linear-gradient(180deg, #24d758, transparent);
+    }
+    .about-story-right p { color: rgba(255,255,255,0.78); }
+    .about-story-right p:last-child { color: rgba(255,255,255,0.55); font-style: italic; }
+    .ab-story-tag {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      margin-top: 1.25rem; padding: 0.35rem 0.8rem;
+      font-family: 'Geist Mono', ui-monospace, monospace;
+      font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: #9fe7bf;
+      background: rgba(36,215,88,0.06);
+      border: 1px solid rgba(36,215,88,0.22);
+      border-radius: 100px;
+    }
+
+    /* Philosophy numbered cards */
+    .about-value-card { position: relative; transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; }
+    .about-value-card:hover { transform: translateY(-3px); box-shadow: 0 18px 38px -22px rgba(36,215,88,0.30); }
+    .about-value-num {
+      position: absolute; top: 1rem; right: 1.25rem;
+      font-family: 'Geist Mono', ui-monospace, monospace;
+      font-size: 0.68rem; letter-spacing: 0.14em;
+      color: rgba(36,215,88,0.65);
+    }
+
+    /* Team cards — founder badge, link row */
+    .about-team-card { position: relative; }
+    .about-team-founder-badge {
+      position: absolute; top: 1rem; right: 1rem;
+      padding: 0.18rem 0.55rem; border-radius: 100px;
+      font-family: 'Geist Mono', ui-monospace, monospace;
+      font-size: 0.6rem; letter-spacing: 0.14em;
+      text-transform: uppercase; font-weight: 700;
+      color: #0a0a0a;
+      background: linear-gradient(135deg, #24d758, #27dab4);
+    }
+    .about-team-links {
+      display: flex; gap: 0.5rem; margin-top: 0.75rem;
+    }
+    .about-team-link {
+      width: 32px; height: 32px; border-radius: 8px;
+      display: inline-flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.55);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    }
+    .about-team-link:hover {
+      color: #24d758; background: rgba(36,215,88,0.08);
+      border-color: rgba(36,215,88,0.3);
+    }
+
+    /* Mission & Vision cards */
+    .ab-mv-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem; max-width: 1040px; margin: 0 auto;
+    }
+    .ab-mv-card {
+      position: relative; overflow: hidden;
+      padding: 2rem 2rem 2.25rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .ab-mv-card:hover {
+      border-color: rgba(36,215,88,0.3);
+      transform: translateY(-3px);
+      box-shadow: 0 22px 50px -28px rgba(36,215,88,0.32);
+    }
+    .ab-mv-card::before {
+      content: ''; position: absolute; top: -60px; right: -60px;
+      width: 220px; height: 220px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(36,215,88,0.1), transparent 70%);
+      pointer-events: none;
+    }
+    .ab-mv-vision::before {
+      background: radial-gradient(circle, rgba(39,218,180,0.12), transparent 70%);
+    }
+    .ab-mv-card > * { position: relative; z-index: 1; }
+
+    .ab-mv-head {
+      display: flex; align-items: center; gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+    .ab-mv-icon {
+      width: 2.75rem; height: 2.75rem;
+      display: inline-flex; align-items: center; justify-content: center;
+      color: #24d758;
+      background: rgba(36,215,88,0.08);
+      border: 1px solid rgba(36,215,88,0.2);
+      border-radius: 12px;
+    }
+    .ab-mv-tag {
+      font-family: 'Geist Mono', ui-monospace, monospace;
+      font-size: 0.7rem; letter-spacing: 0.16em;
+      text-transform: uppercase; font-weight: 700;
+      color: #24d758;
+    }
+    .ab-mv-title {
+      font-size: 1.25rem; font-weight: 600; line-height: 1.35;
+      color: #fff; margin: 0 0 1rem; letter-spacing: -0.01em;
+    }
+    .ab-mv-body {
+      font-size: 0.95rem; line-height: 1.65;
+      color: rgba(255,255,255,0.7);
+      margin: 0 0 1.25rem;
+    }
+    .ab-mv-list {
+      list-style: none; padding: 0; margin: 0;
+      display: flex; flex-direction: column; gap: 0.55rem;
+    }
+    .ab-mv-list li {
+      position: relative; padding-left: 1.5rem;
+      font-size: 0.9rem; line-height: 1.5;
+      color: rgba(255,255,255,0.75);
+    }
+    .ab-mv-list li::before {
+      content: ''; position: absolute; left: 0; top: 0.55rem;
+      width: 10px; height: 10px; border-radius: 2px;
+      background: linear-gradient(135deg, #24d758, #27dab4);
+      box-shadow: 0 0 8px rgba(36,215,88,0.4);
+    }
+    .ab-mv-roadmap li {
+      display: flex; align-items: flex-start; gap: 0.85rem;
+      padding-left: 0;
+    }
+    .ab-mv-roadmap li::before { display: none; }
+    .ab-mv-year {
+      flex-shrink: 0;
+      font-family: 'Geist Mono', ui-monospace, monospace;
+      font-size: 0.72rem; letter-spacing: 0.1em; font-weight: 700;
+      color: #24d758;
+      background: rgba(36,215,88,0.08);
+      border: 1px solid rgba(36,215,88,0.25);
+      border-radius: 6px;
+      padding: 0.3rem 0.55rem;
+      min-width: 56px; text-align: center;
+    }
+    @media (max-width: 840px) {
+      .ab-mv-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Final CTA: immersive */
+    .ab-final-cta { position: relative; overflow: hidden; }
+    .ab-final-cta::before {
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(36,215,88,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(36,215,88,0.05) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: radial-gradient(ellipse 70% 80% at 50% 50%, #000 0%, transparent 75%);
+      -webkit-mask-image: radial-gradient(ellipse 70% 80% at 50% 50%, #000 0%, transparent 75%);
+      pointer-events: none; z-index: 0;
+      animation: abGridDrift 26s linear infinite;
+    }
+    .ab-final-cta::after {
+      content: ''; position: absolute; left: 50%; top: 50%;
+      width: 600px; height: 600px;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(36,215,88,0.10) 0%, transparent 60%);
+      filter: blur(24px); pointer-events: none; z-index: 0;
+      animation: abOrbDrift 11s ease-in-out infinite;
+    }
+    .ab-final-cta > .container { position: relative; z-index: 1; }
+
+    /* Hero CTA buttons */
+    .ab-hero-cta-row {
+      display: flex; gap: 0.75rem; justify-content: center;
+      flex-wrap: wrap; margin-top: 1.75rem;
+    }
+    .ab-hero-btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.85rem 1.5rem; border-radius: 10px;
+      font-size: 0.92rem; font-weight: 600; letter-spacing: -0.005em;
+      text-decoration: none; border: 1px solid transparent; cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+      font-family: inherit;
+    }
+    .ab-hero-btn-primary {
+      background: linear-gradient(135deg, #24d758, #27dab4); color: #0a0a0a;
+      box-shadow: 0 4px 18px rgba(36,215,88,0.18);
+    }
+    .ab-hero-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(36,215,88,0.28); }
+    .ab-hero-btn-secondary {
+      background: rgba(255,255,255,0.04); color: #fff; border-color: rgba(255,255,255,0.15);
+    }
+    .ab-hero-btn-secondary:hover { background: rgba(36,215,88,0.06); border-color: rgba(36,215,88,0.35); }
+    .ab-hero-btn svg { transition: transform 0.2s ease; }
+    .ab-hero-btn:hover svg { transform: translateX(3px); }
+    </style>
+  </Fragment>
+
   <Header currentPage="about" />
 
   <main id="main" class="main">
 
     <!-- ============ HERO ============ -->
-    <section class="section top-padding-small bottom-padding-medium">
-      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
-        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
-      </div>
+    <section class="section top-padding-small bottom-padding-medium ab-hero">
+      <div class="ab-hero-grid" aria-hidden="true"></div>
+      <div class="ab-hero-orb" aria-hidden="true"></div>
       <div class="container-medium">
         <div class="hero">
           <div class="hero-main-wrapper">
-            <div class="hero-heading-wrapper">
-              <div class="label">
-                <div class="text-small color-grey">About Underwings</div>
+            <div class="neon-line-box neon-line-animate">
+              <div class="neon-line-parent">
+                <div class="neon-line-inner"></div>
               </div>
-              <h1 class="heading-large hero-heading-large">Fresh Start, <span class="text-gradient-clip bg-color-green-gradient">Serious Security</span></h1>
-              <p class="text text-center" style="max-width: 680px; margin: 1.5rem auto 0; text-align: center;">We're a cybersecurity startup building the partner we wish existed when we were on the other side — one that leads with honesty, does the actual work, and doesn't charge enterprise prices for startup-sized problems.</p>
+              <div class="neon-line-shadow"></div>
+            </div>
+            <div class="hero-heading-wrapper">
+              <span class="ab-eyebrow ab-fade">
+                <span class="ab-eyebrow-dot" aria-hidden="true"></span>
+                About Underwings
+              </span>
+              <h1 class="heading-large hero-heading-large ab-fade" style="animation-delay: 0.2s">Fresh Start,<br><span class="text-gradient-clip bg-color-green-gradient">Serious Security</span></h1>
+              <p class="text text-center ab-fade" style="animation-delay: 0.4s; max-width: 700px; margin: 0 auto; text-align: center;">We're a cybersecurity startup building the partner we wish existed when we were on the other side — one that leads with honesty, does the actual work, and doesn't charge enterprise prices for startup-sized problems.</p>
+
+              <div class="ab-hero-cta-row ab-fade" style="animation-delay: 0.55s">
+                <a href="#team" class="ab-hero-btn ab-hero-btn-primary">
+                  <span>Meet the team</span>
+                  <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+                    <path d="M1.5 7.5h12M8 2l5.5 5.5L8 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </a>
+                <a href="#contact-section" class="ab-hero-btn ab-hero-btn-secondary">
+                  <span>Get in touch</span>
+                  <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+                    <path d="M1.5 7.5h12M8 2l5.5 5.5L8 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </a>
+              </div>
             </div>
           </div>
         </div>
 
         <!-- Stats Bar -->
-        <div class="about-stats">
+        <div class="about-stats ab-fade" style="animation-delay: 0.7s">
           <div class="about-stat">
             <span class="about-stat-number">UAE</span>
             <span class="about-stat-label">Operating From</span>
           </div>
           <div class="about-stat-divider"></div>
           <div class="about-stat">
-            <span class="about-stat-number">10+</span>
+            <span class="about-stat-number" data-target="10" data-suffix="+">10+</span>
             <span class="about-stat-label">Certifications Held</span>
           </div>
           <div class="about-stat-divider"></div>
@@ -53,113 +380,120 @@ export const prerender = false;
           </div>
           <div class="about-stat-divider"></div>
           <div class="about-stat">
-            <span class="about-stat-number">24h</span>
+            <span class="about-stat-number" data-target="24" data-suffix="h">24h</span>
             <span class="about-stat-label">Response Time</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ============ THE NAME ============ -->
-    <section class="section">
-      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
-        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
-      </div>
+    <!-- ============ OUR STORY / MISSION ============ -->
+    <section class="section bg-color-dark ab-dotted">
       <div class="container">
-        <div class="uw-name">
-          <div class="uw-name-copy">
-            <div class="label" style="margin-bottom: 0.75rem;">
-              <div class="text-small color-grey">The Name</div>
-            </div>
-            <h2 class="heading">Why <span class="text-gradient-clip bg-color-green-gradient">Underwings</span></h2>
-            <p class="uw-name-idiom">
-              <span class="uw-name-quote-mark" aria-hidden="true">"</span>
-              <em>take someone under your wing</em>
-              <span class="uw-name-quote-mark" aria-hidden="true">"</span>
-              <span class="uw-name-idiom-def">— to protect, mentor, and take care of someone.</span>
-            </p>
-            <p class="text-medium uw-name-body">
-              That's exactly the relationship we want with every business we work with. Cybersecurity is rarely a one-off transaction — it's a long game of trust, guidance, and quiet, consistent protection. The name <strong>Underwings</strong> is our commitment: your ecosystem — your people, devices, data, cloud and networks — sits <strong>under our wings</strong>, shielded above real-world cyber risk by a team that actually cares whether you're safe.
-            </p>
-            <div class="uw-name-split">
-              <div class="uw-name-split-item">
-                <span class="uw-name-split-word">Under</span>
-                <span class="uw-name-split-meaning">We operate quietly beneath your business — guarding, mentoring, lifting.</span>
-              </div>
-              <div class="uw-name-split-item">
-                <span class="uw-name-split-word">Wings</span>
-                <span class="uw-name-split-meaning">A shield wide enough to cover your whole ecosystem, not just one asset.</span>
-              </div>
-            </div>
-            <p class="uw-name-tagline">
-              <span class="uw-name-tagline-label">Our tagline</span>
-              <span class="uw-name-tagline-text">Your Ecosystem, Under Our Wings. <span class="text-gradient-clip bg-color-green-gradient">Shielded Above Real-World Cyber Risk.</span></span>
-            </p>
+        <div class="about-story ab-reveal">
+          <div class="about-story-left">
+            <div class="ab-section-eyebrow">Our Story</div>
+            <h2 class="heading">Why We <span class="text-gradient-clip bg-color-green-gradient">Started</span></h2>
+            <div class="ab-story-tag" aria-hidden="true">Founded 2026 · UAE</div>
           </div>
-          <div class="uw-name-visual" aria-hidden="true">
-            <img src="/brand/underwings-name-meaning.svg" alt="" loading="lazy">
+          <div class="about-story-right">
+            <p class="text-medium" style="margin-bottom: 1.5rem;">We started Underwings because we kept seeing the same problem — businesses buying security tools they didn't need, or getting generic advice that didn't fit their actual risks. The gap between what's sold and what actually protects is wide.</p>
+            <p class="text-medium" style="margin-bottom: 1.5rem;">So we're building something different. A small, focused team of certified security professionals who lead with understanding before recommending. We don't push products — we solve problems. Whether it's a penetration test, ISO 27001 implementation, or the right security software, we start by listening.</p>
+            <p class="text-medium">We're just getting started, operating from the UAE, and working with businesses that want security done right — practical, affordable, and built around real risks, not vendor hype.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ============ OUR STORY / MISSION ============ -->
-    <section class="section bg-color-dark">
-      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
-        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
-      </div>
+    <!-- ============ MISSION & VISION ============ -->
+    <section class="section ab-dotted" style="padding-top: 3rem; padding-bottom: 3rem;">
       <div class="container">
-        <div class="about-story">
-          <div class="about-story-left">
-            <div class="label" style="margin-bottom: 0.75rem;">
-              <div class="text-small color-grey">Our Story</div>
+        <div style="text-align: center; margin-bottom: 2rem;" class="ab-reveal">
+          <div class="ab-section-eyebrow" style="justify-content: center; margin-bottom: 0.5rem;">Purpose</div>
+          <h2 class="heading heading-center" style="margin-bottom: 0.5rem;">Mission &amp; <span class="text-gradient-clip bg-color-green-gradient">Vision</span></h2>
+          <p class="text-medium" style="max-width: 600px; margin: 0.5rem auto 0; color: rgba(255,255,255,0.65);">What we do today, and where we're taking UAE cybersecurity over the next three years.</p>
+        </div>
+
+        <div class="ab-mv-grid">
+          <div class="ab-mv-card ab-reveal" style="transition-delay: 0ms">
+            <div class="ab-mv-head">
+              <div class="ab-mv-icon">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+                  <circle cx="14" cy="14" r="10" stroke="currentColor" stroke-width="1.5"/>
+                  <circle cx="14" cy="14" r="5.5" stroke="currentColor" stroke-width="1.5"/>
+                  <circle cx="14" cy="14" r="1.8" fill="currentColor"/>
+                </svg>
+              </div>
+              <span class="ab-mv-tag">Mission</span>
             </div>
-            <h2 class="heading">Why We <span class="text-gradient-clip bg-color-green-gradient">Started</span></h2>
+            <h3 class="ab-mv-title">Honest, practitioner-led cybersecurity for UAE businesses that deserve better than vendor hype.</h3>
+            <p class="ab-mv-body">We exist to close the gap between what's sold and what actually protects. Every engagement — pen test, ISO 27001 implementation, cloud review — is delivered by named, certified practitioners who scope transparently, quote in 48 hours, and prove their work with reproducible evidence.</p>
+            <ul class="ab-mv-list">
+              <li>Published pricing — no enterprise-sales opacity</li>
+              <li>Named OSCP, CPTS, ISO 27001 LA practitioners on every engagement</li>
+              <li>Free retest of critical &amp; high findings within 30 days</li>
+              <li>Security that reduces real risk, not checkbox theater</li>
+            </ul>
           </div>
-          <div class="about-story-right">
-            <p class="text-medium" style="margin-bottom: 1.5rem;">We started Underwings because we kept seeing the same problem — businesses buying security tools they didn't need, or getting generic advice that didn't fit their actual risks. The gap between what's sold and what actually protects is wide.</p>
-            <p class="text-medium" style="margin-bottom: 1.5rem;">So we're building something different. A small, focused team of certified security professionals who lead with understanding before recommending. We don't push products — we solve problems. Whether it's a penetration test, ISO 27001 implementation, or the right security software, we start by listening.</p>
-            <p class="text-medium color-grey">We're just getting started, operating from the UAE, and working with businesses that want security done right — practical, affordable, and built around real risks, not vendor hype.</p>
+
+          <div class="ab-mv-card ab-mv-vision ab-reveal" style="transition-delay: 120ms">
+            <div class="ab-mv-head">
+              <div class="ab-mv-icon">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+                  <path d="M2 14c3.5-6 7.5-9 12-9s8.5 3 12 9c-3.5 6-7.5 9-12 9s-8.5-3-12-9z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                  <circle cx="14" cy="14" r="4" stroke="currentColor" stroke-width="1.5"/>
+                  <circle cx="14" cy="14" r="1.8" fill="currentColor"/>
+                </svg>
+              </div>
+              <span class="ab-mv-tag">Vision</span>
+            </div>
+            <h3 class="ab-mv-title">By 2028, the UAE's most trusted full-stack cybersecurity partner — from pen testing to SOC, built on reputation, not ad spend.</h3>
+            <p class="ab-mv-body">We're building a three-year phased capability — offensive security and GRC today, managed services and red-team exercises in 2027, and full SOC / DFIR / CTI in 2028 — all delivered from the UAE by a team that stays named on every report.</p>
+            <ul class="ab-mv-list ab-mv-roadmap">
+              <li><span class="ab-mv-year">2026</span><span>Offensive Security, Cloud, Network, GRC, Training — the four operating pillars</span></li>
+              <li><span class="ab-mv-year">2027</span><span>Vendor risk, managed vuln management, red-team exercises, MDR bridge</span></li>
+              <li><span class="ab-mv-year">2028</span><span>SOC-as-a-Service, DFIR, Cyber Threat Intelligence, OT / ICS security</span></li>
+            </ul>
           </div>
         </div>
       </div>
     </section>
 
     <!-- ============ HOW WE WORK ============ -->
-    <section class="section">
-      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
-        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
-      </div>
+    <section class="section ab-dotted">
       <div class="container">
-        <div style="text-align: center; margin-bottom: 3rem;">
-          <div class="label" style="margin-bottom: 0.75rem;">
-            <div class="text-small color-grey">Our Philosophy</div>
-          </div>
+        <div style="text-align: center; margin-bottom: 3rem;" class="ab-reveal">
+          <div class="ab-section-eyebrow" style="justify-content: center;">Our Philosophy</div>
           <h2 class="heading heading-center">How We <span class="text-gradient-clip bg-color-green-gradient">Work</span></h2>
+          <p class="text-medium" style="max-width: 600px; margin: 1rem auto 0; color: rgba(255,255,255,0.65);">Four principles that shape every engagement, every recommendation, every quote we send.</p>
         </div>
         <div class="about-values-grid">
-          <div class="about-value-card">
+          <div class="about-value-card ab-reveal" style="transition-delay: 0ms">
+            <span class="about-value-num">01</span>
             <div class="about-value-icon">
               <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M14 4v8l5 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="14" cy="14" r="10" stroke="currentColor" stroke-width="1.5"/><path d="M4 14h2M22 14h2M14 4V2M14 24v2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
             </div>
             <h3 class="heading-small" style="margin-bottom: 0.5rem;">Honest Advice</h3>
             <p class="text-medium color-grey">We recommend what fits your needs, not what has the highest margin. If you don't need something, we'll tell you.</p>
           </div>
-          <div class="about-value-card">
+          <div class="about-value-card ab-reveal" style="transition-delay: 100ms">
+            <span class="about-value-num">02</span>
             <div class="about-value-icon">
               <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M14 3l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1 3-6z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
             </div>
             <h3 class="heading-small" style="margin-bottom: 0.5rem;">Practical Security</h3>
             <p class="text-medium color-grey">Security that works in the real world. We focus on risk reduction, not checkbox compliance or security theater.</p>
           </div>
-          <div class="about-value-card">
+          <div class="about-value-card ab-reveal" style="transition-delay: 200ms">
+            <span class="about-value-num">03</span>
             <div class="about-value-icon">
               <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M7 20c0-4 3-5 7-5s7 1 7 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="14" cy="10" r="4" stroke="currentColor" stroke-width="1.5"/><rect x="3" y="3" width="22" height="22" rx="4" stroke="currentColor" stroke-width="1.5"/></svg>
             </div>
             <h3 class="heading-small" style="margin-bottom: 0.5rem;">Long-Term Partnership</h3>
             <p class="text-medium color-grey">We're not here for one-time sales. We build relationships and support our clients through their security evolution.</p>
           </div>
-          <div class="about-value-card">
+          <div class="about-value-card ab-reveal" style="transition-delay: 300ms">
+            <span class="about-value-num">04</span>
             <div class="about-value-icon">
               <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M14 25s-9-5.5-9-13V6l9-3 9 3v6c0 7.5-9 13-9 13z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M10 14l3 3 5-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
@@ -171,21 +505,17 @@ export const prerender = false;
     </section>
 
     <!-- ============ TEAM ============ -->
-    <section class="section bg-color-dark">
-      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
-        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
-      </div>
+    <section class="section bg-color-dark ab-dotted" id="team">
       <div class="container">
-        <div style="text-align: center; margin-bottom: 3rem;">
-          <div class="label" style="margin-bottom: 0.75rem;">
-            <div class="text-small color-grey">Our Team</div>
-          </div>
+        <div style="text-align: center; margin-bottom: 3rem;" class="ab-reveal">
+          <div class="ab-section-eyebrow" style="justify-content: center;">Our Team</div>
           <h2 class="heading heading-center">The Team Behind <span class="text-gradient-clip bg-color-green-gradient">Underwings</span></h2>
           <p class="text-medium" style="max-width: 600px; margin: 1rem auto 0; color: rgba(255,255,255,0.7); text-align: center;">A small, focused team of certified professionals who do the actual work — no layers, no handoffs.</p>
         </div>
         <div class="about-team-grid">
 
-          <div class="about-team-card">
+          <div class="about-team-card ab-reveal" style="transition-delay: 0ms">
+            <span class="about-team-founder-badge">Founder</span>
             <div class="about-team-avatar">MP</div>
             <div class="about-team-name">Manoj Prabhakaran</div>
             <div class="about-team-role">Founder</div>
@@ -201,7 +531,7 @@ export const prerender = false;
             </div>
           </div>
 
-          <div class="about-team-card">
+          <div class="about-team-card ab-reveal" style="transition-delay: 80ms">
             <div class="about-team-avatar">ND</div>
             <div class="about-team-name">Nelson Durairaj</div>
             <div class="about-team-role">Senior Penetration Tester</div>
@@ -216,22 +546,11 @@ export const prerender = false;
             </div>
           </div>
 
-          <div class="about-team-card">
-            <div class="about-team-avatar">G</div>
-            <div class="about-team-name">Gowtham</div>
-            <div class="about-team-role">Senior Developer</div>
-            <div class="about-team-exp">8+ Years in Full Stack Development</div>
-            <p class="about-team-desc">Full stack developer building secure, scalable web applications. Handles development, testing, and quality assurance across Underwings' products and client projects.</p>
-            <div class="about-team-certs">
-              <span class="about-team-cert">Full Stack</span>
-              <span class="about-team-cert">QA & Testing</span>
-            </div>
-          </div>
-
-          <div class="about-team-card">
+          <div class="about-team-card ab-reveal" style="transition-delay: 160ms">
+            <span class="about-team-founder-badge">Co-founder</span>
             <div class="about-team-avatar">VS</div>
             <div class="about-team-name">Vinoth Samiyappa</div>
-            <div class="about-team-role">Co-founder</div>
+            <div class="about-team-role">Co-founder · Networking</div>
             <div class="about-team-exp">14+ Years in IT Networking</div>
             <p class="about-team-desc">Seasoned IT networking professional with deep expertise in enterprise network design, security, and cloud infrastructure. Brings 14 years of hands-on experience to Underwings' networking and infrastructure consulting.</p>
             <div class="about-team-certs">
@@ -242,8 +561,20 @@ export const prerender = false;
             </div>
           </div>
 
-          <!-- Guna — Business Development Manager -->
-          <div class="about-team-card">
+          <div class="about-team-card ab-reveal" style="transition-delay: 240ms">
+            <div class="about-team-avatar">G</div>
+            <div class="about-team-name">Gowtham</div>
+            <div class="about-team-role">CEO</div>
+            <div class="about-team-exp">8+ Years in Full Stack Development</div>
+            <p class="about-team-desc">Leads company operations and technology strategy at Underwings, bringing deep full-stack engineering roots to how the business is built and run — from product delivery to quality assurance across every client engagement.</p>
+            <div class="about-team-certs">
+              <span class="about-team-cert">Full Stack</span>
+              <span class="about-team-cert">QA &amp; Testing</span>
+              <span class="about-team-cert">Operations</span>
+            </div>
+          </div>
+
+          <div class="about-team-card ab-reveal" style="transition-delay: 320ms">
             <div class="about-team-avatar">G</div>
             <div class="about-team-name">Guna</div>
             <div class="about-team-role">Business Development Manager</div>
@@ -256,30 +587,30 @@ export const prerender = false;
             </div>
           </div>
 
-          <!-- Prathima Selvaraj — Digital Marketing Manager -->
-          <div class="about-team-card">
+          <div class="about-team-card ab-reveal" style="transition-delay: 400ms">
             <div class="about-team-avatar">PS</div>
             <div class="about-team-name">Prathima Selvaraj</div>
             <div class="about-team-role">Digital Marketing Manager</div>
             <div class="about-team-exp">3+ Years in Digital Marketing</div>
             <p class="about-team-desc">Manages Underwings' digital presence — from SEO and content strategy to social media and campaign execution. Focused on building brand awareness and generating qualified leads in the cybersecurity space.</p>
             <div class="about-team-certs">
-              <span class="about-team-cert">SEO & SEM</span>
+              <span class="about-team-cert">SEO &amp; SEM</span>
               <span class="about-team-cert">Content Strategy</span>
               <span class="about-team-cert">Social Media Marketing</span>
             </div>
           </div>
 
         </div>
+
+        <p class="ab-reveal" style="text-align: center; margin-top: 2.5rem; font-size: 0.88rem; color: rgba(255,255,255,0.5);">
+          Hiring in 2027 — red-team lead, SOC analyst, GRC consultant. <a href="/careers" style="color: #24d758; text-decoration: none; border-bottom: 1px dashed rgba(36,215,88,0.4);">See open roles →</a>
+        </p>
       </div>
     </section>
 
     <!-- ============ PARTNERS ============ -->
     <!-- Partners section — hidden until channel partner agreements are in place
     <section class="section bottom-padding-medium">
-      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
-        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
-      </div>
       <div class="container">
         <div style="text-align: center; margin-bottom: 2.5rem;">
           <div class="label" style="margin-bottom: 0.75rem;">
@@ -296,17 +627,15 @@ export const prerender = false;
     -->
 
     <!-- ============ CTA / CONTACT ============ -->
-    <section class="section bg-color-grey-gradient">
-      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
-        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
-      </div>
+    <section class="section bg-color-grey-gradient ab-final-cta" id="contact-section">
       <div class="container">
-        <div style="text-align: center; margin-bottom: 3rem;">
+        <div style="text-align: center; margin-bottom: 3rem;" class="ab-reveal">
+          <div class="ab-section-eyebrow" style="justify-content: center;">Get in Touch</div>
           <h2 class="heading heading-center">Want to Work <span class="text-gradient-clip bg-color-green-gradient">With Us?</span></h2>
-          <p class="text-medium" style="max-width: 550px; margin: 1rem auto 0; color: rgba(255,255,255,0.7); text-align: center;">We're always happy to chat — no pressure, no hard sell. Reach out and we'll respond within 24 hours.</p>
+          <p class="text-medium" style="max-width: 560px; margin: 1rem auto 0; color: rgba(255,255,255,0.7); text-align: center;">We're always happy to chat — no pressure, no hard sell. Reach out and we'll respond within 24 hours.</p>
         </div>
 
-        <div class="about-contact-grid">
+        <div class="about-contact-grid ab-reveal">
           <a href="mailto:contact@underwings.org" class="about-contact-card">
             <div class="about-contact-icon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 7l9 6 9-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -330,14 +659,19 @@ export const prerender = false;
           </div>
         </div>
 
-        <div style="margin-top: 3rem; text-align: center;">
-          <div class="button" style="display: inline-block;">
-            <a href="/#contact" class="button-hidden w-button">Contact Form</a>
-            <div class="button-wrapper">
-              <div class="button-text">Start a Conversation</div>
-            </div>
-            <div class="button-accent-gradinet"></div>
-          </div>
+        <div class="ab-hero-cta-row ab-reveal" style="margin-top: 2.5rem;">
+          <a href="/#contact" class="ab-hero-btn ab-hero-btn-primary">
+            <span>Start a Conversation</span>
+            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+              <path d="M1.5 7.5h12M8 2l5.5 5.5L8 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <button type="button" data-calendly-open class="ab-hero-btn ab-hero-btn-secondary" aria-label="Book a call via Calendly">
+            <span>Book a 30-min Call</span>
+            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+              <path d="M1.5 7.5h12M8 2l5.5 5.5L8 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
         </div>
       </div>
     </section>
@@ -753,3 +1087,61 @@ export const prerender = false;
 </style>
 
 <script is:inline nonce={Astro.locals.nonce || ""} src="/js/stagger-animate.js" data-selector=".about-value-card, .about-team-card, .about-contact-card, .about-stat"></script>
+
+<script is:inline nonce={Astro.locals.nonce || ""}>
+(function() {
+  function init() {
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var hasIO = (typeof IntersectionObserver !== 'undefined');
+
+    // Stat count-up
+    if (!reduce && hasIO) {
+      var stats = document.querySelectorAll('.about-stat-number[data-target]');
+      if (stats.length) {
+        var animated = new WeakSet();
+        var sio = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (!entry.isIntersecting) return;
+            var el = entry.target;
+            if (animated.has(el)) return;
+            animated.add(el);
+            var target = parseInt(el.getAttribute('data-target'), 10) || 0;
+            var suffix = el.getAttribute('data-suffix') || '';
+            var dur = 1200, start = performance.now();
+            function tick(now) {
+              var t = Math.min(1, (now - start) / dur);
+              var eased = 1 - Math.pow(1 - t, 3);
+              el.textContent = Math.round(target * eased) + suffix;
+              if (t < 1) requestAnimationFrame(tick);
+            }
+            requestAnimationFrame(tick);
+          });
+        }, { threshold: 0.4 });
+        stats.forEach(function(s) { sio.observe(s); });
+      }
+    }
+
+    // Scroll reveal
+    var reveals = document.querySelectorAll('.ab-reveal');
+    if (!reveals.length) return;
+    if (reduce || !hasIO) {
+      reveals.forEach(function(r) { r.classList.add('is-visible'); });
+      return;
+    }
+    var ro = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          ro.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(function(r) { ro.observe(r); });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>

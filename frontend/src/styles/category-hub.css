@@ -13,8 +13,12 @@
   gap: 0.4rem;
   font-size: 0.78rem;
   color: rgba(255, 255, 255, 0.45);
-  margin-bottom: 1.75rem;
+  margin-top: 0.75rem;
+  margin-bottom: 3rem;
   flex-wrap: wrap;
+}
+@media (max-width: 767px) {
+  .crumbs { margin-bottom: 2.25rem; }
 }
 .crumbs a {
   color: rgba(255, 255, 255, 0.55);

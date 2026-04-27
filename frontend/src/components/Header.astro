@@ -450,6 +450,45 @@ const nonce = Astro.locals.nonce || '';
     border: 1px solid rgba(255,255,255,.18);
   }
 
+  /* ═══════════════════════════════════════════════════
+     Auto-hide navbar on scroll-down, reveal on scroll-up
+  ═══════════════════════════════════════════════════ */
+  .header {
+    transition: transform .35s cubic-bezier(.22, 1, .36, 1),
+                background-color .25s ease,
+                backdrop-filter .25s ease,
+                box-shadow .25s ease;
+    will-change: transform;
+  }
+  .header.is-hidden  { transform: translateY(-100%); }
+  .header.is-pinned  { transform: translateY(0); }
+
+  /* Frosted glass — light tint, strong blur. Content shows through
+     while text stays legible thanks to the blur softening backgrounds. */
+  .header.is-scrolled {
+    background-color: rgba(10, 10, 12, .35);
+    -webkit-backdrop-filter: saturate(160%) blur(20px);
+            backdrop-filter: saturate(160%) blur(20px);
+    box-shadow: inset 0 -1px 0 rgba(255, 255, 255, .08);
+  }
+  /* Browsers without backdrop-filter (rare) get a slightly stronger
+     fallback so text doesn't become unreadable. */
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .header.is-scrolled {
+      background-color: rgba(10, 10, 12, .72);
+    }
+  }
+
+  /* Never hide the header while the mobile drawer is open */
+  body.mob-drawer-open .header {
+    transform: translateY(0) !important;
+  }
+
+  /* Respect reduced-motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    .header { transition: none; }
+  }
+
 </style>
 
 <!-- ═══════════════════════════════════════════════════
@@ -484,6 +523,7 @@ const nonce = Astro.locals.nonce || '';
       drawer.setAttribute('aria-hidden', 'false');
       toggle.setAttribute('aria-expanded', 'true');
       document.body.style.overflow = 'hidden';
+      document.body.classList.add('mob-drawer-open');
       setTimeout(function () { closeBtn.focus(); }, 40);
     }
 
@@ -493,6 +533,7 @@ const nonce = Astro.locals.nonce || '';
       drawer.setAttribute('aria-hidden', 'true');
       toggle.setAttribute('aria-expanded', 'false');
       document.body.style.overflow = '';
+      document.body.classList.remove('mob-drawer-open');
       toggle.focus();
     }
 
@@ -510,6 +551,98 @@ const nonce = Astro.locals.nonce || '';
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && open) closeMenu();
     });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+}());
+</script>
+
+<!-- ═══════════════════════════════════════════════════
+     Auto-hide navbar on scroll-down, reveal on scroll-up.
+     • passive scroll listener + rAF batching
+     • ignores micro-scrolls and bounce/overscroll
+     • always shown near the top of the page
+     • re-shown on keyboard focus into the header (a11y)
+═══════════════════════════════════════════════════ -->
+<script is:inline nonce={nonce}>
+(function () {
+  function init() {
+    var header = document.getElementById('header');
+    if (!header) return;
+
+    var lastY    = window.scrollY || 0;
+    var ticking  = false;
+    var DELTA    = 8;    // ignore tiny scroll jitter
+    var TOP_ZONE = 80;   // always show in the top zone
+    var HIDE_AT  = 120;  // don't hide until scrolled past hero
+
+    function update() {
+      var y    = window.scrollY || 0;
+      var diff = y - lastY;
+
+      // Solid bg once user has moved off the very top
+      if (y > 10) header.classList.add('is-scrolled');
+      else        header.classList.remove('is-scrolled');
+
+      // Always reveal near top
+      if (y < TOP_ZONE) {
+        header.classList.remove('is-hidden');
+        header.classList.add('is-pinned');
+        lastY = y;
+        ticking = false;
+        return;
+      }
+
+      // Drawer open: never hide
+      if (document.body.classList.contains('mob-drawer-open')) {
+        ticking = false;
+        return;
+      }
+
+      // Ignore micro-scrolls
+      if (Math.abs(diff) < DELTA) {
+        ticking = false;
+        return;
+      }
+
+      // Don't react to bounce at the very bottom
+      var docH = document.documentElement.scrollHeight;
+      if (y + window.innerHeight >= docH - 2) {
+        ticking = false;
+        return;
+      }
+
+      if (diff > 0 && y > HIDE_AT) {
+        header.classList.add('is-hidden');
+        header.classList.remove('is-pinned');
+      } else if (diff < 0) {
+        header.classList.remove('is-hidden');
+        header.classList.add('is-pinned');
+      }
+
+      lastY = y;
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', function () {
+      if (!ticking) {
+        window.requestAnimationFrame(update);
+        ticking = true;
+      }
+    }, { passive: true });
+
+    // Reveal when keyboard focus enters the header
+    header.addEventListener('focusin', function () {
+      header.classList.remove('is-hidden');
+      header.classList.add('is-pinned');
+    });
+
+    // Initial paint
+    update();
   }
 
   if (document.readyState === 'loading') {

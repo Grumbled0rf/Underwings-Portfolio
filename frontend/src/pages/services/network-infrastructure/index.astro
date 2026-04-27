@@ -14,7 +14,7 @@ const flagship = [
     slug: "firewall-network-security-review",
     title: "Firewall & Network Security Review",
     tagline: "FortiGate configs, firewall rules, network segmentation, routing security — reviewed by the rare CCNP + Fortinet + OSCP combination.",
-    price: "AED 12,000 – 30,000",
+    price: "AED 8,500 – 21,000",
     certs: ["Fortinet", "CCNP", "OSCP"],
     lead: "Vinoth Samiyappa",
     hasPage: true,
@@ -24,7 +24,7 @@ const flagship = [
     slug: "security-architecture-review",
     title: "Security Architecture Review",
     tagline: "Network zones, VPN, DMZ, access control, segmentation. Risk-rated findings and a target-state architecture you can actually implement.",
-    price: "AED 15,000 – 35,000",
+    price: "AED 11,000 – 24,000",
     certs: ["CCNP", "Security+", "Fortinet"],
     lead: "Vinoth Samiyappa",
     hasPage: true,
@@ -68,15 +68,229 @@ export const prerender = false;
   schema={schema}
   bodyClass="body svc-compact"
 >
+  <Fragment slot="head">
+    <style is:inline>
+      .ni-hero-fade { animation: niHeroFadeIn 0.8s ease-out both; animation-delay: 0.5s; }
+      @keyframes niHeroFadeIn {
+        from { filter: blur(3px); opacity: 0; transform: translateY(1rem); }
+        to   { filter: blur(0);   opacity: 1; transform: translateY(0); }
+      }
+
+      .ni-hero-wrap { position: relative; overflow: hidden; }
+      .ni-hero-wrap .hero-heading-wrapper {
+        display: flex; flex-direction: column; align-items: center; gap: 1.1rem;
+      }
+      .ni-hero-wrap .hero-heading-wrapper > * { margin: 0; }
+      .ni-hero-wrap .heading-large.hero-heading-large {
+        line-height: 1.05; letter-spacing: -0.035em;
+      }
+
+      .ni-hero-eyebrow {
+        display: inline-flex; align-items: center; gap: 0.55rem;
+        padding: 0.4rem 0.95rem; border-radius: 100px;
+        background: rgba(36,215,88,0.06);
+        border: 1px solid rgba(36,215,88,0.22);
+        font-family: 'Geist Mono', ui-monospace, monospace;
+        font-size: 0.72rem; letter-spacing: 0.14em;
+        text-transform: uppercase; color: #24d758;
+      }
+      .ni-hero-pulse {
+        width: 7px; height: 7px; border-radius: 50%; background: #24d758;
+        box-shadow: 0 0 0 0 rgba(36,215,88,0.55);
+        animation: niHeroPulse 2.2s ease-out infinite;
+      }
+      @keyframes niHeroPulse {
+        0%   { box-shadow: 0 0 0 0 rgba(36,215,88,0.55); opacity: 1; }
+        70%  { box-shadow: 0 0 0 10px rgba(36,215,88,0); opacity: 0.7; }
+        100% { box-shadow: 0 0 0 0 rgba(36,215,88,0); opacity: 1; }
+      }
+
+      .ni-hero-rotator {
+        position: relative; display: inline-block;
+        vertical-align: baseline; white-space: nowrap;
+      }
+      .ni-hero-rotator-word {
+        display: inline-block;
+        background: linear-gradient(90deg, #24d758 0%, #27dab4 100%);
+        -webkit-background-clip: text; background-clip: text;
+        -webkit-text-fill-color: transparent; color: transparent;
+        transition: text-shadow 0.25s ease;
+      }
+      .ni-hero-rotator.is-typing .ni-hero-rotator-word,
+      .ni-hero-rotator.is-deleting .ni-hero-rotator-word {
+        text-shadow: 0 0 22px rgba(36,215,88,0.25);
+      }
+      .ni-hero-rotator-caret {
+        display: inline-block; width: 2px; height: 0.95em;
+        margin-left: 4px;
+        background: linear-gradient(180deg, #24d758, #27dab4);
+        vertical-align: -0.08em; border-radius: 2px;
+        box-shadow: 0 0 10px rgba(36,215,88,0.6);
+        animation: niHeroCaretBlink 0.9s ease-in-out infinite;
+      }
+      .ni-hero-rotator.is-typing .ni-hero-rotator-caret,
+      .ni-hero-rotator.is-deleting .ni-hero-rotator-caret {
+        animation: none; opacity: 1;
+      }
+      @keyframes niHeroCaretBlink {
+        0%, 49%   { opacity: 1; }
+        50%, 100% { opacity: 0.15; }
+      }
+      @media (max-width: 560px) {
+        .ni-hero-rotator { white-space: normal; }
+      }
+
+      .ni-hero-cta-row {
+        display: flex; gap: 0.75rem; justify-content: center;
+        flex-wrap: wrap; margin-top: 1.75rem;
+      }
+      .ni-hero-btn {
+        display: inline-flex; align-items: center; gap: 0.5rem;
+        padding: 0.85rem 1.5rem; border-radius: 10px;
+        font-size: 0.92rem; font-weight: 600; letter-spacing: -0.005em;
+        text-decoration: none; border: 1px solid transparent; cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+        font-family: inherit;
+      }
+      .ni-hero-btn-primary {
+        background: linear-gradient(135deg, #24d758, #27dab4); color: #0a0a0a;
+        box-shadow: 0 4px 18px rgba(36,215,88,0.18);
+      }
+      .ni-hero-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(36,215,88,0.28); }
+      .ni-hero-btn-secondary {
+        background: rgba(255,255,255,0.04); color: #fff; border-color: rgba(255,255,255,0.15);
+      }
+      .ni-hero-btn-secondary:hover { background: rgba(36,215,88,0.06); border-color: rgba(36,215,88,0.35); }
+      .ni-hero-btn svg { transition: transform 0.2s ease; }
+      .ni-hero-btn:hover svg { transform: translateX(3px); }
+
+      .ni-hero-microtrust {
+        display: flex; align-items: center; justify-content: center;
+        gap: 0.55rem; margin: 1rem 0 0; font-size: 0.8rem;
+        color: rgba(255,255,255,0.48); flex-wrap: wrap;
+      }
+      .ni-hero-microtrust-dot { color: rgba(255,255,255,0.2); }
+
+      .ni-hero-stats {
+        display: grid; grid-template-columns: repeat(4, 1fr);
+        gap: 1rem; margin: 2.25rem auto 0; max-width: 780px;
+        padding: 1.25rem 1.75rem;
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 14px; position: relative; overflow: hidden;
+      }
+      .ni-hero-stats::before {
+        content: ''; position: absolute; inset: 0;
+        background: radial-gradient(ellipse at top, rgba(36,215,88,0.06) 0%, transparent 65%);
+        pointer-events: none;
+      }
+      .ni-hero-stat { display: flex; flex-direction: column; gap: 0.15rem; align-items: center; text-align: center; position: relative; z-index: 1; }
+      .ni-hero-stat-num {
+        font-family: 'Geist Mono', ui-monospace, monospace;
+        font-size: 1.35rem; font-weight: 700; color: #24d758;
+        letter-spacing: -0.01em; font-variant-numeric: tabular-nums;
+      }
+      .ni-hero-stat-label {
+        font-size: 0.7rem; color: rgba(255,255,255,0.5);
+        text-transform: uppercase; letter-spacing: 0.08em;
+      }
+      @media (max-width: 720px) {
+        .ni-hero-stats { grid-template-columns: repeat(2, 1fr); gap: 0.9rem 0.5rem; padding: 1rem; }
+        .ni-hero-stat-num { font-size: 1.15rem; }
+      }
+
+      .ni-hero-grid {
+        position: absolute; inset: 0;
+        background-image:
+          linear-gradient(rgba(36,215,88,0.045) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(36,215,88,0.045) 1px, transparent 1px);
+        background-size: 56px 56px;
+        mask-image: radial-gradient(ellipse 60% 70% at 50% 30%, #000 0%, transparent 75%);
+        -webkit-mask-image: radial-gradient(ellipse 60% 70% at 50% 30%, #000 0%, transparent 75%);
+        pointer-events: none; z-index: 0;
+        animation: niHeroGridDrift 24s linear infinite;
+      }
+      @keyframes niHeroGridDrift {
+        from { background-position: 0 0, 0 0; }
+        to   { background-position: 56px 56px, 56px 56px; }
+      }
+      .ni-hero-orb {
+        position: absolute; width: 520px; height: 520px;
+        top: -180px; left: 50%; transform: translateX(-50%);
+        background: radial-gradient(circle, rgba(36,215,88,0.08) 0%, rgba(36,215,88,0.02) 35%, transparent 65%);
+        filter: blur(20px); pointer-events: none; z-index: 0;
+        animation: niHeroOrbDrift 9s ease-in-out infinite;
+      }
+      @keyframes niHeroOrbDrift {
+        0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.85; }
+        50%      { transform: translateX(-50%) translateY(18px); opacity: 1; }
+      }
+
+      .ni-hero-wrap .crumbs { position: relative; z-index: 1; }
+
+      .ni-method-ribbon {
+        display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+        gap: 0.5rem; margin-top: 2.25rem; padding: 0 1rem;
+        position: relative; z-index: 1;
+      }
+      .ni-method-label {
+        font-family: 'Geist Mono', ui-monospace, monospace;
+        font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase;
+        color: rgba(255,255,255,0.4); margin-right: 0.5rem;
+      }
+      .ni-method-chip {
+        font-family: 'Geist Mono', ui-monospace, monospace;
+        font-size: 0.72rem; letter-spacing: 0.04em;
+        padding: 0.35rem 0.7rem; border-radius: 6px;
+        background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(255,255,255,0.1);
+        color: rgba(255,255,255,0.7);
+      }
+
+      /* FAQ */
+      .ni-faq-list { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 0.75rem; }
+      .ni-faq-item {
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 10px;
+        transition: border-color 0.2s ease;
+      }
+      .ni-faq-item:hover { border-color: rgba(255,255,255,0.16); }
+      .ni-faq-item[open] { border-color: rgba(36,215,88,0.25); }
+      .ni-faq-q {
+        list-style: none; cursor: pointer;
+        padding: 1.1rem 1.5rem; font-size: 0.95rem; font-weight: 500; color: #fff;
+        display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+        -webkit-tap-highlight-color: transparent;
+      }
+      .ni-faq-q::-webkit-details-marker { display: none; }
+      .ni-faq-icon { color: rgba(255,255,255,0.5); transition: transform 0.25s ease, color 0.2s ease; flex-shrink: 0; }
+      .ni-faq-item[open] .ni-faq-icon { transform: rotate(180deg); color: #24d758; }
+      .ni-faq-a { padding: 0 1.5rem 1.25rem; color: rgba(255,255,255,0.72); font-size: 0.9rem; line-height: 1.65; }
+
+      @media (max-width: 479px) {
+        .ni-faq-q { padding: 1rem 1.1rem; font-size: 0.9rem; }
+        .ni-faq-a { padding: 0 1.1rem 1rem; font-size: 0.85rem; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .ni-hero-fade, .ni-hero-pulse, .ni-hero-orb, .ni-hero-grid,
+        .ni-hero-rotator-word, .ni-hero-rotator-caret {
+          animation: none !important;
+        }
+        .ni-hero-fade { opacity: 1; filter: none; transform: none; }
+      }
+    </style>
+  </Fragment>
+
   <Header currentPage="services" />
 
   <main id="main" class="main">
 
-    <section class="section bottom-padding-clear top-padding-small">
-      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
-        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
-      </div>
-      <div class="container-medium">
+    <section class="section bottom-padding-clear top-padding-small ni-hero-wrap">
+      <div class="ni-hero-grid" aria-hidden="true"></div>
+      <div class="ni-hero-orb" aria-hidden="true"></div>
+      <div class="container-medium" style="position: relative; z-index: 1;">
         <nav class="crumbs" aria-label="Breadcrumb">
           <a href="/">Home</a>
           <span aria-hidden="true">›</span>
@@ -88,26 +302,150 @@ export const prerender = false;
         <div class="hero">
           <div class="hero-main-wrapper">
             <div class="hero-heading-wrapper">
-              <div class="label">
-                <div class="text-small color-grey">Category — 2 flagship services</div>
-              </div>
-              <h1 class="heading-large hero-heading-large">Network &amp; Infrastructure Security — <span class="text-gradient-clip bg-color-green-gradient">Reviewed by a Rare Combo</span></h1>
-              <p class="text text-center" style="max-width:680px;margin:0 auto;">
-                FortiGate and security architecture reviews by a practitioner who holds CCNP, Fortinet, and OSCP together. In the UAE market, that combination is almost nobody.
+              <span class="ni-hero-eyebrow ni-hero-fade">
+                <span class="ni-hero-pulse" aria-hidden="true"></span>
+                Network &amp; Infrastructure · CCNP + OSCP led
+              </span>
+
+              <h1 class="heading-large hero-heading-large ni-hero-fade" style="animation-delay: 0.2s">
+                Audit &amp; harden your<br><span class="ni-hero-rotator" aria-live="polite"><span class="ni-hero-rotator-word" data-rotate='["Firewall Rules","Network Architecture","Segmentation Design","VPN &amp; DMZ","Routing Security","Access Control","Zero Trust Posture"]'>Firewall Rules</span><span class="ni-hero-rotator-caret" aria-hidden="true"></span></span>
+              </h1>
+
+              <p class="text text-center ni-hero-fade" style="animation-delay: 0.4s; max-width:720px; margin:0 auto;">
+                FortiGate and security architecture reviews by a practitioner who holds CCNP, Fortinet, and OSCP together.
+                We find the <strong>30 – 200 stale or over-permissive rules</strong> hiding in your network and the
+                segmentation gaps an attacker would exploit in minutes.
               </p>
+            </div>
+
+            <div class="ni-hero-cta-row ni-hero-fade" style="animation-delay: 0.55s">
+              <a href="/#contact?service=network-infrastructure" class="ni-hero-btn ni-hero-btn-primary">
+                <span>Get a 24-hour quote</span>
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+                  <path d="M1.5 7.5h12M8 2l5.5 5.5L8 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+              <a href="https://wa.me/971505670394?text=Hi%2C%20I%27d%20like%20a%20firewall%20%2F%20network%20security%20review%20quote"
+                 target="_blank" rel="noopener"
+                 class="ni-hero-btn ni-hero-btn-secondary"
+                 aria-label="Open WhatsApp chat for a network security quote">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.464 3.488"/>
+                </svg>
+                <span>WhatsApp us</span>
+              </a>
+            </div>
+
+            <p class="ni-hero-microtrust ni-hero-fade" style="animation-delay: 0.7s">
+              <span>CCNP + Fortinet + OSCP combined lead</span>
+              <span class="ni-hero-microtrust-dot" aria-hidden="true">·</span>
+              <span>Read-only review — zero downtime</span>
+              <span class="ni-hero-microtrust-dot" aria-hidden="true">·</span>
+              <span>Free 30-day retest of high-severity fixes</span>
+            </p>
+
+            <div class="ni-hero-stats ni-hero-fade" style="animation-delay: 0.85s">
+              <div class="ni-hero-stat">
+                <span class="ni-hero-stat-num" data-target="24" data-suffix="h">0h</span>
+                <span class="ni-hero-stat-label">Quote Turnaround</span>
+              </div>
+              <div class="ni-hero-stat">
+                <span class="ni-hero-stat-num" data-target="14" data-suffix="d">0d</span>
+                <span class="ni-hero-stat-label">Typical Delivery</span>
+              </div>
+              <div class="ni-hero-stat">
+                <span class="ni-hero-stat-num" data-target="30" data-suffix="d">0d</span>
+                <span class="ni-hero-stat-label">Free Retest</span>
+              </div>
+              <div class="ni-hero-stat">
+                <span class="ni-hero-stat-num" data-target="200" data-suffix="+">0+</span>
+                <span class="ni-hero-stat-label">Rules Reviewed Avg</span>
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="cert-ribbon">
-          <span class="cert-ribbon-label">Powered by</span>
-          <span class="cert-chip">CCNP</span>
-          <span class="cert-chip">Fortinet</span>
-          <span class="cert-chip">Security+</span>
-          <span class="cert-chip">OSCP</span>
+        <div class="ni-method-ribbon ni-hero-fade" style="animation-delay: 1s">
+          <span class="ni-method-label">Methodology</span>
+          <span class="ni-method-chip">NIST SP 800-53</span>
+          <span class="ni-method-chip">NIST SP 800-207 (Zero Trust)</span>
+          <span class="ni-method-chip">CIS Controls v8</span>
+          <span class="ni-method-chip">ISO 27001 Annex A</span>
+          <span class="ni-method-chip">PCI DSS Segmentation</span>
         </div>
       </div>
     </section>
+
+    <script is:inline nonce={Astro.locals.nonce || ""}>
+    (function () {
+      function init() {
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        var rotator = document.querySelector('.ni-hero-rotator-word[data-rotate]');
+        var wrap    = document.querySelector('.ni-hero-rotator');
+        if (!reduce && rotator && wrap) {
+          var words;
+          try { words = JSON.parse(rotator.getAttribute('data-rotate')); } catch (e) { words = []; }
+          if (words.length > 1) {
+            rotator.textContent = '';
+            var wordIdx = 0, charIdx = 0, deleting = false;
+            var TYPE_MIN = 55, TYPE_MAX = 110, DELETE_SPEED = 32, HOLD_FULL = 1400, HOLD_EMPTY = 240;
+            function setState(s) { wrap.classList.remove('is-typing', 'is-deleting'); if (s) wrap.classList.add(s); }
+            function tick() {
+              var word = words[wordIdx];
+              if (!deleting) {
+                setState('is-typing'); charIdx++;
+                rotator.textContent = word.slice(0, charIdx);
+                if (charIdx === word.length) { setState(null); deleting = true; return setTimeout(tick, HOLD_FULL); }
+                var jitter = TYPE_MIN + Math.random() * (TYPE_MAX - TYPE_MIN);
+                return setTimeout(tick, jitter);
+              } else {
+                setState('is-deleting'); charIdx--;
+                rotator.textContent = word.slice(0, charIdx);
+                if (charIdx === 0) { setState(null); deleting = false; wordIdx = (wordIdx + 1) % words.length; return setTimeout(tick, HOLD_EMPTY); }
+                return setTimeout(tick, DELETE_SPEED);
+              }
+            }
+            setTimeout(tick, 700);
+          }
+        }
+
+        var hasIO = (typeof IntersectionObserver !== 'undefined');
+        if (!reduce && hasIO) {
+          var stats = document.querySelectorAll('.ni-hero-stat-num[data-target]');
+          if (stats.length) {
+            var animated = new WeakSet();
+            var io = new IntersectionObserver(function (entries) {
+              entries.forEach(function (entry) {
+                if (!entry.isIntersecting) return;
+                var el = entry.target;
+                if (animated.has(el)) return;
+                animated.add(el);
+                var target = parseInt(el.getAttribute('data-target'), 10) || 0;
+                var suffix = el.getAttribute('data-suffix') || '';
+                var dur = 1200, start = performance.now();
+                function tick(now) {
+                  var t = Math.min(1, (now - start) / dur);
+                  var eased = 1 - Math.pow(1 - t, 3);
+                  el.textContent = Math.round(target * eased) + suffix;
+                  if (t < 1) requestAnimationFrame(tick);
+                }
+                requestAnimationFrame(tick);
+              });
+            }, { threshold: 0.4 });
+            stats.forEach(function (s) { io.observe(s); });
+          }
+        } else {
+          document.querySelectorAll('.ni-hero-stat-num[data-target]').forEach(function (el) {
+            var target = parseInt(el.getAttribute('data-target'), 10) || 0;
+            el.textContent = target + (el.getAttribute('data-suffix') || '');
+          });
+        }
+      }
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+      else init();
+    })();
+    </script>
 
     <section class="section bg-color-dark">
       <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
@@ -213,6 +551,104 @@ export const prerender = false;
             <p>Most UAE mid-market networks are <strong>flat, perimeter-trusting</strong>, and running firewall rule sets that haven't been reviewed in years. FortiGate is the dominant platform in the region — and most organisations we've seen have <strong>30 – 200 stale or overly permissive rules</strong> that an attacker would exploit in minutes.</p>
             <p>Paired with our penetration testing work, a firewall and architecture review gives you the full picture: <strong>how the network is designed vs. how an attacker would actually move through it</strong>. Two perspectives, one team, one coordinated program.</p>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
+        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
+      </div>
+      <div class="container">
+        <div style="text-align:center; margin-bottom: 2.5rem;">
+          <div class="label" style="display:inline-block; border:1px solid rgba(255,255,255,0.15); border-radius:5.625rem; padding:0.625rem 1rem;">
+            <div class="text-small color-grey">FAQ</div>
+          </div>
+          <h2 class="heading" style="margin-top: 0.75rem; text-align:center;">
+            Common <span class="text-gradient-clip bg-color-green-gradient">questions</span>
+          </h2>
+        </div>
+
+        <div class="ni-faq-list">
+          <details class="ni-faq-item">
+            <summary class="ni-faq-q">
+              Will the review cause downtime or affect production traffic?
+              <svg class="ni-faq-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="ni-faq-a">
+              No. The review is read-only — we work from configuration exports, packet captures, and a
+              read-only admin account on your firewall management. No rule changes happen without your
+              explicit approval and a change-control window. Production traffic is unaffected.
+            </div>
+          </details>
+
+          <details class="ni-faq-item">
+            <summary class="ni-faq-q">
+              Do you only review FortiGate, or other firewall vendors too?
+              <svg class="ni-faq-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="ni-faq-a">
+              FortiGate is our primary specialty (it's the dominant platform in UAE), but we also review
+              Cisco ASA / Firepower, Palo Alto, Check Point, and SonicWall. The rule-set hygiene
+              principles (least privilege, segmentation, deny-by-default) are vendor-neutral.
+              Tell us what you have and we'll confirm coverage upfront.
+            </div>
+          </details>
+
+          <details class="ni-faq-item">
+            <summary class="ni-faq-q">
+              What's the difference between a Firewall Review and an Architecture Review?
+              <svg class="ni-faq-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="ni-faq-a">
+              <strong>Firewall Review</strong> goes deep into your existing rules and configuration —
+              shadowed rules, overly permissive ANY-ANY entries, missing logging, weak ciphers,
+              outdated firmware. Tactical and immediate.
+              <strong>Architecture Review</strong> steps back and asks if the network design itself is sound —
+              segmentation strategy, DMZ posture, VPN boundaries, zero-trust readiness, target-state diagrams.
+              Strategic and forward-looking. Most clients need both — we can bundle.
+            </div>
+          </details>
+
+          <details class="ni-faq-item">
+            <summary class="ni-faq-q">
+              Will you implement the recommended changes, or just hand over a report?
+              <svg class="ni-faq-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="ni-faq-a">
+              Both options are available. The default deliverable is a risk-rated findings report with a
+              prioritised remediation plan. If you prefer, we can co-implement the changes alongside your
+              network team in a change-controlled window — knowledge transfer included so your engineers
+              own the result, not us.
+            </div>
+          </details>
+
+          <details class="ni-faq-item">
+            <summary class="ni-faq-q">
+              How does this work pair with penetration testing?
+              <svg class="ni-faq-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="ni-faq-a">
+              Excellently. A firewall + architecture review tells you how your network is *supposed* to
+              behave; an internal pen test tells you how an attacker would *actually* move through it.
+              Running them together (or sequentially in the same engagement) gives you the highest-fidelity
+              view of network risk — and we coordinate findings so nothing falls between the gaps.
+            </div>
+          </details>
+
+          <details class="ni-faq-item">
+            <summary class="ni-faq-q">
+              Will this support our ISO 27001, NESA, or PCI DSS compliance work?
+              <svg class="ni-faq-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="ni-faq-a">
+              Yes. Findings are mapped to ISO 27001 Annex A (8.20–8.23 network controls), UAE IA V2,
+              ADHICS v2, and PCI DSS Requirement 1 (network security) on request. The remediation
+              evidence we produce is suitable for auditor review. PCI segmentation testing is available
+              as an add-on if your CDE needs it.
+            </div>
+          </details>
         </div>
       </div>
     </section>

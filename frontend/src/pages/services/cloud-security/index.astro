@@ -14,7 +14,7 @@ const flagship = [
     slug: "azure-cloud-security-assessment",
     title: "Azure Cloud Security Assessment",
     tagline: "Azure tenant, Entra ID, RBAC, storage, NSGs, Defender for Cloud — reviewed against CIS Azure Benchmark and Microsoft best practices.",
-    price: "AED 15,000 – 35,000",
+    price: "AED 11,000 – 24,000",
     certs: ["Azure Security"],
     lead: "Manoj Prabhakaran",
     hasPage: true,
@@ -24,7 +24,7 @@ const flagship = [
     slug: "microsoft-365-security-review",
     title: "Microsoft 365 Security Review",
     tagline: "Exchange, SharePoint, Teams, Conditional Access, MFA, DLP — the Microsoft 365 posture most UAE organisations haven't configured.",
-    price: "AED 10,000 – 25,000",
+    price: "AED 7,000 – 18,000",
     certs: ["Azure Security", "Security+"],
     lead: "Vinoth Samiyappa",
     hasPage: true,
@@ -70,15 +70,237 @@ export const prerender = false;
   schema={schema}
   bodyClass="body svc-compact"
 >
+  <Fragment slot="head">
+    <style is:inline>
+      /* ───── Hero blur-fade in (staggered) ───── */
+      .cs-hero-fade { animation: csHeroFadeIn 0.8s ease-out both; animation-delay: 0.5s; }
+      @keyframes csHeroFadeIn {
+        from { filter: blur(3px); opacity: 0; transform: translateY(1rem); }
+        to   { filter: blur(0);   opacity: 1; transform: translateY(0); }
+      }
+
+      .cs-hero-wrap { position: relative; overflow: hidden; }
+      .cs-hero-wrap .hero-heading-wrapper {
+        display: flex; flex-direction: column; align-items: center; gap: 1.1rem;
+      }
+      .cs-hero-wrap .hero-heading-wrapper > * { margin: 0; }
+      .cs-hero-wrap .heading-large.hero-heading-large {
+        line-height: 1.05; letter-spacing: -0.035em;
+      }
+
+      /* Eyebrow pill with pulse */
+      .cs-hero-eyebrow {
+        display: inline-flex; align-items: center; gap: 0.55rem;
+        padding: 0.4rem 0.95rem; border-radius: 100px;
+        background: rgba(36,215,88,0.06);
+        border: 1px solid rgba(36,215,88,0.22);
+        font-family: 'Geist Mono', ui-monospace, monospace;
+        font-size: 0.72rem; letter-spacing: 0.14em;
+        text-transform: uppercase; color: #24d758;
+      }
+      .cs-hero-pulse {
+        width: 7px; height: 7px; border-radius: 50%; background: #24d758;
+        box-shadow: 0 0 0 0 rgba(36,215,88,0.55);
+        animation: csHeroPulse 2.2s ease-out infinite;
+      }
+      @keyframes csHeroPulse {
+        0%   { box-shadow: 0 0 0 0 rgba(36,215,88,0.55); opacity: 1; }
+        70%  { box-shadow: 0 0 0 10px rgba(36,215,88,0); opacity: 0.7; }
+        100% { box-shadow: 0 0 0 0 rgba(36,215,88,0); opacity: 1; }
+      }
+
+      /* Typewriter rotator */
+      .cs-hero-rotator {
+        position: relative; display: inline-block;
+        vertical-align: baseline; white-space: nowrap;
+      }
+      .cs-hero-rotator-word {
+        display: inline-block;
+        background: linear-gradient(90deg, #24d758 0%, #27dab4 100%);
+        -webkit-background-clip: text; background-clip: text;
+        -webkit-text-fill-color: transparent; color: transparent;
+        transition: text-shadow 0.25s ease;
+      }
+      .cs-hero-rotator.is-typing .cs-hero-rotator-word,
+      .cs-hero-rotator.is-deleting .cs-hero-rotator-word {
+        text-shadow: 0 0 22px rgba(36,215,88,0.25);
+      }
+      .cs-hero-rotator-caret {
+        display: inline-block; width: 2px; height: 0.95em;
+        margin-left: 4px;
+        background: linear-gradient(180deg, #24d758, #27dab4);
+        vertical-align: -0.08em; border-radius: 2px;
+        box-shadow: 0 0 10px rgba(36,215,88,0.6);
+        animation: csHeroCaretBlink 0.9s ease-in-out infinite;
+      }
+      .cs-hero-rotator.is-typing .cs-hero-rotator-caret,
+      .cs-hero-rotator.is-deleting .cs-hero-rotator-caret {
+        animation: none; opacity: 1;
+      }
+      @keyframes csHeroCaretBlink {
+        0%, 49%   { opacity: 1; }
+        50%, 100% { opacity: 0.15; }
+      }
+      @media (max-width: 560px) {
+        .cs-hero-rotator { white-space: normal; }
+      }
+
+      /* Dual CTA row */
+      .cs-hero-cta-row {
+        display: flex; gap: 0.75rem; justify-content: center;
+        flex-wrap: wrap; margin-top: 1.75rem;
+      }
+      .cs-hero-btn {
+        display: inline-flex; align-items: center; gap: 0.5rem;
+        padding: 0.85rem 1.5rem; border-radius: 10px;
+        font-size: 0.92rem; font-weight: 600; letter-spacing: -0.005em;
+        text-decoration: none; border: 1px solid transparent; cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+        font-family: inherit;
+      }
+      .cs-hero-btn-primary {
+        background: linear-gradient(135deg, #24d758, #27dab4); color: #0a0a0a;
+        box-shadow: 0 4px 18px rgba(36,215,88,0.18);
+      }
+      .cs-hero-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(36,215,88,0.28); }
+      .cs-hero-btn-secondary {
+        background: rgba(255,255,255,0.04); color: #fff; border-color: rgba(255,255,255,0.15);
+      }
+      .cs-hero-btn-secondary:hover { background: rgba(36,215,88,0.06); border-color: rgba(36,215,88,0.35); }
+      .cs-hero-btn svg { transition: transform 0.2s ease; }
+      .cs-hero-btn:hover svg { transform: translateX(3px); }
+
+      /* Microtrust */
+      .cs-hero-microtrust {
+        display: flex; align-items: center; justify-content: center;
+        gap: 0.55rem; margin: 1rem 0 0; font-size: 0.8rem;
+        color: rgba(255,255,255,0.48); flex-wrap: wrap;
+      }
+      .cs-hero-microtrust-dot { color: rgba(255,255,255,0.2); }
+
+      /* Stats strip */
+      .cs-hero-stats {
+        display: grid; grid-template-columns: repeat(4, 1fr);
+        gap: 1rem; margin: 2.25rem auto 0; max-width: 780px;
+        padding: 1.25rem 1.75rem;
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 14px; position: relative; overflow: hidden;
+      }
+      .cs-hero-stats::before {
+        content: ''; position: absolute; inset: 0;
+        background: radial-gradient(ellipse at top, rgba(36,215,88,0.06) 0%, transparent 65%);
+        pointer-events: none;
+      }
+      .cs-hero-stat { display: flex; flex-direction: column; gap: 0.15rem; align-items: center; text-align: center; position: relative; z-index: 1; }
+      .cs-hero-stat-num {
+        font-family: 'Geist Mono', ui-monospace, monospace;
+        font-size: 1.35rem; font-weight: 700; color: #24d758;
+        letter-spacing: -0.01em; font-variant-numeric: tabular-nums;
+      }
+      .cs-hero-stat-label {
+        font-size: 0.7rem; color: rgba(255,255,255,0.5);
+        text-transform: uppercase; letter-spacing: 0.08em;
+      }
+      @media (max-width: 720px) {
+        .cs-hero-stats { grid-template-columns: repeat(2, 1fr); gap: 0.9rem 0.5rem; padding: 1rem; }
+        .cs-hero-stat-num { font-size: 1.15rem; }
+      }
+
+      /* Animated grid + orb backdrop */
+      .cs-hero-grid {
+        position: absolute; inset: 0;
+        background-image:
+          linear-gradient(rgba(36,215,88,0.045) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(36,215,88,0.045) 1px, transparent 1px);
+        background-size: 56px 56px;
+        mask-image: radial-gradient(ellipse 60% 70% at 50% 30%, #000 0%, transparent 75%);
+        -webkit-mask-image: radial-gradient(ellipse 60% 70% at 50% 30%, #000 0%, transparent 75%);
+        pointer-events: none; z-index: 0;
+        animation: csHeroGridDrift 24s linear infinite;
+      }
+      @keyframes csHeroGridDrift {
+        from { background-position: 0 0, 0 0; }
+        to   { background-position: 56px 56px, 56px 56px; }
+      }
+      .cs-hero-orb {
+        position: absolute; width: 520px; height: 520px;
+        top: -180px; left: 50%; transform: translateX(-50%);
+        background: radial-gradient(circle, rgba(36,215,88,0.08) 0%, rgba(36,215,88,0.02) 35%, transparent 65%);
+        filter: blur(20px); pointer-events: none; z-index: 0;
+        animation: csHeroOrbDrift 9s ease-in-out infinite;
+      }
+      @keyframes csHeroOrbDrift {
+        0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.85; }
+        50%      { transform: translateX(-50%) translateY(18px); opacity: 1; }
+      }
+
+      .cs-hero-wrap .crumbs { position: relative; z-index: 1; }
+
+      /* Methodology ribbon */
+      .cs-method-ribbon {
+        display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+        gap: 0.5rem; margin-top: 2.25rem; padding: 0 1rem;
+        position: relative; z-index: 1;
+      }
+      .cs-method-label {
+        font-family: 'Geist Mono', ui-monospace, monospace;
+        font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase;
+        color: rgba(255,255,255,0.4); margin-right: 0.5rem;
+      }
+      .cs-method-chip {
+        font-family: 'Geist Mono', ui-monospace, monospace;
+        font-size: 0.72rem; letter-spacing: 0.04em;
+        padding: 0.35rem 0.7rem; border-radius: 6px;
+        background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(255,255,255,0.1);
+        color: rgba(255,255,255,0.7);
+      }
+
+      /* FAQ */
+      .cs-faq-list { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 0.75rem; }
+      .cs-faq-item {
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 10px;
+        transition: border-color 0.2s ease;
+      }
+      .cs-faq-item:hover { border-color: rgba(255,255,255,0.16); }
+      .cs-faq-item[open] { border-color: rgba(36,215,88,0.25); }
+      .cs-faq-q {
+        list-style: none; cursor: pointer;
+        padding: 1.1rem 1.5rem; font-size: 0.95rem; font-weight: 500; color: #fff;
+        display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+        -webkit-tap-highlight-color: transparent;
+      }
+      .cs-faq-q::-webkit-details-marker { display: none; }
+      .cs-faq-icon { color: rgba(255,255,255,0.5); transition: transform 0.25s ease, color 0.2s ease; flex-shrink: 0; }
+      .cs-faq-item[open] .cs-faq-icon { transform: rotate(180deg); color: #24d758; }
+      .cs-faq-a { padding: 0 1.5rem 1.25rem; color: rgba(255,255,255,0.72); font-size: 0.9rem; line-height: 1.65; }
+
+      @media (max-width: 479px) {
+        .cs-faq-q { padding: 1rem 1.1rem; font-size: 0.9rem; }
+        .cs-faq-a { padding: 0 1.1rem 1rem; font-size: 0.85rem; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .cs-hero-fade, .cs-hero-pulse, .cs-hero-orb, .cs-hero-grid,
+        .cs-hero-rotator-word, .cs-hero-rotator-caret {
+          animation: none !important;
+        }
+        .cs-hero-fade { opacity: 1; filter: none; transform: none; }
+      }
+    </style>
+  </Fragment>
+
   <Header currentPage="services" />
 
   <main id="main" class="main">
 
-    <section class="section bottom-padding-clear top-padding-small">
-      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
-        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
-      </div>
-      <div class="container-medium">
+    <section class="section bottom-padding-clear top-padding-small cs-hero-wrap">
+      <div class="cs-hero-grid" aria-hidden="true"></div>
+      <div class="cs-hero-orb" aria-hidden="true"></div>
+      <div class="container-medium" style="position: relative; z-index: 1;">
         <nav class="crumbs" aria-label="Breadcrumb">
           <a href="/">Home</a>
           <span aria-hidden="true">›</span>
@@ -90,25 +312,159 @@ export const prerender = false;
         <div class="hero">
           <div class="hero-main-wrapper">
             <div class="hero-heading-wrapper">
-              <div class="label">
-                <div class="text-small color-grey">Category — 2 flagship services</div>
-              </div>
-              <h1 class="heading-large hero-heading-large">Cloud Security — <span class="text-gradient-clip bg-color-green-gradient">Fix the Misconfigurations You Don't Know You Have</span></h1>
-              <p class="text text-center" style="max-width:680px;margin:0 auto;">
-                Most UAE mid-market organisations run their entire business on Azure and Microsoft 365 — and most haven't configured security beyond the default Conditional Access policy. We fix that.
+              <span class="cs-hero-eyebrow cs-hero-fade">
+                <span class="cs-hero-pulse" aria-hidden="true"></span>
+                Cloud Security · CIS-Benchmarked
+              </span>
+
+              <h1 class="heading-large hero-heading-large cs-hero-fade" style="animation-delay: 0.2s">
+                Audit &amp; harden your<br><span class="cs-hero-rotator" aria-live="polite"><span class="cs-hero-rotator-word" data-rotate='["Azure Tenant","Microsoft 365 Estate","Entra ID Identity","Conditional Access","Defender for Cloud","SharePoint Sharing","Storage &amp; RBAC"]'>Azure Tenant</span><span class="cs-hero-rotator-caret" aria-hidden="true"></span></span>
+              </h1>
+
+              <p class="text text-center cs-hero-fade" style="animation-delay: 0.4s; max-width:720px; margin:0 auto;">
+                Most UAE mid-market organisations run their entire business on Azure and Microsoft 365 — and most haven't
+                configured security beyond the default Conditional Access policy. We find the
+                <strong>10 – 30 high-severity misconfigurations</strong> hiding in your tenant and fix them in 1 – 2 weeks.
               </p>
+            </div>
+
+            <!-- Dual CTA -->
+            <div class="cs-hero-cta-row cs-hero-fade" style="animation-delay: 0.55s">
+              <a href="/#contact?service=cloud-security" class="cs-hero-btn cs-hero-btn-primary">
+                <span>Get a 24-hour quote</span>
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+                  <path d="M1.5 7.5h12M8 2l5.5 5.5L8 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+              <a href="https://wa.me/971505670394?text=Hi%2C%20I%27d%20like%20a%20cloud%20security%20assessment%20quote"
+                 target="_blank" rel="noopener"
+                 class="cs-hero-btn cs-hero-btn-secondary"
+                 aria-label="Open WhatsApp chat for a cloud security quote">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.464 3.488"/>
+                </svg>
+                <span>WhatsApp us</span>
+              </a>
+            </div>
+
+            <!-- Microtrust -->
+            <p class="cs-hero-microtrust cs-hero-fade" style="animation-delay: 0.7s">
+              <span>Azure Security &amp; CDSA-certified lead</span>
+              <span class="cs-hero-microtrust-dot" aria-hidden="true">·</span>
+              <span>30-day free retest of high-severity fixes</span>
+              <span class="cs-hero-microtrust-dot" aria-hidden="true">·</span>
+              <span>Read-only access — zero disruption</span>
+            </p>
+
+            <!-- Stats strip with count-up -->
+            <div class="cs-hero-stats cs-hero-fade" style="animation-delay: 0.85s">
+              <div class="cs-hero-stat">
+                <span class="cs-hero-stat-num" data-target="24" data-suffix="h">0h</span>
+                <span class="cs-hero-stat-label">Quote Turnaround</span>
+              </div>
+              <div class="cs-hero-stat">
+                <span class="cs-hero-stat-num" data-target="14" data-suffix="d">0d</span>
+                <span class="cs-hero-stat-label">Typical Delivery</span>
+              </div>
+              <div class="cs-hero-stat">
+                <span class="cs-hero-stat-num" data-target="30" data-suffix="d">0d</span>
+                <span class="cs-hero-stat-label">Free Retest</span>
+              </div>
+              <div class="cs-hero-stat">
+                <span class="cs-hero-stat-num" data-target="100" data-suffix="%">0%</span>
+                <span class="cs-hero-stat-label">CIS Mapped</span>
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="cert-ribbon">
-          <span class="cert-ribbon-label">Powered by</span>
-          <span class="cert-chip">Azure Security</span>
-          <span class="cert-chip">Security+</span>
-          <span class="cert-chip">CDSA</span>
+        <!-- Methodology ribbon -->
+        <div class="cs-method-ribbon cs-hero-fade" style="animation-delay: 1s">
+          <span class="cs-method-label">Methodology</span>
+          <span class="cs-method-chip">CIS Azure Benchmark</span>
+          <span class="cs-method-chip">CIS M365 Benchmark</span>
+          <span class="cs-method-chip">Microsoft Best Practices</span>
+          <span class="cs-method-chip">NIST SP 800-53</span>
+          <span class="cs-method-chip">ISO 27017</span>
         </div>
       </div>
     </section>
+
+    <!-- Hero JS — typewriter rotator + stat count-up -->
+    <script is:inline nonce={Astro.locals.nonce || ""}>
+    (function () {
+      function init() {
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        var rotator = document.querySelector('.cs-hero-rotator-word[data-rotate]');
+        var wrap    = document.querySelector('.cs-hero-rotator');
+        if (!reduce && rotator && wrap) {
+          var words;
+          try { words = JSON.parse(rotator.getAttribute('data-rotate')); } catch (e) { words = []; }
+          if (words.length > 1) {
+            rotator.textContent = '';
+            var wordIdx = 0, charIdx = 0, deleting = false;
+            var TYPE_MIN = 55, TYPE_MAX = 110, DELETE_SPEED = 32, HOLD_FULL = 1400, HOLD_EMPTY = 240;
+            function setState(s) {
+              wrap.classList.remove('is-typing', 'is-deleting');
+              if (s) wrap.classList.add(s);
+            }
+            function tick() {
+              var word = words[wordIdx];
+              if (!deleting) {
+                setState('is-typing'); charIdx++;
+                rotator.textContent = word.slice(0, charIdx);
+                if (charIdx === word.length) { setState(null); deleting = true; return setTimeout(tick, HOLD_FULL); }
+                var jitter = TYPE_MIN + Math.random() * (TYPE_MAX - TYPE_MIN);
+                return setTimeout(tick, jitter);
+              } else {
+                setState('is-deleting'); charIdx--;
+                rotator.textContent = word.slice(0, charIdx);
+                if (charIdx === 0) { setState(null); deleting = false; wordIdx = (wordIdx + 1) % words.length; return setTimeout(tick, HOLD_EMPTY); }
+                return setTimeout(tick, DELETE_SPEED);
+              }
+            }
+            setTimeout(tick, 700);
+          }
+        }
+
+        var hasIO = (typeof IntersectionObserver !== 'undefined');
+        if (!reduce && hasIO) {
+          var stats = document.querySelectorAll('.cs-hero-stat-num[data-target]');
+          if (stats.length) {
+            var animated = new WeakSet();
+            var io = new IntersectionObserver(function (entries) {
+              entries.forEach(function (entry) {
+                if (!entry.isIntersecting) return;
+                var el = entry.target;
+                if (animated.has(el)) return;
+                animated.add(el);
+                var target = parseInt(el.getAttribute('data-target'), 10) || 0;
+                var suffix = el.getAttribute('data-suffix') || '';
+                var dur = 1200, start = performance.now();
+                function tick(now) {
+                  var t = Math.min(1, (now - start) / dur);
+                  var eased = 1 - Math.pow(1 - t, 3);
+                  el.textContent = Math.round(target * eased) + suffix;
+                  if (t < 1) requestAnimationFrame(tick);
+                }
+                requestAnimationFrame(tick);
+              });
+            }, { threshold: 0.4 });
+            stats.forEach(function (s) { io.observe(s); });
+          }
+        } else {
+          document.querySelectorAll('.cs-hero-stat-num[data-target]').forEach(function (el) {
+            var target = parseInt(el.getAttribute('data-target'), 10) || 0;
+            el.textContent = target + (el.getAttribute('data-suffix') || '');
+          });
+        }
+      }
+
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+      else init();
+    })();
+    </script>
 
     <section class="section bg-color-dark">
       <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
@@ -252,6 +608,102 @@ export const prerender = false;
             <p>Yet most UAE mid-market organisations run out-of-the-box configurations. Every assessment we've seen has <strong>10 – 30 high-severity misconfigurations</strong> that take hours, not months, to fix: over-permissive Conditional Access policies, storage accounts open to the internet, misconfigured Entra ID roles, unused Microsoft Defender licences, SharePoint guest-access policies left wide open.</p>
             <p>This is <strong>the highest-ROI cloud security work available</strong> — and it's work we deliver in 1 – 2 weeks, not 3 months.</p>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
+        <div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div>
+      </div>
+      <div class="container">
+        <div style="text-align:center; margin-bottom: 2.5rem;">
+          <div class="label" style="display:inline-block; border:1px solid rgba(255,255,255,0.15); border-radius:5.625rem; padding:0.625rem 1rem;">
+            <div class="text-small color-grey">FAQ</div>
+          </div>
+          <h2 class="heading" style="margin-top: 0.75rem; text-align:center;">
+            Common <span class="text-gradient-clip bg-color-green-gradient">questions</span>
+          </h2>
+        </div>
+
+        <div class="cs-faq-list">
+          <details class="cs-faq-item">
+            <summary class="cs-faq-q">
+              We're already on Azure / M365 with default config — is that really risky?
+              <svg class="cs-faq-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="cs-faq-a">
+              Yes. Microsoft ships secure defaults for *some* settings, but the most impactful controls
+              (Conditional Access policies, Defender posture, RBAC scope, storage anonymous access,
+              SharePoint external sharing, Entra privileged-role membership) all need explicit
+              configuration. Every UAE tenant we've seen has 10–30 high-severity findings out of the box.
+            </div>
+          </details>
+
+          <details class="cs-faq-item">
+            <summary class="cs-faq-q">
+              Will an assessment disrupt our users or production environment?
+              <svg class="cs-faq-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="cs-faq-a">
+              No. The assessment is read-only — we use a Global Reader role (Azure) and a delegated
+              read-only admin (M365). No changes are made without your explicit approval during the
+              remediation phase. Users see nothing. Operations are unaffected.
+            </div>
+          </details>
+
+          <details class="cs-faq-item">
+            <summary class="cs-faq-q">
+              Do you just give a report, or do you actually fix the issues?
+              <svg class="cs-faq-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="cs-faq-a">
+              Both. The deliverable is a CIS-mapped findings report with a prioritised remediation plan,
+              and we can implement the fixes for you — change-controlled, in your maintenance window, with
+              your team shadowing if you want the knowledge transfer. We're not a "throw-it-over-the-wall"
+              consultancy.
+            </div>
+          </details>
+
+          <details class="cs-faq-item">
+            <summary class="cs-faq-q">
+              What's the difference between an Azure assessment and an M365 review?
+              <svg class="cs-faq-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="cs-faq-a">
+              <strong>Azure assessment</strong> covers your subscription-level resources: VMs, networking,
+              storage, key vault, RBAC, Defender for Cloud posture, Entra ID at the directory level.
+              <strong>M365 review</strong> covers user-facing workloads: Exchange, SharePoint, Teams, OneDrive,
+              Conditional Access, MFA, DLP, sensitivity labels. Most clients need both — we usually
+              bundle them at a discount.
+            </div>
+          </details>
+
+          <details class="cs-faq-item">
+            <summary class="cs-faq-q">
+              What level of access do you need to start?
+              <svg class="cs-faq-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="cs-faq-a">
+              For Azure: a guest account with the Global Reader role assigned at the tenant root, plus
+              Reader role on the subscriptions in scope. For M365: a delegated read-only admin role.
+              We sign an NDA before access is granted, and your access can be revoked the moment delivery
+              is complete. No credentials leave your tenant.
+            </div>
+          </details>
+
+          <details class="cs-faq-item">
+            <summary class="cs-faq-q">
+              Will this work prepare us for ISO 27001, NESA, or PDPL?
+              <svg class="cs-faq-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="cs-faq-a">
+              Yes. Every finding is mapped to ISO 27001 Annex A controls, UAE IA V2, ADHICS v2, and PDPL
+              relevant clauses on request. The remediation evidence we produce becomes audit evidence —
+              this is one of the highest-leverage activities for any UAE compliance programme.
+            </div>
+          </details>
         </div>
       </div>
     </section>

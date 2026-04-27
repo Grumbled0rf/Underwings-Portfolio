@@ -665,6 +665,37 @@ const schemas = [
       .ind-cta { flex-direction: column; text-align: center; }
     }
 
+    /* Founding Client Pricing ribbon — gold pill above H1 */
+    .founding-ribbon {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 0.85rem;
+      margin: 0 auto 1.1rem;
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(255, 200, 80, 0.14), rgba(255, 170, 50, 0.06));
+      border: 1px solid rgba(255, 200, 80, 0.35);
+      color: #ffd97a;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      text-decoration: none;
+      transition: background 0.18s, border-color 0.18s, transform 0.12s;
+      animation-delay: 0.05s;
+      backdrop-filter: blur(6px);
+    }
+    .founding-ribbon:hover { background: linear-gradient(135deg, rgba(255, 200, 80, 0.22), rgba(255, 170, 50, 0.10)); border-color: rgba(255, 200, 80, 0.55); transform: translateY(-1px); }
+    .founding-ribbon strong { color: #ffe6a5; font-weight: 600; }
+    .founding-ribbon-dot { width: 7px; height: 7px; border-radius: 50%; background: #ffd166; box-shadow: 0 0 8px rgba(255, 209, 102, 0.6); animation: foundingPulse 1.8s ease-in-out infinite; }
+    @keyframes foundingPulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.55; transform: scale(0.85); } }
+    .founding-ribbon-sep { opacity: 0.4; }
+    .founding-ribbon-arrow { font-size: 0.85em; transition: transform 0.18s; }
+    .founding-ribbon:hover .founding-ribbon-arrow { transform: translateX(2px); }
+    @media (max-width: 600px) {
+      .founding-ribbon { font-size: 0.7rem; padding: 0.35rem 0.7rem; gap: 0.35rem; }
+      .founding-ribbon-sep { display: none; }
+    }
+
     /* Hero H1 — fluid sizing, exactly 2 lines on desktop, max 3 on mobile */
     .hero-heading-large {
       font-size: clamp(1.9rem, 4.3vw, 3.5rem) !important;
@@ -936,6 +967,13 @@ const schemas = [
               <div class="neon-line-shadow"></div>
             </div>
             <div data-w-id="19df5849-171b-4eae-062f-4812128bbbb8" class="hero-heading-wrapper">
+              <a href="/services" class="founding-ribbon hero-fade-in" aria-label="Founding Client Pricing — first 10 only">
+                <span class="founding-ribbon-dot" aria-hidden="true"></span>
+                <strong>Founding Client Pricing</strong>
+                <span class="founding-ribbon-sep">·</span>
+                <span>First 10 clients · save up to 15%</span>
+                <span class="founding-ribbon-arrow" aria-hidden="true">→</span>
+              </a>
               <h1 class="heading-large hero-heading-large hero-fade-in">Your Ecosystem, Under Our Wings.<br><span class="text-gradient-clip bg-color-green-gradient">Shielded Above Real-World Cyber Risk.</span></h1>
               <p class="text text-center hero-fade-in" style="animation-delay: 0.2s">Penetration testing, GRC, cloud security, and awareness training — delivered by named OSCP and ISO 27001 Lead Auditor practitioners. <strong>Never anonymous juniors. Hands-on, UAE-based delivery.</strong></p>
             </div>
