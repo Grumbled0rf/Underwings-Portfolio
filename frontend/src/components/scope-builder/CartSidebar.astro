@@ -1,0 +1,40 @@
+---
+---
+<aside class="sb-cart" id="sb-cart">
+  <header class="sb-cart-head">
+    <h2>Your Cart</h2>
+    <span class="sb-cart-count" id="sb-cart-count">0 items</span>
+  </header>
+  <ul class="sb-cart-list" id="sb-cart-list">
+    <li class="sb-cart-empty" id="sb-cart-empty">Pick a service to start.<br>Your cart will save for 7 days.</li>
+  </ul>
+  <div class="sb-cart-totals" id="sb-cart-totals" hidden>
+    <div class="row"><span>Subtotal range</span><strong id="sb-cart-sub">—</strong></div>
+    <div class="row sb-cart-savings" id="sb-cart-savings" hidden><span id="sb-cart-savings-label"></span><strong id="sb-cart-savings-pct">—</strong></div>
+    <div class="row total"><span>Adjusted range</span><strong id="sb-cart-adj">—</strong></div>
+  </div>
+  <button type="button" class="sb-btn sb-btn-primary" id="sb-cart-continue" disabled>Continue to enquiry →</button>
+</aside>
+<style>
+  .sb-cart { background: #0e1218; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 1rem 1.1rem; display: flex; flex-direction: column; gap: 0.85rem; position: sticky; top: 100px; }
+  .sb-cart-head { display: flex; justify-content: space-between; align-items: center; }
+  .sb-cart-head h2 { margin: 0; font-size: 0.95rem; color: #fff; }
+  .sb-cart-count { font-size: 0.72rem; color: rgba(255,255,255,0.55); }
+  .sb-cart-list { list-style: none; margin: 0; padding: 0; max-height: 360px; overflow-y: auto; display: flex; flex-direction: column; gap: 0.5rem; }
+  .sb-cart-empty { color: rgba(255,255,255,0.5); font-size: 0.85rem; padding: 1.5rem 0; text-align: center; }
+  .sb-cart-list li:not(.sb-cart-empty) { padding: 0.55rem 0.7rem; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); border-radius: 6px; font-size: 0.78rem; }
+  .sb-cart-list li .sb-cart-line-summary { display: block; color: #e5e7eb; }
+  .sb-cart-list li .sb-cart-line-range { display: block; font-family: ui-monospace, monospace; color: #24d758; margin-top: 2px; }
+  .sb-cart-list li .sb-cart-line-actions { display: flex; gap: 0.5rem; margin-top: 4px; }
+  .sb-cart-list li button { background: transparent; border: 0; color: rgba(255,255,255,0.55); font-size: 0.72rem; cursor: pointer; padding: 0; }
+  .sb-cart-list li button:hover { color: #fff; }
+  .sb-cart-totals .row { display: flex; justify-content: space-between; font-size: 0.82rem; padding: 0.25rem 0; }
+  .sb-cart-totals .row.total { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 0.55rem; margin-top: 0.25rem; font-weight: 600; color: #fff; }
+  .sb-cart-totals strong { font-family: ui-monospace, monospace; color: #24d758; }
+  .sb-btn { padding: 0.65rem 1rem; border-radius: 7px; font-size: 0.85rem; cursor: pointer; border: 1px solid transparent; }
+  .sb-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .sb-btn-primary { background: linear-gradient(135deg, #24d758, #27dab4); color: #0a0a0a; font-weight: 600; }
+  @media (max-width: 900px) {
+    .sb-cart { position: fixed; bottom: 0; left: 0; right: 0; border-radius: 12px 12px 0 0; max-height: 70vh; z-index: 100; }
+  }
+</style>

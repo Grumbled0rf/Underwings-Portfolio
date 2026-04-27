@@ -1,0 +1,86 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { supa } from '../../lib/scope-builder/server/supabase';
+export const prerender = false;
+
+const token = Astro.params.token || '';
+Astro.response.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
+Astro.response.headers.set('Cache-Control', 'private, no-store');
+
+if (!/^[A-Za-z0-9_-]{32}$/.test(token)) {
+  return new Response('Not found', { status: 404 });
+}
+
+const { data: scope } = await supa.from('scopes').select('*').eq('token', token).maybeSingle();
+if (!scope) return new Response('Not found', { status: 404 });
+if (new Date(scope.expires_at) < new Date()) {
+  return new Response('This scope quote has expired. Please request a renewal at quotes@underwings.org.', { status: 410 });
+}
+
+const fmt = (n) => 'AED ' + Number(n).toLocaleString('en-AE');
+const items = scope.cart;
+const founding = scope.founding_optin;
+const wa = `https://wa.me/971505670394?text=${encodeURIComponent('Question about scope ' + scope.reference)}`;
+---
+<Layout title={`Scope ${scope.reference}`} description="Your scope plan">
+  <main class="hsv">
+    <header class="hsv-head">
+      <div>
+        <h1>Scope plan</h1>
+        <p class="hsv-meta">Reference <strong>{scope.reference}</strong> · {scope.lead_company} · Valid until {new Date(scope.expires_at).toLocaleDateString('en-AE')}</p>
+      </div>
+      <div class="hsv-status">
+        {scope.status === 'won'  && <span class="hsv-pill ok">✓ Confirmed</span>}
+        {scope.status === 'lost' && <span class="hsv-pill bad">Expired / declined</span>}
+      </div>
+    </header>
+
+    <section class="hsv-items">
+      {items.map((i) => (
+        <div class="hsv-item">
+          <div class="hsv-item-summary">{i.summary}</div>
+          {i.comments && <div class="hsv-item-note">Note: {i.comments}</div>}
+          <div class="hsv-item-range">{fmt(i.range.low)} – {fmt(i.range.high)}</div>
+        </div>
+      ))}
+    </section>
+
+    <section class="hsv-totals">
+      <div class="row total"><span>Estimated range</span><strong>{fmt(scope.range_low)} – {fmt(scope.range_high)}</strong></div>
+      {scope.bundle_savings && <div class="row"><span>{scope.bundle_savings}</span></div>}
+    </section>
+
+    {founding && <div class="hsv-fc">★ <strong>Founding Client opt-in</strong> noted on this scope. We will lead with this on the scoping call.</div>}
+
+    <section class="hsv-actions">
+      <a class="hsv-btn primary" href={`/api/scope/${token}/pdf`} target="_blank">Download PDF</a>
+      <a class="hsv-btn ghost" href={wa}>Ask on WhatsApp</a>
+    </section>
+  </main>
+</Layout>
+
+<script define:vars={{ token }}>
+  fetch('/api/scope/view-ping', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ token }) }).catch(() => {});
+</script>
+
+<style>
+  .hsv { max-width: 760px; margin: 0 auto; padding: 100px 24px 80px; color: #e5e7eb; }
+  .hsv-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap; }
+  .hsv-meta { color: rgba(255,255,255,0.6); font-size: 0.85rem; }
+  .hsv-pill { padding: .25rem .75rem; border-radius: 999px; font-size: 0.78rem; }
+  .hsv-pill.ok  { background: rgba(36,215,88,0.12); color: #6deb8e; border: 1px solid rgba(36,215,88,0.3); }
+  .hsv-pill.bad { background: rgba(255,76,76,0.1); color: #ffb6b6; border: 1px solid rgba(255,76,76,0.3); }
+  .hsv-items { margin: 1.5rem 0; display: flex; flex-direction: column; gap: .65rem; }
+  .hsv-item { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: .75rem 1rem; }
+  .hsv-item-summary { font-weight: 600; }
+  .hsv-item-note { color: rgba(255,255,255,0.55); font-size: 0.8rem; margin-top: 4px; }
+  .hsv-item-range { color: #24d758; font-family: ui-monospace,monospace; margin-top: 4px; }
+  .hsv-totals { border-top: 1px solid rgba(255,255,255,0.08); padding-top: .9rem; }
+  .hsv-totals .row { display: flex; justify-content: space-between; padding: .25rem 0; font-size: 0.95rem; }
+  .hsv-totals .row.total strong { color: #24d758; font-family: ui-monospace,monospace; }
+  .hsv-fc { background: rgba(255,200,80,0.06); border: 1px solid rgba(255,200,80,0.3); color: #ffd97a; padding: .65rem .85rem; border-radius: 6px; margin-top: 1rem; font-size: 0.85rem; }
+  .hsv-actions { display: flex; gap: .6rem; margin-top: 1.5rem; flex-wrap: wrap; }
+  .hsv-btn { padding: .7rem 1.2rem; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+  .hsv-btn.primary { background: linear-gradient(135deg,#24d758,#27dab4); color: #0a0a0a; }
+  .hsv-btn.ghost { background: transparent; border: 1px solid rgba(255,255,255,0.18); color: #d1d5db; }
+</style>

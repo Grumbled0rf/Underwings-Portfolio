@@ -1,0 +1,108 @@
+---
+---
+<aside class="sb-cfg" id="sb-cfg-drawer" aria-hidden="true" role="dialog">
+  <div class="sb-cfg-bg" data-close></div>
+  <div class="sb-cfg-panel">
+    <header class="sb-cfg-head">
+      <h2 id="sb-cfg-title">Configure service</h2>
+      <button type="button" class="sb-cfg-close" data-close aria-label="Close">×</button>
+    </header>
+    <form id="sb-cfg-form" class="sb-cfg-body">
+
+      <fieldset data-cat="offensive" hidden>
+        <label class="lbl">What needs testing?</label>
+        <div class="chk-grid">
+          <label><input type="checkbox" name="services" value="network_ext"> External network</label>
+          <label><input type="checkbox" name="services" value="network_int"> Internal network</label>
+          <label><input type="checkbox" name="services" value="web"> Web app</label>
+          <label><input type="checkbox" name="services" value="mobile_one"> Mobile (1 platform)</label>
+          <label><input type="checkbox" name="services" value="mobile_both"> Mobile (iOS + Android)</label>
+          <label><input type="checkbox" name="services" value="api"> API</label>
+          <label><input type="checkbox" name="services" value="cloud"> Cloud</label>
+          <label><input type="checkbox" name="services" value="phishing"> Phishing simulation</label>
+          <label><input type="checkbox" name="services" value="va_only"> VA only</label>
+        </div>
+        <label class="lbl">Engagement size</label>
+        <select name="size" required><option value="xs">XS — single asset</option><option value="s" selected>S — small env</option><option value="m">M — mid env</option><option value="l">L — large env</option></select>
+        <label><input type="checkbox" name="authenticated"> Authenticated test required</label>
+        <label><input type="checkbox" name="retest"> Retest after fixes required</label>
+        <label class="lbl">Driver</label>
+        <select name="driver"><option value="audit">Audit / regulator</option><option value="board">Board ask</option><option value="breach">Breach response</option><option value="exploring">Exploring</option></select>
+      </fieldset>
+
+      <fieldset data-cat="grc" hidden>
+        <label class="lbl">Frameworks</label>
+        <div class="chk-grid">
+          <label><input type="checkbox" name="frameworks" value="iso27001"> ISO 27001</label>
+          <label><input type="checkbox" name="frameworks" value="nesa"> NESA / UAE IA V2</label>
+          <label><input type="checkbox" name="frameworks" value="pdpl"> UAE PDPL</label>
+          <label><input type="checkbox" name="frameworks" value="adhics"> ADHICS</label>
+          <label><input type="checkbox" name="frameworks" value="dubai_isr"> Dubai ISR v2</label>
+          <label><input type="checkbox" name="frameworks" value="pci"> PCI DSS v4</label>
+          <label><input type="checkbox" name="frameworks" value="risk_register"> Risk Register only</label>
+        </div>
+        <label class="lbl">Engagement type for each (gap or implementation)</label>
+        <select name="engagement_default"><option value="gap">Gap assessment</option><option value="implementation">Full implementation</option></select>
+        <label class="lbl">Headcount</label>
+        <select name="size"><option value="xs">&lt; 30</option><option value="s">30–100</option><option value="m" selected>100–500</option><option value="l">500+</option></select>
+        <label class="lbl">Sector</label>
+        <select name="sector"><option value="banking">Banking / financial</option><option value="healthcare">Healthcare</option><option value="government">Government / semi-govt</option><option value="sme">SME</option><option value="it">IT / SaaS</option><option value="retail">Retail</option><option value="other" selected>Other</option></select>
+        <label class="lbl">Timeline</label>
+        <select name="timeline"><option value="hard_deadline">Hard audit deadline</option><option value="six_months">Within 6 months</option><option value="twelve_months" selected>12 months</option><option value="roadmap">Roadmap only</option></select>
+      </fieldset>
+
+      <fieldset data-cat="cloud" hidden>
+        <label class="lbl">Scope</label>
+        <div class="chk-grid">
+          <label><input type="checkbox" name="scope" value="azure"> Azure tenant</label>
+          <label><input type="checkbox" name="scope" value="m365"> Microsoft 365</label>
+          <label><input type="checkbox" name="scope" value="entra"> Entra ID / Conditional Access</label>
+        </div>
+        <label class="lbl">Azure subscriptions</label>
+        <select name="azure_subs"><option value="1" selected>1</option><option value="2">2–5</option><option value="3">6+</option></select>
+        <label class="lbl">M365 user count</label>
+        <select name="m365_users"><option value="xs">&lt; 50</option><option value="s" selected>50–150</option><option value="m">150–500</option><option value="l">500+</option></select>
+        <label class="lbl">Conditional Access in place?</label>
+        <select name="conditional_access"><option value="yes">Yes</option><option value="partial" selected>Partial</option><option value="no">No</option></select>
+        <label class="lbl">MFA enforced?</label>
+        <select name="mfa"><option value="yes" selected>Yes</option><option value="partial">Partial</option><option value="no">No</option></select>
+        <label class="lbl">Defender licensed?</label>
+        <select name="defender"><option value="yes">Yes</option><option value="no">No</option><option value="unsure" selected>Unsure</option></select>
+        <label class="lbl">Driver</label>
+        <select name="driver"><option value="cis">CIS Benchmark alignment</option><option value="iso17">ISO 27017 mapping</option><option value="audit">Internal audit</option><option value="insurance">Insurance</option><option value="cleanup" selected>Cleanup</option></select>
+      </fieldset>
+
+      <label class="lbl">Anything specific to flag for this service?</label>
+      <textarea name="comments" rows="3" placeholder="e.g. our API uses NextAuth, please test that flow"></textarea>
+
+      <div class="sb-cfg-live"><span>Estimated range</span><strong id="sb-cfg-range">—</strong></div>
+    </form>
+    <footer class="sb-cfg-foot">
+      <button type="button" class="sb-btn sb-btn-ghost" data-close>Cancel</button>
+      <button type="button" class="sb-btn sb-btn-primary" id="sb-cfg-save">Save to cart</button>
+    </footer>
+  </div>
+</aside>
+
+<style>
+  .sb-cfg { position: fixed; inset: 0; z-index: 9991; display: none; }
+  .sb-cfg.is-open { display: block; }
+  .sb-cfg-bg { position: absolute; inset: 0; background: rgba(0,0,0,0.55); }
+  .sb-cfg-panel { position: absolute; top: 0; right: 0; height: 100vh; width: min(540px, 100%); background: #11161e; color: #e5e7eb; display: flex; flex-direction: column; transform: translateX(100%); transition: transform .26s; }
+  .sb-cfg.is-open .sb-cfg-panel { transform: translateX(0); }
+  .sb-cfg-head { padding: 1rem 1.25rem; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; justify-content: space-between; align-items: center; }
+  .sb-cfg-head h2 { margin: 0; font-size: 1rem; }
+  .sb-cfg-close { background: transparent; border: 0; color: rgba(255,255,255,0.7); font-size: 1.6rem; cursor: pointer; }
+  .sb-cfg-body { padding: 1rem 1.25rem; overflow-y: auto; flex: 1; }
+  .sb-cfg-body fieldset { border: 0; padding: 0; margin: 0 0 1rem; }
+  .sb-cfg-body .lbl { display: block; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: #6b7280; margin: .9rem 0 .25rem; }
+  .sb-cfg-body select, .sb-cfg-body textarea, .sb-cfg-body input[type=number] { width: 100%; padding: .55rem .7rem; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12); border-radius: 6px; color: #e5e7eb; font-size: 0.88rem; }
+  .sb-cfg-body label { display: block; font-size: 0.85rem; line-height: 1.6; }
+  .chk-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem 1rem; margin: 0.4rem 0 0.8rem; }
+  .sb-cfg-live { margin-top: 1rem; padding: .75rem; background: rgba(36,215,88,0.08); border-radius: 6px; display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; }
+  .sb-cfg-live strong { font-family: ui-monospace, monospace; color: #24d758; }
+  .sb-cfg-foot { padding: 0.85rem 1.25rem; border-top: 1px solid rgba(255,255,255,0.08); display: flex; gap: .5rem; }
+  .sb-btn { flex: 1; padding: 0.6rem 1rem; border-radius: 7px; font-size: 0.85rem; cursor: pointer; border: 1px solid transparent; }
+  .sb-btn-ghost { background: transparent; color: #d1d5db; border-color: rgba(255,255,255,0.18); }
+  .sb-btn-primary { background: linear-gradient(135deg, #24d758, #27dab4); color: #0a0a0a; font-weight: 600; }
+</style>

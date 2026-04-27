@@ -1,0 +1,40 @@
+---
+export interface Props {
+  category: 'offensive' | 'grc' | 'cloud' | 'network' | 'training';
+  title: string;
+  tagline: string;
+  range: string;
+  comingSoon?: boolean;
+}
+const { category, title, tagline, range, comingSoon = false } = Astro.props;
+---
+<div class={`sb-card${comingSoon ? ' is-coming' : ''}`} data-category={category}>
+  <div class="sb-card-head">
+    <h3 class="sb-card-title">{title}</h3>
+    {comingSoon && <span class="sb-card-soon">Coming soon</span>}
+  </div>
+  <p class="sb-card-tag">{tagline}</p>
+  <div class="sb-card-range">{range}</div>
+  <div class="sb-card-actions">
+    <button type="button" class="sb-btn sb-btn-ghost" data-learn={category} disabled={comingSoon}>ⓘ Learn more</button>
+    <button type="button" class="sb-btn sb-btn-primary" data-add={category} disabled={comingSoon}>+ Add to cart</button>
+  </div>
+</div>
+
+<style>
+  .sb-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.10); border-radius: 12px; padding: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem; transition: border-color .18s, transform .12s; }
+  .sb-card:hover { border-color: rgba(36,215,88,0.35); transform: translateY(-2px); }
+  .sb-card.is-coming { opacity: 0.55; }
+  .sb-card-head { display: flex; align-items: center; justify-content: space-between; }
+  .sb-card-title { font-size: 1.05rem; margin: 0; color: #fff; }
+  .sb-card-soon { font-size: 0.65rem; padding: 2px 8px; border-radius: 999px; background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.7); }
+  .sb-card-tag { font-size: 0.85rem; color: rgba(255,255,255,0.7); margin: 0; line-height: 1.45; }
+  .sb-card-range { font-family: ui-monospace, monospace; font-size: 0.85rem; color: #24d758; }
+  .sb-card-actions { display: flex; gap: 0.5rem; margin-top: auto; }
+  .sb-btn { flex: 1; padding: 0.55rem 0.85rem; border-radius: 7px; font-size: 0.82rem; cursor: pointer; border: 1px solid transparent; }
+  .sb-btn:disabled { cursor: not-allowed; opacity: 0.4; }
+  .sb-btn-ghost { background: transparent; color: #d1d5db; border-color: rgba(255,255,255,0.18); }
+  .sb-btn-ghost:hover { background: rgba(255,255,255,0.06); }
+  .sb-btn-primary { background: linear-gradient(135deg, #24d758, #27dab4); color: #0a0a0a; font-weight: 600; }
+  .sb-btn-primary:hover { box-shadow: 0 4px 14px rgba(36,215,88,0.35); }
+</style>

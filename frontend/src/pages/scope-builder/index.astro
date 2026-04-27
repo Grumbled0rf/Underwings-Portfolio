@@ -1,0 +1,63 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ServiceCard      from '../../components/scope-builder/ServiceCard.astro';
+import LearnMoreDrawer  from '../../components/scope-builder/LearnMoreDrawer.astro';
+import ConfigDrawer     from '../../components/scope-builder/ConfigDrawer.astro';
+import CartSidebar      from '../../components/scope-builder/CartSidebar.astro';
+import FoundingBanner   from '../../components/scope-builder/FoundingBanner.astro';
+import CrossSellPrompt  from '../../components/scope-builder/CrossSellPrompt.astro';
+import { offensiveContent } from '../../lib/scope-builder/copy/offensive';
+import { grcContent }       from '../../lib/scope-builder/copy/grc';
+import { cloudContent }     from '../../lib/scope-builder/copy/cloud';
+
+export const prerender = false;
+const seed = Astro.url.searchParams.get('seed');
+---
+<Layout title="Build your scope · Underwings" description="Pick services, configure, get a written quote in 48 hours.">
+  <main class="sb-main">
+    <header class="sb-hero">
+      <h1>Build your scope in 2 minutes</h1>
+      <p>Pick services, configure each, see a live indicative range. Written quote within 48 hours.</p>
+    </header>
+
+    <div class="sb-resume" id="sb-resume" hidden>
+      Welcome back — we kept your draft scope.
+      <button type="button" id="sb-resume-continue">Continue</button>
+      <button type="button" id="sb-resume-fresh">Start fresh</button>
+    </div>
+
+    <div class="sb-layout">
+      <section class="sb-catalogue">
+        <ServiceCard category="offensive" title="Offensive Security" tagline="Pen testing, VAPT, phishing — manual exploitation, not just scanning." range={offensiveContent.range} />
+        <ServiceCard category="grc"       title="GRC — ISO, NESA, PDPL, ADHICS" tagline="Implementation, not advice. Gap → remediate → audit-ready evidence." range={grcContent.range} />
+        <ServiceCard category="cloud"     title="Cloud Security — Azure & M365" tagline="CIS Benchmark + Microsoft best-practice review of Azure, M365, Entra." range={cloudContent.range} />
+        <ServiceCard category="network"   title="Network Infrastructure" tagline="Firewall + architecture + segmentation review." range="Coming Phase 2" comingSoon={true} />
+        <ServiceCard category="training"  title="Training & Awareness" tagline="Workshops, phishing sim, tabletop IR drills." range="Coming Phase 2" comingSoon={true} />
+
+        <div id="sb-crosssell-slot"><CrossSellPrompt /></div>
+        <FoundingBanner />
+      </section>
+      <CartSidebar />
+    </div>
+
+    <LearnMoreDrawer category="offensive" content={offensiveContent} />
+    <LearnMoreDrawer category="grc"       content={grcContent} />
+    <LearnMoreDrawer category="cloud"     content={cloudContent} />
+    <ConfigDrawer />
+  </main>
+</Layout>
+
+<script type="module" define:vars={{ seed }}>
+  import('/scope-builder/runtime.js').then(({ initScopeBuilder }) => initScopeBuilder({ seed }));
+</script>
+
+<style>
+  .sb-main { max-width: 1200px; margin: 0 auto; padding: 100px 24px 80px; color: #e5e7eb; }
+  .sb-hero h1 { font-size: clamp(1.7rem, 3.5vw, 2.4rem); margin: 0 0 .5rem; color: #fff; }
+  .sb-hero p { color: rgba(255,255,255,0.7); margin: 0 0 2rem; }
+  .sb-resume { background: rgba(36,215,88,0.08); border: 1px solid rgba(36,215,88,0.3); padding: 0.7rem 1rem; border-radius: 8px; margin-bottom: 1.5rem; display: flex; gap: .75rem; align-items: center; flex-wrap: wrap; font-size: 0.85rem; }
+  .sb-resume button { background: transparent; border: 1px solid rgba(255,255,255,0.18); color: #fff; padding: .35rem .8rem; border-radius: 6px; cursor: pointer; font-size: 0.78rem; }
+  .sb-layout { display: grid; grid-template-columns: 1fr 320px; gap: 2rem; }
+  .sb-catalogue { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; align-content: start; }
+  @media (max-width: 900px) { .sb-layout { grid-template-columns: 1fr; padding-bottom: 280px; } }
+</style>
