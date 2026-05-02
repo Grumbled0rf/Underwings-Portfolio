@@ -55,7 +55,7 @@ const articleModified = post.updated_at || articlePublished;
 
 const articleSchema = {
   "@context": "https://schema.org",
-  "@type": "Article",
+  "@type": "BlogPosting",
   "headline": post.title,
   "description": post.excerpt || post.meta_description || '',
   "image": articleImage,

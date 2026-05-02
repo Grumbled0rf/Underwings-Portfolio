@@ -124,7 +124,7 @@
   border-color: rgba(55,220,130,0.55);
 }
 
-/* ── Scope Builder inline CTA (used on flagship service pages) ─── */
+/* ── Inline scope-discussion CTA (used on flagship service pages) ─── */
 .svc-scope-hint {
   display: flex;
   align-items: center;

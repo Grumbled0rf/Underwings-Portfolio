@@ -5,6 +5,15 @@ import Footer from '../components/Footer.astro';
 import PartnerLogos from '../components/PartnerLogos.astro';
 
 export const prerender = false;
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://underwings.org" },
+    { "@type": "ListItem", "position": 2, "name": "About", "item": "https://underwings.org/about" }
+  ]
+};
 ---
 
 <Layout
@@ -12,6 +21,7 @@ export const prerender = false;
   description="Underwings is a cybersecurity startup operating from UAE, providing security software sales, VAPT services, ISO 27001 implementation, and security training — built for growing businesses."
   keywords="Underwings Cybersecurity Solutions, cybersecurity company UAE, security consulting Abu Dhabi, about Underwings"
   wfPage="about-page"
+  schema={breadcrumbSchema}
 >
   <Fragment slot="head">
     <style is:inline>

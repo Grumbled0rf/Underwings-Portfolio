@@ -5,6 +5,5 @@ Disallow: /admin
 Disallow: /supabase/
 Disallow: /api/
 Disallow: /brand/BRAND-GUIDELINES.html
-Disallow: /scope/
 
 Sitemap: https://underwings.org/sitemap-index.xml

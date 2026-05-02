@@ -134,6 +134,35 @@ async function sendWelcomeEmail(email: string): Promise<void> {
   }
 }
 
+// Keila newsletter integration — push subscriber to Keila contacts
+const KEILA_API_URL = import.meta.env.KEILA_API_URL || process.env.KEILA_API_URL;
+const KEILA_API_KEY = import.meta.env.KEILA_API_KEY || process.env.KEILA_API_KEY;
+
+async function pushToKeila(email: string, source: string): Promise<void> {
+  if (!KEILA_API_URL || !KEILA_API_KEY) return;
+  try {
+    const res = await fetch(`${KEILA_API_URL}/contacts`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${KEILA_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        data: {
+          email,
+          data: { source },
+        },
+      }),
+    });
+    if (!res.ok && res.status !== 409) {
+      const text = await res.text();
+      console.error('Keila push non-OK:', res.status, text);
+    }
+  } catch (e) {
+    console.error('Keila push error:', e);
+  }
+}
+
 async function verifyTurnstile(token: string): Promise<boolean> {
   if (!TURNSTILE_SECRET) return true;
   if (!token) return false;
@@ -173,7 +202,7 @@ export const POST: APIRoute = async ({ request }) => {
     const cleanEmail = email.toLowerCase().trim();
     const source = lead_magnet ? `lead_magnet:${lead_magnet}` : 'newsletter';
 
-    // Save to Supabase + push to Brevo + send welcome email in parallel
+    // Save to Supabase + push to Keila + send welcome email in parallel
     const [supabaseResult] = await Promise.all([
       supabase
         ? supabase.from('subscribers').upsert(
@@ -181,6 +210,7 @@ export const POST: APIRoute = async ({ request }) => {
             { onConflict: 'email' }
           )
         : Promise.resolve({ error: { message: 'No Supabase client' } }),
+      pushToKeila(cleanEmail, source),
       sendWelcomeEmail(cleanEmail),
     ]);
 

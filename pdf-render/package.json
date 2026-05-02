@@ -1,9 +1,0 @@
-{
-  "name": "pdf-render",
-  "version": "1.0.0",
-  "type": "module",
-  "main": "server.js",
-  "dependencies": {
-    "puppeteer": "23.6.0"
-  }
-}

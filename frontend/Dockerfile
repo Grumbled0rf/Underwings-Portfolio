@@ -42,10 +42,6 @@ COPY --from=builder --chown=astro:nodejs /app/dist ./dist
 COPY --from=builder --chown=astro:nodejs /app/node_modules ./node_modules
 COPY --from=builder --chown=astro:nodejs /app/package.json ./package.json
 
-# Pre-create the scopes data directory with correct ownership so the named
-# volume mounted at /data/scopes inherits these perms on first start.
-RUN mkdir -p /data/scopes && chown -R astro:nodejs /data /data/scopes
-
 # Switch to non-root user
 USER astro
 

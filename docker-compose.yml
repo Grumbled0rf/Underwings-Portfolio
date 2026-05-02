@@ -52,25 +52,6 @@ services:
       retries: 3
       start_period: 5s
 
-  # ===========================================
-  # PDF RENDER — Puppeteer-based PDF sidecar
-  # No host port exposure — only reachable on the underwings-network.
-  # ===========================================
-  pdf-render:
-    build: ./pdf-render
-    container_name: underwings-pdf-render
-    restart: unless-stopped
-    environment:
-      - SHARED_TOKEN=${PDF_RENDER_TOKEN}
-    networks:
-      - underwings-network
-    healthcheck:
-      test: ["CMD", "wget", "-q", "-O", "-", "http://127.0.0.1:3000/health"]
-      interval: 30s
-      timeout: 5s
-      retries: 3
-      start_period: 10s
-
   webmail:
     image: roundcube/roundcubemail:latest-apache
     container_name: underwings-webmail
@@ -174,23 +155,13 @@ services:
       # Krayin CRM integration
       - KRAYIN_WEBHOOK_URL=http://krayin/webhook-contact.php
       - KRAYIN_WEBHOOK_TOKEN=${KRAYIN_WEBHOOK_TOKEN}
+      # Keila newsletter integration
+      - KEILA_API_URL=${KEILA_API_URL}
+      - KEILA_API_KEY=${KEILA_API_KEY}
       # SMTP for welcome / contact emails (auth fix — full email username required by Stalwart)
       - SMTP_HOST=stalwart
       - SMTP_USER=newsletter@underwings.org
       - SMTP_PASS=Newsletter@1415!
-      # PDF render sidecar
-      - PDF_RENDER_URL=http://pdf-render:3000
-      - PDF_RENDER_TOKEN=${PDF_RENDER_TOKEN}
-      # Scope Builder v2 — Krayin internal URL + reverse webhook secret + team alert
-      - KRAYIN_URL=http://krayin
-      - KRAYIN_REVERSE_SECRET=${KRAYIN_REVERSE_SECRET}
-      - TEAM_EMAIL=${TEAM_EMAIL:-itdept1@gcee.ae}
-      - SLACK_SCOPE_WEBHOOK=${SLACK_SCOPE_WEBHOOK:-}
-    depends_on:
-      pdf-render:
-        condition: service_healthy
-    volumes:
-      - scopes-data:/data/scopes
     restart: always
     networks:
       - underwings-network
@@ -500,9 +471,6 @@ services:
       - krayin-storage:/var/www/html/storage
       - ./krayin/krayin-nginx.conf:/etc/nginx/conf.d/krayin.conf:ro
       - ./krayin/webhook-contact.php:/var/www/laravel-crm/public/webhook-contact.php:ro
-      - ./krayin/webhook-scope.php:/var/www/laravel-crm/public/webhook-scope.php:ro
-      - ./krayin/webhook-scope-view.php:/var/www/laravel-crm/public/webhook-scope-view.php:ro
-      - ./krayin/migrations:/var/www/laravel-crm/database/migrations/scope:ro
       - ./krayin/login.blade.php:/var/www/laravel-crm/packages/Webkul/Admin/src/Resources/views/sessions/login.blade.php:ro
       - ./krayin/AppServiceProvider.php:/var/www/laravel-crm/app/Providers/AppServiceProvider.php:ro
       - ./krayin/bootstrap-app.php:/var/www/laravel-crm/bootstrap/app.php:ro
@@ -542,7 +510,6 @@ volumes:
   krayin-db-data:
   krayin-storage:
   keila-uploads:
-  scopes-data:
 
 networks:
   underwings-network:

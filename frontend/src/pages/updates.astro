@@ -9,6 +9,15 @@ export const prerender = false;
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://underwings.org" },
+    { "@type": "ListItem", "position": 2, "name": "Updates", "item": "https://underwings.org/updates" }
+  ]
+};
 ---
 
 <Layout
@@ -17,6 +26,7 @@ import Footer from '../components/Footer.astro';
   keywords="cybersecurity news, CISA advisories, vulnerability updates, threat intelligence, security updates UAE, cyber alerts"
   wfPage="updates-page"
   bodyClass="body"
+  schema={breadcrumbSchema}
 >
   <Fragment slot="head">
     <style is:inline>
