@@ -441,6 +441,9 @@ function navigateTo(page) {
     case 'analytics':
       initAnalyticsPage();
       break;
+    case 'leads':
+      loadLeads();
+      break;
   }
 }
 
@@ -1952,3 +1955,264 @@ document.getElementById('save-ga-config')?.addEventListener('click', () => {
 // ===========================================
 
 checkAuth();
+
+// ===========================================
+// LEADS MODULE — 4 tabs (contact / newsletter / waitlist / resources)
+// ===========================================
+
+const LEADS_PAGE_SIZE = 25;
+const leadsState = {
+  tab: 'contact',
+  status: 'new',
+  search: '',
+  page: 0,
+  rows: [],
+  total: 0,
+  selected: null, // { table, id, row }
+};
+
+const TAB_CONFIG = {
+  contact: {
+    table: 'form_submissions',
+    filter: (q) => q.eq('form_type', 'contact'),
+    dateCol: 'created_at',
+    columns: [
+      { key: 'created_at', label: 'Date', render: (r) => formatLeadDate(r.created_at) },
+      { key: 'email',      label: 'Email', render: (r) => `<div class="lead-email">${esc(r.email || '')}</div><div class="lead-meta">${esc(r.name || '')}</div>` },
+      { key: 'company',    label: 'Company', render: (r) => esc(r.company || '—') },
+      { key: 'service',    label: 'Service', render: (r) => esc(r.service || r.subject || '—') },
+      { key: 'lead_status',label: 'Status', render: (r) => statusPill(r.lead_status) },
+    ],
+  },
+  newsletter: {
+    table: 'subscribers',
+    filter: (q) => q,
+    dateCol: 'created_at',
+    columns: [
+      { key: 'created_at', label: 'Date', render: (r) => formatLeadDate(r.created_at) },
+      { key: 'email',      label: 'Email', render: (r) => `<div class="lead-email">${esc(r.email || '')}</div><div class="lead-meta">${esc(r.name || '')}</div>` },
+      { key: 'subscribed', label: 'Subscribed', render: (r) => r.subscribed ? '✓' : '<span style="color:#9ca3af">no</span>' },
+      { key: 'confirmed',  label: 'Confirmed', render: (r) => r.confirmed ? '✓' : '<span style="color:#9ca3af">pending</span>' },
+      { key: 'lead_status',label: 'Status', render: (r) => statusPill(r.lead_status) },
+    ],
+  },
+  waitlist: {
+    table: 'waitlist_signups',
+    filter: (q) => q,
+    dateCol: 'captured_at',
+    columns: [
+      { key: 'captured_at', label: 'Date', render: (r) => formatLeadDate(r.captured_at) },
+      { key: 'email',       label: 'Email', render: (r) => `<div class="lead-email">${esc(r.email || '')}</div><div class="lead-meta">${esc(r.name || '')}</div>` },
+      { key: 'service_slug',label: 'Service', render: (r) => `<code style="font-size:0.78rem;background:#f3f4f6;padding:0.15rem 0.4rem;border-radius:4px;">${esc(r.service_slug || '')}</code>` },
+      { key: 'company',     label: 'Company', render: (r) => esc(r.company || '—') },
+      { key: 'lead_status', label: 'Status', render: (r) => statusPill(r.lead_status) },
+    ],
+  },
+  resources: {
+    table: 'resource_leads',
+    filter: (q) => q,
+    dateCol: 'created_at',
+    columns: [
+      { key: 'created_at',    label: 'Date', render: (r) => formatLeadDate(r.created_at) },
+      { key: 'email',         label: 'Email', render: (r) => `<div class="lead-email">${esc(r.email || '')}</div><div class="lead-meta">${esc(r.name || '')}</div>` },
+      { key: 'resource_slug', label: 'Resource', render: (r) => esc(r.resource_title || r.resource_slug || '—') },
+      { key: 'company',       label: 'Company', render: (r) => esc(r.company || '—') },
+      { key: 'lead_status',   label: 'Status', render: (r) => statusPill(r.lead_status) },
+    ],
+  },
+};
+
+function formatLeadDate(d) {
+  if (!d) return '—';
+  const date = new Date(d);
+  return `<span title="${date.toISOString()}">${date.toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' })}</span>`;
+}
+function statusPill(s) {
+  const v = s || 'new';
+  return `<span class="lead-status-pill lead-status-${v}">${v}</span>`;
+}
+
+function loadLeads() {
+  // Wire tab clicks (idempotent: first call only)
+  if (!loadLeads._wired) {
+    loadLeads._wired = true;
+    document.querySelectorAll('[data-leads-tab]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        leadsState.tab = btn.dataset.leadsTab;
+        leadsState.page = 0;
+        document.querySelectorAll('.leads-tab').forEach((t) => {
+          t.classList.toggle('active', t === btn);
+          t.setAttribute('aria-selected', t === btn ? 'true' : 'false');
+        });
+        loadLeadsTab();
+      });
+    });
+    document.getElementById('leads-status-filter').addEventListener('change', (e) => {
+      leadsState.status = e.target.value;
+      leadsState.page = 0;
+      loadLeadsTab();
+    });
+    let searchTimer;
+    document.getElementById('leads-search').addEventListener('input', (e) => {
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(() => {
+        leadsState.search = e.target.value.trim();
+        leadsState.page = 0;
+        loadLeadsTab();
+      }, 220);
+    });
+    document.getElementById('leads-prev').addEventListener('click', () => {
+      if (leadsState.page > 0) { leadsState.page--; loadLeadsTab(); }
+    });
+    document.getElementById('leads-next').addEventListener('click', () => {
+      if ((leadsState.page + 1) * LEADS_PAGE_SIZE < leadsState.total) { leadsState.page++; loadLeadsTab(); }
+    });
+    document.getElementById('leads-export-btn').addEventListener('click', exportLeadsCSV);
+    document.getElementById('lead-drawer-backdrop').addEventListener('click', closeLeadDrawer);
+    document.getElementById('lead-drawer-close').addEventListener('click', closeLeadDrawer);
+    document.getElementById('lead-save-btn').addEventListener('click', saveLeadEdits);
+  }
+  loadLeadsTab();
+  refreshLeadCounts();
+}
+
+async function loadLeadsTab() {
+  const cfg = TAB_CONFIG[leadsState.tab];
+  const tbody = document.getElementById('leads-tbody');
+  const thead = document.getElementById('leads-thead');
+  thead.innerHTML = `<tr>${cfg.columns.map((c) => `<th>${c.label}</th>`).join('')}</tr>`;
+  tbody.innerHTML = `<tr><td colspan="${cfg.columns.length}" class="empty-state">Loading…</td></tr>`;
+
+  let q = supabase
+    .from(cfg.table)
+    .select('*', { count: 'exact' })
+    .order(cfg.dateCol, { ascending: false })
+    .range(leadsState.page * LEADS_PAGE_SIZE, leadsState.page * LEADS_PAGE_SIZE + LEADS_PAGE_SIZE - 1);
+
+  q = cfg.filter(q);
+  if (leadsState.status !== 'all') q = q.eq('lead_status', leadsState.status);
+  if (leadsState.search) {
+    const s = `%${leadsState.search}%`;
+    q = q.or(`email.ilike.${s},name.ilike.${s}`);
+  }
+
+  const { data, error, count } = await q;
+  if (error) {
+    tbody.innerHTML = `<tr><td colspan="${cfg.columns.length}" class="empty-state" style="color:#dc2626;">Error: ${esc(error.message)}</td></tr>`;
+    return;
+  }
+
+  leadsState.rows = data || [];
+  leadsState.total = count || 0;
+
+  if (!leadsState.rows.length) {
+    tbody.innerHTML = `<tr><td colspan="${cfg.columns.length}" class="empty-state">No leads matching your filters.</td></tr>`;
+  } else {
+    tbody.innerHTML = leadsState.rows.map((r, i) => `
+      <tr data-row-idx="${i}">
+        ${cfg.columns.map((c) => `<td>${c.render(r)}</td>`).join('')}
+      </tr>
+    `).join('');
+    tbody.querySelectorAll('tr[data-row-idx]').forEach((tr) => {
+      tr.addEventListener('click', () => openLeadDrawer(parseInt(tr.dataset.rowIdx, 10)));
+    });
+  }
+
+  const start = leadsState.total === 0 ? 0 : leadsState.page * LEADS_PAGE_SIZE + 1;
+  const end = Math.min((leadsState.page + 1) * LEADS_PAGE_SIZE, leadsState.total);
+  document.getElementById('leads-page-info').textContent =
+    leadsState.total === 0 ? 'No results' : `${start}–${end} of ${leadsState.total}`;
+  document.getElementById('leads-prev').disabled = leadsState.page === 0;
+  document.getElementById('leads-next').disabled = (leadsState.page + 1) * LEADS_PAGE_SIZE >= leadsState.total;
+}
+
+async function refreshLeadCounts() {
+  const tabs = ['contact', 'newsletter', 'waitlist', 'resources'];
+  await Promise.all(tabs.map(async (tab) => {
+    const cfg = TAB_CONFIG[tab];
+    let q = supabase.from(cfg.table).select('id', { count: 'exact', head: true }).eq('lead_status', 'new');
+    q = cfg.filter(q);
+    const { count } = await q;
+    const el = document.getElementById(`leads-count-${tab}`);
+    if (el) el.textContent = count == null ? '—' : count;
+  }));
+}
+
+function openLeadDrawer(idx) {
+  const cfg = TAB_CONFIG[leadsState.tab];
+  const row = leadsState.rows[idx];
+  if (!row) return;
+  leadsState.selected = { table: cfg.table, id: row.id, row };
+
+  const body = document.getElementById('lead-drawer-body');
+  const fields = [];
+  for (const [k, v] of Object.entries(row)) {
+    if (v == null || v === '' || k === 'id' || k === 'admin_notes' || k === 'message' || k === 'metadata') continue;
+    let display = v;
+    if (typeof v === 'string' && /^\d{4}-\d{2}-\d{2}T/.test(v)) display = new Date(v).toLocaleString();
+    else if (typeof v === 'object') display = JSON.stringify(v);
+    fields.push(`<dt>${esc(k.replace(/_/g, ' '))}</dt><dd>${esc(String(display))}</dd>`);
+  }
+  let html = `<dl>${fields.join('')}</dl>`;
+  if (row.message) html += `<div class="lead-message">${esc(row.message)}</div>`;
+  body.innerHTML = html;
+
+  document.getElementById('lead-status-select').value = row.lead_status || 'new';
+  document.getElementById('lead-notes').value = row.admin_notes || '';
+  document.getElementById('lead-drawer').classList.add('open');
+  document.getElementById('lead-drawer').setAttribute('aria-hidden', 'false');
+}
+
+function closeLeadDrawer() {
+  document.getElementById('lead-drawer').classList.remove('open');
+  document.getElementById('lead-drawer').setAttribute('aria-hidden', 'true');
+  leadsState.selected = null;
+}
+
+async function saveLeadEdits() {
+  if (!leadsState.selected) return;
+  const { table, id } = leadsState.selected;
+  const lead_status = document.getElementById('lead-status-select').value;
+  const admin_notes = document.getElementById('lead-notes').value.trim() || null;
+  const btn = document.getElementById('lead-save-btn');
+  btn.disabled = true; btn.textContent = 'Saving…';
+  const { error } = await supabase.from(table).update({ lead_status, admin_notes }).eq('id', id);
+  btn.disabled = false; btn.textContent = 'Save';
+  if (error) { alert('Save failed: ' + error.message); return; }
+  closeLeadDrawer();
+  loadLeadsTab();
+  refreshLeadCounts();
+}
+
+async function exportLeadsCSV() {
+  const cfg = TAB_CONFIG[leadsState.tab];
+  let q = supabase.from(cfg.table).select('*').order(cfg.dateCol, { ascending: false }).limit(5000);
+  q = cfg.filter(q);
+  if (leadsState.status !== 'all') q = q.eq('lead_status', leadsState.status);
+  if (leadsState.search) {
+    const s = `%${leadsState.search}%`;
+    q = q.or(`email.ilike.${s},name.ilike.${s}`);
+  }
+  const { data, error } = await q;
+  if (error) { alert('Export failed: ' + error.message); return; }
+  if (!data || !data.length) { alert('Nothing to export.'); return; }
+
+  const cols = Object.keys(data[0]);
+  const csvRows = [cols.join(',')];
+  for (const r of data) {
+    csvRows.push(cols.map((c) => csvCell(r[c])).join(','));
+  }
+  const blob = new Blob([csvRows.join('\n')], { type: 'text/csv;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  const stamp = new Date().toISOString().slice(0, 10);
+  a.download = `underwings-${leadsState.tab}-${stamp}.csv`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+function csvCell(v) {
+  if (v == null) return '';
+  let s = typeof v === 'object' ? JSON.stringify(v) : String(v);
+  if (/[",\n\r]/.test(s)) s = '"' + s.replace(/"/g, '""') + '"';
+  return s;
+}
