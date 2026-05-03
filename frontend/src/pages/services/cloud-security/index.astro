@@ -7,7 +7,75 @@
 import Layout from '../../../layouts/Layout.astro';
 import Header from '../../../components/Header.astro';
 import Footer from '../../../components/Footer.astro';
+import PricingTiers from '../../../components/PricingTiers.astro';
 import '../../../styles/category-hub.css';
+
+const tiers = [
+  {
+    name: "Starter",
+    price: "AED 9,000",
+    ideal: "Sub-30-employee UAE companies wanting a first cloud baseline check.",
+    includes: [
+      "Azure OR M365 baseline review (one platform, not both)",
+      "Up to 30 users / single tenant",
+      "CIS top-tier control review",
+      "Findings report + 30-min remediation walkthrough",
+    ],
+    notIncluded: [
+      "Combined Azure + M365 review",
+      "Identity deep-dive (Conditional Access design)",
+    ],
+  },
+  {
+    name: "Essentials",
+    price: "AED 15,000",
+    ideal: "Small-to-mid companies on a single cloud platform with growing user base.",
+    includes: [
+      "Azure OR M365 full posture review (one platform)",
+      "Up to 100 users / single tenant",
+      "CIS Benchmark + Microsoft Secure Score deep-dive",
+      "Identity, MFA, Conditional Access analysis",
+      "Prioritised remediation roadmap",
+    ],
+    notIncluded: [
+      "Cross-platform mapping (Azure + M365)",
+      "Custom application or workload review",
+    ],
+  },
+  {
+    name: "Professional",
+    price: "AED 30,000–55,000",
+    ideal: "Mid-market companies running both Azure and M365.",
+    includes: [
+      "Azure + M365 combined posture review",
+      "Identity & access deep-dive across both",
+      "Defender for Cloud / Defender XDR review",
+      "Privileged access path analysis",
+      "Executive readout + technical workshop",
+    ],
+    notIncluded: [
+      "Hybrid AD or on-prem AD review",
+      "Multi-tenant federation design",
+    ],
+    popular: true,
+  },
+  {
+    name: "Enterprise",
+    price: "AED 50,000–75,000",
+    ideal: "Multi-tenant or hybrid-cloud organisations with custom workloads.",
+    includes: [
+      "Hybrid cloud (Azure + M365 + on-prem AD federation)",
+      "Custom application review (API, app registrations, managed identities)",
+      "Multi-tenant access path mapping",
+      "Privileged Identity Management (PIM) design",
+      "Quarterly posture re-check for 12 months",
+    ],
+    notIncluded: [
+      "AWS or GCP review (separate quote)",
+      "Custom application source-code review",
+    ],
+  },
+];
 
 const flagship = [
   {
@@ -465,6 +533,14 @@ export const prerender = false;
       else init();
     })();
     </script>
+
+    <PricingTiers
+      serviceSlug="cloud-security"
+      tiers={tiers}
+      eyebrow="Pricing — Four tiers"
+      heading="Pick your scope, lock the fee"
+      sub="From single-platform baselines for SMEs to hybrid-cloud reviews for multi-tenant organisations."
+    />
 
     <section class="section bg-color-dark">
       <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">

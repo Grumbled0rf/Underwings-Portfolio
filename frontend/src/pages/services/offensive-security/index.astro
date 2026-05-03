@@ -8,8 +8,76 @@
 import Layout from '../../../layouts/Layout.astro';
 import Header from '../../../components/Header.astro';
 import Footer from '../../../components/Footer.astro';
+import PricingTiers from '../../../components/PricingTiers.astro';
 import '../../../styles/category-hub.css';
 import '../../../styles/offensive-hub.css';
+
+const tiers = [
+  {
+    name: "Starter",
+    price: "AED 9,000",
+    ideal: "Sub-30-employee UAE companies needing first-time external security validation.",
+    includes: [
+      "Single web app OR small external network up to 20 IPs",
+      "Automated + targeted manual testing",
+      "Executive summary + technical findings report",
+      "60-min remediation walkthrough call",
+    ],
+    notIncluded: [
+      "Retest after fixes",
+      "Internal network or AD",
+    ],
+  },
+  {
+    name: "Essentials",
+    price: "AED 12,000",
+    ideal: "Growing companies with one customer-facing asset to validate.",
+    includes: [
+      "Single web app OR external network up to 50 IPs",
+      "Manual testing of OWASP Top 10 / authenticated flows",
+      "Detailed PoC evidence per finding",
+      "30-day free retest of critical/high",
+      "Live remediation walkthrough",
+    ],
+    notIncluded: [
+      "Internal lateral movement",
+      "Cloud configuration review",
+    ],
+  },
+  {
+    name: "Professional",
+    price: "AED 25,000–45,000",
+    ideal: "Mid-market companies needing multi-asset annual penetration testing.",
+    includes: [
+      "Multi-asset scope: web + external + selected internal",
+      "Manual + automated, business-logic testing",
+      "Active Directory enumeration if internal in scope",
+      "Two free retests of critical/high",
+      "Executive readout + remediation roadmap",
+    ],
+    notIncluded: [
+      "Red-team / adversary emulation",
+      "Source-code review",
+    ],
+    popular: true,
+  },
+  {
+    name: "Enterprise",
+    price: "AED 50,000–75,000",
+    ideal: "Multi-site or regulated organisations needing full-scope assurance.",
+    includes: [
+      "Full scope: web + network + AD + cloud configuration",
+      "Lateral movement and privilege-escalation chains",
+      "Custom attack scenarios mapped to your threat model",
+      "Quarterly retest of critical/high for 12 months",
+      "Executive board-readout + technical workshop",
+    ],
+    notIncluded: [
+      "Physical security testing (separate quote)",
+      "OT/ICS environments (separate quote)",
+    ],
+  },
+];
 
 const flagship = [
   {
@@ -794,7 +862,7 @@ export const prerender = false;
             ))}
           </div>
 
-          <p class="scope-footnote">Bundle 2+ scopes in one engagement for <strong>15% discount</strong>. Bundle 3+ for <strong>20%</strong>.</p>
+          <p class="scope-footnote">Bundling 2+ scopes in one engagement reduces overall cost — fewer setup hours, one report, one debrief. We'll quote bundled scope at the scoping call.</p>
         </div>
       </div>
     </section>
@@ -832,6 +900,14 @@ export const prerender = false;
         </div>
       </div>
     </section>
+
+    <PricingTiers
+      serviceSlug="offensive-security"
+      tiers={tiers}
+      eyebrow="Pricing — Four tiers"
+      heading="Pick your scope, lock the fee"
+      sub="From single-asset SME engagements to full-scope multi-environment assurance. Every tier includes manual testing led by an OSCP holder."
+    />
 
     <!-- Flagship services -->
     <section class="section off-section-dotted">

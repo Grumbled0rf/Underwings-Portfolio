@@ -7,7 +7,75 @@
 import Layout from '../../../layouts/Layout.astro';
 import Header from '../../../components/Header.astro';
 import Footer from '../../../components/Footer.astro';
+import PricingTiers from '../../../components/PricingTiers.astro';
 import '../../../styles/category-hub.css';
+
+const tiers = [
+  {
+    name: "Starter",
+    price: "AED 12,000",
+    ideal: "Small UAE companies running a single small FortiGate (or equivalent).",
+    includes: [
+      "Single small FortiGate review",
+      "Basic ruleset audit",
+      "High-priority misconfiguration findings",
+      "Remediation walkthrough call",
+    ],
+    notIncluded: [
+      "Full configuration audit",
+      "Multi-firewall correlation",
+    ],
+  },
+  {
+    name: "Essentials",
+    price: "AED 18,000",
+    ideal: "Single-site companies that need a thorough firewall audit.",
+    includes: [
+      "Single FortiGate review — full configuration audit",
+      "Ruleset hygiene + shadow rule analysis",
+      "Threat-feed and IPS profile review",
+      "VPN and remote-access posture",
+      "Prioritised remediation report",
+    ],
+    notIncluded: [
+      "Network segmentation review",
+      "Multi-site / DC-to-branch design",
+    ],
+  },
+  {
+    name: "Professional",
+    price: "AED 35,000–55,000",
+    ideal: "Mid-market companies with multiple firewalls and VLAN-based segmentation.",
+    includes: [
+      "Multi-firewall correlation (up to 4 devices)",
+      "Network segmentation review (VLAN, zones, micro-seg)",
+      "East-west traffic analysis",
+      "SD-WAN posture (if deployed)",
+      "Architecture diagram + recommendation pack",
+    ],
+    notIncluded: [
+      "Multi-site / DC + branch architecture review",
+      "OT/ICS network segmentation",
+    ],
+    popular: true,
+  },
+  {
+    name: "Enterprise",
+    price: "AED 55,000–80,000",
+    ideal: "Multi-site organisations with DC, branch, and cloud edge.",
+    includes: [
+      "Multi-site architecture review (DC + cloud + branch)",
+      "Hybrid edge + SD-WAN + cloud security gateway",
+      "Zero-trust segmentation roadmap",
+      "Disaster-recovery and failover validation",
+      "Quarterly architecture re-review for 12 months",
+    ],
+    notIncluded: [
+      "OT/ICS environments (separate quote)",
+      "Hardware procurement & installation",
+    ],
+  },
+];
 
 const flagship = [
   {
@@ -446,6 +514,14 @@ export const prerender = false;
       else init();
     })();
     </script>
+
+    <PricingTiers
+      serviceSlug="network-infrastructure"
+      tiers={tiers}
+      eyebrow="Pricing — Four tiers"
+      heading="Pick your scope, lock the fee"
+      sub="From single-firewall audits for SMEs to multi-site DC + branch architecture reviews."
+    />
 
     <section class="section bg-color-dark">
       <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">

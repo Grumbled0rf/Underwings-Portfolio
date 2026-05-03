@@ -7,7 +7,75 @@
 import Layout from '../../../layouts/Layout.astro';
 import Header from '../../../components/Header.astro';
 import Footer from '../../../components/Footer.astro';
+import PricingTiers from '../../../components/PricingTiers.astro';
 import '../../../styles/category-hub.css';
+
+const tiers = [
+  {
+    name: "Starter",
+    price: "AED 6,000",
+    ideal: "Small UAE companies running their first awareness session.",
+    includes: [
+      "One 2-hour workshop",
+      "Up to 15 staff",
+      "Live attack demos",
+      "Attendance certificate per attendee",
+    ],
+    notIncluded: [
+      "Phishing simulation",
+      "Tabletop exercise",
+    ],
+  },
+  {
+    name: "Essentials",
+    price: "AED 12,000",
+    ideal: "Growing companies running annual training across one team.",
+    includes: [
+      "One 2-hour workshop",
+      "Up to 30 staff",
+      "Live attack demos + Q&A",
+      "Tailored to your sector",
+      "Pre/post knowledge check",
+    ],
+    notIncluded: [
+      "Phishing simulation",
+      "Quarterly drills",
+    ],
+  },
+  {
+    name: "Professional",
+    price: "AED 28,000",
+    ideal: "Mid-market companies wanting a measurable behavior-change program.",
+    includes: [
+      "Workshop (up to 60 staff)",
+      "Tabletop incident response exercise",
+      "One simulated phishing campaign",
+      "Click-rate baseline + post-training comparison",
+      "Executive readout",
+    ],
+    notIncluded: [
+      "Quarterly recurring drills",
+      "Multi-language delivery",
+    ],
+    popular: true,
+  },
+  {
+    name: "Enterprise",
+    price: "AED 40,000–55,000",
+    ideal: "Multi-site companies needing an annual program with quarterly drills.",
+    includes: [
+      "Annual program (workshops, multiple cohorts)",
+      "Quarterly tabletop or phishing drill",
+      "Role-specific training (executives, IT, finance)",
+      "Multi-language delivery (EN/AR)",
+      "Annual board-readout report",
+    ],
+    notIncluded: [
+      "Custom e-learning module development",
+      "On-site delivery outside UAE",
+    ],
+  },
+];
 
 const flagship = [
   {
@@ -635,6 +703,14 @@ export const prerender = false;
         </p>
       </div>
     </section>
+
+    <PricingTiers
+      serviceSlug="training-awareness"
+      tiers={tiers}
+      eyebrow="Pricing — Four tiers"
+      heading="Pick your scope, lock the fee"
+      sub="From single-workshop sessions to annual programs with quarterly drills."
+    />
 
     <section class="section bg-color-dark">
       <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">

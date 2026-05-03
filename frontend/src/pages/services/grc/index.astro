@@ -8,12 +8,91 @@
 import Layout from '../../../layouts/Layout.astro';
 import Header from '../../../components/Header.astro';
 import Footer from '../../../components/Footer.astro';
+import PricingTiers from '../../../components/PricingTiers.astro';
 import '../../../styles/category-hub.css';
+
+const tiers = [
+  {
+    name: "Starter",
+    price: "AED 12,000",
+    ideal: "Sub-30-employee UAE companies needing first-pass compliance scoping.",
+    includes: [
+      "PDPL readiness scan OR ISO 27001 mini-gap (single framework)",
+      "Up to 5 staff interviews",
+      "High-priority gaps + 90-day priority list",
+      "Remediation walkthrough call",
+    ],
+    notIncluded: [
+      "Full Annex A walk-through",
+      "Policy authoring",
+    ],
+  },
+  {
+    name: "Essentials",
+    price: "AED 22,000",
+    ideal: "SMEs and mid-market needing a formal single-framework gap assessment.",
+    includes: [
+      "ISO 27001 gap assessment OR PDPL readiness (single framework)",
+      "All 93 Annex A controls (if ISO) or full PDPL articles",
+      "5–10 staff interviews",
+      "Maturity scoring + remediation roadmap",
+      "Executive summary",
+    ],
+    notIncluded: [
+      "Full implementation",
+      "Combined frameworks",
+    ],
+  },
+  {
+    name: "Professional",
+    price: "AED 65,000",
+    ideal: "Companies actively pursuing ISO 27001 certification within 6 months.",
+    includes: [
+      "Full ISO 27001 implementation — 90-day program",
+      "Risk register, SoA, policies, controls",
+      "Internal audit + management review",
+      "Stage 1 audit prep + remediation",
+      "Liaison with accredited certification body",
+    ],
+    notIncluded: [
+      "Certification audit fees (paid to certifier)",
+      "ADHICS or NESA add-on",
+    ],
+    popular: true,
+  },
+  {
+    name: "Enterprise",
+    price: "AED 75,000–110,000",
+    ideal: "Multi-framework programs — ISO 27001 + ADHICS or NESA.",
+    includes: [
+      "Combined program (ISO 27001 + ADHICS v2 OR NESA / UAE IA V2)",
+      "Unified control set across frameworks",
+      "Multi-site or regulated-sector scope",
+      "Full evidence pack + audit liaison",
+      "Quarterly check-ins for 12 months post-certification",
+    ],
+    notIncluded: [
+      "Certification audit fees (paid to certifier)",
+      "PCI DSS (separate quote)",
+    ],
+  },
+];
 
 // Y1 flagship services
 // hasPage: true = dedicated service page exists (Phase 3 anchor)
 // hasPage: false = book-via-contact (Phase 3 deferred / Month 2)
 const flagship = [
+  {
+    slug: "continuous-compliance-subscription",
+    title: "Continuous Compliance Subscription",
+    tagline: "Stay audit-ready year-round. Quarterly internal audits, evidence management, audit liaison.",
+    price: "From AED 4,000/month",
+    certs: ["ISO 27001 LA", "GRC Mastery"],
+    lead: "Manoj Prabhakaran",
+    hasPage: true,
+    href: "/services/grc/continuous-compliance-subscription",
+    isRecurring: true,
+  },
   {
     slug: "iso-27001-implementation",
     title: "ISO 27001 Implementation & Certification Support",
@@ -499,6 +578,14 @@ export const prerender = false;
     })();
     </script>
 
+    <PricingTiers
+      serviceSlug="grc"
+      tiers={tiers}
+      eyebrow="Pricing — Four tiers"
+      heading="Pick your scope, lock the fee"
+      sub="From single-framework readiness scans for SMEs to multi-framework certification programs."
+    />
+
     <!-- Flagship Services -->
     <section class="section bg-color-dark">
       <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab">
@@ -519,10 +606,12 @@ export const prerender = false;
 
           <div class="flag-grid">
             {flagship.map((svc) => (
-              <a href={svc.href} class="flag-card" aria-label={`Learn about ${svc.title}`}>
+              <a href={svc.href} class={`flag-card${svc.isRecurring ? ' flag-card-recurring' : ''}`} aria-label={`Learn about ${svc.title}`}>
                 <div class="flag-card-head">
                   <span class="flag-price">{svc.price}</span>
-                  {svc.hasPage ? (
+                  {svc.isRecurring ? (
+                    <span class="flag-badge flag-badge-recurring">Recurring · NEW</span>
+                  ) : svc.hasPage ? (
                     <span class="flag-badge flag-badge-ready">Full page</span>
                   ) : (
                     <span class="flag-badge flag-badge-contact">Contact to scope</span>
