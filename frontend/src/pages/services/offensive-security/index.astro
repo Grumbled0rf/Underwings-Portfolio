@@ -81,6 +81,17 @@ const tiers = [
 
 const flagship = [
   {
+    slug: "ptaas-subscription",
+    title: "PTaaS — Penetration Testing as a Service",
+    tagline: "Continuous OSCP-led testing, live findings portal, on-demand re-tests, included annual deep-dive.",
+    price: "From AED 6,000/month",
+    methodology: "PTES · OWASP · NIST SP 800-115",
+    lead: "Nelson Durairaj",
+    hasPage: true,
+    href: "/services/offensive-security/ptaas-subscription",
+    isRecurring: true,
+  },
+  {
     slug: "network-penetration-testing",
     title: "Network Penetration Testing",
     tagline: "External + internal + Active Directory + lateral movement. PTES-aligned, manual, exploit-driven.",
@@ -927,10 +938,12 @@ export const prerender = false;
 
           <div class="flag-grid flag-grid-five">
             {flagship.map((svc, i) => (
-              <a href={svc.href} class="flag-card off-reveal" style={`transition-delay: ${i * 70}ms`} aria-label={`Learn about ${svc.title}`}>
+              <a href={svc.href} class={`flag-card off-reveal${svc.isRecurring ? ' flag-card-recurring' : ''}`} style={`transition-delay: ${i * 70}ms`} aria-label={`Learn about ${svc.title}`}>
                 <div class="flag-card-head">
                   <span class="flag-price">{svc.price}</span>
-                  {svc.isNew ? (
+                  {svc.isRecurring ? (
+                    <span class="flag-badge flag-badge-recurring">Recurring · NEW</span>
+                  ) : svc.isNew ? (
                     <span class="flag-badge flag-badge-new">New</span>
                   ) : (
                     <span class="flag-badge flag-badge-ready">Full page</span>

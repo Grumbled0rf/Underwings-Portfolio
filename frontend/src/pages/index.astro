@@ -1260,11 +1260,12 @@ const schemas = [
                 <div class="cat-icon">
                   <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M16 29s10.5-5 10.5-13V7L16 3 5.5 7v9C5.5 24 16 29 16 29z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M11 16l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </div>
-                <div class="cat-count">4 services</div>
+                <div class="cat-count">6 services <span class="cat-new-badge">NEW</span></div>
               </div>
               <h3 class="cat-title">Offensive Security</h3>
               <p class="cat-outcome">See what an attacker would actually do — manual pen tests by OSCP holders, not vulnerability-scan PDFs.</p>
               <div class="cat-services">
+                <span class="cat-service-pill cat-service-pill-new">PTaaS · From AED 6,000/mo</span>
                 <span class="cat-service-pill">Network Pen Test</span>
                 <span class="cat-service-pill">Web App Pen Test</span>
                 <span class="cat-service-pill">Phishing Simulation</span>
@@ -2382,6 +2383,7 @@ const schemas = [
                 <select id="ctf-service" name="service" required aria-required="true" aria-invalid="false">
                   <option value="" disabled selected>Select a service</option>
                   <optgroup label="Offensive Security">
+                    <option value="ptaas">PTaaS — Penetration Testing as a Service · NEW</option>
                     <option value="network-penetration-testing">Network Penetration Testing</option>
                     <option value="web-app-pentest">Web Application Pen Testing</option>
                     <option value="phishing-simulation">Phishing Simulation</option>

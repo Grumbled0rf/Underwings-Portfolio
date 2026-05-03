@@ -1,0 +1,375 @@
+---
+// ============================================================
+// SERVICE PAGE — PTaaS (Penetration Testing as a Service)
+// Category: Offensive Security (recurring service — continuous testing model)
+// Mirrors the GRC Continuous Compliance Subscription pattern
+// ============================================================
+
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import '../../../styles/category-hub.css';
+import '../../../styles/service-page.css';
+
+const faqs = [
+  { q: "How is this different from a one-off pen test?", a: "An annual one-off pen test gives you a snapshot. PTaaS gives you continuous coverage — when you push code or change infrastructure, we re-test the affected attack surface within days, not 12 months later. You see findings in a live portal as we discover them, not in a PDF six weeks after fieldwork." },
+  { q: "Who runs the tests?", a: "Same OSCP / CPTS practitioners who deliver our one-off engagements — Nelson Durairaj leads. No anonymous offshore juniors, no scan-and-PDF outsourcing. Every test action is logged with the operator's name." },
+  { q: "What's actually included monthly vs. annually?", a: "Monthly: continuous reconnaissance + on-demand re-testing of changed assets + live findings portal + Slack/Teams channel. Annually (included): one full-scope deep-dive penetration test against your primary asset, with executive readout. Plus you get unlimited critical/high re-tests within 14 days of remediation." },
+  { q: "How do you scope which assets to test?", a: "At onboarding we define your perimeter: web apps, external network ranges, APIs, optional internal/AD, optional cloud config. Asset list is updated quarterly (or on-demand for major launches). Out-of-scope assets are never touched." },
+  { q: "What if we find a critical issue between engagements?", a: "Critical findings get a same-day PoC + remediation guidance via the portal. We coordinate with your team on Slack/Teams until the fix is verified. No waiting for the next 'engagement window'." },
+  { q: "Can we cancel?", a: "After the 12-month minimum, you can cancel with 30 days' notice. Before then, only with cause (e.g., we fail to deliver against the SLA)." },
+  { q: "Is this a replacement for compliance pen tests?", a: "Yes — the annual deep-dive included in PTaaS satisfies ISO 27001 Annex A 8.8, UAE IA V2 T3.6.1, ADHICS v2, PCI DSS 11.3, and SOC 2 CC7.1. We provide a signed attestation letter for your auditor." },
+];
+
+const schema = [
+  { "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://underwings.org" },
+    { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://underwings.org/services" },
+    { "@type": "ListItem", "position": 3, "name": "Offensive Security", "item": "https://underwings.org/services/offensive-security" },
+    { "@type": "ListItem", "position": 4, "name": "PTaaS — Penetration Testing as a Service", "item": "https://underwings.org/services/offensive-security/ptaas-subscription" }
+  ]},
+  { "@context": "https://schema.org", "@type": "Service", "name": "PTaaS — Penetration Testing as a Service", "serviceType": "Continuous Penetration Testing Subscription",
+    "provider": { "@type": "Organization", "name": "Underwings Cybersecurity Solutions", "url": "https://underwings.org" },
+    "areaServed": { "@type": "Country", "name": "United Arab Emirates" },
+    "offers": { "@type": "AggregateOffer", "priceCurrency": "AED", "lowPrice": "6000", "highPrice": "14000" },
+    "description": "UAE Penetration Testing as a Service — continuous OSCP-led testing, live findings portal, on-demand re-tests, included annual deep-dive. AED 6,000–14,000/month.",
+    "url": "https://underwings.org/services/offensive-security/ptaas-subscription"
+  },
+  { "@context": "https://schema.org", "@type": "FAQPage",
+    "mainEntity": faqs.map(f => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } }))
+  }
+];
+
+export const prerender = false;
+---
+
+<Layout
+  title="PTaaS UAE — Penetration Testing as a Service | Underwings"
+  description="Continuous, OSCP-led penetration testing for UAE companies. Live findings portal, on-demand re-tests on every change, included annual deep-dive. AED 6,000–14,000/month."
+  keywords="PTaaS UAE, penetration testing as a service Dubai, continuous pentest UAE, OSCP managed pentest, on-demand pentest Abu Dhabi"
+  wfPage="services-page"
+  schema={schema}
+  bodyClass="body svc-compact"
+>
+  <Header currentPage="services" />
+
+  <main id="main" class="main">
+
+    <section class="section bottom-padding-clear top-padding-small">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <nav class="crumbs" aria-label="Breadcrumb">
+          <a href="/">Home</a><span aria-hidden="true">›</span>
+          <a href="/services">Services</a><span aria-hidden="true">›</span>
+          <a href="/services/offensive-security">Offensive Security</a><span aria-hidden="true">›</span>
+          <span class="crumbs-current">PTaaS</span>
+        </nav>
+
+        <div class="svc-hero">
+          <div class="label" style="justify-content:center;"><div class="text-small color-grey">Offensive Security — Recurring Service · NEW</div></div>
+          <h1 class="heading-large">PTaaS — Penetration Testing as a Service</h1>
+          <p class="text" style="max-width:720px;margin:1rem auto 0;">
+            Stop testing once a year. Start testing every time something changes. <strong>Continuous OSCP-led testing</strong>, a live findings portal, on-demand re-tests, and a deep-dive annual engagement — all bundled into one monthly subscription.
+          </p>
+
+          <div class="svc-hero-badges">
+            <span class="svc-hero-badge svc-hero-badge-price">AED 6,000 – 14,000 / month</span>
+            <span class="svc-hero-badge svc-hero-badge-time">12-month minimum · cancel anytime after</span>
+            <span class="svc-hero-badge svc-hero-badge-certs">OSCP / CPTS-led</span>
+          </div>
+
+          <div class="svc-hero-ctas">
+            <div class="button">
+              <a href="/#contact?service=ptaas" class="button-hidden w-button">Book a 20-min scoping call →</a>
+              <div class="button-wrapper"><div class="button-text">Book a 20-min scoping call →</div></div>
+              <div class="button-accent-gradinet"></div>
+            </div>
+            <a href="#faq" class="svc-hero-cta-secondary">Jump to FAQ</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">Who this is for</h2>
+        <div class="svc-triggers">
+          <div class="svc-trigger"><div class="svc-trigger-num">1</div><div>SaaS and product teams who <strong>ship code weekly or daily</strong> and can't wait 12 months between pen tests.</div></div>
+          <div class="svc-trigger"><div class="svc-trigger-num">2</div><div>Companies under <strong>continuous compliance pressure</strong> (ISO 27001, ADHICS, PCI DSS) — this satisfies the annual pen-test requirement plus continuous control validation.</div></div>
+          <div class="svc-trigger"><div class="svc-trigger-num">3</div><div>Mid-market firms <strong>without an internal red team</strong> who want offensive coverage without the headcount.</div></div>
+          <div class="svc-trigger"><div class="svc-trigger-num">4</div><div>Anyone who's been burned by a <strong>scan-and-PDF "VAPT"</strong> vendor and wants live, named-practitioner testing.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">What's included</h2>
+        <div class="ptaas-grid">
+          <div class="ptaas-card">
+            <h3 class="ptaas-card-title">Continuous Reconnaissance</h3>
+            <p class="ptaas-card-body">Daily passive monitoring of your in-scope external surface — new subdomains, exposed services, certificate changes, leaked credentials. We see drift before attackers do.</p>
+          </div>
+          <div class="ptaas-card">
+            <h3 class="ptaas-card-title">On-Demand Re-Testing</h3>
+            <p class="ptaas-card-body">Push a fix? We re-validate within 5 business days. Critical/high findings get unlimited free re-tests within 14 days of remediation.</p>
+          </div>
+          <div class="ptaas-card">
+            <h3 class="ptaas-card-title">Live Findings Portal</h3>
+            <p class="ptaas-card-body">Findings appear in your portal as we discover them — not in a PDF six weeks later. Per-finding PoCs, severity, remediation guidance, and history.</p>
+          </div>
+          <div class="ptaas-card">
+            <h3 class="ptaas-card-title">Annual Deep-Dive</h3>
+            <p class="ptaas-card-body">Once per 12-month cycle: a full-scope manual penetration test against your primary asset, with executive readout. Same depth as our standalone Professional-tier engagement.</p>
+          </div>
+          <div class="ptaas-card">
+            <h3 class="ptaas-card-title">Slack / Teams Channel</h3>
+            <p class="ptaas-card-body">Direct line to the operator running your tests. Same-day response on weekdays for critical findings; next-business-day for everything else.</p>
+          </div>
+          <div class="ptaas-card">
+            <h3 class="ptaas-card-title">Compliance Attestation Letter</h3>
+            <p class="ptaas-card-body">Signed letter for your auditor mapping our testing to ISO 27001 Annex A 8.8, UAE IA V2 T3.6.1, ADHICS v2, PCI DSS 11.3, and SOC 2 CC7.1.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">What you get monthly</h2>
+        <ul class="svc-deliv-list">
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Up to 8 hours</strong> of senior offensive practitioner time (OSCP / CPTS-led).</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Live portal access</strong> — every finding, PoC, screenshot, and remediation note.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Monthly testing dashboard</strong> — what was tested, what was found, what was fixed.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Slack/Teams channel</strong> for ad-hoc test requests and finding triage.</div></li>
+          <li class="svc-deliv-item"><svg class="svc-deliv-ico" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Same-day critical-finding response</strong> on weekdays; PoC + fix guidance.</div></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">Three subscription tiers</h2>
+        <div class="ptaas-tier-grid">
+          <div class="ptaas-tier-card">
+            <p class="ptaas-tier-name">Lite</p>
+            <p class="ptaas-tier-price">AED 6,000<span class="ptaas-tier-cycle">/month</span></p>
+            <p class="ptaas-tier-body">Single primary asset (one web app OR external network up to 30 IPs). Up to 8 hours/month of testing time. Quarterly deep test cycle.</p>
+          </div>
+          <div class="ptaas-tier-card ptaas-tier-card-popular">
+            <span class="ptaas-tier-badge">Most popular</span>
+            <p class="ptaas-tier-name">Standard</p>
+            <p class="ptaas-tier-price">AED 9,500<span class="ptaas-tier-cycle">/month</span></p>
+            <p class="ptaas-tier-body">Multi-asset (web + external network up to 100 IPs + APIs). Up to 16 hours/month. Continuous monitoring + monthly active test cycles + annual deep-dive.</p>
+          </div>
+          <div class="ptaas-tier-card">
+            <p class="ptaas-tier-name">Pro</p>
+            <p class="ptaas-tier-price">AED 14,000<span class="ptaas-tier-cycle">/month</span></p>
+            <p class="ptaas-tier-body">Full scope: web + network + AD + cloud config + mobile (if applicable). Up to 28 hours/month. Includes red-team-lite scenarios + executive board readout.</p>
+          </div>
+        </div>
+        <p class="ptaas-tier-footnote">All tiers: 12-month minimum, monthly billing. Annual deep-dive included on Standard and Pro.</p>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">Subscriber benefits</h2>
+        <div class="ptaas-benefits">
+          <div class="ptaas-benefit"><strong>Priority scheduling</strong><span>on standalone engagements (red-team, mobile, OT)</span></div>
+          <div class="ptaas-benefit"><strong>Named operator</strong><span>same OSCP-holder leads every test cycle — continuity, not lottery</span></div>
+          <div class="ptaas-benefit"><strong>Auditor-ready evidence</strong><span>signed compliance attestation refreshed every cycle</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <h2 class="svc-sec-title">FAQ</h2>
+        <div class="ptaas-faq-list">
+          {faqs.map((f) => (
+            <details class="ptaas-faq-item">
+              <summary class="ptaas-faq-q">
+                {f.q}
+                <svg class="ptaas-faq-icon" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </summary>
+              <div class="ptaas-faq-a" set:html={f.a}></div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-color-dark">
+      <div data-wf--noise--variant="absolute" class="noise-wrapper w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"><div class="noise w-variant-4c0280f5-2522-b840-9cb4-de0542cf64ab"></div></div>
+      <div class="container-medium">
+        <div class="section-wrapper-vertical" style="align-items:center;text-align:center;">
+          <h2 class="heading" style="max-width:560px;">Tired of one-shot pen tests that go stale in a month?</h2>
+          <p class="text-medium" style="max-width:580px;">Book a 20-minute scoping call. We'll inventory your attack surface, recommend a tier, and give you a written quote within 48 hours.</p>
+          <div class="button">
+            <a href="/#contact?service=ptaas" class="button-hidden w-button">Book a 20-min scoping call</a>
+            <div class="button-wrapper"><div class="button-text">Book a 20-min scoping call</div></div>
+            <div class="button-accent-gradinet"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  /* Page-local styles for the PTaaS page (mirrors ccs-* pattern) */
+  .ptaas-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    margin-top: 1rem;
+  }
+  .ptaas-card {
+    padding: 1.5rem;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.09);
+    border-radius: 12px;
+  }
+  .ptaas-card-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #fff;
+    margin: 0 0 0.5rem;
+  }
+  .ptaas-card-body {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .ptaas-tier-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    margin-top: 1rem;
+  }
+  .ptaas-tier-card {
+    position: relative;
+    padding: 1.75rem;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.09);
+    border-radius: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .ptaas-tier-card-popular {
+    border-color: rgba(36,215,88,0.4);
+    background: rgba(36,215,88,0.04);
+  }
+  .ptaas-tier-badge {
+    position: absolute;
+    top: -10px; left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Geist Mono', ui-monospace, monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #24d758, #27dab4);
+    color: #0a0a0a;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .ptaas-tier-name {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+    margin: 0;
+  }
+  .ptaas-tier-price {
+    font-family: 'Geist Mono', ui-monospace, monospace;
+    font-size: 1.55rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0;
+  }
+  .ptaas-tier-cycle {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: rgba(255,255,255,0.5);
+    margin-left: 0.25rem;
+  }
+  .ptaas-tier-body {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.55;
+    margin: 0;
+  }
+  .ptaas-tier-footnote {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.5);
+    margin: 1.25rem 0 0;
+    text-align: center;
+  }
+
+  .ptaas-benefits {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  .ptaas-benefit {
+    padding: 1.25rem;
+    background: rgba(36,215,88,0.04);
+    border: 1px solid rgba(36,215,88,0.18);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  .ptaas-benefit strong {
+    color: #fff;
+    font-size: 0.95rem;
+  }
+  .ptaas-benefit span {
+    color: rgba(255,255,255,0.65);
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  .ptaas-faq-list { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 0.75rem; }
+  .ptaas-faq-item {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+  }
+  .ptaas-faq-item[open] { border-color: rgba(36,215,88,0.25); }
+  .ptaas-faq-q {
+    list-style: none; cursor: pointer;
+    padding: 1.1rem 1.5rem;
+    font-size: 0.95rem; font-weight: 500; color: #fff;
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  }
+  .ptaas-faq-q::-webkit-details-marker { display: none; }
+  .ptaas-faq-icon { color: rgba(255,255,255,0.5); transition: transform 0.25s; }
+  .ptaas-faq-item[open] .ptaas-faq-icon { transform: rotate(180deg); color: #24d758; }
+  .ptaas-faq-a { padding: 0 1.5rem 1.25rem; color: rgba(255,255,255,0.72); font-size: 0.9rem; line-height: 1.65; }
+
+  @media (max-width: 991px) {
+    .ptaas-grid { grid-template-columns: repeat(2, 1fr); }
+    .ptaas-tier-grid, .ptaas-benefits { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .ptaas-grid { grid-template-columns: 1fr; }
+  }
+</style>
