@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import { createClient } from '@supabase/supabase-js';
 import nodemailer from 'nodemailer';
+import { notifyN8nInbound } from '../../lib/n8n-inbound';
 
 export const prerender = false;
 
@@ -202,7 +203,10 @@ export const POST: APIRoute = async ({ request }) => {
     const cleanEmail = email.toLowerCase().trim();
     const source = lead_magnet ? `lead_magnet:${lead_magnet}` : 'newsletter';
 
-    // Save to Supabase + push to Keila + send welcome email in parallel
+    // Friendly name derived from the local-part of the email
+    const friendlyName = cleanEmail.split('@')[0].replace(/[._-]/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+
+    // Save to Supabase + push to Keila + send welcome email + push lead to Krayin via n8n
     const [supabaseResult] = await Promise.all([
       supabase
         ? supabase.from('subscribers').upsert(
@@ -212,6 +216,17 @@ export const POST: APIRoute = async ({ request }) => {
         : Promise.resolve({ error: { message: 'No Supabase client' } }),
       pushToKeila(cleanEmail, source),
       sendWelcomeEmail(cleanEmail),
+      notifyN8nInbound({
+        source: 'newsletter',
+        person: {
+          name: friendlyName,
+          email: cleanEmail,
+        },
+        title: `Newsletter signup — ${cleanEmail}`,
+        activity_note: lead_magnet
+          ? `Newsletter signup via lead magnet: ${lead_magnet}`
+          : 'Newsletter signup (no lead magnet)',
+      }),
     ]);
 
     if (supabase && supabaseResult.error) {

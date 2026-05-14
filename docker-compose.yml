@@ -152,9 +152,13 @@ services:
       - PUBLIC_TURNSTILE_SITE_KEY=${TURNSTILE_SITE_KEY}
       - TURNSTILE_SECRET_KEY=${TURNSTILE_SECRET_KEY}
       - SUPABASE_SERVICE_ROLE_KEY=${SERVICE_ROLE_KEY}
-      # Krayin CRM integration
+      # Krayin CRM integration — legacy direct path (kept for backward compat,
+      # new forms should use the n8n inbound webhook below)
       - KRAYIN_WEBHOOK_URL=http://krayin/webhook-contact.php
       - KRAYIN_WEBHOOK_TOKEN=${KRAYIN_WEBHOOK_TOKEN}
+      # n8n inbound lead capture (Phase 1)
+      - N8N_INBOUND_URL=http://n8n:5678/webhook/inbound-lead
+      - N8N_INBOUND_TOKEN=${INBOUND_WEBHOOK_TOKEN}
       # Keila newsletter integration
       - KEILA_API_URL=${KEILA_API_URL}
       - KEILA_API_KEY=${KEILA_API_KEY}
@@ -471,6 +475,9 @@ services:
       - krayin-storage:/var/www/html/storage
       - ./krayin/krayin-nginx.conf:/etc/nginx/conf.d/krayin.conf:ro
       - ./krayin/webhook-contact.php:/var/www/laravel-crm/public/webhook-contact.php:ro
+      - ./krayin/webhook-scope.php:/var/www/laravel-crm/public/webhook-scope.php:ro
+      - ./krayin/webhook-scope-view.php:/var/www/laravel-crm/public/webhook-scope-view.php:ro
+      - ./krayin/webhook-lead-create.php:/var/www/laravel-crm/public/webhook-lead-create.php:ro
       - ./krayin/login.blade.php:/var/www/laravel-crm/packages/Webkul/Admin/src/Resources/views/sessions/login.blade.php:ro
       - ./krayin/AppServiceProvider.php:/var/www/laravel-crm/app/Providers/AppServiceProvider.php:ro
       - ./krayin/bootstrap-app.php:/var/www/laravel-crm/bootstrap/app.php:ro
@@ -506,10 +513,88 @@ services:
     networks:
       - underwings-network
 
+  # ===========================================
+  # n8n - Workflow automation @ https://n8n.underwings.org
+  # Talks to Krayin MySQL directly on the shared underwings-network
+  # (Option C - no Krayin REST API package required).
+  # ===========================================
+  n8n-db:
+    image: postgres:16-alpine
+    container_name: underwings-n8n-db
+    environment:
+      POSTGRES_DB: n8n
+      POSTGRES_USER: n8n
+      POSTGRES_PASSWORD: ${N8N_DB_PASSWORD}
+      TZ: Asia/Dubai
+    volumes:
+      - n8n-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U n8n -d n8n"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: always
+    networks:
+      - underwings-network
+
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: underwings-n8n
+    environment:
+      # --- Core ---
+      N8N_HOST: n8n.underwings.org
+      N8N_PROTOCOL: https
+      N8N_PORT: 5678
+      N8N_EDITOR_BASE_URL: https://n8n.underwings.org
+      WEBHOOK_URL: https://n8n.underwings.org/
+      GENERIC_TIMEZONE: Asia/Dubai
+      TZ: Asia/Dubai
+      # --- Behind reverse proxy ---
+      N8N_PROXY_HOPS: 1
+      N8N_SECURE_COOKIE: "true"
+      # --- Persistence ---
+      DB_TYPE: postgresdb
+      DB_POSTGRESDB_HOST: n8n-db
+      DB_POSTGRESDB_PORT: 5432
+      DB_POSTGRESDB_DATABASE: n8n
+      DB_POSTGRESDB_USER: n8n
+      DB_POSTGRESDB_PASSWORD: ${N8N_DB_PASSWORD}
+      # --- Security ---
+      N8N_ENCRYPTION_KEY: ${N8N_ENCRYPTION_KEY}
+      # --- Modern executions runner ---
+      N8N_RUNNERS_ENABLED: "true"
+      # --- Allow $env in Code/HTTP nodes (needed for our token-validation pattern) ---
+      N8N_BLOCK_ENV_ACCESS_IN_NODE: "false"
+      # --- Workflow shared secrets / config ---
+      INBOUND_WEBHOOK_TOKEN: ${INBOUND_WEBHOOK_TOKEN}
+      KRAYIN_WEBHOOK_TOKEN: ${KRAYIN_WEBHOOK_TOKEN}
+      SLACK_CHANNEL_NEW_LEADS: ${SLACK_CHANNEL_NEW_LEADS}
+      # --- Logging ---
+      N8N_LOG_LEVEL: info
+      EXECUTIONS_DATA_PRUNE: "true"
+      EXECUTIONS_DATA_MAX_AGE: 336   # 14 days
+    volumes:
+      - n8n-data:/home/node/.n8n
+      - ./n8n/workflows:/workflows:ro
+    depends_on:
+      n8n-db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O- http://127.0.0.1:5678/healthz || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    restart: always
+    networks:
+      - underwings-network
+
 volumes:
   krayin-db-data:
   krayin-storage:
   keila-uploads:
+  n8n-db-data:
+  n8n-data:
 
 networks:
   underwings-network:

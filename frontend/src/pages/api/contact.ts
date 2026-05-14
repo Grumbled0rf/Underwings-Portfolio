@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import { createClient } from '@supabase/supabase-js';
 import nodemailer from 'nodemailer';
+import { notifyN8nInbound } from '../../lib/n8n-inbound';
 
 export const prerender = false;
 
@@ -208,10 +209,6 @@ async function verifyTurnstile(token: string): Promise<boolean> {
   return data.success === true;
 }
 
-// Krayin CRM config
-const KRAYIN_WEBHOOK_URL = import.meta.env.KRAYIN_WEBHOOK_URL || process.env.KRAYIN_WEBHOOK_URL;
-const KRAYIN_WEBHOOK_TOKEN = import.meta.env.KRAYIN_WEBHOOK_TOKEN || process.env.KRAYIN_WEBHOOK_TOKEN;
-
 async function pushToKrayinCRM(data: {
   email: string;
   name?: string;
@@ -220,26 +217,22 @@ async function pushToKrayinCRM(data: {
   message?: string;
   service?: string;
 }): Promise<void> {
-  if (!KRAYIN_WEBHOOK_URL || !KRAYIN_WEBHOOK_TOKEN) return;
-  try {
-    await fetch(KRAYIN_WEBHOOK_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Webhook-Token': KRAYIN_WEBHOOK_TOKEN,
-      },
-      body: JSON.stringify({
-        name: data.name || 'Unknown',
-        email: data.email,
-        phone: data.phone || '',
-        company: data.company || '',
-        service: data.service || '',
-        message: data.message || '',
-      }),
-    });
-  } catch (e) {
-    console.error('Krayin CRM push error:', e);
-  }
+  await notifyN8nInbound({
+    source: 'contact_form',
+    person: {
+      name: data.name || 'Unknown',
+      email: data.email,
+      phone: data.phone || undefined,
+      company: data.company || undefined,
+    },
+    title: data.service
+      ? `Contact form — ${data.service} (${data.name || 'Unknown'})`
+      : `Contact form — ${data.name || 'Unknown'}`,
+    description: data.message || '',
+    activity_note: data.service
+      ? `Submitted via website contact form. Service interest: ${data.service}.`
+      : 'Submitted via website contact form.',
+  });
 }
 
 

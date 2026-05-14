@@ -8,6 +8,7 @@
 import type { APIRoute } from 'astro';
 import { createClient } from '@supabase/supabase-js';
 import crypto from 'node:crypto';
+import { notifyN8nInbound } from '../../lib/n8n-inbound';
 
 export const prerender = false;
 
@@ -151,6 +152,23 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     console.error('[waitlist] Supabase insert error:', error.message || JSON.stringify(error));
     return json({ error: 'Signup failed' }, 500);
   }
+
+  // Fire-and-forget: push lead into Krayin via n8n. Never blocks signup response.
+  notifyN8nInbound({
+    source: 'waitlist',
+    person: {
+      name: name || email.split('@')[0],
+      email,
+      company: company || undefined,
+    },
+    title: `Waitlist — ${serviceSlug}${serviceYear ? ' (' + serviceYear + ')' : ''}`,
+    description: [
+      `Service: ${serviceSlug}`,
+      serviceYear ? `Year: ${serviceYear}` : null,
+      sourcePage ? `Source page: ${sourcePage}` : null,
+    ].filter(Boolean).join('\n'),
+    activity_note: `Joined waitlist for ${serviceSlug}${serviceYear ? ' (' + serviceYear + ')' : ''}`,
+  });
 
   return json({ ok: true, already_registered: false }, 200);
 };
