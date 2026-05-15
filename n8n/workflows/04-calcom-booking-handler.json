@@ -200,6 +200,68 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
       "position": [1780, 500]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Phase 3c — build Plane card body from Krayin response + booking ctx.\n// Skip on RESCHEDULE (already have a card) and CANCEL (don't make a new one).\nconst krayin = $input.first().json;\nconst booking = $('Normalize booking').first().json;\n\n// Only fire on BOOKING_CREATED — skip otherwise (returns no items)\nif (booking.trigger !== 'BOOKING_CREATED') return [];\n\n// Lead must have been created/updated successfully\nif (!krayin?.success || !krayin?.lead_id) return [];\n\n// Skip silently if Plane isn't configured (env var blank)\nif (!$env.PLANE_API_TOKEN || !$env.PLANE_PROJECT_ID || !$env.PLANE_WORKSPACE_SLUG) return [];\n\n// target_date from start_time (YYYY-MM-DD)\nlet targetDate = '';\ntry { targetDate = (booking.start_time || '').slice(0, 10); } catch {}\n\nconst descLines = [\n  `<p><strong>Booking:</strong> ${booking.event_title}</p>`,\n  `<p><strong>When:</strong> ${booking.start_time || 'tba'}</p>`,\n  booking.join_url ? `<p><strong>Join:</strong> <a href=\"${booking.join_url}\">${booking.join_url}</a></p>` : '',\n  booking.email ? `<p><strong>Invitee:</strong> ${booking.name || booking.email} &lt;${booking.email}&gt;</p>` : '',\n  booking.company ? `<p><strong>Company:</strong> ${booking.company}</p>` : '',\n  booking.phone ? `<p><strong>Phone:</strong> ${booking.phone}</p>` : '',\n  booking.notes ? `<p><strong>Notes:</strong><br>${booking.notes.replace(/\\n/g, '<br>')}</p>` : '',\n  `<p><a href=\"https://crm.underwings.org/admin/leads/view/${krayin.lead_id}\">Open lead in Krayin →</a></p>`,\n].filter(Boolean).join('');\n\nreturn [{\n  json: {\n    lead_id: krayin.lead_id,\n    plane_url: `${$env.PLANE_BASE_URL}/api/v1/workspaces/${$env.PLANE_WORKSPACE_SLUG}/projects/${$env.PLANE_PROJECT_ID}/work-items/`,\n    body: {\n      name: `Discovery: ${booking.name || booking.email}${booking.company ? ' / ' + booking.company : ''}`,\n      description_html: descLines,\n      priority: 'medium',\n      target_date: targetDate || undefined,\n      external_id: booking.booking_uid,\n      external_source: 'calcom',\n    },\n  },\n}];"
+      },
+      "id": "cccccc11-0000-0000-0000-000000000011",
+      "name": "Build Plane card",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1560, 600]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $json.plane_url }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Content-Type", "value": "application/json" },
+            { "name": "X-API-Key",    "value": "={{ $env.PLANE_API_TOKEN }}" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.body) }}",
+        "options": {
+          "timeout": 15000,
+          "response": { "response": { "fullResponse": false, "responseFormat": "json", "neverError": true } }
+        }
+      },
+      "id": "cccccc12-0000-0000-0000-000000000012",
+      "name": "Plane: create card",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1780, 600],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://krayin/webhook-lead-update.php",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Content-Type",   "value": "application/json" },
+            { "name": "X-Webhook-Token","value": "={{ $env.KRAYIN_WEBHOOK_TOKEN }}" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  lead_id: $('Build Plane card').first().json.lead_id,\n  attributes: { plane_card_id: $json.id || '' },\n  activity_title: 'Plane card created',\n  activity_note: 'Card #' + ($json.sequence_id || '?') + ' (' + ($json.id || 'no-id') + ') in Plane'\n}) }}",
+        "options": {
+          "timeout": 10000,
+          "response": { "response": { "fullResponse": false, "responseFormat": "json", "neverError": true } }
+        }
+      },
+      "id": "cccccc13-0000-0000-0000-000000000013",
+      "name": "Save plane_card_id to lead",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [2000, 600],
+      "continueOnFail": true
     }
   ],
   "connections": {
@@ -223,16 +285,24 @@
     },
     "Update existing lead": {
       "main": [[
-        { "node": "Slack: #new-leads", "type": "main", "index": 0 },
-        { "node": "Respond OK",        "type": "main", "index": 0 }
+        { "node": "Slack: #new-leads",  "type": "main", "index": 0 },
+        { "node": "Respond OK",         "type": "main", "index": 0 },
+        { "node": "Build Plane card",   "type": "main", "index": 0 }
       ]]
     },
     "Create new lead": {
       "main": [[
         { "node": "Trigger enrichment (new only)", "type": "main", "index": 0 },
         { "node": "Slack: #new-leads",             "type": "main", "index": 0 },
-        { "node": "Respond OK",                    "type": "main", "index": 0 }
+        { "node": "Respond OK",                    "type": "main", "index": 0 },
+        { "node": "Build Plane card",              "type": "main", "index": 0 }
       ]]
+    },
+    "Build Plane card": {
+      "main": [[{ "node": "Plane: create card", "type": "main", "index": 0 }]]
+    },
+    "Plane: create card": {
+      "main": [[{ "node": "Save plane_card_id to lead", "type": "main", "index": 0 }]]
     }
   },
   "settings": {

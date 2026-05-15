@@ -37,6 +37,12 @@ INSERT INTO attributes
 SELECT 'brief_sent_at', 'Pre-call Brief Sent At', 'datetime', 'leads', 113, NULL, 0, 0, 0, 1, NOW(), NOW()
 WHERE NOT EXISTS (SELECT 1 FROM attributes WHERE code = 'brief_sent_at' AND entity_type = 'leads');
 
+-- Phase 3c: Plane card linkage
+INSERT INTO attributes
+  (code, name, type, entity_type, sort_order, validation, is_required, is_unique, quick_add, is_user_defined, created_at, updated_at)
+SELECT 'plane_card_id', 'Plane Card ID', 'text', 'leads', 114, NULL, 0, 0, 0, 1, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM attributes WHERE code = 'plane_card_id' AND entity_type = 'leads');
+
 COMMIT;
 
 -- Verification:

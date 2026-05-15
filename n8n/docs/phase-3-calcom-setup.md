@@ -221,3 +221,104 @@ docker exec underwings-krayin-db mariadb -ukrayin -p... krayin -e \
 - **Owner fallback**: if a lead has no owner (`user_id = NULL`) the
   endpoint defaults to `admin@underwings.org`. Once Manoj/Nelson/Vinoth
   are routed by segment in Phase 5, this becomes mostly cosmetic.
+
+---
+
+# Phase 3c — Plane card on booking
+
+**Status (2026-05-15):** Wired in workflow 04 but **dormant until you
+provide Plane API credentials**. The Plane branch detects missing env
+vars and skips silently — bookings still get captured + briefed.
+
+## What it does
+
+When a Cal.com booking is **created** (not on reschedule, not on cancel),
+n8n creates a Plane work-item in your designated project:
+
+- **Title**: `Discovery: <Name> / <Company>`
+- **Description (HTML)**: meeting time + join link + invitee details +
+  notes + a deep-link "Open lead in Krayin →"
+- **Target date**: meeting date
+- **External ID**: the Cal.com booking UID (so future automations can
+  match Plane cards to bookings)
+- **External source**: `calcom`
+
+The Plane card UUID is stored back on the lead as the `plane_card_id`
+attribute (id 77) for traceability.
+
+## What you need to do (~5 min)
+
+1. **Create or pick a Plane project** — open https://plan.underwings.org,
+   pick the workspace, and create a project like "Sales — Discovery
+   Calls" if you don't have a suitable one already.
+
+2. **Find your workspace slug + project ID**:
+   - Open the project. URL looks like
+     `https://plan.underwings.org/<workspace-slug>/projects/<project-uuid>/issues`
+   - The bit between `/` and `/projects/` is your **workspace slug**
+     (probably `underwings`).
+   - The UUID after `/projects/` is your **project ID**.
+
+3. **Generate a workspace API token**:
+   - Plane → **Workspace Settings → Developer settings → Access Tokens**
+   - Click **Create token** → name it `n8n-bookings` → copy the token
+     (shown once)
+
+4. **Paste into `/home/deployer/underwings/.env`**:
+   ```bash
+   PLANE_API_TOKEN=plane_api_xxxxx        # the token from step 3
+   PLANE_BASE_URL=https://plan.underwings.org    # already set
+   PLANE_WORKSPACE_SLUG=underwings        # from step 2
+   PLANE_PROJECT_ID=<uuid>                # from step 2
+   ```
+
+5. **Apply**:
+   ```bash
+   cd /home/deployer/underwings && docker compose up -d n8n
+   ```
+
+6. **Test**: send a synthetic booking with curl (same recipe as Phase
+   3a section above). Check Plane for a new card.
+
+## Sanity check the env
+
+```bash
+docker exec underwings-n8n sh -c \
+  'echo PLANE_API_TOKEN=${PLANE_API_TOKEN:0:6}...; \
+   echo PLANE_PROJECT_ID=$PLANE_PROJECT_ID; \
+   echo PLANE_WORKSPACE_SLUG=$PLANE_WORKSPACE_SLUG'
+```
+
+If any of `PLANE_API_TOKEN`, `PLANE_PROJECT_ID`, `PLANE_WORKSPACE_SLUG`
+is blank, the workflow will silently skip card creation — by design.
+
+## What's deferred (Phase 3c.1)
+
+- **Reschedule → update card**: when a booking is rescheduled, we
+  currently leave the Plane card alone. Could PATCH the card's target
+  date + add a comment.
+- **Cancel → close card**: when a booking is cancelled, we leave the
+  card open. Could close it or add a "cancelled" comment.
+- **Per-practitioner project routing**: all cards go to one project for
+  now. Once Manoj/Nelson/Vinoth get their own boards, route by lead
+  owner.
+- **Assignee mapping**: Plane card is unassigned. Map Krayin owner →
+  Plane user once we have all three principals registered in Plane.
+
+## Workflow node positions
+
+The new Plane chain lives at the bottom-right of workflow 04:
+
+```
+… ─► Update existing lead ──┬─► Slack
+                            ├─► Respond OK
+                            └─► Build Plane card ─► Plane: create card ─► Save plane_card_id
+   ─► Create new lead ──────┬─► Trigger enrichment
+                            ├─► Slack
+                            ├─► Respond OK
+                            └─► Build Plane card ─► (same chain)
+```
+
+Both Update and Create paths feed into the same `Build Plane card` node;
+since the Switch upstream is mutually exclusive, only one branch runs
+per booking.
