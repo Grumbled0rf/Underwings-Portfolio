@@ -481,6 +481,7 @@ services:
       - ./krayin/webhook-lead-update.php:/var/www/laravel-crm/public/webhook-lead-update.php:ro
       - ./krayin/webhook-suppression.php:/var/www/laravel-crm/public/webhook-suppression.php:ro
       - ./krayin/webhook-leads-needing-enrichment.php:/var/www/laravel-crm/public/webhook-leads-needing-enrichment.php:ro
+      - ./krayin/webhook-lead-by-email.php:/var/www/laravel-crm/public/webhook-lead-by-email.php:ro
       - ./krayin/login.blade.php:/var/www/laravel-crm/packages/Webkul/Admin/src/Resources/views/sessions/login.blade.php:ro
       - ./krayin/AppServiceProvider.php:/var/www/laravel-crm/app/Providers/AppServiceProvider.php:ro
       - ./krayin/bootstrap-app.php:/var/www/laravel-crm/bootstrap/app.php:ro
@@ -568,12 +569,15 @@ services:
       N8N_RUNNERS_ENABLED: "true"
       # --- Allow $env in Code/HTTP nodes (needed for our token-validation pattern) ---
       N8N_BLOCK_ENV_ACCESS_IN_NODE: "false"
+      # --- Allow Node built-ins inside Code nodes (needed for HMAC verification) ---
+      NODE_FUNCTION_ALLOW_BUILTIN: "crypto"
       # --- Workflow shared secrets / config ---
       INBOUND_WEBHOOK_TOKEN: ${INBOUND_WEBHOOK_TOKEN}
       KRAYIN_WEBHOOK_TOKEN: ${KRAYIN_WEBHOOK_TOKEN}
       SLACK_CHANNEL_NEW_LEADS: ${SLACK_CHANNEL_NEW_LEADS}
       SLACK_CHANNEL_HOT_LEADS_MANOJ: ${SLACK_CHANNEL_HOT_LEADS_MANOJ}
       ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
+      CALCOM_WEBHOOK_SIGNING_SECRET: ${CALCOM_WEBHOOK_SIGNING_SECRET}
       # --- Logging ---
       N8N_LOG_LEVEL: info
       EXECUTIONS_DATA_PRUNE: "true"
