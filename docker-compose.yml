@@ -466,10 +466,14 @@ services:
       - MAIL_MAILER=smtp
       - MAIL_HOST=stalwart
       - MAIL_PORT=587
-      - MAIL_USERNAME=noreply@underwings.org
-      - MAIL_PASSWORD=${SMTP_PASS}
+      # SMTP auth: re-use the same Stalwart account the frontend uses.
+      # Hardcoded (same pattern as the frontend service above) because
+      # SMTP_PASS in .env is for a different account.
+      - MAIL_USERNAME=newsletter@underwings.org
+      - MAIL_PASSWORD=Newsletter@1415!
       - MAIL_ENCRYPTION=tls
-      - MAIL_FROM_ADDRESS=crm@underwings.org
+      # Stalwart enforces sender == auth user. Use the same address.
+      - MAIL_FROM_ADDRESS=newsletter@underwings.org
       - MAIL_FROM_NAME=Underwings CRM
     volumes:
       - krayin-storage:/var/www/html/storage
@@ -482,6 +486,8 @@ services:
       - ./krayin/webhook-suppression.php:/var/www/laravel-crm/public/webhook-suppression.php:ro
       - ./krayin/webhook-leads-needing-enrichment.php:/var/www/laravel-crm/public/webhook-leads-needing-enrichment.php:ro
       - ./krayin/webhook-lead-by-email.php:/var/www/laravel-crm/public/webhook-lead-by-email.php:ro
+      - ./krayin/webhook-leads-needing-brief.php:/var/www/laravel-crm/public/webhook-leads-needing-brief.php:ro
+      - ./krayin/webhook-send-brief.php:/var/www/laravel-crm/public/webhook-send-brief.php:ro
       - ./krayin/login.blade.php:/var/www/laravel-crm/packages/Webkul/Admin/src/Resources/views/sessions/login.blade.php:ro
       - ./krayin/AppServiceProvider.php:/var/www/laravel-crm/app/Providers/AppServiceProvider.php:ro
       - ./krayin/bootstrap-app.php:/var/www/laravel-crm/bootstrap/app.php:ro

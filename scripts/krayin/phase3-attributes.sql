@@ -31,6 +31,12 @@ INSERT INTO attributes
 SELECT 'calcom_booking_uid', 'Cal.com Booking UID', 'text', 'leads', 112, NULL, 0, 0, 0, 1, NOW(), NOW()
 WHERE NOT EXISTS (SELECT 1 FROM attributes WHERE code = 'calcom_booking_uid' AND entity_type = 'leads');
 
+-- Phase 3b additions: pre-call brief tracking
+INSERT INTO attributes
+  (code, name, type, entity_type, sort_order, validation, is_required, is_unique, quick_add, is_user_defined, created_at, updated_at)
+SELECT 'brief_sent_at', 'Pre-call Brief Sent At', 'datetime', 'leads', 113, NULL, 0, 0, 0, 1, NOW(), NOW()
+WHERE NOT EXISTS (SELECT 1 FROM attributes WHERE code = 'brief_sent_at' AND entity_type = 'leads');
+
 COMMIT;
 
 -- Verification:
