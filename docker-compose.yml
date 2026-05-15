@@ -479,6 +479,8 @@ services:
       - ./krayin/webhook-scope-view.php:/var/www/laravel-crm/public/webhook-scope-view.php:ro
       - ./krayin/webhook-lead-create.php:/var/www/laravel-crm/public/webhook-lead-create.php:ro
       - ./krayin/webhook-lead-update.php:/var/www/laravel-crm/public/webhook-lead-update.php:ro
+      - ./krayin/webhook-suppression.php:/var/www/laravel-crm/public/webhook-suppression.php:ro
+      - ./krayin/webhook-leads-needing-enrichment.php:/var/www/laravel-crm/public/webhook-leads-needing-enrichment.php:ro
       - ./krayin/login.blade.php:/var/www/laravel-crm/packages/Webkul/Admin/src/Resources/views/sessions/login.blade.php:ro
       - ./krayin/AppServiceProvider.php:/var/www/laravel-crm/app/Providers/AppServiceProvider.php:ro
       - ./krayin/bootstrap-app.php:/var/www/laravel-crm/bootstrap/app.php:ro

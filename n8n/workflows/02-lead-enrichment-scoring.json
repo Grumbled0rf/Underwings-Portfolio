@@ -106,16 +106,58 @@
               },
               "renameOutput": true,
               "outputKey": "hot"
+            },
+            {
+              "conditions": {
+                "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "loose" },
+                "conditions": [
+                  {
+                    "id": "rule-low",
+                    "leftValue": "={{ $('Parse + resolve').first().json.scoring.category }}",
+                    "rightValue": "low_fit",
+                    "operator": { "type": "string", "operation": "equals" }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "low_fit"
             }
           ]
         },
         "options": { "fallbackOutput": "extra" }
       },
       "id": "aaaaaaa6-0000-0000-0000-000000000006",
-      "name": "Hot?",
+      "name": "Category branch",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
       "position": [1340, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://krayin/webhook-suppression.php",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Content-Type",   "value": "application/json" },
+            { "name": "X-Webhook-Token","value": "={{ $env.KRAYIN_WEBHOOK_TOKEN }}" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  email: $('Parse + resolve').first().json.payload.person.email,\n  reason: 'low_fit_score',\n  score: $('Parse + resolve').first().json.scoring.score,\n  lead_id: $('Parse + resolve').first().json.lead_id,\n  notes: $('Parse + resolve').first().json.scoring.reasoning,\n}) }}",
+        "options": {
+          "timeout": 10000,
+          "response": { "response": { "fullResponse": false, "neverError": true } }
+        }
+      },
+      "id": "aaaaaaa9-0000-0000-0000-000000000009",
+      "name": "Suppress low-fit email",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1560, 400],
+      "continueOnFail": true
     },
     {
       "parameters": {
@@ -170,15 +212,19 @@
       "main": [[{ "node": "Update Krayin lead", "type": "main", "index": 0 }]]
     },
     "Update Krayin lead": {
-      "main": [[{ "node": "Hot?", "type": "main", "index": 0 }]]
+      "main": [[{ "node": "Category branch", "type": "main", "index": 0 }]]
     },
-    "Hot?": {
+    "Category branch": {
       "main": [
-        [{ "node": "Slack: hot lead", "type": "main", "index": 0 }],
-        [{ "node": "Respond OK",    "type": "main", "index": 0 }]
+        [{ "node": "Slack: hot lead",        "type": "main", "index": 0 }],
+        [{ "node": "Suppress low-fit email", "type": "main", "index": 0 }],
+        [{ "node": "Respond OK",             "type": "main", "index": 0 }]
       ]
     },
     "Slack: hot lead": {
+      "main": [[{ "node": "Respond OK", "type": "main", "index": 0 }]]
+    },
+    "Suppress low-fit email": {
       "main": [[{ "node": "Respond OK", "type": "main", "index": 0 }]]
     }
   },
