@@ -115,6 +115,32 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
       "position": [1340, 200]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:5678/webhook/enrich-lead",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Content-Type",   "value": "application/json" },
+            { "name": "X-Inbound-Token","value": "={{ $env.INBOUND_WEBHOOK_TOKEN }}" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ lead_id: $json.lead_id, person_id: $json.person_id, source: $json.source, payload: $json.payload }) }}",
+        "options": {
+          "timeout": 60000,
+          "response": { "response": { "fullResponse": false, "neverError": true } }
+        }
+      },
+      "id": "88888888-8888-8888-8888-888888888888",
+      "name": "Trigger enrichment",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1340, 580],
+      "continueOnFail": true
     }
   ],
   "connections": {
@@ -132,8 +158,9 @@
     },
     "Build context": {
       "main": [[
-        { "node": "Respond OK", "type": "main", "index": 0 },
-        { "node": "Slack: #new-leads", "type": "main", "index": 0 }
+        { "node": "Respond OK",          "type": "main", "index": 0 },
+        { "node": "Slack: #new-leads",   "type": "main", "index": 0 },
+        { "node": "Trigger enrichment",  "type": "main", "index": 0 }
       ]]
     }
   },

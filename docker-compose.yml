@@ -478,6 +478,7 @@ services:
       - ./krayin/webhook-scope.php:/var/www/laravel-crm/public/webhook-scope.php:ro
       - ./krayin/webhook-scope-view.php:/var/www/laravel-crm/public/webhook-scope-view.php:ro
       - ./krayin/webhook-lead-create.php:/var/www/laravel-crm/public/webhook-lead-create.php:ro
+      - ./krayin/webhook-lead-update.php:/var/www/laravel-crm/public/webhook-lead-update.php:ro
       - ./krayin/login.blade.php:/var/www/laravel-crm/packages/Webkul/Admin/src/Resources/views/sessions/login.blade.php:ro
       - ./krayin/AppServiceProvider.php:/var/www/laravel-crm/app/Providers/AppServiceProvider.php:ro
       - ./krayin/bootstrap-app.php:/var/www/laravel-crm/bootstrap/app.php:ro
@@ -569,6 +570,8 @@ services:
       INBOUND_WEBHOOK_TOKEN: ${INBOUND_WEBHOOK_TOKEN}
       KRAYIN_WEBHOOK_TOKEN: ${KRAYIN_WEBHOOK_TOKEN}
       SLACK_CHANNEL_NEW_LEADS: ${SLACK_CHANNEL_NEW_LEADS}
+      SLACK_CHANNEL_HOT_LEADS_MANOJ: ${SLACK_CHANNEL_HOT_LEADS_MANOJ}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
       # --- Logging ---
       N8N_LOG_LEVEL: info
       EXECUTIONS_DATA_PRUNE: "true"
