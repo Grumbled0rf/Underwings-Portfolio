@@ -594,12 +594,78 @@ services:
     networks:
       - underwings-network
 
+  # ===========================================
+  # Cal.com - Self-hosted booking @ https://book.underwings.org
+  # Replaces Calendly (free tier had no API). Open-source under AGPL.
+  # ===========================================
+  cal-com-db:
+    image: postgres:16-alpine
+    container_name: underwings-calcom-db
+    environment:
+      POSTGRES_DB: calcom
+      POSTGRES_USER: calcom
+      POSTGRES_PASSWORD: ${CALCOM_DB_PASSWORD}
+      TZ: Asia/Dubai
+    volumes:
+      - calcom-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U calcom -d calcom"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: always
+    networks:
+      - underwings-network
+
+  cal-com:
+    image: calcom/cal.com:latest
+    container_name: underwings-calcom
+    environment:
+      # --- URLs (must point to the public domain) ---
+      NEXT_PUBLIC_WEBAPP_URL: https://book.underwings.org
+      NEXTAUTH_URL: https://book.underwings.org/api/auth
+      NEXT_PUBLIC_API_V2_URL: https://book.underwings.org/api/v2
+      # --- Self-host licensing ---
+      NEXT_PUBLIC_LICENSE_CONSENT: "agree"
+      CALCOM_TELEMETRY_DISABLED: "1"
+      # --- CSRF / SSO host allow-list ---
+      ALLOWED_HOSTNAMES: '"book.underwings.org","underwings.org"'
+      # --- Auth secrets ---
+      NEXTAUTH_SECRET: ${CALCOM_NEXTAUTH_SECRET}
+      CALENDSO_ENCRYPTION_KEY: ${CALCOM_ENCRYPTION_KEY}
+      # --- Database ---
+      DATABASE_URL: postgresql://calcom:${CALCOM_DB_PASSWORD}@cal-com-db:5432/calcom
+      DATABASE_DIRECT_URL: postgresql://calcom:${CALCOM_DB_PASSWORD}@cal-com-db:5432/calcom
+      # --- Outbound email via Stalwart ---
+      EMAIL_FROM: "no-reply@underwings.org"
+      EMAIL_FROM_NAME: "Underwings Booking"
+      EMAIL_SERVER_HOST: stalwart
+      EMAIL_SERVER_PORT: "587"
+      EMAIL_SERVER_USER: newsletter@underwings.org
+      EMAIL_SERVER_PASSWORD: "Newsletter@1415!"
+      # --- Behind reverse proxy ---
+      NODE_ENV: production
+      TZ: Asia/Dubai
+    depends_on:
+      cal-com-db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O- http://127.0.0.1:3000/api/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+      start_period: 180s
+    restart: always
+    networks:
+      - underwings-network
+
 volumes:
   krayin-db-data:
   krayin-storage:
   keila-uploads:
   n8n-db-data:
   n8n-data:
+  calcom-db-data:
 
 networks:
   underwings-network:
