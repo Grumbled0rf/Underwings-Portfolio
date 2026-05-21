@@ -20,6 +20,22 @@
 - SMTP server reachable (`stalwart` on the underwings network — already used by other services).
 - ~1.5 GB free RAM, ~1 GB free disk.
 
+## Deployment status (as of 2026-05-21)
+
+| Step | Status |
+|---|---|
+| Step 1 — docker-compose services added | ✅ committed |
+| Step 2 — secrets generated + appended to .env | ✅ done (server-side; gitignored) |
+| Step 3 — nginx server block for `sign.underwings.org` | ✅ committed + nginx restarted |
+| Step 4 — containers started + internal smoke test | ✅ HTTP 200 from `http://sign.underwings.org/api/health` via underwings-nginx; DB + certificate + cron jobs all healthy |
+| Step 5 — Cloudflare Tunnel public hostname | ❌ **founder action** |
+| Step 6 — GoDaddy CNAME | ❌ **founder action** |
+| Step 7 — Cloudflare Access policy + webhook Bypass rule | ❌ **founder action** |
+| Step 8 — Documenso first-run setup (admin account, API token, webhook secret) | ❌ **founder action** |
+| Step 9 — Add `DOCUMENSO_API_KEY` + `DOCUMENSO_WEBHOOK_SECRET` to .env, restart n8n | ❌ **founder action** (claude-code can do after you paste the values) |
+| Step 10 — End-to-end smoke test with `[TEST]` lead | ❌ blocked on workflows 07/08 being imported into n8n |
+
+
 ## Deployment plan
 
 ### Step 1 — Add containers to docker-compose
