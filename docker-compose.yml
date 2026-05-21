@@ -675,6 +675,68 @@ services:
     networks:
       - underwings-network
 
+  # ============================================================
+  # PHASE B — Sales warehouse + Metabase (UNDERWINGS-MASTER-PLAN §7/B)
+  # ============================================================
+  metrics-db:
+    image: postgres:16-alpine
+    container_name: underwings-metrics-db
+    restart: always
+    environment:
+      - POSTGRES_USER=warehouse_admin
+      - POSTGRES_PASSWORD=${METRICS_DB_PASSWORD}
+      - POSTGRES_DB=postgres
+      - TZ=Asia/Dubai
+      - LANG=en_US.utf8
+    volumes:
+      - metrics-db-data:/var/lib/postgresql/data
+      - ./metrics-db/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U warehouse_admin -d warehouse"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+    networks:
+      - underwings-network
+
+  metabase:
+    image: metabase/metabase:v0.50.32
+    container_name: underwings-metabase
+    restart: always
+    environment:
+      - MB_DB_TYPE=postgres
+      - MB_DB_DBNAME=metabase
+      - MB_DB_PORT=5432
+      - MB_DB_USER=warehouse_admin
+      - MB_DB_PASS=${METRICS_DB_PASSWORD}
+      - MB_DB_HOST=metrics-db
+      - MB_ENCRYPTION_SECRET_KEY=${METABASE_ENCRYPTION_KEY}
+      - MB_SITE_URL=https://metrics.underwings.org
+      - MB_SITE_NAME=Underwings Metrics
+      - JAVA_TIMEZONE=Asia/Dubai
+      - MB_TIMEZONE=Asia/Dubai
+      - MB_CHECK_FOR_UPDATES=false
+      - MB_ANON_TRACKING_ENABLED=false
+    depends_on:
+      metrics-db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+      start_period: 90s
+    deploy:
+      resources:
+        limits:
+          memory: 1500m
+    networks:
+      - underwings-network
+
 volumes:
   krayin-db-data:
   krayin-storage:
@@ -682,6 +744,7 @@ volumes:
   n8n-db-data:
   n8n-data:
   calcom-db-data:
+  metrics-db-data:
 
 networks:
   underwings-network:
