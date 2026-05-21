@@ -9,7 +9,7 @@ docker exec underwings-krayin bash -c "cd /var/www/laravel-crm && \
   sed -i 's|MAIL_FROM_ADDRESS=.*|MAIL_FROM_ADDRESS=crm@underwings.org|' .env && \
   sed -i 's|MAIL_FROM_NAME=.*|MAIL_FROM_NAME=\"Underwings CRM\"|' .env && \
   sed -i 's|APP_TIMEZONE=.*|APP_TIMEZONE=Asia/Dubai|' .env && \
-  grep -q WEBHOOK_TOKEN .env || echo 'WEBHOOK_TOKEN=97943baa0cae0e44286e4d6fb7af0e9e838d5952f3e2f175' >> .env && \
+  grep -q WEBHOOK_TOKEN .env || echo 'WEBHOOK_TOKEN=6af7aa5467f9b244ac577cbaba4d617531ea8b9a1d2bfe7f' >> .env && \
   grep -q webhook /etc/nginx/conf.d/krayin.conf || sed -i '/location ~ ^\/index\\\\.php/i\\
     location = /webhook-contact.php {\\
         fastcgi_pass unix:/run/php/php-fpm.sock;\\
