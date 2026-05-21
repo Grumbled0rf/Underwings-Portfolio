@@ -160,12 +160,34 @@
     },
     {
       "id": "render-and-pdf",
-      "name": "Render markdown + PDF",
-      "type": "n8n-nodes-base.executeCommand",
-      "typeVersion": 1,
+      "name": "Render via pandoc-render sidecar",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
       "position": [1960, 540],
       "parameters": {
-        "command": "=node /data/scripts/render-proposal.js"
+        "method": "POST",
+        "url": "http://pandoc-render:3000/render",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Content-Type",     "value": "application/json" },
+            { "name": "X-Shared-Token",   "value": "={{ $env.PANDOC_RENDER_TOKEN }}" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ sku: $json.sku, today: $json.today, lead: $json.lead, claude: $json.claude }) }}",
+        "options": { "response": { "response": { "responseFormat": "json" } } }
+      }
+    },
+    {
+      "id": "merge-render-context",
+      "name": "Merge render result with context",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2070, 540],
+      "parameters": {
+        "jsCode": "// n8n HTTP node replaces $json with response; re-merge upstream context\nconst render = $input.first().json;\nconst ctx = $('parse-and-validate').first().json;\nif (!render || !render.ok) {\n  throw new Error(`render failed: ${render && render.reason ? render.reason : 'unknown'}`);\n}\nreturn [{ json: {\n  ...ctx,\n  proposal_ref: render.proposal_ref,\n  pdf_base64:   render.pdf_base64,\n  pdf_size:     render.pdf_size\n} }];"
       }
     },
     {
@@ -186,7 +208,7 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={{ JSON.stringify({ title: $json.proposal_ref, recipients: [{ name: $json.lead.person_name, email: $json.lead.person_emails, role: 'SIGNER' }], pdfPath: $json.pdf_path }) }}"
+        "jsonBody": "={{ JSON.stringify({ title: $json.proposal_ref, recipients: [{ name: $json.lead.person_name, email: $json.lead.person_emails, role: 'SIGNER' }], document: { name: `${$json.proposal_ref}.pdf`, contentBase64: $json.pdf_base64 } }) }}"
       }
     },
     {
@@ -256,7 +278,8 @@
       [{ "node": "halt-slack",          "type": "main", "index": 0 }],
       [{ "node": "render-and-pdf",      "type": "main", "index": 0 }]
     ]},
-    "render-and-pdf":         { "main": [[{ "node": "documenso-create",     "type": "main", "index": 0 }]] },
+    "render-and-pdf":         { "main": [[{ "node": "merge-render-context", "type": "main", "index": 0 }]] },
+    "merge-render-context":   { "main": [[{ "node": "documenso-create",     "type": "main", "index": 0 }]] },
     "documenso-create":       { "main": [[{ "node": "krayin-update",        "type": "main", "index": 0 }]] },
     "krayin-update":          { "main": [[{ "node": "log-claude-spend",     "type": "main", "index": 0 }]] },
     "log-claude-spend":       { "main": [[{ "node": "slack-announce",       "type": "main", "index": 0 }]] }

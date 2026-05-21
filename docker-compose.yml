@@ -585,6 +585,7 @@ services:
       SLACK_CHANNEL_NEW_LEADS: ${SLACK_CHANNEL_NEW_LEADS}
       SLACK_CHANNEL_HOT_LEADS_MANOJ: ${SLACK_CHANNEL_HOT_LEADS_MANOJ}
       ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
+      PANDOC_RENDER_TOKEN: ${PANDOC_RENDER_TOKEN}
       CALCOM_WEBHOOK_SIGNING_SECRET: ${CALCOM_WEBHOOK_SIGNING_SECRET}
       PLANE_API_TOKEN: ${PLANE_API_TOKEN}
       PLANE_BASE_URL: ${PLANE_BASE_URL}
@@ -734,6 +735,33 @@ services:
       resources:
         limits:
           memory: 1500m
+    networks:
+      - underwings-network
+
+  # ============================================================
+  # PHASE C — Pandoc render sidecar (proposal PDF generation)
+  # Called by n8n workflow 07-proposal-generator over the docker network.
+  # Templates mounted read-only; no host port exposure.
+  # ============================================================
+  pandoc-render:
+    build: ./pandoc-render
+    container_name: underwings-pandoc-render
+    restart: unless-stopped
+    environment:
+      - SHARED_TOKEN=${PANDOC_RENDER_TOKEN}
+      - TZ=Asia/Dubai
+    volumes:
+      - ./templates:/data/templates:ro
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O-", "http://127.0.0.1:3000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    deploy:
+      resources:
+        limits:
+          memory: 384m
     networks:
       - underwings-network
 

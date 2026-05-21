@@ -1,0 +1,11 @@
+{
+  "name": "underwings-pandoc-render",
+  "version": "1.0.0",
+  "description": "Proposal PDF rendering sidecar for n8n workflow 07-proposal-generator",
+  "private": true,
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.21.2",
+    "js-yaml": "^4.1.0"
+  }
+}
