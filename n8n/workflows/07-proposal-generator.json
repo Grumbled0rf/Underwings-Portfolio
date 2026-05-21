@@ -1,0 +1,271 @@
+{
+  "id": "uw-proposal-generator-v1",
+  "name": "07 - Proposal generator (Scoping → Proposal Sent)",
+  "active": false,
+  "nodes": [
+    {
+      "id": "notes",
+      "name": "Notes — read this first",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [200, 80],
+      "parameters": {
+        "content": "## What this does\nTrigger fires from an n8n internal form filled by a principal post-discovery call.\n\nFlow:\n1. Form submits: lead_id (Krayin) + sku + scope_notes\n2. Fetch lead + person + organisation from Krayin (DB read)\n3. Load template + SKU price table\n4. Claude API generates proposal JSON (Sonnet 4.6, cached system prompt)\n5. Validate: line_items sum == total_aed, within sku price range, not needs_more_info\n6. Render markdown from template + Claude JSON (Handlebars-style)\n7. md → PDF via pandoc (inside n8n via Execute Command, or fallback to a sidecar)\n8. Upload PDF + md to Drive\n9. Documenso API: create envelope, send signature request\n10. Brevo: cover email with Documenso link\n11. Krayin: stage → Proposal Sent (stage_id 18)\n12. Slack #sales-pipeline: announcement\n13. Log Claude API call to ops.claude_api_calls (warehouse)\n\n## Credentials needed\n- Krayin MariaDB (read-only) — already created in Phase B\n- Warehouse Postgres — already created in Phase B\n- Anthropic API key — env var ANTHROPIC_API_KEY (existing)\n- Documenso API key — env var DOCUMENSO_API_KEY (set after Phase C deploy)\n- Brevo API key — env var BREVO_API_KEY (existing)\n- Drive (Google or Nextcloud) — credential 'underwings-drive'\n\n## Validation rules (master plan §11/10 + spec §6)\n- needs_more_info: true → halt, Slack the principal with missing_info list\n- sum(line_items.aed) != total_aed → halt, Slack alert\n- total_aed > sku.price_range_aed[1] AND rationale not flagging scope-expansion → halt, Slack\n- Scope notes < 100 chars → halt before calling Claude (cheaper)\n\n## KPI\nProposal generated < 2h after scoping call ends → tracked in cost-per-booked-call dashboard.\n\nSee UNDERWINGS-MASTER-PLAN.md §7/C + docs/superpowers/specs/2026-05-21-phase-c-proposal-generator.md."
+      }
+    },
+    {
+      "id": "form-trigger",
+      "name": "Form: post-discovery scoping",
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2,
+      "position": [200, 360],
+      "webhookId": "proposal-generator-form",
+      "parameters": {
+        "path": "proposal-generator",
+        "formTitle": "Generate a proposal",
+        "formDescription": "Fill this after your discovery call to generate a Documenso-signable proposal.",
+        "formFields": {
+          "values": [
+            { "fieldLabel": "Krayin lead ID", "fieldType": "number", "requiredField": true },
+            { "fieldLabel": "SKU", "fieldType": "dropdown", "requiredField": true, "fieldOptions": { "values": [
+              { "option": "pen-test-web" },
+              { "option": "pen-test-network-external" },
+              { "option": "pen-test-network-internal" },
+              { "option": "pen-test-mobile" },
+              { "option": "phishing-simulation" },
+              { "option": "iso-27001-implementation" },
+              { "option": "adhics-readiness" },
+              { "option": "pdpl-implementation" },
+              { "option": "ptaas-subscription" },
+              { "option": "continuous-compliance" },
+              { "option": "software-resale-generic" }
+            ] }},
+            { "fieldLabel": "Scope notes (everything from the call, freeform)", "fieldType": "textarea", "requiredField": true, "placeholder": "Their context, what they're worried about, deadlines, systems in scope, integrations, regulators, anything you'd brief a delivery team on. Minimum 100 chars." }
+          ]
+        },
+        "options": { "appendAttribution": false }
+      }
+    },
+    {
+      "id": "validate-scope",
+      "name": "Validate scope notes length",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [420, 360],
+      "parameters": {
+        "jsCode": "const i = $input.first().json;\nconst notes = (i['Scope notes (everything from the call, freeform)'] || '').trim();\nif (notes.length < 100) {\n  return [{ json: { halt: true, reason: 'scope_notes_too_short', detail: `Need ≥100 chars; got ${notes.length}.` } }];\n}\nreturn [{ json: {\n  halt: false,\n  lead_id: i['Krayin lead ID'],\n  sku: i['SKU'],\n  scope_notes: notes\n} }];"
+      }
+    },
+    {
+      "id": "branch-halt-or-go",
+      "name": "Halt or proceed?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [640, 360],
+      "parameters": {
+        "conditions": {
+          "options": { "version": 2 },
+          "conditions": [
+            { "leftValue": "={{ $json.halt }}", "rightValue": "true", "operator": { "type": "boolean", "operation": "true" } }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "halt-slack",
+      "name": "Slack: halt notice",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [860, 240],
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.SLACK_SALES_WEBHOOK }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ text: `⚠️ Proposal generator halted — ${$json.reason}: ${$json.detail}` }) }}",
+        "options": { "ignoreHttpStatusErrors": true }
+      }
+    },
+    {
+      "id": "fetch-lead",
+      "name": "Krayin: fetch lead details",
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.4,
+      "position": [860, 480],
+      "credentials": { "mySql": { "id": "krayin-mariadb-readonly", "name": "Krayin MariaDB (read-only)" } },
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT l.id AS lead_id, l.title, l.description, p.name AS person_name, p.emails AS person_emails, o.name AS organization_name, src.name AS source_name FROM leads l LEFT JOIN persons p ON p.id = l.person_id LEFT JOIN organizations o ON o.id = l.organization_id LEFT JOIN lead_sources src ON src.id = l.lead_source_id WHERE l.id = ?;",
+        "options": { "queryReplacement": "={{ $json.lead_id }}" }
+      }
+    },
+    {
+      "id": "load-sku-template",
+      "name": "Load SKU + template from disk",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1080, 480],
+      "parameters": {
+        "jsCode": "const fs = require('fs');\nconst yaml = require('js-yaml');\n\nconst formData = $('Validate scope notes length').first().json;\nconst lead = $input.first().json;\n\nconst skuYaml = fs.readFileSync('/data/templates/skus.yml', 'utf8');\nconst catalog = yaml.load(skuYaml);\nconst sku = catalog.skus.find(s => s.sku === formData.sku);\nif (!sku) throw new Error(`Unknown SKU: ${formData.sku}`);\n\nconst template = fs.readFileSync(`/data/templates/proposals/${sku.template}`, 'utf8');\nconst sharedFooter = fs.readFileSync('/data/templates/proposals/_shared-footer.md', 'utf8');\nconst prompt = fs.readFileSync('/data/prompts/proposal-generation.md', 'utf8');\n\nreturn [{ json: {\n  ...formData,\n  lead,\n  sku_record: sku,\n  template,\n  shared_footer: sharedFooter,\n  prompt_source: prompt,\n  today: new Date().toISOString().slice(0, 10)\n} }];"
+      }
+    },
+    {
+      "id": "claude-draft",
+      "name": "Claude: draft proposal sections",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1300, 480],
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "x-api-key",         "value": "={{ $env.ANTHROPIC_API_KEY }}" },
+            { "name": "anthropic-version", "value": "2023-06-01" },
+            { "name": "content-type",      "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  model: 'claude-sonnet-4-6',\n  max_tokens: 1500,\n  system: [\n    { type: 'text', text: $json.prompt_source.split('## System prompt (cached)')[1].split('## User message')[0] },\n    { type: 'text', text: `Template:\\n${$json.template}\\n\\nFooter (do not modify):\\n${$json.shared_footer}\\n\\nSKU:\\n${JSON.stringify($json.sku_record, null, 2)}`, cache_control: { type: 'ephemeral' } }\n  ],\n  messages: [\n    { role: 'user', content: `Inputs:\\n- SKU: ${$json.sku}\\n- Client company: ${$json.lead.organization_name || 'Unknown'}\\n- Client sector: from lead context\\n- Today (Asia/Dubai): ${$json.today}\\n- Lead context: ${$json.lead.title}\\n- Discovery call notes:\\n${$json.scope_notes}\\n\\nReply with JSON only.` }\n  ]\n}) }}"
+      }
+    },
+    {
+      "id": "parse-and-validate",
+      "name": "Parse + validate Claude output",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1520, 480],
+      "parameters": {
+        "jsCode": "const r = $input.first().json;\nconst ctx = $('Load SKU + template from disk').first().json;\n\nlet text = r.content?.[0]?.text || '';\ntext = text.replace(/^```json\\s*|\\s*```$/g, '').trim();\n\nlet parsed;\ntry { parsed = JSON.parse(text); }\ncatch (e) { return [{ json: { halt: true, reason: 'claude_invalid_json', detail: text.slice(0, 300) } }]; }\n\nif (parsed.needs_more_info) {\n  return [{ json: { halt: true, reason: 'needs_more_info', detail: (parsed.missing_info || []).join('; ') } }];\n}\n\nconst sumLines = (parsed.line_items || []).reduce((s, l) => s + (l.aed || 0), 0);\nif (sumLines !== parsed.total_aed) {\n  return [{ json: { halt: true, reason: 'total_aed_mismatch', detail: `sum=${sumLines} total=${parsed.total_aed}` } }];\n}\n\nconst [pmin, pmax] = ctx.sku_record.price_range_aed;\nif (parsed.total_aed > pmax) {\n  const flagged = (parsed.rationale || '').toLowerCase().includes('scope larger') || (parsed.rationale || '').toLowerCase().includes('review price');\n  if (!flagged) return [{ json: { halt: true, reason: 'price_above_max_unflagged', detail: `total=${parsed.total_aed} max=${pmax}; rationale missing scope-expansion flag` } }];\n}\n\nreturn [{ json: { ...ctx, claude: parsed, halt: false, usage: r.usage } }];"
+      }
+    },
+    {
+      "id": "branch-claude-halt",
+      "name": "Claude OK?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1740, 480],
+      "parameters": {
+        "conditions": {
+          "options": { "version": 2 },
+          "conditions": [
+            { "leftValue": "={{ $json.halt }}", "rightValue": "true", "operator": { "type": "boolean", "operation": "true" } }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "render-and-pdf",
+      "name": "Render markdown + PDF",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [1960, 540],
+      "parameters": {
+        "command": "=node /data/scripts/render-proposal.js"
+      }
+    },
+    {
+      "id": "documenso-create",
+      "name": "Documenso: create envelope",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [2180, 540],
+      "parameters": {
+        "method": "POST",
+        "url": "https://sign.underwings.org/api/v1/documents",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Authorization", "value": "=Bearer {{ $env.DOCUMENSO_API_KEY }}" },
+            { "name": "Content-Type",  "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ title: $json.proposal_ref, recipients: [{ name: $json.lead.person_name, email: $json.lead.person_emails, role: 'SIGNER' }], pdfPath: $json.pdf_path }) }}"
+      }
+    },
+    {
+      "id": "krayin-update",
+      "name": "Krayin: stage → Proposal Sent",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [2400, 540],
+      "parameters": {
+        "method": "POST",
+        "url": "https://crm.underwings.org/webhook-lead-update.php",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Content-Type",   "value": "application/json" },
+            { "name": "X-Webhook-Token","value": "={{ $env.KRAYIN_WEBHOOK_TOKEN }}" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ lead_id: $json.lead.lead_id, stage_id: 18, note: `Proposal ${$json.proposal_ref} sent via Documenso` }) }}"
+      }
+    },
+    {
+      "id": "log-claude-spend",
+      "name": "Warehouse: log Claude spend",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [2620, 540],
+      "credentials": { "postgres": { "id": "warehouse-postgres", "name": "Warehouse Postgres" } },
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "INSERT INTO ops.claude_api_calls (workflow_name, model, input_tokens, output_tokens, cache_read_tokens, cache_create_tokens, cost_usd, cost_aed, related_lead_id, notes) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);",
+        "options": {
+          "queryReplacement": "='07-proposal-generator', 'claude-sonnet-4-6', {{ $json.usage.input_tokens }}, {{ $json.usage.output_tokens }}, {{ $json.usage.cache_read_input_tokens || 0 }}, {{ $json.usage.cache_creation_input_tokens || 0 }}, {{ (($json.usage.input_tokens * 3 + $json.usage.output_tokens * 15) / 1000000).toFixed(4) }}, {{ ((($json.usage.input_tokens * 3 + $json.usage.output_tokens * 15) / 1000000) * 3.67).toFixed(4) }}, {{ $json.lead.lead_id }}, 'Proposal {{ $json.proposal_ref }}'"
+        }
+      }
+    },
+    {
+      "id": "slack-announce",
+      "name": "Slack: #sales-pipeline announce",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [2840, 540],
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.SLACK_SALES_WEBHOOK }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ text: `📄 Proposal sent — *${$json.proposal_ref}* to *${$json.lead.organization_name || 'Unknown'}* — AED ${$json.claude.total_aed}` }) }}",
+        "options": { "ignoreHttpStatusErrors": true }
+      }
+    }
+  ],
+  "connections": {
+    "form-trigger":           { "main": [[{ "node": "validate-scope",       "type": "main", "index": 0 }]] },
+    "validate-scope":         { "main": [[{ "node": "branch-halt-or-go",    "type": "main", "index": 0 }]] },
+    "branch-halt-or-go":      { "main": [
+      [{ "node": "halt-slack",          "type": "main", "index": 0 }],
+      [{ "node": "fetch-lead",          "type": "main", "index": 0 }]
+    ]},
+    "fetch-lead":             { "main": [[{ "node": "load-sku-template",    "type": "main", "index": 0 }]] },
+    "load-sku-template":      { "main": [[{ "node": "claude-draft",         "type": "main", "index": 0 }]] },
+    "claude-draft":           { "main": [[{ "node": "parse-and-validate",   "type": "main", "index": 0 }]] },
+    "parse-and-validate":     { "main": [[{ "node": "branch-claude-halt",   "type": "main", "index": 0 }]] },
+    "branch-claude-halt":     { "main": [
+      [{ "node": "halt-slack",          "type": "main", "index": 0 }],
+      [{ "node": "render-and-pdf",      "type": "main", "index": 0 }]
+    ]},
+    "render-and-pdf":         { "main": [[{ "node": "documenso-create",     "type": "main", "index": 0 }]] },
+    "documenso-create":       { "main": [[{ "node": "krayin-update",        "type": "main", "index": 0 }]] },
+    "krayin-update":          { "main": [[{ "node": "log-claude-spend",     "type": "main", "index": 0 }]] },
+    "log-claude-spend":       { "main": [[{ "node": "slack-announce",       "type": "main", "index": 0 }]] }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveExecutionProgress": true,
+    "saveManualExecutions": true,
+    "errorWorkflow": ""
+  },
+  "versionId": "v1-2026-05-21"
+}

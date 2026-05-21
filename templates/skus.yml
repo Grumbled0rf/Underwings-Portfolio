@@ -1,0 +1,161 @@
+# Underwings SKU Catalogue — Single Source of Truth
+#
+# This file is the authoritative pricing reference for:
+#   - Proposal generation (n8n workflow 07-proposal-generator)
+#   - Website pricing pages (consumed at build time — see Phase D follow-up)
+#   - Internal cost-per-deal tracking
+#
+# Schema:
+#   sku           : kebab-case unique id
+#   name          : public-facing service name
+#   owner         : 'manoj' | 'nelson' | 'vinoth'
+#   pipeline      : Krayin pipeline_id (4 = one-off, 5 = software resale, 6 = subscription)
+#   price_range_aed : [min, max] — defensible range based on scope
+#   default_aed   : starting point when Claude has no scope detail to vary
+#   lead_time_weeks : [min, max]
+#   revenue_model : 'fixed' | 'monthly' | 'per-license'
+#   template      : filename in templates/proposals/
+#
+# When you change a price here, the next proposal generated will use the
+# new number. Existing in-flight proposals are NOT re-priced.
+#
+# Last updated: 2026-05-21
+
+skus:
+
+  # ──────────────────────────────────────────────────────────────
+  # Offensive Security (Nelson)
+  # ──────────────────────────────────────────────────────────────
+
+  - sku: pen-test-web
+    name: "Web application penetration test"
+    owner: nelson
+    pipeline: 4
+    price_range_aed: [9000, 32000]
+    default_aed: 14000
+    lead_time_weeks: [2, 4]
+    revenue_model: fixed
+    template: pen-test-web.md
+    summary: "Manual web app pen test mapped to OWASP Top 10 + ASVS. Authenticated + unauthenticated. Includes 1 retest after fixes."
+
+  - sku: pen-test-network-external
+    name: "External network penetration test"
+    owner: nelson
+    pipeline: 4
+    price_range_aed: [15000, 36000]
+    default_aed: 22000
+    lead_time_weeks: [2, 4]
+    revenue_model: fixed
+    template: pen-test-network.md
+    summary: "External attack-surface assessment + manual exploitation of public-facing services. CVE + zero-day-class checks."
+
+  - sku: pen-test-network-internal
+    name: "Internal network penetration test"
+    owner: nelson
+    pipeline: 4
+    price_range_aed: [26000, 52000]
+    default_aed: 35000
+    lead_time_weeks: [3, 5]
+    revenue_model: fixed
+    template: pen-test-network.md
+    summary: "Assumed-breach internal pen test. Lateral movement, AD escalation, segmentation validation."
+
+  - sku: pen-test-mobile
+    name: "Mobile application penetration test"
+    owner: nelson
+    pipeline: 4
+    price_range_aed: [14000, 44000]
+    default_aed: 22000
+    lead_time_weeks: [3, 5]
+    revenue_model: fixed
+    template: pen-test-mobile.md
+    summary: "Static + dynamic analysis of iOS/Android app, mapped to OWASP MASVS. Reverse engineering, IPC, storage, transport."
+
+  - sku: phishing-simulation
+    name: "Phishing simulation campaign"
+    owner: nelson
+    pipeline: 4
+    price_range_aed: [3500, 12000]
+    default_aed: 6000
+    lead_time_weeks: [2, 3]
+    revenue_model: fixed
+    template: pen-test-web.md      # generic; refine when usage justifies
+    summary: "Targeted phishing campaign with credential capture + landing page metrics. Includes follow-up awareness brief."
+
+  # ──────────────────────────────────────────────────────────────
+  # GRC / Compliance (Manoj)
+  # ──────────────────────────────────────────────────────────────
+
+  - sku: iso-27001-implementation
+    name: "ISO 27001:2022 implementation"
+    owner: manoj
+    pipeline: 4
+    price_range_aed: [36000, 88000]
+    default_aed: 55000
+    lead_time_weeks: [10, 20]
+    revenue_model: fixed
+    template: iso-27001-implementation.md
+    summary: "Gap → policy stack → control implementation → internal audit → certification readiness. Named ISO 27001 Lead Auditor."
+
+  - sku: adhics-readiness
+    name: "ADHICS v2 readiness assessment"
+    owner: manoj
+    pipeline: 4
+    price_range_aed: [22000, 65000]
+    default_aed: 35000
+    lead_time_weeks: [4, 8]
+    revenue_model: fixed
+    template: adhics-readiness.md
+    summary: "Abu Dhabi Healthcare Information & Cyber Security Standard v2 gap assessment with prioritised remediation roadmap."
+
+  - sku: pdpl-implementation
+    name: "UAE PDPL implementation"
+    owner: manoj
+    pipeline: 4
+    price_range_aed: [22000, 55000]
+    default_aed: 32000
+    lead_time_weeks: [6, 12]
+    revenue_model: fixed
+    template: pdpl-implementation.md
+    summary: "UAE Personal Data Protection Law (Federal Decree-Law No. 45 of 2021) compliance: RoPA, DPIA, DPO appointment guidance, policies, data subject rights workflow."
+
+  # ──────────────────────────────────────────────────────────────
+  # Subscriptions (Pipeline 6)
+  # ──────────────────────────────────────────────────────────────
+
+  - sku: ptaas-subscription
+    name: "PTaaS — Continuous penetration testing"
+    owner: nelson
+    pipeline: 6
+    price_range_aed: [6000, 6000]
+    default_aed: 6000
+    lead_time_weeks: [1, 2]
+    revenue_model: monthly
+    template: ptaas-subscription.md
+    summary: "Continuous web/network testing on a monthly cadence. Quarterly findings reports. 30-day exit clause on the first paid month."
+
+  - sku: continuous-compliance
+    name: "Continuous Compliance subscription"
+    owner: manoj
+    pipeline: 6
+    price_range_aed: [4000, 4000]
+    default_aed: 4000
+    lead_time_weeks: [1, 2]
+    revenue_model: monthly
+    template: continuous-compliance.md
+    summary: "Monthly evidence collection + control validation against ISO 27001 / ADHICS / PDPL. Quarterly internal audit-style review."
+
+  # ──────────────────────────────────────────────────────────────
+  # Software Resale (Pipeline 5)
+  # ──────────────────────────────────────────────────────────────
+
+  - sku: software-resale-generic
+    name: "Cybersecurity software resale + deployment"
+    owner: vinoth
+    pipeline: 5
+    price_range_aed: [10000, 250000]
+    default_aed: 25000
+    lead_time_weeks: [4, 12]
+    revenue_model: per-license
+    template: software-resale-generic.md
+    summary: "Sophos / Fortinet / Securonix / Wazuh / Qualys / Rapid7 / Tenable licensing + deployment + 3-month operate phase. Pricing depends on vendor + seat count."
