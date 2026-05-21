@@ -1,0 +1,13 @@
+[Unit]
+Description=Run Underwings nightly database backup at 02:30 Asia/Dubai
+
+[Timer]
+# 02:30 Asia/Dubai every day
+OnCalendar=*-*-* 02:30:00 Asia/Dubai
+# Run on next start if we missed the slot (server reboot, etc.)
+Persistent=true
+# Add a tiny jitter so multiple servers on the same host don't pile up
+RandomizedDelaySec=120
+
+[Install]
+WantedBy=timers.target

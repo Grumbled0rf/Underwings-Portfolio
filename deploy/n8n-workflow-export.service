@@ -1,0 +1,17 @@
+[Unit]
+Description=Underwings — export n8n workflows + detect drift vs. git
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+User=deployer
+Group=deployer
+WorkingDirectory=/home/deployer/underwings
+ExecStart=/home/deployer/underwings/scripts/export-n8n-workflows.sh --quiet
+StandardOutput=journal
+StandardError=journal
+TimeoutStartSec=300
+
+[Install]
+WantedBy=multi-user.target

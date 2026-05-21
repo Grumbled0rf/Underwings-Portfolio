@@ -1,0 +1,10 @@
+[Unit]
+Description=Nightly n8n workflow drift check at 02:00 Asia/Dubai
+
+[Timer]
+OnCalendar=*-*-* 02:00:00 Asia/Dubai
+Persistent=true
+RandomizedDelaySec=120
+
+[Install]
+WantedBy=timers.target
