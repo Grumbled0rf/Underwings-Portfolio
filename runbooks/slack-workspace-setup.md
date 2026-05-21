@@ -3,7 +3,7 @@
 > **Purpose:** unblock 6 places in the build that need Slack to post
 > notifications. Cost: free (Slack Pro is not needed at our scale).
 > **Audience:** founder (browser only).
-> **Time:** ~15 minutes.
+> **Time:** ~10 minutes (today's scope). Add 5 min later when Phase I starts.
 
 ## What this unblocks
 
@@ -15,7 +15,7 @@
 | C | `08-onboarding-kickoff.json` (signed deal) | `#client-success` |
 | G | `backup-databases.sh` (failure alert) | `#ops` |
 | G | `export-n8n-workflows.sh` (drift alert) | `#ops` |
-| I (later) | Outbound reply detector for Manoj / Nelson / Vinoth | `#hot-leads-{manoj,nelson,vinoth}` |
+| I (later) | Outbound reply detector — every "interested" reply, any practitioner | `#hot-leads-manoj` (Manoj triages + forwards to Nelson / Vinoth) |
 | 1 (already shipped) | `01-inbound-lead-capture.json` (new lead) | `#new-leads` |
 
 ## Step 1 — Create the workspace (3 min)
@@ -30,11 +30,13 @@
 6. Skip "What is your team working on" prompts.
 7. Skip "Create your first channel" — we make them all next, properly.
 
-## Step 2 — Create the 6 channels (3 min)
+## Step 2 — Create the channels (~3 min)
 
 In the Slack desktop or web app, click the **+** next to "Channels"
-and create each below. All should be **Public** within the workspace
-(only the 3 of you are in the workspace anyway).
+and create each below. All **Public** within the workspace (only the
+3 of you are in the workspace anyway).
+
+**Create now (4 channels — needed for B, C, G):**
 
 | Channel | Purpose | Volume |
 |---|---|---|
@@ -42,10 +44,18 @@ and create each below. All should be **Public** within the workspace
 | `#sales-pipeline` | Proposal sent, drafts ready, halts | 5–10/day |
 | `#new-leads` | Every new Krayin lead | 10–20/day |
 | `#client-success` | Signed deals, onboarding, day-7/30/90 check-ins | 1–3/day |
-| `#hot-leads-manoj` | Interested replies for Manoj — DM-style alerts | 1–3/day |
-| `#hot-leads-nelson` | Same, for Nelson (Phase 8 — fine to create now) | 1–3/day |
 
-Skip `#hot-leads-vinoth` until Phase 8 if you want — easy to add later.
+**Create now if you want, otherwise defer to Phase I (~2-3 months out):**
+
+| Channel | Purpose | Volume |
+|---|---|---|
+| `#hot-leads-manoj` | **All** "interested" replies from cold outbound — Manoj triages + forwards to Nelson / Vinoth when relevant | 1–3/day |
+
+**Decision noted (2026-05-21):** single hot-leads channel, owned by Manoj
+as head of sales. Per-practitioner channels (`#hot-leads-nelson`,
+`#hot-leads-vinoth`) **not created** — Manoj is the funnel-top for all
+cold-outbound responses regardless of which practitioner sent the
+opening message. Master plan §8 updated to match.
 
 ## Step 3 — Create one Slack app (3 min)
 
@@ -67,11 +77,12 @@ covers all 6 channels.
    `https://hooks.slack.com/services/T0XXXX/B0XXXX/longrandomtoken`. Copy it.
 6. Click **Add New Webhook to Workspace** again, pick `#sales-pipeline`,
    allow, copy.
-7. Repeat for each: `#new-leads`, `#client-success`, `#hot-leads-manoj`,
-   `#hot-leads-nelson`.
+7. Repeat for `#new-leads` and `#client-success`.
+8. If you created `#hot-leads-manoj`, add a 5th webhook for it. Otherwise
+   defer this one to Phase I.
 
-You'll end up with 6 URLs. Save them in a temporary doc — you'll paste
-them to claude-code at the end of this runbook.
+You'll end up with 4 (or 5) URLs. Save them in a temporary doc — you'll
+paste them to claude-code at the end of this runbook.
 
 ## Step 5 — Test one webhook (1 min)
 
@@ -87,16 +98,16 @@ You should see "hello from setup test" appear in the channel within a second.
 
 ## Step 6 — Paste URLs back to claude-code
 
-Reply in the conversation with this format (you'll replace the
-placeholders with your actual URLs):
+Reply in the conversation with this format (replace placeholders with
+your actual URLs). Include the hot-leads line only if you created that
+channel today:
 
 ```
 SLACK_OPS_WEBHOOK=https://hooks.slack.com/services/T.../B.../...
 SLACK_SALES_WEBHOOK=https://hooks.slack.com/services/T.../B.../...
 SLACK_NEW_LEADS_WEBHOOK=https://hooks.slack.com/services/T.../B.../...
 SLACK_CS_WEBHOOK=https://hooks.slack.com/services/T.../B.../...
-SLACK_HOT_LEADS_MANOJ_WEBHOOK=https://hooks.slack.com/services/T.../B.../...
-SLACK_HOT_LEADS_NELSON_WEBHOOK=https://hooks.slack.com/services/T.../B.../...
+SLACK_HOT_LEADS_MANOJ_WEBHOOK=https://hooks.slack.com/services/T.../B.../...   # optional
 ```
 
 claude-code will:

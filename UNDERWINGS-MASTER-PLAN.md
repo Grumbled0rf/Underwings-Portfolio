@@ -528,7 +528,7 @@ of P4+P6 Won → P5 (resale) within 180 days.
 | `#ops` | Reconciliation, alerts, drift warnings, daily metric summary | 2–5 | A, B, G |
 | `#sales-pipeline` | Daily harvests, drafts ready, weekly reports | 5–10 | I |
 | `#new-leads` | Every new Krayin lead created | 10–20 | 1 (already exists in workflow, channel pending) |
-| `#hot-leads-manoj` / `-nelson` / `-vinoth` | Interested replies, DM-style | 1–3 | I, then 8 |
+| `#hot-leads-manoj` | **All** "interested" replies from cold outbound — Manoj triages and forwards | 1–3 | I |
 | `#client-success` | Weekly active-client status | 5 / week | E |
 | Founder DM | Morning + EOD summary only | 2 | always |
 
