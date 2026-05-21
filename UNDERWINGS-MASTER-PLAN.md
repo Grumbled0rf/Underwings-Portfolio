@@ -205,7 +205,7 @@ with 30-day exit clause, not free work.
 
 ❌ **Not started**
 - Phase 5+ (re-sequenced, see below)
-- Slack workspace not yet created (channels can't exist without it)
+- Slack workspace + 5 channels + 5 webhooks live (2026-05-21). All webhooks tested HTTP 200 from claude-code; plumbed into n8n env.
 - Case studies (0 written)
 - LinkedIn cadence for founders (no posting schedule)
 - Audit-firm referral conversations (none initiated)
@@ -665,8 +665,7 @@ exists to prevent that recurring. Don't skip it.
 
 These need explicit user input before the relevant phase ships:
 
-1. **Slack workspace creation.** Pending. All `#hot-leads-*` channels
-   blocked until done. *(Owner: founder)*
+1. ~~**Slack workspace creation.**~~ ✅ Done 2026-05-21. Workspace `underwingsworkspace.slack.com`, 5 channels (`#ops`, `#sales-pipeline`, `#new-leads`, `#client-success`, `#hot-leads-manoj`), Underwings BOT app with 5 incoming webhooks. All tested HTTP 200; env vars in n8n.
 2. **E-sign tool.** Documenso (self-hosted) shortlisted vs. DocuSign
    (managed). Self-hosted favoured for cost + data residency. *(Owner:
    Manoj, by start of Phase C.)*
