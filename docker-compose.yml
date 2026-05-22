@@ -809,11 +809,15 @@ services:
       - NEXT_PRIVATE_ENCRYPTION_SECONDARY_KEY=${DOCUMENSO_ENCRYPTION_KEY_SECONDARY}
       - NEXT_PRIVATE_DATABASE_URL=postgresql://documenso:${DOCUMENSO_DB_PASSWORD}@documenso-db:5432/documenso
       - NEXT_PRIVATE_DIRECT_DATABASE_URL=postgresql://documenso:${DOCUMENSO_DB_PASSWORD}@documenso-db:5432/documenso
-      - NEXT_PRIVATE_SMTP_TRANSPORT=smtp-auth
+      - NEXT_PRIVATE_SMTP_TRANSPORT=smtp
       - NEXT_PRIVATE_SMTP_HOST=stalwart
       - NEXT_PRIVATE_SMTP_PORT=587
       - NEXT_PRIVATE_SMTP_USERNAME=newsletter@underwings.org
       - NEXT_PRIVATE_SMTP_PASSWORD=Newsletter@1415!
+      # Internal docker network: skip TLS hostname verification (Stalwart's
+      # cert CN is mail.underwings.org but we connect by container name).
+      - NEXT_PRIVATE_SMTP_UNSAFE_IGNORE_TLS=true
+      - NEXT_PRIVATE_SMTP_SECURE=false
       - NEXT_PRIVATE_SMTP_FROM_NAME=Underwings
       - NEXT_PRIVATE_SMTP_FROM_ADDRESS=newsletter@underwings.org
       - NEXT_PUBLIC_WEBAPP_URL=https://sign.underwings.org
