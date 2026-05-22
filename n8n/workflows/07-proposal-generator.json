@@ -178,6 +178,21 @@
       }
     },
     {
+      "id": "merge-form-and-lead",
+      "name": "Merge form + lead",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        970,
+        480
+      ],
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      }
+    },
+    {
       "id": "load-sku-template",
       "name": "Load SKU + template from disk",
       "type": "n8n-nodes-base.code",
@@ -187,7 +202,7 @@
         480
       ],
       "parameters": {
-        "jsCode": "const fs = require('fs');\n\n// Form data comes from the Validate scope notes length node (upstream).\n// Use multiple fallback patterns since n8n's cross-node lookup syntax\n// varies by version.\nlet formData;\nconst tries = [\n  () => $('Validate scope notes length').first().json,\n  () => $items('Validate scope notes length', 0, 0)[0].json,\n  () => $node['Validate scope notes length'].json,\n];\nfor (const t of tries) {\n  try { formData = t(); if (formData) break; } catch (_) {}\n}\nif (!formData) {\n  throw new Error('Cannot resolve upstream Validate scope notes length data. Tried $(), $items(), $node[].');\n}\n\nconst lead = $input.first().json;\n\nconst catalog = JSON.parse(fs.readFileSync('/data/templates/skus.json', 'utf8'));\nconst sku = catalog.skus.find(s => s.sku === formData.sku);\nif (!sku) throw new Error(`Unknown SKU: ${formData.sku}`);\n\nconst template = fs.readFileSync(`/data/templates/proposals/${sku.template}`, 'utf8');\nconst sharedFooter = fs.readFileSync('/data/templates/proposals/_shared-footer.md', 'utf8');\nconst prompt = fs.readFileSync('/data/prompts/proposal-generation.md', 'utf8');\n\nreturn [{ json: {\n  ...formData,\n  lead,\n  sku_record: sku,\n  template,\n  shared_footer: sharedFooter,\n  prompt_source: prompt,\n  today: new Date().toISOString().slice(0, 10)\n} }];"
+        "jsCode": "const fs = require('fs');\n\n// $input is the Merge node output \u2014 combined form data + Krayin SQL row.\nconst i = $input.first().json;\n\nconst formData = { lead_id: i.lead_id, sku: i.sku, scope_notes: i.scope_notes };\nconst lead = {\n  lead_id: i.lead_id,\n  title: i.title,\n  description: i.description,\n  person_name: i.person_name,\n  person_emails: i.person_emails,\n  organization_name: i.organization_name,\n  source_name: i.source_name,\n};\n\nconst catalog = JSON.parse(fs.readFileSync('/data/templates/skus.json', 'utf8'));\nconst sku = catalog.skus.find(s => s.sku === formData.sku);\nif (!sku) throw new Error(`Unknown SKU: ${formData.sku}`);\n\nconst template = fs.readFileSync(`/data/templates/proposals/${sku.template}`, 'utf8');\nconst sharedFooter = fs.readFileSync('/data/templates/proposals/_shared-footer.md', 'utf8');\nconst prompt = fs.readFileSync('/data/prompts/proposal-generation.md', 'utf8');\n\nreturn [{ json: {\n  ...formData,\n  lead,\n  sku_record: sku,\n  template,\n  shared_footer: sharedFooter,\n  prompt_source: prompt,\n  today: new Date().toISOString().slice(0, 10)\n} }];"
       }
     },
     {
@@ -460,6 +475,11 @@
             "node": "Krayin: fetch lead details",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Merge form + lead",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -468,9 +488,9 @@
       "main": [
         [
           {
-            "node": "Load SKU + template from disk",
+            "node": "Merge form + lead",
             "type": "main",
-            "index": 0
+            "index": 1
           }
         ]
       ]
@@ -575,6 +595,17 @@
         [
           {
             "node": "Slack: #sales-pipeline announce",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge form + lead": {
+      "main": [
+        [
+          {
+            "node": "Load SKU + template from disk",
             "type": "main",
             "index": 0
           }
