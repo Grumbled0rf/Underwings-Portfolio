@@ -81,7 +81,7 @@
       },
       "parameters": {
         "operation": "executeQuery",
-        "query": "SELECT id, lead_pipeline_id, name, sort_order, probability, created_at, updated_at FROM lead_pipeline_stages;"
+        "query": "SELECT id, lead_pipeline_id, name, sort_order, probability FROM lead_pipeline_stages;"
       }
     },
     {
@@ -95,9 +95,9 @@
       },
       "parameters": {
         "operation": "executeQuery",
-        "query": "INSERT INTO raw.lead_pipeline_stages (id, lead_pipeline_id, name, sort_order, probability, created_at, updated_at, synced_at)\nVALUES ($1, $2, $3, $4, $5, $6, $7, NOW())\nON CONFLICT (id) DO UPDATE SET\n  name = EXCLUDED.name, sort_order = EXCLUDED.sort_order,\n  probability = EXCLUDED.probability, updated_at = EXCLUDED.updated_at, synced_at = NOW();",
+        "query": "INSERT INTO raw.lead_pipeline_stages (id, lead_pipeline_id, name, sort_order, probability, synced_at)\nVALUES ($1, $2, $3, $4, $5, NOW())\nON CONFLICT (id) DO UPDATE SET\n  lead_pipeline_id = EXCLUDED.lead_pipeline_id,\n  name = EXCLUDED.name, sort_order = EXCLUDED.sort_order,\n  probability = EXCLUDED.probability, synced_at = NOW();",
         "options": {
-          "queryReplacement": "={{ $json.id }},{{ $json.lead_pipeline_id }},{{ $json.name }},{{ $json.sort_order }},{{ $json.probability }},{{ $json.created_at }},{{ $json.updated_at }}"
+          "queryReplacement": "={{ $json.id }},{{ $json.lead_pipeline_id }},{{ $json.name }},{{ $json.sort_order }},{{ $json.probability }}"
         }
       }
     },
