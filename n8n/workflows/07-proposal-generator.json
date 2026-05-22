@@ -174,7 +174,7 @@
       },
       "parameters": {
         "operation": "executeQuery",
-        "query": "=SELECT l.id AS lead_id, l.title, l.description, p.name AS person_name, p.emails AS person_emails, o.name AS organization_name, src.name AS source_name FROM leads l LEFT JOIN persons p ON p.id = l.person_id LEFT JOIN organizations o ON o.id = l.organization_id LEFT JOIN lead_sources src ON src.id = l.lead_source_id WHERE l.id = {{ $json.lead_id }};"
+        "query": "=SELECT l.id AS lead_id, l.title, l.description, p.name AS person_name, p.emails AS person_emails, o.name AS organization_name, src.name AS source_name FROM leads l LEFT JOIN persons p ON p.id = l.person_id LEFT JOIN organizations o ON o.id = p.organization_id LEFT JOIN lead_sources src ON src.id = l.lead_source_id WHERE l.id = {{ $json.lead_id }};"
       }
     },
     {
