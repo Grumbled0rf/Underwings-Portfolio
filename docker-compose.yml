@@ -607,6 +607,11 @@ services:
     volumes:
       - n8n-data:/home/node/.n8n
       - ./n8n/workflows:/workflows:ro
+      # Phase C — proposal templates + SKU catalogue + Claude prompts
+      # read by workflow 07's "Load SKU + template from disk" Code node.
+      # Same dir is mounted into pandoc-render sidecar (read-only).
+      - ./templates:/data/templates:ro
+      - ./prompts:/data/prompts:ro
     depends_on:
       n8n-db:
         condition: service_healthy
