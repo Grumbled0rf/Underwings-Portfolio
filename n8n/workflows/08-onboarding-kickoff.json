@@ -131,10 +131,7 @@
       },
       "parameters": {
         "operation": "executeQuery",
-        "query": "SELECT l.id AS lead_id, l.title, l.lead_value, o.name AS organization_name, p.name AS person_name, p.emails AS person_emails FROM raw.leads l LEFT JOIN raw.organizations o ON o.id = l.organization_id LEFT JOIN raw.persons p ON p.id = l.person_id WHERE l.id = $1;",
-        "options": {
-          "queryReplacement": "={{ String($('verify-hmac').first().json.lead_id) }}"
-        }
+        "query": "=SELECT l.id AS lead_id, l.title, l.lead_value, o.name AS organization_name, p.name AS person_name, p.emails AS person_emails FROM raw.leads l LEFT JOIN raw.organizations o ON o.id = l.organization_id LEFT JOIN raw.persons p ON p.id = l.person_id WHERE l.id = {{ $('verify-hmac').first().json.lead_id }};"
       }
     },
     {
