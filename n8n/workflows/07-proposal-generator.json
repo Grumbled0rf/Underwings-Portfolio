@@ -190,7 +190,7 @@
         480
       ],
       "parameters": {
-        "jsCode": "const fs = require('fs');\nconst yaml = require('js-yaml');\n\nconst formData = $('Validate scope notes length').first().json;\nconst lead = $input.first().json;\n\nconst skuYaml = fs.readFileSync('/data/templates/skus.yml', 'utf8');\nconst catalog = yaml.load(skuYaml);\nconst sku = catalog.skus.find(s => s.sku === formData.sku);\nif (!sku) throw new Error(`Unknown SKU: ${formData.sku}`);\n\nconst template = fs.readFileSync(`/data/templates/proposals/${sku.template}`, 'utf8');\nconst sharedFooter = fs.readFileSync('/data/templates/proposals/_shared-footer.md', 'utf8');\nconst prompt = fs.readFileSync('/data/prompts/proposal-generation.md', 'utf8');\n\nreturn [{ json: {\n  ...formData,\n  lead,\n  sku_record: sku,\n  template,\n  shared_footer: sharedFooter,\n  prompt_source: prompt,\n  today: new Date().toISOString().slice(0, 10)\n} }];"
+        "jsCode": "const fs = require('fs');\n\nconst formData = $('Validate scope notes length').first().json;\nconst lead = $input.first().json;\n\nconst catalog = JSON.parse(fs.readFileSync('/data/templates/skus.json', 'utf8'));\nconst sku = catalog.skus.find(s => s.sku === formData.sku);\nif (!sku) throw new Error(`Unknown SKU: ${formData.sku}`);\n\nconst template = fs.readFileSync(`/data/templates/proposals/${sku.template}`, 'utf8');\nconst sharedFooter = fs.readFileSync('/data/templates/proposals/_shared-footer.md', 'utf8');\nconst prompt = fs.readFileSync('/data/prompts/proposal-generation.md', 'utf8');\n\nreturn [{ json: {\n  ...formData,\n  lead,\n  sku_record: sku,\n  template,\n  shared_footer: sharedFooter,\n  prompt_source: prompt,\n  today: new Date().toISOString().slice(0, 10)\n} }];"
       }
     },
     {

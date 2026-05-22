@@ -578,7 +578,7 @@ services:
       # --- Allow $env in Code/HTTP nodes (needed for our token-validation pattern) ---
       N8N_BLOCK_ENV_ACCESS_IN_NODE: "false"
       # --- Allow Node built-ins inside Code nodes (needed for HMAC verification) ---
-      NODE_FUNCTION_ALLOW_BUILTIN: "crypto"
+      NODE_FUNCTION_ALLOW_BUILTIN: "crypto,fs"
       # --- Workflow shared secrets / config ---
       INBOUND_WEBHOOK_TOKEN: ${INBOUND_WEBHOOK_TOKEN}
       KRAYIN_WEBHOOK_TOKEN: ${KRAYIN_WEBHOOK_TOKEN}
