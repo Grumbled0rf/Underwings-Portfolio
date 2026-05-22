@@ -117,11 +117,12 @@
       "parameters": {
         "conditions": {
           "options": {
-            "version": 2
+            "version": 2,
+            "looseTypeValidation": true
           },
           "conditions": [
             {
-              "leftValue": "={{ $json.halt }}",
+              "leftValue": "={{ String($json.halt) }}",
               "rightValue": "true",
               "operator": {
                 "type": "string",
@@ -130,6 +131,9 @@
             }
           ],
           "combinator": "and"
+        },
+        "options": {
+          "looseTypeValidation": true
         }
       }
     },
@@ -248,11 +252,12 @@
       "parameters": {
         "conditions": {
           "options": {
-            "version": 2
+            "version": 2,
+            "looseTypeValidation": true
           },
           "conditions": [
             {
-              "leftValue": "={{ $json.halt }}",
+              "leftValue": "={{ String($json.halt) }}",
               "rightValue": "true",
               "operator": {
                 "type": "string",
@@ -261,6 +266,9 @@
             }
           ],
           "combinator": "and"
+        },
+        "options": {
+          "looseTypeValidation": true
         }
       }
     },

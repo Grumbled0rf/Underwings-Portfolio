@@ -60,11 +60,12 @@
       "parameters": {
         "conditions": {
           "options": {
-            "version": 2
+            "version": 2,
+            "looseTypeValidation": true
           },
           "conditions": [
             {
-              "leftValue": "={{ $json.invalid }}",
+              "leftValue": "={{ String($json.invalid) }}",
               "rightValue": "true",
               "operator": {
                 "type": "string",
@@ -73,6 +74,9 @@
             }
           ],
           "combinator": "and"
+        },
+        "options": {
+          "looseTypeValidation": true
         }
       }
     },
@@ -145,11 +149,12 @@
       "parameters": {
         "conditions": {
           "options": {
-            "version": 2
+            "version": 2,
+            "looseTypeValidation": true
           },
           "conditions": [
             {
-              "leftValue": "={{ $env.ONBOARDING_AUTO_APPROVE }}",
+              "leftValue": "={{ String($env.ONBOARDING_AUTO_APPROVE) }}",
               "rightValue": "true",
               "operator": {
                 "type": "string",
@@ -158,6 +163,9 @@
             }
           ],
           "combinator": "and"
+        },
+        "options": {
+          "looseTypeValidation": true
         }
       }
     },
