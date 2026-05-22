@@ -214,23 +214,23 @@
     }
   ],
   "connections": {
-    "webhook":            { "main": [[{ "node": "verify-hmac",         "type": "main", "index": 0 }]] },
-    "verify-hmac":        { "main": [[{ "node": "branch-valid",        "type": "main", "index": 0 }]] },
-    "branch-valid":       { "main": [
-      [{ "node": "reply-401",         "type": "main", "index": 0 }],
-      [{ "node": "ack-200",           "type": "main", "index": 0 }]
+    "Webhook: Documenso signed":     { "main": [[{ "node": "Verify Documenso HMAC",           "type": "main", "index": 0 }]] },
+    "Verify Documenso HMAC":         { "main": [[{ "node": "HMAC valid?",                    "type": "main", "index": 0 }]] },
+    "HMAC valid?":                   { "main": [
+      [{ "node": "Respond 401",       "type": "main", "index": 0 }],
+      [{ "node": "Respond 200 (queued)", "type": "main", "index": 0 }]
     ]},
-    "ack-200":            { "main": [[{ "node": "fetch-lead-context",  "type": "main", "index": 0 }]] },
-    "fetch-lead-context": { "main": [[{ "node": "approve-gate",        "type": "main", "index": 0 }]] },
-    "approve-gate":       { "main": [
-      [{ "node": "krayin-won",        "type": "main", "index": 0 }],
-      [{ "node": "slack-approval",    "type": "main", "index": 0 }]
+    "Respond 200 (queued)":          { "main": [[{ "node": "Warehouse: lead context",        "type": "main", "index": 0 }]] },
+    "Warehouse: lead context":       { "main": [[{ "node": "Auto-approve or wait?",          "type": "main", "index": 0 }]] },
+    "Auto-approve or wait?":         { "main": [
+      [{ "node": "Krayin: stage → Won",       "type": "main", "index": 0 }],
+      [{ "node": "Slack: human approval button", "type": "main", "index": 0 }]
     ]},
-    "slack-approval":     { "main": [[{ "node": "wait-manual",         "type": "main", "index": 0 }]] },
-    "wait-manual":        { "main": [[{ "node": "krayin-won",          "type": "main", "index": 0 }]] },
-    "krayin-won":         { "main": [[{ "node": "plane-project",       "type": "main", "index": 0 }]] },
-    "plane-project":      { "main": [[{ "node": "brevo-kickoff",       "type": "main", "index": 0 }]] },
-    "brevo-kickoff":      { "main": [[{ "node": "slack-cs",            "type": "main", "index": 0 }]] }
+    "Slack: human approval button":  { "main": [[{ "node": "Wait — manual approval gate",    "type": "main", "index": 0 }]] },
+    "Wait — manual approval gate":   { "main": [[{ "node": "Krayin: stage → Won",            "type": "main", "index": 0 }]] },
+    "Krayin: stage → Won":           { "main": [[{ "node": "Plane: create delivery project", "type": "main", "index": 0 }]] },
+    "Plane: create delivery project":{ "main": [[{ "node": "Brevo: kickoff email",           "type": "main", "index": 0 }]] },
+    "Brevo: kickoff email":          { "main": [[{ "node": "Slack: #client-success",         "type": "main", "index": 0 }]] }
   },
   "settings": {
     "executionOrder": "v1",

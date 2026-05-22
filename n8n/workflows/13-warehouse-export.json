@@ -210,24 +210,24 @@
     }
   ],
   "connections": {
-    "cron": {
-      "main": [[{ "node": "etl-start", "type": "main", "index": 0 }]]
+    "Cron: 02:00 Asia/Dubai daily": {
+      "main": [[{ "node": "ops.etl_runs: start row", "type": "main", "index": 0 }]]
     },
-    "etl-start": {
+    "ops.etl_runs: start row": {
       "main": [[
-        { "node": "fetch-pipelines", "type": "main", "index": 0 },
-        { "node": "fetch-stages",    "type": "main", "index": 0 },
-        { "node": "fetch-sources",   "type": "main", "index": 0 },
-        { "node": "fetch-types",     "type": "main", "index": 0 },
-        { "node": "fetch-leads",     "type": "main", "index": 0 }
+        { "node": "Krayin: pipelines",       "type": "main", "index": 0 },
+        { "node": "Krayin: pipeline stages", "type": "main", "index": 0 },
+        { "node": "Krayin: lead sources",    "type": "main", "index": 0 },
+        { "node": "Krayin: lead types",      "type": "main", "index": 0 },
+        { "node": "Krayin: leads (full table)", "type": "main", "index": 0 }
       ]]
     },
-    "fetch-pipelines": { "main": [[{ "node": "upsert-pipelines", "type": "main", "index": 0 }]] },
-    "fetch-stages":    { "main": [[{ "node": "upsert-stages",    "type": "main", "index": 0 }]] },
-    "fetch-sources":   { "main": [[{ "node": "upsert-sources",   "type": "main", "index": 0 }]] },
-    "fetch-types":     { "main": [[{ "node": "upsert-types",     "type": "main", "index": 0 }]] },
-    "fetch-leads":     { "main": [[{ "node": "upsert-leads",     "type": "main", "index": 0 }]] },
-    "upsert-leads":    { "main": [[{ "node": "etl-finish",       "type": "main", "index": 0 }]] }
+    "Krayin: pipelines":         { "main": [[{ "node": "Warehouse: upsert pipelines", "type": "main", "index": 0 }]] },
+    "Krayin: pipeline stages":   { "main": [[{ "node": "Warehouse: upsert stages",    "type": "main", "index": 0 }]] },
+    "Krayin: lead sources":      { "main": [[{ "node": "Warehouse: upsert sources",   "type": "main", "index": 0 }]] },
+    "Krayin: lead types":        { "main": [[{ "node": "Warehouse: upsert types",     "type": "main", "index": 0 }]] },
+    "Krayin: leads (full table)":{ "main": [[{ "node": "Warehouse: upsert leads",     "type": "main", "index": 0 }]] },
+    "Warehouse: upsert leads":   { "main": [[{ "node": "ops.etl_runs: finish row",    "type": "main", "index": 0 }]] }
   },
   "settings": {
     "executionOrder": "v1",

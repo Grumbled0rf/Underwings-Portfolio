@@ -264,25 +264,25 @@
     }
   ],
   "connections": {
-    "form-trigger":           { "main": [[{ "node": "validate-scope",       "type": "main", "index": 0 }]] },
-    "validate-scope":         { "main": [[{ "node": "branch-halt-or-go",    "type": "main", "index": 0 }]] },
-    "branch-halt-or-go":      { "main": [
-      [{ "node": "halt-slack",          "type": "main", "index": 0 }],
-      [{ "node": "fetch-lead",          "type": "main", "index": 0 }]
+    "Form: post-discovery scoping":      { "main": [[{ "node": "Validate scope notes length",   "type": "main", "index": 0 }]] },
+    "Validate scope notes length":       { "main": [[{ "node": "Halt or proceed?",              "type": "main", "index": 0 }]] },
+    "Halt or proceed?":                  { "main": [
+      [{ "node": "Slack: halt notice",          "type": "main", "index": 0 }],
+      [{ "node": "Krayin: fetch lead details",  "type": "main", "index": 0 }]
     ]},
-    "fetch-lead":             { "main": [[{ "node": "load-sku-template",    "type": "main", "index": 0 }]] },
-    "load-sku-template":      { "main": [[{ "node": "claude-draft",         "type": "main", "index": 0 }]] },
-    "claude-draft":           { "main": [[{ "node": "parse-and-validate",   "type": "main", "index": 0 }]] },
-    "parse-and-validate":     { "main": [[{ "node": "branch-claude-halt",   "type": "main", "index": 0 }]] },
-    "branch-claude-halt":     { "main": [
-      [{ "node": "halt-slack",          "type": "main", "index": 0 }],
-      [{ "node": "render-and-pdf",      "type": "main", "index": 0 }]
+    "Krayin: fetch lead details":        { "main": [[{ "node": "Load SKU + template from disk", "type": "main", "index": 0 }]] },
+    "Load SKU + template from disk":     { "main": [[{ "node": "Claude: draft proposal sections", "type": "main", "index": 0 }]] },
+    "Claude: draft proposal sections":   { "main": [[{ "node": "Parse + validate Claude output", "type": "main", "index": 0 }]] },
+    "Parse + validate Claude output":    { "main": [[{ "node": "Claude OK?",                    "type": "main", "index": 0 }]] },
+    "Claude OK?":                        { "main": [
+      [{ "node": "Slack: halt notice",                  "type": "main", "index": 0 }],
+      [{ "node": "Render via pandoc-render sidecar",    "type": "main", "index": 0 }]
     ]},
-    "render-and-pdf":         { "main": [[{ "node": "merge-render-context", "type": "main", "index": 0 }]] },
-    "merge-render-context":   { "main": [[{ "node": "documenso-create",     "type": "main", "index": 0 }]] },
-    "documenso-create":       { "main": [[{ "node": "krayin-update",        "type": "main", "index": 0 }]] },
-    "krayin-update":          { "main": [[{ "node": "log-claude-spend",     "type": "main", "index": 0 }]] },
-    "log-claude-spend":       { "main": [[{ "node": "slack-announce",       "type": "main", "index": 0 }]] }
+    "Render via pandoc-render sidecar":  { "main": [[{ "node": "Merge render result with context", "type": "main", "index": 0 }]] },
+    "Merge render result with context":  { "main": [[{ "node": "Documenso: create envelope",    "type": "main", "index": 0 }]] },
+    "Documenso: create envelope":        { "main": [[{ "node": "Krayin: stage → Proposal Sent", "type": "main", "index": 0 }]] },
+    "Krayin: stage → Proposal Sent":     { "main": [[{ "node": "Warehouse: log Claude spend",   "type": "main", "index": 0 }]] },
+    "Warehouse: log Claude spend":       { "main": [[{ "node": "Slack: #sales-pipeline announce", "type": "main", "index": 0 }]] }
   },
   "settings": {
     "executionOrder": "v1",

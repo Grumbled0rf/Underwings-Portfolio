@@ -68,9 +68,9 @@
     }
   ],
   "connections": {
-    "cron":   { "main": [[{ "node": "query",  "type": "main", "index": 0 }]] },
-    "query":  { "main": [[{ "node": "format", "type": "main", "index": 0 }]] },
-    "format": { "main": [[{ "node": "slack",  "type": "main", "index": 0 }]] }
+    "Cron: 08:00 Asia/Dubai daily":      { "main": [[{ "node": "Warehouse: yesterday's numbers", "type": "main", "index": 0 }]] },
+    "Warehouse: yesterday's numbers":    { "main": [[{ "node": "Build message",                  "type": "main", "index": 0 }]] },
+    "Build message":                     { "main": [[{ "node": "Slack: #ops",                    "type": "main", "index": 0 }]] }
   },
   "settings": {
     "executionOrder": "v1",
