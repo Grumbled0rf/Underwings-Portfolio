@@ -176,7 +176,7 @@
         "operation": "executeQuery",
         "query": "SELECT l.id AS lead_id, l.title, l.description, p.name AS person_name, p.emails AS person_emails, o.name AS organization_name, src.name AS source_name FROM leads l LEFT JOIN persons p ON p.id = l.person_id LEFT JOIN organizations o ON o.id = l.organization_id LEFT JOIN lead_sources src ON src.id = l.lead_source_id WHERE l.id = ?;",
         "options": {
-          "queryReplacement": "={{ $json.lead_id }}"
+          "queryReplacement": "={{ String($json.lead_id) }}"
         }
       }
     },
@@ -401,7 +401,7 @@
         "operation": "executeQuery",
         "query": "INSERT INTO ops.claude_api_calls (workflow_name, model, input_tokens, output_tokens, cache_read_tokens, cache_create_tokens, cost_usd, cost_aed, related_lead_id, notes) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);",
         "options": {
-          "queryReplacement": "='07-proposal-generator', 'claude-sonnet-4-6', {{ $json.usage.input_tokens }}, {{ $json.usage.output_tokens }}, {{ $json.usage.cache_read_input_tokens || 0 }}, {{ $json.usage.cache_creation_input_tokens || 0 }}, {{ (($json.usage.input_tokens * 3 + $json.usage.output_tokens * 15) / 1000000).toFixed(4) }}, {{ ((($json.usage.input_tokens * 3 + $json.usage.output_tokens * 15) / 1000000) * 3.67).toFixed(4) }}, {{ $json.lead.lead_id }}, 'Proposal {{ $json.proposal_ref }}'"
+          "queryReplacement": "={{ String(7-proposal-generator', 'claude-sonnet-4-6', {{ $json.usage.input_tokens }}, {{ $json.usage.output_tokens }}, {{ $json.usage.cache_read_input_tokens || 0 }}, {{ $json.usage.cache_creation_input_tokens || 0 }}, {{ (($json.usage.input_tokens * 3 + $json.usage.output_tokens * 15) / 1000000).toFixed(4) }}, {{ ((($json.usage.input_tokens * 3 + $json.usage.output_tokens * 15) / 1000000) * 3.67).toFixed(4) }}, {{ $json.lead.lead_id }}, 'Proposal {{ $json.proposal_ref }) }}"
         }
       }
     },
