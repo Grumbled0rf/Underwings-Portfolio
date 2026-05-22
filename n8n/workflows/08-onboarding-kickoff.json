@@ -1,16 +1,19 @@
 {
   "id": "uw-onboarding-kickoff-v1",
-  "name": "08 - Onboarding kickoff (Proposal signed → Won)",
+  "name": "08 - Onboarding kickoff (Proposal signed \u2192 Won)",
   "active": false,
   "nodes": [
     {
       "id": "notes",
-      "name": "Notes — read this first",
+      "name": "Notes \u2014 read this first",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [200, 80],
+      "position": [
+        200,
+        80
+      ],
       "parameters": {
-        "content": "## What this does\nFires when Documenso reports a signed proposal. Promotes the Krayin lead to Won, spins up the delivery project, sends a kickoff email.\n\nFor the first 10 signed deals: posts a human-approval Slack button to #sales-pipeline. After 10, can switch to fully automatic via env var ONBOARDING_AUTO_APPROVE=true.\n\nFlow:\n1. Webhook: Documenso POST to /webhook/documenso/signed\n2. Verify HMAC signature (header X-Documenso-Signature) against DOCUMENSO_WEBHOOK_SECRET\n3. Extract lead_id from envelope metadata\n4. Fetch lead + sku from Krayin/warehouse\n5. Branch on ONBOARDING_AUTO_APPROVE:\n   - false (default): Slack interactive approval button; pause until clicked\n   - true: proceed automatically\n6. Krayin: stage → Won (stage_id 20)\n7. Plane: create project from SKU-specific template\n8. Brevo: kickoff email to client\n9. Drive: create /clients/<company>/ folder structure\n10. Slack #client-success: announce\n\n## KPI\nTime-to-signature (median) tracked in cost-per-booked-call dashboard. < 5 business days target.\n\n## Open-question default (spec §10/4)\nDefault behavior for v1: require human approval. Flip when comfortable.\n\nSee UNDERWINGS-MASTER-PLAN.md §7/C and §7/E."
+        "content": "## What this does\nFires when Documenso reports a signed proposal. Promotes the Krayin lead to Won, spins up the delivery project, sends a kickoff email.\n\nFor the first 10 signed deals: posts a human-approval Slack button to #sales-pipeline. After 10, can switch to fully automatic via env var ONBOARDING_AUTO_APPROVE=true.\n\nFlow:\n1. Webhook: Documenso POST to /webhook/documenso/signed\n2. Verify HMAC signature (header X-Documenso-Signature) against DOCUMENSO_WEBHOOK_SECRET\n3. Extract lead_id from envelope metadata\n4. Fetch lead + sku from Krayin/warehouse\n5. Branch on ONBOARDING_AUTO_APPROVE:\n   - false (default): Slack interactive approval button; pause until clicked\n   - true: proceed automatically\n6. Krayin: stage \u2192 Won (stage_id 20)\n7. Plane: create project from SKU-specific template\n8. Brevo: kickoff email to client\n9. Drive: create /clients/<company>/ folder structure\n10. Slack #client-success: announce\n\n## KPI\nTime-to-signature (median) tracked in cost-per-booked-call dashboard. < 5 business days target.\n\n## Open-question default (spec \u00a710/4)\nDefault behavior for v1: require human approval. Flip when comfortable.\n\nSee UNDERWINGS-MASTER-PLAN.md \u00a77/C and \u00a77/E."
       }
     },
     {
@@ -18,13 +21,18 @@
       "name": "Webhook: Documenso signed",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
-      "position": [200, 360],
+      "position": [
+        200,
+        360
+      ],
       "webhookId": "documenso-signed",
       "parameters": {
         "httpMethod": "POST",
         "path": "documenso/signed",
         "responseMode": "responseNode",
-        "options": { "rawBody": true }
+        "options": {
+          "rawBody": true
+        }
       }
     },
     {
@@ -32,7 +40,10 @@
       "name": "Verify Documenso HMAC",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [420, 360],
+      "position": [
+        420,
+        360
+      ],
       "parameters": {
         "jsCode": "const crypto = require('crypto');\nconst raw = $input.first().json.body || '';\nconst sig = $input.first().json.headers?.['x-documenso-signature'] || '';\nconst secret = $env.DOCUMENSO_WEBHOOK_SECRET || '';\nconst expected = crypto.createHmac('sha256', secret).update(raw).digest('hex');\nconst ok = crypto.timingSafeEqual(Buffer.from(sig.padEnd(64, '0').slice(0, 64), 'hex'), Buffer.from(expected.slice(0, 64), 'hex'));\nif (!ok) {\n  return [{ json: { invalid: true } }];\n}\n\nconst body = JSON.parse(raw);\nreturn [{ json: {\n  invalid: false,\n  event: body.event,\n  envelope_id: body.payload?.id,\n  proposal_ref: body.payload?.title,\n  lead_id: parseInt((body.payload?.title || '').replace(/^UW-/, '').split('-')[0], 10) || null,\n  signed_at: body.payload?.signedAt\n} }];"
       }
@@ -42,12 +53,24 @@
       "name": "HMAC valid?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
-      "position": [640, 360],
+      "position": [
+        640,
+        360
+      ],
       "parameters": {
         "conditions": {
-          "options": { "version": 2 },
+          "options": {
+            "version": 2
+          },
           "conditions": [
-            { "leftValue": "={{ $json.invalid }}", "rightValue": "true", "operator": { "type": "boolean", "operation": "true" } }
+            {
+              "leftValue": "={{ $json.invalid }}",
+              "rightValue": "true",
+              "operator": {
+                "type": "boolean",
+                "operation": "true"
+              }
+            }
           ],
           "combinator": "and"
         }
@@ -58,11 +81,16 @@
       "name": "Respond 401",
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1,
-      "position": [860, 240],
+      "position": [
+        860,
+        240
+      ],
       "parameters": {
         "respondWith": "json",
         "responseBody": "={\"error\":\"invalid_signature\"}",
-        "options": { "responseCode": 401 }
+        "options": {
+          "responseCode": 401
+        }
       }
     },
     {
@@ -70,11 +98,16 @@
       "name": "Respond 200 (queued)",
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1,
-      "position": [860, 480],
+      "position": [
+        860,
+        480
+      ],
       "parameters": {
         "respondWith": "json",
         "responseBody": "={\"ok\":true,\"queued\":true}",
-        "options": { "responseCode": 200 }
+        "options": {
+          "responseCode": 200
+        }
       }
     },
     {
@@ -82,12 +115,22 @@
       "name": "Warehouse: lead context",
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
-      "position": [1080, 480],
-      "credentials": { "postgres": { "id": "warehouse-postgres", "name": "Warehouse Postgres" } },
+      "position": [
+        1080,
+        480
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "F4AVyZphb5dQ1hGE",
+          "name": "Postgres account"
+        }
+      },
       "parameters": {
         "operation": "executeQuery",
         "query": "SELECT l.id AS lead_id, l.title, l.lead_value, o.name AS organization_name, p.name AS person_name, p.emails AS person_emails FROM raw.leads l LEFT JOIN raw.organizations o ON o.id = l.organization_id LEFT JOIN raw.persons p ON p.id = l.person_id WHERE l.id = $1;",
-        "options": { "queryReplacement": "={{ $('verify-hmac').first().json.lead_id }}" }
+        "options": {
+          "queryReplacement": "={{ $('verify-hmac').first().json.lead_id }}"
+        }
       }
     },
     {
@@ -95,12 +138,24 @@
       "name": "Auto-approve or wait?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
-      "position": [1300, 480],
+      "position": [
+        1300,
+        480
+      ],
       "parameters": {
         "conditions": {
-          "options": { "version": 2 },
+          "options": {
+            "version": 2
+          },
           "conditions": [
-            { "leftValue": "={{ $env.ONBOARDING_AUTO_APPROVE }}", "rightValue": "true", "operator": { "type": "string", "operation": "equals" } }
+            {
+              "leftValue": "={{ $env.ONBOARDING_AUTO_APPROVE }}",
+              "rightValue": "true",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
           ],
           "combinator": "and"
         }
@@ -111,47 +166,66 @@
       "name": "Slack: human approval button",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [1520, 360],
+      "position": [
+        1520,
+        360
+      ],
       "parameters": {
         "method": "POST",
         "url": "={{ $env.SLACK_SALES_WEBHOOK }}",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={{ JSON.stringify({ text: `🎉 *${$('verify-hmac').first().json.proposal_ref}* signed by *${$json.organization_name}* — please confirm onboarding manually in n8n, or approve here when interactive Slack is set up.` }) }}",
-        "options": { "ignoreHttpStatusErrors": true }
+        "jsonBody": "={{ JSON.stringify({ text: `\ud83c\udf89 *${$('verify-hmac').first().json.proposal_ref}* signed by *${$json.organization_name}* \u2014 please confirm onboarding manually in n8n, or approve here when interactive Slack is set up.` }) }}",
+        "options": {
+          "ignoreHttpStatusErrors": true
+        }
       }
     },
     {
       "id": "wait-manual",
-      "name": "Wait — manual approval gate",
+      "name": "Wait \u2014 manual approval gate",
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
-      "position": [1740, 360],
+      "position": [
+        1740,
+        360
+      ],
       "webhookId": "onboarding-approve",
       "parameters": {
         "resume": "webhook",
-        "options": { "webhookSuffix": "approve" }
+        "options": {
+          "webhookSuffix": "approve"
+        }
       }
     },
     {
       "id": "krayin-won",
-      "name": "Krayin: stage → Won",
+      "name": "Krayin: stage \u2192 Won",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [1960, 480],
+      "position": [
+        1960,
+        480
+      ],
       "parameters": {
         "method": "POST",
         "url": "https://crm.underwings.org/webhook-lead-update.php",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
-            { "name": "Content-Type",    "value": "application/json" },
-            { "name": "X-Webhook-Token", "value": "={{ $env.KRAYIN_WEBHOOK_TOKEN }}" }
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "X-Webhook-Token",
+              "value": "={{ $env.KRAYIN_WEBHOOK_TOKEN }}"
+            }
           ]
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={{ JSON.stringify({ lead_id: $('fetch-lead-context').first().json.lead_id, stage_id: 20, note: `Won — proposal ${$('verify-hmac').first().json.proposal_ref} signed` }) }}"
+        "jsonBody": "={{ JSON.stringify({ lead_id: $('fetch-lead-context').first().json.lead_id, stage_id: 20, note: `Won \u2014 proposal ${$('verify-hmac').first().json.proposal_ref} signed` }) }}"
       }
     },
     {
@@ -159,21 +233,32 @@
       "name": "Plane: create delivery project",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [2180, 480],
+      "position": [
+        2180,
+        480
+      ],
       "parameters": {
         "method": "POST",
         "url": "={{ $env.PLANE_API_URL }}/workspaces/{{ $env.PLANE_WORKSPACE_SLUG }}/projects/",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
-            { "name": "X-API-Key",     "value": "={{ $env.PLANE_API_KEY }}" },
-            { "name": "Content-Type",  "value": "application/json" }
+            {
+              "name": "X-API-Key",
+              "value": "={{ $env.PLANE_API_KEY }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
           ]
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={{ JSON.stringify({ name: `${$('fetch-lead-context').first().json.organization_name} — ${$('verify-hmac').first().json.proposal_ref}`, identifier: $('verify-hmac').first().json.proposal_ref.replace(/[^A-Z0-9]/g, '').slice(0, 12), description: `Delivery project for ${$('verify-hmac').first().json.proposal_ref}. Lead #${$('fetch-lead-context').first().json.lead_id}.` }) }}",
-        "options": { "ignoreHttpStatusErrors": true }
+        "jsonBody": "={{ JSON.stringify({ name: `${$('fetch-lead-context').first().json.organization_name} \u2014 ${$('verify-hmac').first().json.proposal_ref}`, identifier: $('verify-hmac').first().json.proposal_ref.replace(/[^A-Z0-9]/g, '').slice(0, 12), description: `Delivery project for ${$('verify-hmac').first().json.proposal_ref}. Lead #${$('fetch-lead-context').first().json.lead_id}.` }) }}",
+        "options": {
+          "ignoreHttpStatusErrors": true
+        }
       }
     },
     {
@@ -181,56 +266,188 @@
       "name": "Brevo: kickoff email",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [2400, 480],
+      "position": [
+        2400,
+        480
+      ],
       "parameters": {
         "method": "POST",
         "url": "https://api.brevo.com/v3/smtp/email",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
-            { "name": "api-key",      "value": "={{ $env.BREVO_API_KEY }}" },
-            { "name": "Content-Type", "value": "application/json" }
+            {
+              "name": "api-key",
+              "value": "={{ $env.BREVO_API_KEY }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
           ]
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={{ JSON.stringify({ sender: { name: 'Underwings', email: 'contact@underwings.org' }, to: [{ email: $('fetch-lead-context').first().json.person_emails, name: $('fetch-lead-context').first().json.person_name }], subject: `Welcome aboard — ${$('verify-hmac').first().json.proposal_ref}`, htmlContent: `<p>Hi ${$('fetch-lead-context').first().json.person_name},</p><p>Thank you for signing ${$('verify-hmac').first().json.proposal_ref}. Our delivery team will be in touch within 2 business days to schedule the kickoff call.</p><p>In the meantime, your invoice for the first milestone is on its way separately.</p><p>— Underwings Cybersecurity</p>` }) }}"
-        }
+        "jsonBody": "={{ JSON.stringify({ sender: { name: 'Underwings', email: 'contact@underwings.org' }, to: [{ email: $('fetch-lead-context').first().json.person_emails, name: $('fetch-lead-context').first().json.person_name }], subject: `Welcome aboard \u2014 ${$('verify-hmac').first().json.proposal_ref}`, htmlContent: `<p>Hi ${$('fetch-lead-context').first().json.person_name},</p><p>Thank you for signing ${$('verify-hmac').first().json.proposal_ref}. Our delivery team will be in touch within 2 business days to schedule the kickoff call.</p><p>In the meantime, your invoice for the first milestone is on its way separately.</p><p>\u2014 Underwings Cybersecurity</p>` }) }}"
+      }
     },
     {
       "id": "slack-cs",
       "name": "Slack: #client-success",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [2620, 480],
+      "position": [
+        2620,
+        480
+      ],
       "parameters": {
         "method": "POST",
         "url": "={{ $env.SLACK_CS_WEBHOOK }}",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={{ JSON.stringify({ text: `🚀 *New client onboarded* — ${$('fetch-lead-context').first().json.organization_name} (${$('verify-hmac').first().json.proposal_ref}). Plane project created. Kickoff email sent. Next: schedule kickoff call.` }) }}",
-        "options": { "ignoreHttpStatusErrors": true }
+        "jsonBody": "={{ JSON.stringify({ text: `\ud83d\ude80 *New client onboarded* \u2014 ${$('fetch-lead-context').first().json.organization_name} (${$('verify-hmac').first().json.proposal_ref}). Plane project created. Kickoff email sent. Next: schedule kickoff call.` }) }}",
+        "options": {
+          "ignoreHttpStatusErrors": true
+        }
       }
     }
   ],
   "connections": {
-    "Webhook: Documenso signed":     { "main": [[{ "node": "Verify Documenso HMAC",           "type": "main", "index": 0 }]] },
-    "Verify Documenso HMAC":         { "main": [[{ "node": "HMAC valid?",                    "type": "main", "index": 0 }]] },
-    "HMAC valid?":                   { "main": [
-      [{ "node": "Respond 401",       "type": "main", "index": 0 }],
-      [{ "node": "Respond 200 (queued)", "type": "main", "index": 0 }]
-    ]},
-    "Respond 200 (queued)":          { "main": [[{ "node": "Warehouse: lead context",        "type": "main", "index": 0 }]] },
-    "Warehouse: lead context":       { "main": [[{ "node": "Auto-approve or wait?",          "type": "main", "index": 0 }]] },
-    "Auto-approve or wait?":         { "main": [
-      [{ "node": "Krayin: stage → Won",       "type": "main", "index": 0 }],
-      [{ "node": "Slack: human approval button", "type": "main", "index": 0 }]
-    ]},
-    "Slack: human approval button":  { "main": [[{ "node": "Wait — manual approval gate",    "type": "main", "index": 0 }]] },
-    "Wait — manual approval gate":   { "main": [[{ "node": "Krayin: stage → Won",            "type": "main", "index": 0 }]] },
-    "Krayin: stage → Won":           { "main": [[{ "node": "Plane: create delivery project", "type": "main", "index": 0 }]] },
-    "Plane: create delivery project":{ "main": [[{ "node": "Brevo: kickoff email",           "type": "main", "index": 0 }]] },
-    "Brevo: kickoff email":          { "main": [[{ "node": "Slack: #client-success",         "type": "main", "index": 0 }]] }
+    "Webhook: Documenso signed": {
+      "main": [
+        [
+          {
+            "node": "Verify Documenso HMAC",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Verify Documenso HMAC": {
+      "main": [
+        [
+          {
+            "node": "HMAC valid?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HMAC valid?": {
+      "main": [
+        [
+          {
+            "node": "Respond 401",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond 200 (queued)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond 200 (queued)": {
+      "main": [
+        [
+          {
+            "node": "Warehouse: lead context",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Warehouse: lead context": {
+      "main": [
+        [
+          {
+            "node": "Auto-approve or wait?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Auto-approve or wait?": {
+      "main": [
+        [
+          {
+            "node": "Krayin: stage \u2192 Won",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Slack: human approval button",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Slack: human approval button": {
+      "main": [
+        [
+          {
+            "node": "Wait \u2014 manual approval gate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait \u2014 manual approval gate": {
+      "main": [
+        [
+          {
+            "node": "Krayin: stage \u2192 Won",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Krayin: stage \u2192 Won": {
+      "main": [
+        [
+          {
+            "node": "Plane: create delivery project",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Plane: create delivery project": {
+      "main": [
+        [
+          {
+            "node": "Brevo: kickoff email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Brevo: kickoff email": {
+      "main": [
+        [
+          {
+            "node": "Slack: #client-success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
   },
   "settings": {
     "executionOrder": "v1",
