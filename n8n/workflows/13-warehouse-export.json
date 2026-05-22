@@ -64,7 +64,7 @@
       },
       "parameters": {
         "operation": "executeQuery",
-        "query": "=INSERT INTO raw.lead_pipelines (id, name, is_default, rotten_days, created_at, updated_at, synced_at)\nVALUES ({{ $json.id }}, $$ {{ $json.name }} $$, {{ $json.is_default }}, {{ $json.rotten_days }}, $$ {{ $json.created_at }} $$::timestamp, $$ {{ $json.updated_at }} $$::timestamp, NOW())\nON CONFLICT (id) DO UPDATE SET\n  name = EXCLUDED.name,\n  is_default = EXCLUDED.is_default,\n  rotten_days = EXCLUDED.rotten_days,\n  updated_at = EXCLUDED.updated_at,\n  synced_at = NOW();"
+        "query": "=INSERT INTO raw.lead_pipelines (id, name, is_default, rotten_days, created_at, updated_at, synced_at)\nVALUES ({{ $json.id }}, $$ {{ $json.name }} $$, {{ $json.is_default ? 'true' : 'false' }}, {{ $json.rotten_days }}, $$ {{ $json.created_at }} $$::timestamp, $$ {{ $json.updated_at }} $$::timestamp, NOW())\nON CONFLICT (id) DO UPDATE SET\n  name = EXCLUDED.name,\n  is_default = EXCLUDED.is_default,\n  rotten_days = EXCLUDED.rotten_days,\n  updated_at = EXCLUDED.updated_at,\n  synced_at = NOW();"
       }
     },
     {
