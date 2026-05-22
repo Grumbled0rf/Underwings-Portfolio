@@ -67,8 +67,8 @@
               "leftValue": "={{ $json.invalid }}",
               "rightValue": "true",
               "operator": {
-                "type": "boolean",
-                "operation": "true"
+                "type": "string",
+                "operation": "equals"
               }
             }
           ],

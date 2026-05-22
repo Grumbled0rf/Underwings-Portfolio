@@ -124,8 +124,8 @@
               "leftValue": "={{ $json.halt }}",
               "rightValue": "true",
               "operator": {
-                "type": "boolean",
-                "operation": "true"
+                "type": "string",
+                "operation": "equals"
               }
             }
           ],
@@ -255,8 +255,8 @@
               "leftValue": "={{ $json.halt }}",
               "rightValue": "true",
               "operator": {
-                "type": "boolean",
-                "operation": "true"
+                "type": "string",
+                "operation": "equals"
               }
             }
           ],
