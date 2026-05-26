@@ -266,6 +266,7 @@ async function createDocumensoEnvelope({ title, recipientName, recipientEmail, p
   }
   const metaJson = await meta.json();
   const { uploadUrl, documentId } = metaJson;
+  const recipientId = metaJson.recipients?.[0]?.recipientId;
 
   // Step 2: PUT the PDF bytes to the issued uploadUrl
   const pdfBytes = fs.readFileSync(pdfPath);
@@ -277,6 +278,28 @@ async function createDocumensoEnvelope({ title, recipientName, recipientEmail, p
   if (!up.ok) {
     const text = await up.text();
     const err = new Error(`Documenso upload ${up.status}`); err.body = text.slice(0, 500); throw err;
+  }
+
+  // Step 2b: add a signature field for the signer (required before send).
+  // Placed bottom-left of page 1 — the client drops their signature there.
+  if (recipientId) {
+    const field = await fetch(`${DOCUMENSO_BASE_URL}/api/v1/documents/${documentId}/fields`, {
+      method: 'POST',
+      headers: { 'Authorization': DOCUMENSO_API_KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        recipientId,
+        type: 'SIGNATURE',
+        pageNumber: 1,
+        pageX: 8,
+        pageY: 85,
+        pageWidth: 30,
+        pageHeight: 8,
+      }),
+    });
+    if (!field.ok) {
+      const text = await field.text();
+      console.error(`Documenso field-create ${field.status}: ${text.slice(0, 200)}`);
+    }
   }
 
   // Step 3: send the envelope (emails the recipient)
@@ -364,7 +387,14 @@ app.post('/render', (req, res) => {
 
 app.post('/proposal', async (req, res) => {
   if (!requireToken(req, res)) return;
-  const { lead_id, sku, scope_notes } = req.body || {};
+  const body = req.body || {};
+  // Accept fields under any plausible key (n8n form-trigger output format
+  // varies — sends human-label keys like 'Krayin lead ID'; other callers
+  // may send snake_case). This makes the sidecar robust to caller format.
+  const lead_id     = body.lead_id     ?? body['Krayin lead ID'] ?? body.leadId ?? body.krayin_lead_id;
+  const sku         = body.sku         ?? body['SKU'];
+  const scope_notes = body.scope_notes ?? body['Scope notes (everything from the call, freeform)'] ?? body.scopeNotes ?? body.scope;
+  console.log(`[/proposal] lead_id=${JSON.stringify(lead_id)} sku=${JSON.stringify(sku)} scope_len=${scope_notes ? String(scope_notes).trim().length : 0}`);
 
   // Validate input shape
   if (!lead_id || !sku || !scope_notes) {
