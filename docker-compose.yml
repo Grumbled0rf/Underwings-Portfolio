@@ -764,8 +764,23 @@ services:
     environment:
       - SHARED_TOKEN=${PANDOC_RENDER_TOKEN}
       - TZ=Asia/Dubai
+      # End-to-end /proposal endpoint (workflow 07 rewrite)
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - DOCUMENSO_API_KEY=${DOCUMENSO_API_KEY}
+      - DOCUMENSO_BASE_URL=http://documenso:3000
+      - KRAYIN_WEBHOOK_BASE=http://krayin
+      - KRAYIN_WEBHOOK_TOKEN=${KRAYIN_WEBHOOK_TOKEN}
+      - KRAYIN_DB_HOST=krayin-db
+      - KRAYIN_DB_USER=krayin
+      - KRAYIN_DB_PASSWORD=KrCrmUnderwings2026x
+      - KRAYIN_DB_DATABASE=krayin
+      - WAREHOUSE_DB_HOST=metrics-db
+      - WAREHOUSE_DB_USER=warehouse_admin
+      - WAREHOUSE_DB_PASSWORD=${METRICS_DB_PASSWORD}
+      - WAREHOUSE_DB_DATABASE=warehouse
     volumes:
       - ./templates:/data/templates:ro
+      - ./prompts:/data/prompts:ro
     healthcheck:
       test: ["CMD", "wget", "-q", "-O-", "http://127.0.0.1:3000/health"]
       interval: 30s
@@ -776,6 +791,49 @@ services:
       resources:
         limits:
           memory: 384m
+    networks:
+      - underwings-network
+
+  # ============================================================
+  # MinIO — S3 object store for Documenso (its API requires S3)
+  # ============================================================
+  minio:
+    image: minio/minio:latest
+    container_name: underwings-minio
+    restart: always
+    command: server /data --console-address ":9001"
+    environment:
+      - MINIO_ROOT_USER=${MINIO_ROOT_USER}
+      - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}
+      - TZ=Asia/Dubai
+    volumes:
+      - minio-data:/data
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+    networks:
+      - underwings-network
+
+  # One-shot: create the documenso bucket on startup
+  minio-init:
+    image: minio/mc:latest
+    container_name: underwings-minio-init
+    depends_on:
+      minio:
+        condition: service_healthy
+    entrypoint: >
+      /bin/sh -c "
+      mc alias set local http://minio:9000 ${MINIO_ROOT_USER} ${MINIO_ROOT_PASSWORD} &&
+      mc mb --ignore-existing local/documenso &&
+      echo 'bucket documenso ready';
+      "
     networks:
       - underwings-network
 
@@ -831,6 +889,16 @@ services:
       - NEXT_PUBLIC_WEBAPP_URL=https://sign.underwings.org
       - NEXT_PUBLIC_MARKETING_URL=https://underwings.org
       - DOCUMENSO_DISABLE_TELEMETRY=true
+      # S3 object storage (MinIO) — required for the create-document API.
+      # The transport selector is the PUBLIC var (server-side guard reads it).
+      - NEXT_PUBLIC_UPLOAD_TRANSPORT=s3
+      - NEXT_PRIVATE_UPLOAD_TRANSPORT=s3
+      - NEXT_PRIVATE_UPLOAD_ENDPOINT=http://minio:9000
+      - NEXT_PRIVATE_UPLOAD_FORCE_PATH_STYLE=true
+      - NEXT_PRIVATE_UPLOAD_REGION=us-east-1
+      - NEXT_PRIVATE_UPLOAD_BUCKET=documenso
+      - NEXT_PRIVATE_UPLOAD_ACCESS_KEY_ID=${MINIO_ROOT_USER}
+      - NEXT_PRIVATE_UPLOAD_SECRET_ACCESS_KEY=${MINIO_ROOT_PASSWORD}
       - PORT=3000
     depends_on:
       documenso-db:
@@ -857,6 +925,7 @@ volumes:
   calcom-db-data:
   metrics-db-data:
   documenso-db-data:
+  minio-data:
 
 networks:
   underwings-network:
