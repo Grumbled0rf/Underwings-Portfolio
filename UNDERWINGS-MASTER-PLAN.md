@@ -197,10 +197,21 @@ with 30-day exit clause, not free work.
 - SPF, DKIM, DMARC on underwings.org
 - Krayin webhook layer for all of the above
 - Krayin token rotated
+- **Phase B — Measurement layer** (metrics-db + Metabase + 4 dashboards
+  + nightly ETL workflow 13). Live at metrics.underwings.org.
+- **Phase C — Proposal generator** (Documenso + MinIO S3 + pandoc-render
+  sidecar v2 + workflow 07 rewritten sidecar-first). Verified end-to-end:
+  form → Claude draft → PDF → Documenso PENDING envelope → Krayin stage →
+  cost log. ~0.04 AED/proposal. Live at sign.underwings.org.
+- **Phase G — De-risk** (nightly encrypted DB backups + n8n workflow
+  drift detection, systemd timers active).
+- Cloudflare tunnel + Access (metrics + sign), DNS migrated to Cloudflare.
+- Slack workspace + 5 channels + 5 webhooks, plumbed into n8n.
 
 🟡 **Partial / blocked**
-- Phase 3b-ii — Proposal generator (not started; the highest-leverage
-  unbuilt workflow)
+- Phase C remainder: workflow 08 (signature-received → Won) imported but
+  not yet exercised by a real signature; Documenso signature email only
+  reaches real (non-.local) recipient addresses.
 - Phase 4 (was: outbound prereqs) — DNS done, everything else pending
 
 ❌ **Not started**
