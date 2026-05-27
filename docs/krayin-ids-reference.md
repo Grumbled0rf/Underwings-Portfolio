@@ -94,6 +94,13 @@ directly via the MySQL node (Option C). DO NOT attempt `/api/v1/*` calls — the
 | Referral | 18 |
 | Pipeline 1 Upsell | 19 |
 | WhatsApp | 20 |
+| Founding Outreach | 35 |
+| Referral Partner | 36 |
+
+> `Founding Outreach` (35) + `Referral Partner` (36) added 2026-05-27 for the
+> Phase D go-to-market push. Tag direct founding-client outreach with 35,
+> audit-firm/partner referrals with 36. Tracked in the Metabase
+> "Founding Outreach Tracker" dashboard (Underwings KPIs collection).
 
 ---
 
