@@ -19,7 +19,7 @@ RUN apk add --no-cache nodejs npm tini ttf-dejavu
 
 WORKDIR /app
 
-COPY package.json server.js ./
+COPY package.json server.js outbound.js lead-sources.js ./
 RUN npm install --omit=dev --no-audit --no-fund
 
 # Templates + prompts + skus.yml mounted read-only at /data at runtime

@@ -24,6 +24,14 @@ const { spawnSync } = require('child_process');
 const crypto      = require('crypto');
 const mysql       = require('mysql2/promise');
 const { Pool }    = require('pg');
+const dns         = require('node:dns').promises;
+const cheerio     = require('cheerio');
+const {
+  filterSuppressed, passesScoreGate, validateDraft,
+} = require('./outbound');
+const {
+  buildOverpassQL, osmElementsToCandidates, extractEmails, guessEmails, pickDomains,
+} = require('./lead-sources');
 
 const PORT   = process.env.PORT || 3000;
 const TOKEN  = process.env.SHARED_TOKEN || '';
@@ -58,6 +66,14 @@ const DOCUMENSO_BASE_URL   = process.env.DOCUMENSO_BASE_URL || 'http://documenso
 const KRAYIN_WEBHOOK_BASE  = process.env.KRAYIN_WEBHOOK_BASE  || 'http://krayin';
 const KRAYIN_WEBHOOK_TOKEN = process.env.KRAYIN_WEBHOOK_TOKEN || '';
 const SLACK_CS_WEBHOOK     = process.env.SLACK_CS_WEBHOOK || '';
+
+// ── outbound (free variant) config ──
+const GOOGLE_CSE_KEY       = process.env.GOOGLE_CSE_KEY || '';
+const GOOGLE_CSE_CX        = process.env.GOOGLE_CSE_CX || '';
+const HUNTER_API_KEY       = process.env.HUNTER_API_KEY || '';
+const OVERPASS_URL         = process.env.OVERPASS_URL || 'https://overpass-api.de/api/interpreter';
+const OUTBOUND_SCORING_PROMPT  = path.join(DATA, 'prompts', 'outbound-scoring.md');
+const OUTBOUND_DRAFTING_PROMPT = path.join(DATA, 'prompts', 'outbound-drafting.md');
 
 if (!TOKEN) { console.error('FATAL: SHARED_TOKEN env var not set'); process.exit(1); }
 
@@ -612,6 +628,188 @@ app.post('/touchpoints', async (req, res) => {
   } catch (e) {
     console.error('/touchpoints failed:', e.message);
     res.status(500).json({ ok: false, reason: e.message });
+  }
+});
+
+// ═════ OUTBOUND (free variant) ════════════════════════════════════════
+// Spec: docs/superpowers/specs/2026-05-27-outbound-free-oss.md
+// DRY MODE: /discover + /harvest only. Nothing is ever SENT here — drafts
+// land in uw_outbound_draft as pending_review for a human to approve.
+
+const UA = 'UnderwingsOutbound/1.0 (+https://underwings.org; dpo@underwings.org)';
+
+/** MX-only deliverability check (no risky SMTP probe). */
+async function verifyMx(email) {
+  const domain = String(email || '').split('@')[1];
+  if (!domain) return false;
+  try { const mx = await dns.resolveMx(domain); return Array.isArray(mx) && mx.length > 0; }
+  catch { return false; }
+}
+
+/** Fetch a URL with a short timeout; returns body text or ''. */
+async function fetchText(url, opts = {}) {
+  const ctrl = new AbortController();
+  const t = setTimeout(() => ctrl.abort(), opts.timeout || 12000);
+  try {
+    const r = await fetch(url, { headers: { 'User-Agent': UA, ...(opts.headers || {}) }, signal: ctrl.signal, ...opts });
+    if (!r.ok) return '';
+    return await r.text();
+  } catch { return ''; }
+  finally { clearTimeout(t); }
+}
+
+/** OSM Overpass: businesses of a category in the UAE → candidates.
+ *  Public Overpass instances 504/429 under load, so try mirrors + one retry. */
+async function discoverOsm(category, limit) {
+  const ql = buildOverpassQL(category, 'AE', limit);
+  const endpoints = [OVERPASS_URL, 'https://overpass.kumi.systems/api/interpreter', 'https://overpass.private.coffee/api/interpreter'];
+  let lastErr = 'none';
+  for (let attempt = 0; attempt < 2; attempt++) {
+    for (const url of endpoints) {
+      const ctrl = new AbortController();
+      const t = setTimeout(() => ctrl.abort(), 40000);
+      try {
+        const r = await fetch(url, {
+          method: 'POST', headers: { 'User-Agent': UA, 'Content-Type': 'text/plain' },
+          body: ql, signal: ctrl.signal,
+        });
+        if (!r.ok) { lastErr = `${url} → ${r.status}`; continue; }
+        const j = await r.json();
+        return osmElementsToCandidates(j.elements);
+      } catch (e) { lastErr = `${url} → ${e.message}`; }
+      finally { clearTimeout(t); }
+    }
+    await new Promise((res) => setTimeout(res, 1500));
+  }
+  throw new Error(`Overpass unavailable (${lastErr})`);
+}
+
+/** Scrape a website's contact-ish pages for the best generic email. */
+async function discoverScrapeEmail(website) {
+  if (!website) return '';
+  let base; try { base = new URL(website); } catch { return ''; }
+  const pages = ['', 'contact', 'contact-us', 'about', 'about-us'];
+  for (const p of pages) {
+    const html = await fetchText(new URL(p, base).toString());
+    if (!html) continue;
+    const emails = extractEmails(html);
+    // prefer same-domain emails (info@, contact@) over third-party
+    const host = base.hostname.replace(/^www\./, '');
+    const sameDomain = emails.filter((e) => e.endsWith('@' + host));
+    if (sameDomain.length) return sameDomain[0];
+    if (emails.length) return emails[0];
+  }
+  return '';
+}
+
+/** Google Programmable Search → unique company domains (free tier). */
+async function discoverSearch(query, limit) {
+  if (!GOOGLE_CSE_KEY || !GOOGLE_CSE_CX) throw new Error('search mode needs GOOGLE_CSE_KEY + GOOGLE_CSE_CX');
+  const url = `https://www.googleapis.com/customsearch/v1?key=${GOOGLE_CSE_KEY}&cx=${GOOGLE_CSE_CX}&q=${encodeURIComponent(query)}&num=10`;
+  const body = await fetchText(url);
+  let items = [];
+  try { items = JSON.parse(body).items || []; } catch { /* none */ }
+  return pickDomains(items).slice(0, limit).map((d) => ({ company: d, website: `https://${d}`, email: '', phone: '' }));
+}
+
+function loadOutbound(promptPath) { return fs.readFileSync(promptPath, 'utf8'); }
+
+// POST /outbound/discover { practitioner, source_id, mode, query, limit }
+app.post('/outbound/discover', async (req, res) => {
+  if (!requireToken(req, res)) return;
+  const { mode = 'osm', query = {}, limit = 25 } = req.body || {};
+  try {
+    let candidates = [];
+    if (mode === 'osm')          candidates = await discoverOsm(query.category || 'hospital', Math.min(limit * 4, 200));
+    else if (mode === 'search')  candidates = await discoverSearch(query.q || '', limit);
+    else if (mode === 'scrape')  candidates = Array.isArray(req.body.candidates) ? req.body.candidates : [];
+    else return res.status(400).json({ ok: false, step: 'mode', reason: `unknown mode ${mode}` });
+
+    // Enrich missing emails: scrape the website, else pattern+MX (cheap, free).
+    let enriched = 0;
+    for (const c of candidates) {
+      if (!normEmailSafe(c.email) && c.website) {
+        const scraped = await discoverScrapeEmail(c.website);
+        if (scraped) { c.email = scraped; enriched++; }
+      }
+    }
+    const withEmail = candidates.filter((c) => normEmailSafe(c.email));
+    res.json({
+      ok: true, mode,
+      counts: { discovered: candidates.length, enriched, with_email: withEmail.length },
+      candidates: withEmail.slice(0, limit),
+    });
+  } catch (e) {
+    console.error('/outbound/discover failed:', e.message);
+    res.status(500).json({ ok: false, step: 'discover', reason: e.message });
+  }
+});
+
+function normEmailSafe(e) { return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(String(e || '').trim().toLowerCase()); }
+
+// POST /outbound/harvest { practitioner, source_id, candidates:[...], limit }
+// Claude scores + drafts each surviving candidate → uw_outbound_draft (pending_review).
+app.post('/outbound/harvest', async (req, res) => {
+  if (!requireToken(req, res)) return;
+  const { practitioner = 'manoj', candidates = [], limit = 10, source = 'osm' } = req.body || {};
+  let step = 'init';
+  try {
+    if (!Array.isArray(candidates) || !candidates.length) {
+      return res.json({ ok: true, harvested: 0, drafted: 0, skipped_low_score: 0, note: 'no candidates' });
+    }
+    // suppression + already-known emails
+    step = 'dedupe';
+    const [supRows] = await krayinPool.query('SELECT email FROM uw_outbound_suppression');
+    const [draftRows] = await krayinPool.query('SELECT email FROM uw_outbound_draft');
+    const [personRows] = await krayinPool.query('SELECT emails FROM persons WHERE emails IS NOT NULL');
+    const suppressed = new Set(supRows.map((r) => String(r.email || '').toLowerCase()).filter(Boolean));
+    for (const r of draftRows) suppressed.add(String(r.email || '').toLowerCase());
+    const known = new Set();
+    for (const r of personRows) {
+      try { for (const e of JSON.parse(r.emails) || []) if (e && e.value) known.add(String(e.value).toLowerCase()); }
+      catch { /* skip */ }
+    }
+    const fresh = filterSuppressed(candidates, suppressed, known).slice(0, limit);
+
+    const scoringPrompt = loadOutbound(OUTBOUND_SCORING_PROMPT);
+    const draftingPrompt = loadOutbound(OUTBOUND_DRAFTING_PROMPT);
+
+    let drafted = 0, skippedLow = 0, skippedInvalid = 0;
+    for (const c of fresh) {
+      const ctx = JSON.stringify({ practitioner, company: c.company, website: c.website, title: c.title || '', email: c.email });
+
+      // score
+      step = 'claude-score';
+      const sResp = await callClaude([{ type: 'text', text: scoringPrompt }], ctx);
+      const scored = parseClaudeJson(sResp.content?.[0]?.text || '{}');
+      logClaudeSpend({ workflow: '15-outbound-score', model: 'claude-sonnet-4-6', usage: sResp.usage || {}, leadId: null, note: `${c.company}: ${scored.score}` }).catch(() => {});
+      if (!passesScoreGate(scored)) { skippedLow++; continue; }
+
+      // draft
+      step = 'claude-draft';
+      const dResp = await callClaude([{ type: 'text', text: draftingPrompt }],
+        ctx + '\n\nunsub_url = https://underwings.org/unsubscribe?e=' + encodeURIComponent(c.email));
+      const draft = parseClaudeJson(dResp.content?.[0]?.text || '{}');
+      logClaudeSpend({ workflow: '15-outbound-draft', model: 'claude-sonnet-4-6', usage: dResp.usage || {}, leadId: null, note: c.company }).catch(() => {});
+      const body = String(draft.body || '').replace('{{unsub_url}}', 'https://underwings.org/unsubscribe?e=' + encodeURIComponent(c.email));
+      const v = validateDraft({ subject: draft.subject, body });
+      if (!v.ok) { skippedInvalid++; continue; }
+
+      step = 'insert-draft';
+      await krayinPool.query(
+        `INSERT INTO uw_outbound_draft
+           (practitioner, channel, source, email, company, website, score, score_reason, subject, body, linkedin_dm, status)
+         VALUES (?, 'email', ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending_review')
+         ON DUPLICATE KEY UPDATE score=VALUES(score), subject=VALUES(subject), body=VALUES(body), linkedin_dm=VALUES(linkedin_dm)`,
+        [practitioner, source, c.email.toLowerCase(), c.company || null, c.website || null,
+         scored.score, String(scored.reason || '').slice(0, 250), draft.subject || null, body, draft.linkedin_dm || null]
+      );
+      drafted++;
+    }
+    res.json({ ok: true, harvested: fresh.length, drafted, skipped_low_score: skippedLow, skipped_invalid: skippedInvalid });
+  } catch (e) {
+    console.error(`/outbound/harvest failed at ${step}:`, e.message);
+    res.status(500).json({ ok: false, step, reason: e.message });
   }
 });
 
