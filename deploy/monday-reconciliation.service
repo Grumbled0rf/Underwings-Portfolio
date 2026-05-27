@@ -1,0 +1,17 @@
+[Unit]
+Description=Underwings — Phase A Monday reconciliation ritual
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+User=deployer
+Group=deployer
+WorkingDirectory=/home/deployer/underwings
+ExecStart=/home/deployer/underwings/scripts/monday-reconciliation.sh
+StandardOutput=journal
+StandardError=journal
+TimeoutStartSec=120
+
+[Install]
+WantedBy=multi-user.target

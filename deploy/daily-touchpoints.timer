@@ -1,0 +1,10 @@
+[Unit]
+Description=Run customer-success touchpoint reminders daily at 09:00 Asia/Dubai
+
+[Timer]
+OnCalendar=*-*-* 09:00:00 Asia/Dubai
+Persistent=true
+RandomizedDelaySec=120
+
+[Install]
+WantedBy=timers.target

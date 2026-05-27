@@ -567,4 +567,52 @@ app.post('/onboard', async (req, res) => {
   }
 });
 
+// ───── /touchpoints (Phase E — customer-success reminders) ───────────
+// Daily cron hits this. Finds Won deals at day 7 / 30 / 90 post-signature
+// and posts a reminder to #client-success so a founder sends a PERSONAL
+// touchpoint. Deliberately NOT auto-emailing clients — for the first
+// clients, personal beats templated. Switch to auto-email in Phase J
+// once volume justifies it.
+
+app.post('/touchpoints', async (req, res) => {
+  if (!requireToken(req, res)) return;
+  try {
+    // Won = stage 20 (Pipeline 4). Match exact day offsets so each client
+    // triggers each touchpoint on exactly one day (no dedup table needed).
+    const [rows] = await krayinPool.execute(
+      `SELECT l.id AS lead_id, l.title, o.name AS organization_name,
+              DATEDIFF(CURDATE(), DATE(l.closed_at)) AS days_since
+         FROM leads l
+         LEFT JOIN persons p ON p.id = l.person_id
+         LEFT JOIN organizations o ON o.id = p.organization_id
+        WHERE l.lead_pipeline_stage_id = 20
+          AND l.closed_at IS NOT NULL
+          AND DATEDIFF(CURDATE(), DATE(l.closed_at)) IN (7, 30, 90)`
+    );
+
+    const labels = {
+      7:  'Day-7 check-in — "how is the engagement going so far?"',
+      30: 'Day-30 NPS — ask for a 1-10 score + one improvement',
+      90: 'Day-90 case-study invite — ask if we can write up the result',
+    };
+
+    let posted = 0;
+    for (const r of rows) {
+      const msg = `⏰ *${r.organization_name || r.title}* is ${r.days_since} days post-signature.\n→ ${labels[r.days_since]}\n(Lead #${r.lead_id} — send a *personal* note, not a template.)`;
+      if (SLACK_CS_WEBHOOK) {
+        await fetch(SLACK_CS_WEBHOOK, {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text: msg }),
+        }).catch(e => console.error('touchpoint slack:', e.message));
+      }
+      posted++;
+    }
+    console.log(`[/touchpoints] ${posted} reminder(s) posted`);
+    res.json({ ok: true, reminders_posted: posted, matched: rows.map(r => ({ lead_id: r.lead_id, days: r.days_since })) });
+  } catch (e) {
+    console.error('/touchpoints failed:', e.message);
+    res.status(500).json({ ok: false, reason: e.message });
+  }
+});
+
 // ───── helpers (above) ──────────────────────────────────────────────
