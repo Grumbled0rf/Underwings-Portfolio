@@ -57,6 +57,7 @@ const DOCUMENSO_API_KEY    = process.env.DOCUMENSO_API_KEY || '';
 const DOCUMENSO_BASE_URL   = process.env.DOCUMENSO_BASE_URL || 'http://documenso:3000';
 const KRAYIN_WEBHOOK_BASE  = process.env.KRAYIN_WEBHOOK_BASE  || 'http://krayin';
 const KRAYIN_WEBHOOK_TOKEN = process.env.KRAYIN_WEBHOOK_TOKEN || '';
+const SLACK_CS_WEBHOOK     = process.env.SLACK_CS_WEBHOOK || '';
 
 if (!TOKEN) { console.error('FATAL: SHARED_TOKEN env var not set'); process.exit(1); }
 
@@ -318,13 +319,15 @@ async function createDocumensoEnvelope({ title, recipientName, recipientEmail, p
 }
 
 async function updateKrayinStage(leadId, stageId, note) {
+  // webhook-lead-update.php reads lead_pipeline_stage_id + activity_title
+  // (NOT stage_id/note) — sending the wrong keys silently no-ops the move.
   const r = await fetch(`${KRAYIN_WEBHOOK_BASE}/webhook-lead-update.php`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'X-Webhook-Token': KRAYIN_WEBHOOK_TOKEN,
     },
-    body: JSON.stringify({ lead_id: leadId, stage_id: stageId, note }),
+    body: JSON.stringify({ lead_id: leadId, lead_pipeline_stage_id: stageId, activity_title: note }),
   });
   if (!r.ok) {
     const text = await r.text();
@@ -519,6 +522,48 @@ app.post('/proposal', async (req, res) => {
   } catch (e) {
     console.error(`/proposal failed at step ${step}:`, e.message, e.body || e.stderr || '');
     res.status(500).json({ ok: false, step, reason: e.message, body: e.body, stderr: e.stderr });
+  }
+});
+
+// ───── /onboard (workflow 08 — signed proposal → Won) ────────────────
+// Called by n8n after it receives + HMAC-verifies a Documenso
+// document.completed webhook. Does the side effects: Krayin → Won +
+// Slack #client-success. Plane project + kickoff email deferred
+// (no PLANE_API_TOKEN; first clients onboarded personally).
+
+app.post('/onboard', async (req, res) => {
+  if (!requireToken(req, res)) return;
+  const { lead_id, proposal_ref, envelope_id } = req.body || {};
+  if (!lead_id) {
+    return res.status(400).json({ ok: false, step: 'input', reason: 'missing lead_id' });
+  }
+  let step = 'init';
+  try {
+    step = 'krayin-fetch';
+    let lead = {};
+    try { lead = await fetchKrayinLead(lead_id); } catch (e) { console.error('onboard krayin-fetch:', e.message); }
+
+    step = 'krayin-won';
+    // stage_id 20 = Won (Pipeline 4, per docs/krayin-ids-reference.md)
+    await updateKrayinStage(lead_id, 20, `Proposal ${proposal_ref || ''} signed${envelope_id ? ` (Documenso envelope ${envelope_id})` : ''} — moved to Won`);
+
+    step = 'slack';
+    if (SLACK_CS_WEBHOOK) {
+      await fetch(SLACK_CS_WEBHOOK, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          text: `🎉 *Deal won* — ${lead.organization_name || 'client'} signed ${proposal_ref || 'a proposal'}. Lead #${lead_id} → Won.\n• Next: schedule kickoff call + send personal welcome.\n• Plane project + kickoff email are manual for now (no Plane API token configured).`,
+        }),
+      }).catch(e => console.error('onboard slack:', e.message));
+    }
+
+    res.json({ ok: true, lead_id, proposal_ref: proposal_ref || null,
+      client_company: lead.organization_name || null,
+      note: 'Krayin → Won + Slack done. Plane project + kickoff email deferred.' });
+  } catch (e) {
+    console.error(`/onboard failed at ${step}:`, e.message, e.body || '');
+    res.status(500).json({ ok: false, step, reason: e.message, body: e.body });
   }
 });
 

@@ -770,6 +770,7 @@ services:
       - DOCUMENSO_BASE_URL=http://documenso:3000
       - KRAYIN_WEBHOOK_BASE=http://krayin
       - KRAYIN_WEBHOOK_TOKEN=${KRAYIN_WEBHOOK_TOKEN}
+      - SLACK_CS_WEBHOOK=${SLACK_CS_WEBHOOK}
       - KRAYIN_DB_HOST=krayin-db
       - KRAYIN_DB_USER=krayin
       - KRAYIN_DB_PASSWORD=KrCrmUnderwings2026x
