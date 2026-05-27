@@ -208,10 +208,21 @@ with 30-day exit clause, not free work.
 - Cloudflare tunnel + Access (metrics + sign), DNS migrated to Cloudflare.
 - Slack workspace + 5 channels + 5 webhooks, plumbed into n8n.
 
+- **Phase C tail** — workflow 08 (signature → Won) rewritten sidecar-first
+  + tested via simulated HMAC-signed webhook (valid → Won, bad → 401).
+  Fixed latent stage-move bug (wrong webhook param). Plane project +
+  kickoff email deferred (no PLANE_API_TOKEN; first clients onboarded
+  personally).
+- **Phase A** — Monday reconciliation ritual (systemd timer → #ops checklist).
+- **Phase E (core)** — daily touchpoint reminders (Won deals at day 7/30/90
+  → #client-success for a personal note). Auto-email to clients deferred
+  to Phase J.
+
 🟡 **Partial / blocked**
-- Phase C remainder: workflow 08 (signature-received → Won) imported but
-  not yet exercised by a real signature; Documenso signature email only
-  reaches real (non-.local) recipient addresses.
+- Phase E auto-email to clients — intentionally deferred (personal > templated
+  for first clients).
+- Plane delivery-project automation — needs PLANE_API_TOKEN (founder to generate).
+- Documenso signature email only reaches real (non-.local) recipient addresses.
 - Phase 4 (was: outbound prereqs) — DNS done, everything else pending
 
 ❌ **Not started**
