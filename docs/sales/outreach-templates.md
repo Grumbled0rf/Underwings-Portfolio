@@ -78,6 +78,11 @@
 
 ---
 
+> **One-pager link** (paste into any "send me info" reply):
+> `https://underwings.org/underwings-founding-client.pdf`
+> Linking beats attaching — higher trust, opens on any device, and it's
+> the same content as the PDF in `docs/sales/`.
+
 ## D. EMAIL — formal follow-up after a "yes, tell me more"
 
 **Subject:** Underwings — founding-client [ADHICS / pen test / ISO] proposal
@@ -103,6 +108,8 @@
 >
 > Indicative range for your scope: **AED [x]–[y]**. I'll send a fixed written
 > quote within 48 hours of a short scoping call.
+>
+> One-page overview: https://underwings.org/underwings-founding-client.pdf
 >
 > Shall I send a calendar link for 30 minutes this week?
 >
