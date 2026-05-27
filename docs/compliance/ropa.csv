@@ -1,0 +1,13 @@
+id,activity,personal_data,data_subjects,purpose,lawful_basis,recipients_subprocessors,storage_system,cross_border,retention
+1,Website enquiry / contact form,"Name, work email, phone, company, enquiry text",Prospects,Respond to enquiry & manage opportunity,Legitimate interest / pre-contract,Self-hosted CRM,Krayin,No (confirm VPS region),24 months (inbound)
+2,Outbound prospecting,"Name, work email, company, role",Prospects (B2B),Business development,Legitimate interest (B2B),Self-hosted CRM,Krayin,No,12 months (no reply)
+3,Newsletter / threat briefing,"Name, email",Subscribers,Marketing (opt-in),Consent (explicit opt-in),Keila -> Brevo,Keila + Brevo,Yes - EU (France),Until opt-out
+4,Email delivery,"Recipient email, message content",Anyone we email,Reliable mail delivery,Legitimate interest / consent,Brevo / Sendinblue SAS,Stalwart -> Brevo,Yes - EU (France),Per source activity
+5,Appointment scheduling,"Name, email, booking details",Prospects/clients,Book discovery/scoping calls,Pre-contract,Self-hosted,Cal.com,No,Tied to lead retention
+6,AI proposal drafting,"Lead scope notes (may contain names/company)",Prospects,Generate proposals,Legitimate interest / contract,Anthropic PBC (Claude API),API (not retained),Yes - USA (ephemeral),Not retained beyond call
+7,E-signature of proposals,"Signatory name, email, signature, IP",Prospects/clients,Execute contracts,Contract,Self-hosted,Documenso + MinIO,No,Life of contract + legal
+8,Engagement delivery,"Client systems, findings, staff names",Client staff,Deliver contracted service,Contract,None (self-hosted),Encrypted store,No,Per contract (~12mo) then delete
+9,Billing / invoicing,"Name, company, billing details",Clients,Payment & tax records,Legal obligation,Bank / accountant,Finance records,Possibly (bank),5 years (UAE law)
+10,"Hosting, DNS, CDN, admin access","Visitor IP, admin emails",Visitors & staff,Serve/protect site; Zero-Trust auth,Legitimate interest,"Cloudflare, Inc.",Cloudflare edge + tunnel,Yes - USA/global,Logs ~90 days
+11,Server / application logs,"IP, request metadata",Visitors,Security & debugging,Legitimate interest,None,VPS,No,90 days
+12,CRM analytics warehouse,"De-identified deal facts + person rows until anonymised",Prospects/clients,Sales reporting,Legitimate interest,None,metrics-db,No,Mirrors source (nightly re-sync)

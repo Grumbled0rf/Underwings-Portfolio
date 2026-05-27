@@ -32,6 +32,8 @@ UNITS=(
   daily-touchpoints.timer
   monday-reconciliation.service
   monday-reconciliation.timer
+  pdpl-retention.service
+  pdpl-retention.timer
 )
 
 for u in "${UNITS[@]}"; do
@@ -41,13 +43,13 @@ done
 
 systemctl daemon-reload
 
-for u in backup-databases.timer n8n-workflow-export.timer daily-touchpoints.timer monday-reconciliation.timer; do
+for u in backup-databases.timer n8n-workflow-export.timer daily-touchpoints.timer monday-reconciliation.timer pdpl-retention.timer; do
   systemctl enable --now "${u}"
 done
 
 echo
 echo "Installed and enabled. Status:"
-systemctl list-timers --all | grep -E 'backup-databases|n8n-workflow|daily-touchpoints|monday-reconciliation' || true
+systemctl list-timers --all | grep -E 'backup-databases|n8n-workflow|daily-touchpoints|monday-reconciliation|pdpl-retention' || true
 echo
 echo "Tail logs with:"
 echo "  journalctl -u backup-databases.service -f"

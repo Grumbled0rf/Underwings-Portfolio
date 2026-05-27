@@ -226,6 +226,11 @@ with 30-day exit clause, not free work.
   - 8 content pillars across all 3 principals (5 GRC: ISO cost / ISO 27005 /
     ISO impl / ADHICS / PDPL · 3 offensive+network: pen-test-vs-VA /
     phishing-vs-awareness / pen-test buyer guide / FortiGate hardening)
+- **Phase F — PDPL compliance hardening** (2026-05-27) — our own PDPL posture,
+  `docs/compliance/` (RoPA, retention policy, DSAR runbook, breach plan) +
+  `scripts/pdpl-retention.sh` (weekly timer) + `scripts/pdpl-dsar-erase.sh`
+  (right-to-erasure) + `dpo@`/`privacy@` mailboxes + privacy policy rewritten
+  (sub-processors, cross-border transfers, DPO, 14-day SLA). See §7 Phase F.
 
 🟡 **Partial / blocked**
 - **Phase D execution** — assets are built; the human outreach (45 warm
@@ -243,8 +248,10 @@ with 30-day exit clause, not free work.
 - Phase I — outbound automation (harvest, scoring/drafting, reply detector)
 - Phase J — cross-pipeline upsell + Trial-Active ops + Phase E client auto-email
 - Phase K — continuous tuning (needs ≥3 months of dashboard data)
-- Phase F — PDPL compliance hardening (DPO mailbox, retention, DSAR, RoPA) —
-  not client-gated; ~4 person-days whenever you want it
+
+> Phase F (PDPL compliance hardening) was the only unblocked technical phase and
+> is now ✅ DONE (2026-05-27) — see §7 Phase F. Every remaining phase (H–K) is
+> gated on the first paying client.
 
 **Human, not build (the actual gate on everything above):**
 - The 45 warm founding-client messages — not sent yet.
@@ -398,34 +405,39 @@ Retention math beats acquisition math at every stage.
 
 ---
 
-### Phase F — Compliance hardening (NEW)
+### Phase F — Compliance hardening ✅ DONE (2026-05-27)
 
 **Goal:** be the cybersec firm that obviously does PDPL right.
-**Prerequisite:** Phase A ritual running.
-**Effort:** ~4 person-days.
 **KPI:** zero PDPL-related complaints; full DSAR turnaround < 14 days.
-**Kill criterion:** N/A (regulatory; just must be done).
 
-**Deliverables:**
-1. **DPO contact** on every outbound: `dpo@underwings.org` (mailbox +
-   distribution list to all 3 principals).
-2. **Retention defaults** in Krayin:
-   - Inbound enquiry: 24 months from last activity, then anonymise.
-   - Outbound prospect (no reply): 12 months, then anonymise.
-   - Client lead/contact: indefinite while client active + 7 years after
-     last engagement (UAE tax retention requirement).
-3. **DSAR workflow** in n8n (`10-dsar-handler`): inbound email to
-   `privacy@underwings.org` triggers ticket in Plane, 14-day SLA.
-4. **Article-30-equivalent record of processing activities**: spreadsheet
-   in `docs/compliance/ropa.xlsx`, monthly review.
-5. **Cross-border transfer notice** in the privacy policy: Brevo (EU),
-   Apollo (US — once active), Claude API (US). All have standard
-   contractual clauses on file.
-6. **Right-to-be-forgotten** automation: DSAR → run anonymisation SQL
-   across Krayin + n8n logs + Brevo + Plane.
+**Delivered** (all in `docs/compliance/` + `scripts/` + `deploy/`):
+1. ✅ **DPO + privacy contacts** — `dpo@underwings.org` (→ Manoj, the GRC/ISO
+   Lead Auditor = named DPO) and `privacy@underwings.org` (→ Manoj + ops)
+   live in Stalwart. Published on the privacy policy.
+2. ✅ **Retention defaults, automated** — `scripts/pdpl-retention.sh`
+   anonymises expired non-client records (24mo inbound / 12mo outbound;
+   clients excluded → manual 7-yr rule), weekly via `pdpl-retention.timer`
+   (Sun 03:17 Asia/Dubai, installed + enabled). Policy:
+   `docs/compliance/data-retention-policy.md`.
+3. ✅ **DSAR runbook + erasure capability** — `docs/compliance/dsar-runbook.md`
+   (14-day SLA process) + `scripts/pdpl-dsar-erase.sh` (dry-run default;
+   `--apply` erases across Krayin **and** warehouse, suppresses the email,
+   writes a hashed audit row to `ops.pdpl_erasure_log`). *Note: implemented as
+   a runbook + script rather than the planned n8n `10-dsar-handler` — sidecar/
+   script pattern, consistent with the n8n-fragility lesson; Plane ticketing
+   deferred until `PLANE_API_TOKEN` exists.*
+4. ✅ **RoPA** — `docs/compliance/ropa.md` + `ropa.csv` (12 activities,
+   owner-tagged, quarterly review). *(.md/.csv, not .xlsx — version-controllable.)*
+5. ✅ **Cross-border transfer notice** — privacy policy now names Brevo (EU),
+   Cloudflare (US), Anthropic (US), removes the defunct "Privacy Shield"
+   reference, and states lawful bases + SCCs.
+6. ✅ **Right-to-be-forgotten** — covered by `pdpl-dsar-erase.sh` (Krayin +
+   warehouse; Keila/Brevo are documented manual follow-ups).
+7. ✅ **Breach-response plan** — `docs/compliance/breach-response-plan.md`
+   (Data Office notification process).
 
-**Why now-ish:** the regulatory exposure scales with lead volume. Do this
-before opening the firehose in Phase H.
+**Remaining human/legal follow-ups** (documented in `docs/compliance/README.md`):
+confirm VPS region for the RoPA; download + file SCCs/DPAs for the 3 sub-processors.
 
 ---
 

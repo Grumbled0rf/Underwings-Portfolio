@@ -1,0 +1,10 @@
+[Unit]
+Description=Underwings PDPL data-retention enforcement (anonymise expired non-client records)
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+User=deployer
+WorkingDirectory=/home/deployer/underwings
+ExecStart=/home/deployer/underwings/scripts/pdpl-retention.sh --apply

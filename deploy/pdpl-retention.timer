@@ -1,0 +1,10 @@
+[Unit]
+Description=Run Underwings PDPL retention enforcement weekly (Sunday 03:17 Asia/Dubai)
+
+[Timer]
+OnCalendar=Sun *-*-* 03:17:00 Asia/Dubai
+Persistent=true
+RandomizedDelaySec=300
+
+[Install]
+WantedBy=timers.target
