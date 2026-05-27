@@ -245,14 +245,12 @@ with 30-day exit clause, not free work.
 - Phase K — continuous tuning (needs ≥3 months of dashboard data)
 - Phase F — PDPL compliance hardening (DPO mailbox, retention, DSAR, RoPA) —
   not client-gated; ~4 person-days whenever you want it
-- Phase 4 (was: outbound prereqs) — DNS done, everything else pending
 
-❌ **Not started**
-- Phase 5+ (re-sequenced, see below)
-- Slack workspace + 5 channels + 5 webhooks live (2026-05-21). All webhooks tested HTTP 200 from claude-code; plumbed into n8n env.
-- Case studies (0 written)
-- LinkedIn cadence for founders (no posting schedule)
-- Audit-firm referral conversations (none initiated)
+**Human, not build (the actual gate on everything above):**
+- The 45 warm founding-client messages — not sent yet.
+- Partner / audit-firm conversations — not initiated yet.
+- LinkedIn posting cadence — assets/voice ready, no posts published yet.
+- First paying client — none yet. Unlocks Phases H–K + the first case study.
 
 ---
 
