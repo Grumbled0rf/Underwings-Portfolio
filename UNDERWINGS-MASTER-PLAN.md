@@ -217,12 +217,34 @@ with 30-day exit clause, not free work.
 - **Phase E (core)** — daily touchpoint reminders (Won deals at day 7/30/90
   → #client-success for a personal note). Auto-email to clients deferred
   to Phase J.
+- **Phase D (assets)** — go-to-market kit for a zero-client firm, all live:
+  - Founding-client outreach kit + per-ICP templates (`docs/sales/`)
+  - Founding-client one-pager → `underwings.org/underwings-founding-client.pdf`
+  - Audit-firm partnership kit + one-pager → `underwings.org/underwings-partnership.pdf`
+  - Krayin lead sources "Founding Outreach" (35) + "Referral Partner" (36)
+    + Metabase "Founding Outreach Tracker" dashboard
+  - 8 content pillars across all 3 principals (5 GRC: ISO cost / ISO 27005 /
+    ISO impl / ADHICS / PDPL · 3 offensive+network: pen-test-vs-VA /
+    phishing-vs-awareness / pen-test buyer guide / FortiGate hardening)
 
 🟡 **Partial / blocked**
+- **Phase D execution** — assets are built; the human outreach (45 warm
+  messages + partner coffees) is the unstarted, highest-value step. No
+  asset substitutes for it.
+- Phase D case studies — impossible until the first engagement is delivered;
+  founding-client outreach exists precisely to manufacture the first ones.
 - Phase E auto-email to clients — intentionally deferred (personal > templated
   for first clients).
 - Plane delivery-project automation — needs PLANE_API_TOKEN (founder to generate).
 - Documenso signature email only reaches real (non-.local) recipient addresses.
+
+❌ **Not started** (all gated on first paying client per §5)
+- Phase H — outbound prerequisites (Apollo, PhantomBuster, warmup, content assets)
+- Phase I — outbound automation (harvest, scoring/drafting, reply detector)
+- Phase J — cross-pipeline upsell + Trial-Active ops + Phase E client auto-email
+- Phase K — continuous tuning (needs ≥3 months of dashboard data)
+- Phase F — PDPL compliance hardening (DPO mailbox, retention, DSAR, RoPA) —
+  not client-gated; ~4 person-days whenever you want it
 - Phase 4 (was: outbound prereqs) — DNS done, everything else pending
 
 ❌ **Not started**
