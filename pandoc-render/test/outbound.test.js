@@ -58,3 +58,11 @@ test('normalizeSentiment maps to the 5 allowed values', () => {
   assert.strictEqual(normalizeSentiment('I am out of office'), 'ooo');
   assert.strictEqual(normalizeSentiment('garbage'), 'unknown');
 });
+
+test('normalizeSentiment passes through exact Claude tokens', () => {
+  // Claude returns these exact tokens per the classifier prompt
+  for (const t of ['interested', 'not_now', 'never', 'ooo', 'unknown']) {
+    assert.strictEqual(normalizeSentiment(t), t);
+  }
+  assert.strictEqual(normalizeSentiment(' NOT_NOW '), 'not_now');
+});

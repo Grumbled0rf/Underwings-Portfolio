@@ -46,11 +46,12 @@ function validateDraft(draft) {
   return { ok: true };
 }
 
-/** Map a free-text Claude reply label to one of the 5 allowed sentiments. */
+/** Map a Claude reply label (exact token or free text) to one of the 5 allowed sentiments. */
 function normalizeSentiment(raw) {
-  const s = String(raw || '').toLowerCase();
+  const s = String(raw || '').toLowerCase().trim();
+  if (['interested', 'not_now', 'never', 'ooo', 'unknown'].includes(s)) return s;
   if (s.includes('never')) return 'never';
-  if (s.includes('not now') || s.includes('later')) return 'not_now';
+  if (s.includes('not now') || s.includes('not_now') || s.includes('later')) return 'not_now';
   if (s.includes('out of office') || s.includes('ooo')) return 'ooo';
   if (s.includes('interest')) return 'interested';
   return 'unknown';

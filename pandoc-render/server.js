@@ -27,7 +27,7 @@ const { Pool }    = require('pg');
 const dns         = require('node:dns').promises;
 const cheerio     = require('cheerio');
 const {
-  filterSuppressed, passesScoreGate, validateDraft, capRemaining,
+  filterSuppressed, passesScoreGate, validateDraft, capRemaining, normalizeSentiment,
 } = require('./outbound');
 const nodemailer = require('nodemailer');
 const {
@@ -75,6 +75,12 @@ const HUNTER_API_KEY       = process.env.HUNTER_API_KEY || '';
 const OVERPASS_URL         = process.env.OVERPASS_URL || 'https://overpass-api.de/api/interpreter';
 const OUTBOUND_SCORING_PROMPT  = path.join(DATA, 'prompts', 'outbound-scoring.md');
 const OUTBOUND_DRAFTING_PROMPT = path.join(DATA, 'prompts', 'outbound-drafting.md');
+const OUTBOUND_REPLY_PROMPT    = path.join(DATA, 'prompts', 'outbound-reply-classify.md');
+// Slack routing for hot-lead replies
+const SLACK_SALES_WEBHOOK         = process.env.SLACK_SALES_WEBHOOK || '';
+const SLACK_HOT_LEADS_MANOJ       = process.env.SLACK_HOT_LEADS_MANOJ_WEBHOOK || '';
+const SLACK_HOT_LEADS_NELSON      = process.env.SLACK_HOT_LEADS_NELSON_WEBHOOK || '';
+const SLACK_HOT_LEADS_VINOTH      = process.env.SLACK_HOT_LEADS_VINOTH_WEBHOOK || '';
 // ── outbound SEND (Stalwart SMTP submission) ──
 const OUTBOUND_SMTP_HOST  = process.env.OUTBOUND_SMTP_HOST || 'stalwart';
 const OUTBOUND_SMTP_PORT  = parseInt(process.env.OUTBOUND_SMTP_PORT || '587', 10);
@@ -973,6 +979,74 @@ app.post('/outbound/send', async (req, res) => {
     res.json({ ok: true, dry_run: dryRun, cap_per_mailbox: OUTBOUND_DAILY_CAP, candidates: drafts.length, ...result });
   } catch (e) {
     console.error(`/outbound/send failed at ${step}:`, e.message);
+    res.status(500).json({ ok: false, step, reason: e.message });
+  }
+});
+
+function hotLeadsWebhook(practitioner) {
+  const map = { manoj: SLACK_HOT_LEADS_MANOJ, nelson: SLACK_HOT_LEADS_NELSON, vinoth: SLACK_HOT_LEADS_VINOTH };
+  return map[String(practitioner || '').toLowerCase()] || SLACK_SALES_WEBHOOK || '';
+}
+async function slackPost(webhook, text) {
+  if (!webhook) return;
+  await fetch(webhook, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text }) })
+    .catch(e => console.error('slack post:', e.message));
+}
+
+// POST /outbound/reply { from, subject, body }
+// Called by the n8n IMAP trigger on the outreach mailbox. Claude classifies the
+// reply; we record it on the matching send-log row and act:
+//   interested -> move the Krayin lead to MQL (14) + ping the practitioner's #hot-leads
+//   never      -> add the address to the outbound suppression list
+//   not_now/ooo/unknown -> record only
+app.post('/outbound/reply', async (req, res) => {
+  if (!requireToken(req, res)) return;
+  const { from, subject, body } = req.body || {};
+  const email = String(from || '').trim().toLowerCase();
+  let step = 'init';
+  try {
+    if (!email || !email.includes('@')) {
+      return res.status(400).json({ ok: false, step: 'input', reason: 'missing/invalid from address' });
+    }
+
+    step = 'classify';
+    const prompt = fs.readFileSync(OUTBOUND_REPLY_PROMPT, 'utf8');
+    const userMsg = `Subject: ${subject || '(none)'}\n\n${String(body || '').slice(0, 4000)}`;
+    const cResp = await callClaude([{ type: 'text', text: prompt }], userMsg);
+    logClaudeSpend({ workflow: '17-reply-classify', model: 'claude-sonnet-4-6', usage: cResp.usage || {}, leadId: null, note: email })
+      .catch(() => {});
+    const parsed = parseClaudeJson(cResp.content?.[0]?.text || '{}');
+    const sentiment = normalizeSentiment(parsed.sentiment || parsed.reason || '');
+
+    // find the most recent send to this address
+    step = 'lookup';
+    const [rows] = await krayinPool.query(
+      "SELECT id, lead_id, practitioner FROM uw_outbound_log WHERE email=? ORDER BY sent_at DESC LIMIT 1", [email]);
+    const logRow = rows[0] || null;
+
+    step = 'record';
+    if (logRow) {
+      await krayinPool.query("UPDATE uw_outbound_log SET reply_at=NOW(), reply_sentiment=? WHERE id=?", [sentiment, logRow.id]);
+    }
+
+    step = 'act';
+    let action = 'recorded';
+    if (sentiment === 'never') {
+      await krayinPool.query(
+        `INSERT INTO uw_outbound_suppression (email, reason, lead_id) VALUES (?, 'reply: never', ?)
+         ON DUPLICATE KEY UPDATE reason='reply: never', suppressed_at=NOW()`,
+        [email, logRow?.lead_id || null]);
+      action = 'suppressed';
+    } else if (sentiment === 'interested' && logRow?.lead_id) {
+      try { await updateKrayinStage(logRow.lead_id, 14, `Positive reply to outbound — moved to MQL`); } catch (e) { console.error('reply krayin-mql:', e.message); }
+      await slackPost(hotLeadsWebhook(logRow.practitioner),
+        `🔥 *Interested reply* from ${email} (lead #${logRow.lead_id}) → moved to MQL. Subject: "${subject || ''}". Reply soon.`);
+      action = 'mql+hot-lead';
+    }
+
+    res.json({ ok: true, sentiment, matched_send: Boolean(logRow), lead_id: logRow?.lead_id || null, action });
+  } catch (e) {
+    console.error(`/outbound/reply failed at ${step}:`, e.message);
     res.status(500).json({ ok: false, step, reason: e.message });
   }
 });
