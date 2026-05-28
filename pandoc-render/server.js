@@ -1051,4 +1051,69 @@ app.post('/outbound/reply', async (req, res) => {
   }
 });
 
+// POST /outbound/linkedin-queue
+// LinkedIn is never automated. This pushes a digest of approved drafts that have
+// a drafted DM (and aren't yet logged as LinkedIn-sent) to each practitioner's
+// #hot-leads, so a human sends them manually, then marks them via /linkedin-sent.
+app.post('/outbound/linkedin-queue', async (req, res) => {
+  if (!requireToken(req, res)) return;
+  try {
+    // dedup in JS (the two tables use different collations, so a cross-table
+    // SQL comparison errors — fetch the sent set separately)
+    const [sentRows] = await krayinPool.query("SELECT email FROM uw_outbound_log WHERE channel='linkedin'");
+    const alreadySent = new Set(sentRows.map((r) => String(r.email || '').toLowerCase()));
+    const [allRows] = await krayinPool.query(
+      `SELECT id, practitioner, company, email, linkedin_url, linkedin_dm, score
+         FROM uw_outbound_draft
+        WHERE linkedin_dm IS NOT NULL AND linkedin_dm <> ''
+          AND status IN ('approved','sent')
+        ORDER BY practitioner, score DESC`);
+    const rows = allRows.filter((r) => !alreadySent.has(String(r.email || '').toLowerCase()));
+    const byP = {};
+    for (const r of rows) (byP[r.practitioner] = byP[r.practitioner] || []).push(r);
+    let posted = 0;
+    for (const p of Object.keys(byP)) {
+      const list = byP[p];
+      const lines = list.map((r) => {
+        const who = r.linkedin_url ? `<${r.linkedin_url}|${r.company}>` : `*${r.company}* (search on LinkedIn)`;
+        return `• ${who} — draft #${r.id}\n   _${r.linkedin_dm}_`;
+      });
+      const text = `📨 *LinkedIn send queue (${p})* — ${list.length} to send by hand:\n` + lines.join('\n') +
+        `\n\nAfter sending, submit the draft IDs to the "LinkedIn sent" form to clear them.`;
+      await slackPost(hotLeadsWebhook(p), text);
+      posted++;
+    }
+    res.json({ ok: true, queued: rows.length, practitioners: posted });
+  } catch (e) {
+    console.error('/outbound/linkedin-queue failed:', e.message);
+    res.status(500).json({ ok: false, reason: e.message });
+  }
+});
+
+// POST /outbound/linkedin-sent { draft_ids: [..] }  (or comma string "1,2,3")
+// Records that the human sent these LinkedIn DMs → logs uw_outbound_log
+// (channel='linkedin') so they drop out of the queue.
+app.post('/outbound/linkedin-sent', async (req, res) => {
+  if (!requireToken(req, res)) return;
+  try {
+    let ids = (req.body || {}).draft_ids;
+    if (typeof ids === 'string') ids = ids.split(',');
+    ids = (ids || []).map((x) => parseInt(String(x).trim(), 10)).filter(Boolean);
+    if (!ids.length) return res.json({ ok: true, marked: 0, note: 'no draft_ids' });
+    const [drafts] = await krayinPool.query(
+      'SELECT id, lead_id, email, practitioner FROM uw_outbound_draft WHERE id IN (?)', [ids]);
+    let marked = 0;
+    for (const d of drafts) {
+      await krayinPool.query(
+        "INSERT INTO uw_outbound_log (lead_id, email, channel, sequence_step, practitioner, sent_at) VALUES (?,?,?,?,?,NOW())",
+        [d.lead_id || null, d.email, 'linkedin', 1, d.practitioner]);
+      marked++;
+    }
+    res.json({ ok: true, marked, ids: drafts.map((d) => d.id) });
+  } catch (e) {
+    console.error('/outbound/linkedin-sent failed:', e.message);
+    res.status(500).json({ ok: false, reason: e.message });
+  }
+});
+
 // ───── helpers (above) ──────────────────────────────────────────────
