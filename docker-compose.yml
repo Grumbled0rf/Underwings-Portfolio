@@ -782,6 +782,13 @@ services:
       - PLANE_API_TOKEN=${PLANE_API_TOKEN}
       - PLANE_BASE_URL=${PLANE_BASE_URL}
       - PLANE_WORKSPACE_SLUG=${PLANE_WORKSPACE_SLUG}
+      - OUTBOUND_SMTP_HOST=${OUTBOUND_SMTP_HOST:-stalwart}
+      - OUTBOUND_SMTP_PORT=${OUTBOUND_SMTP_PORT:-587}
+      - OUTBOUND_SMTP_USER=${OUTBOUND_SMTP_USER:-}
+      - OUTBOUND_SMTP_PASS=${OUTBOUND_SMTP_PASS:-}
+      - OUTBOUND_FROM=${OUTBOUND_FROM:-}
+      - OUTBOUND_FROM_NAME=${OUTBOUND_FROM_NAME:-Underwings}
+      - OUTBOUND_DAILY_CAP=${OUTBOUND_DAILY_CAP:-25}
     volumes:
       - ./templates:/data/templates:ro
       - ./prompts:/data/prompts:ro

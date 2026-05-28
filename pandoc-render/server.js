@@ -27,8 +27,9 @@ const { Pool }    = require('pg');
 const dns         = require('node:dns').promises;
 const cheerio     = require('cheerio');
 const {
-  filterSuppressed, passesScoreGate, validateDraft,
+  filterSuppressed, passesScoreGate, validateDraft, capRemaining,
 } = require('./outbound');
+const nodemailer = require('nodemailer');
 const {
   buildOverpassQL, osmElementsToCandidates, extractEmails, guessEmails, pickDomains,
 } = require('./lead-sources');
@@ -74,6 +75,14 @@ const HUNTER_API_KEY       = process.env.HUNTER_API_KEY || '';
 const OVERPASS_URL         = process.env.OVERPASS_URL || 'https://overpass-api.de/api/interpreter';
 const OUTBOUND_SCORING_PROMPT  = path.join(DATA, 'prompts', 'outbound-scoring.md');
 const OUTBOUND_DRAFTING_PROMPT = path.join(DATA, 'prompts', 'outbound-drafting.md');
+// ── outbound SEND (Stalwart SMTP submission) ──
+const OUTBOUND_SMTP_HOST  = process.env.OUTBOUND_SMTP_HOST || 'stalwart';
+const OUTBOUND_SMTP_PORT  = parseInt(process.env.OUTBOUND_SMTP_PORT || '587', 10);
+const OUTBOUND_SMTP_USER  = process.env.OUTBOUND_SMTP_USER || '';   // empty => sending disabled
+const OUTBOUND_SMTP_PASS  = process.env.OUTBOUND_SMTP_PASS || '';
+const OUTBOUND_FROM       = process.env.OUTBOUND_FROM || '';        // e.g. outreach@outreach.underwings.org
+const OUTBOUND_FROM_NAME  = process.env.OUTBOUND_FROM_NAME || 'Underwings';
+const OUTBOUND_DAILY_CAP  = parseInt(process.env.OUTBOUND_DAILY_CAP || '25', 10);
 
 // ── Plane (delivery-project automation on Won) ──
 const PLANE_API_TOKEN      = process.env.PLANE_API_TOKEN || '';
@@ -873,6 +882,97 @@ app.post('/outbound/harvest', async (req, res) => {
     res.json({ ok: true, harvested: fresh.length, drafted, skipped_low_score: skippedLow, skipped_invalid: skippedInvalid });
   } catch (e) {
     console.error(`/outbound/harvest failed at ${step}:`, e.message);
+    res.status(500).json({ ok: false, step, reason: e.message });
+  }
+});
+
+// ── SMTP transport (lazy; Stalwart submission on the dedicated outreach domain) ──
+let _smtp = null;
+function outboundSendEnabled() { return Boolean(OUTBOUND_SMTP_USER && OUTBOUND_SMTP_PASS && OUTBOUND_FROM); }
+function smtpTransport() {
+  if (_smtp) return _smtp;
+  _smtp = nodemailer.createTransport({
+    host: OUTBOUND_SMTP_HOST,
+    port: OUTBOUND_SMTP_PORT,
+    secure: OUTBOUND_SMTP_PORT === 465,        // 465 = implicit TLS; 587 = STARTTLS
+    requireTLS: OUTBOUND_SMTP_PORT === 587,
+    auth: { user: OUTBOUND_SMTP_USER, pass: OUTBOUND_SMTP_PASS },
+  });
+  return _smtp;
+}
+async function sendOutboundEmail({ to, name, subject, text }) {
+  return smtpTransport().sendMail({
+    from: { address: OUTBOUND_FROM, name: OUTBOUND_FROM_NAME },
+    to: name ? { address: to, name } : to,
+    subject,
+    text,
+  });
+}
+
+// POST /outbound/send { practitioner?, dry_run? }
+// Sends APPROVED email drafts, newest-scored first, respecting the per-mailbox
+// daily cap. Human-in-the-loop: only status='approved' drafts are ever sent.
+// Refuses to send unless the dedicated-domain SMTP creds are configured
+// (so it can never blast from the main domain before Phase H warmup).
+app.post('/outbound/send', async (req, res) => {
+  if (!requireToken(req, res)) return;
+  const dryRun = Boolean((req.body || {}).dry_run);
+  const onlyPractitioner = (req.body || {}).practitioner || null;
+  let step = 'init';
+  try {
+    if (!dryRun && !outboundSendEnabled()) {
+      return res.status(409).json({ ok: false, step: 'config',
+        reason: 'outbound sending disabled: set OUTBOUND_SMTP_USER/PASS + OUTBOUND_FROM (dedicated outreach domain) first (Phase H). Use dry_run:true to preview.' });
+    }
+
+    step = 'select';
+    const params = [];
+    let where = "status='approved' AND channel='email'";
+    if (onlyPractitioner) { where += ' AND practitioner=?'; params.push(onlyPractitioner); }
+    const [drafts] = await krayinPool.query(
+      `SELECT id, practitioner, email, company, subject, body FROM uw_outbound_draft WHERE ${where} ORDER BY practitioner, score DESC`, params);
+
+    // per-practitioner daily cap
+    step = 'cap';
+    const sentTodayByP = {};
+    const [counts] = await krayinPool.query(
+      "SELECT practitioner, COUNT(*) c FROM uw_outbound_log WHERE channel='email' AND DATE(sent_at)=CURDATE() GROUP BY practitioner");
+    for (const r of counts) sentTodayByP[r.practitioner] = r.c;
+
+    const result = { sent: 0, capped: 0, failed: 0, by_practitioner: {} };
+    const remainingByP = {};
+    for (const d of drafts) {
+      const p = d.practitioner;
+      if (!(p in remainingByP)) remainingByP[p] = capRemaining(OUTBOUND_DAILY_CAP, sentTodayByP[p] || 0);
+      if (remainingByP[p] <= 0) { result.capped++; continue; }
+
+      // defensive re-validation of the compliance footer
+      if (!validateDraft({ subject: d.subject, body: d.body }).ok) { result.failed++; continue; }
+
+      if (dryRun) {
+        result.sent++; remainingByP[p]--;
+        result.by_practitioner[p] = (result.by_practitioner[p] || 0) + 1;
+        continue;
+      }
+
+      step = 'send';
+      try {
+        await sendOutboundEmail({ to: d.email, name: d.company, subject: d.subject, text: d.body });
+        await krayinPool.query(
+          "INSERT INTO uw_outbound_log (lead_id, email, channel, sequence_step, practitioner, sent_at) VALUES (?,?,?,?,?,NOW())",
+          [d.lead_id || null, d.email, 'email', 1, p]);
+        await krayinPool.query("UPDATE uw_outbound_draft SET status='sent', reviewed_at=NOW() WHERE id=?", [d.id]);
+        result.sent++; remainingByP[p]--;
+        result.by_practitioner[p] = (result.by_practitioner[p] || 0) + 1;
+      } catch (e) {
+        console.error('outbound send failed for', d.email, e.message);
+        result.failed++;
+      }
+    }
+
+    res.json({ ok: true, dry_run: dryRun, cap_per_mailbox: OUTBOUND_DAILY_CAP, candidates: drafts.length, ...result });
+  } catch (e) {
+    console.error(`/outbound/send failed at ${step}:`, e.message);
     res.status(500).json({ ok: false, step, reason: e.message });
   }
 });
