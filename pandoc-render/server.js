@@ -75,6 +75,11 @@ const OVERPASS_URL         = process.env.OVERPASS_URL || 'https://overpass-api.d
 const OUTBOUND_SCORING_PROMPT  = path.join(DATA, 'prompts', 'outbound-scoring.md');
 const OUTBOUND_DRAFTING_PROMPT = path.join(DATA, 'prompts', 'outbound-drafting.md');
 
+// ── Plane (delivery-project automation on Won) ──
+const PLANE_API_TOKEN      = process.env.PLANE_API_TOKEN || '';
+const PLANE_BASE_URL       = (process.env.PLANE_BASE_URL || 'https://plan.underwings.org').replace(/\/$/, '');
+const PLANE_WORKSPACE_SLUG = process.env.PLANE_WORKSPACE_SLUG || 'underwings';
+
 if (!TOKEN) { console.error('FATAL: SHARED_TOKEN env var not set'); process.exit(1); }
 
 fs.mkdirSync(OUTDIR, { recursive: true });
@@ -547,6 +552,55 @@ app.post('/proposal', async (req, res) => {
 // Slack #client-success. Plane project + kickoff email deferred
 // (no PLANE_API_TOKEN; first clients onboarded personally).
 
+// ── Plane helpers ──
+function planeIdentifier(company, leadId) {
+  const base = String(company || 'CLIENT').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 6) || 'CLIENT';
+  return (base + String(leadId)).slice(0, 12);
+}
+async function planeApi(suffix, method, body) {
+  const url = `${PLANE_BASE_URL}/api/v1/workspaces/${PLANE_WORKSPACE_SLUG}${suffix}`;
+  const r = await fetch(url, {
+    method,
+    headers: { 'X-API-Key': PLANE_API_TOKEN, 'Content-Type': 'application/json' },
+    body: body ? JSON.stringify(body) : undefined,
+  });
+  const text = await r.text();
+  let json; try { json = JSON.parse(text); } catch { json = { raw: text }; }
+  if (!r.ok) { const e = new Error(`Plane ${r.status}`); e.body = text.slice(0, 300); throw e; }
+  return json;
+}
+// Create a delivery project for a Won client + seed the standard engagement checklist.
+async function createPlaneProject(lead) {
+  if (!PLANE_API_TOKEN) return null;
+  const company = lead.organization_name || lead.person_name || `Lead ${lead.lead_id}`;
+  const name = `${company} — Delivery`;
+  let identifier = planeIdentifier(company, lead.lead_id);
+  let project;
+  try {
+    project = await planeApi('/projects/', 'POST', { name, identifier });
+  } catch (e) {
+    // identifier collision/invalid → retry with a random uppercase code
+    identifier = ('P' + Math.random().toString(36).slice(2, 7)).toUpperCase();
+    project = await planeApi('/projects/', 'POST', { name, identifier });
+  }
+  const tasks = [
+    'Kickoff call + signed rules of engagement',
+    'Confirm scope & access',
+    'Delivery / testing',
+    'Draft report',
+    'Report review with client',
+    'Retest & close findings',
+    'Invoice & collect',
+  ];
+  let seeded = 0;
+  for (const t of tasks) {
+    try { await planeApi(`/projects/${project.id}/issues/`, 'POST', { name: t }); seeded++; }
+    catch (e) { console.error('plane issue failed:', t, e.message); }
+  }
+  return { id: project.id, identifier, seeded,
+    url: `${PLANE_BASE_URL}/${PLANE_WORKSPACE_SLUG}/projects/${project.id}/issues/` };
+}
+
 app.post('/onboard', async (req, res) => {
   if (!requireToken(req, res)) return;
   const { lead_id, proposal_ref, envelope_id } = req.body || {};
@@ -563,20 +617,30 @@ app.post('/onboard', async (req, res) => {
     // stage_id 20 = Won (Pipeline 4, per docs/krayin-ids-reference.md)
     await updateKrayinStage(lead_id, 20, `Proposal ${proposal_ref || ''} signed${envelope_id ? ` (Documenso envelope ${envelope_id})` : ''} — moved to Won`);
 
+    // Plane delivery project (non-fatal: onboarding still succeeds if Plane is down)
+    step = 'plane';
+    let plane = null;
+    try { plane = await createPlaneProject({ ...lead, lead_id }); }
+    catch (e) { console.error('onboard plane failed:', e.message, e.body || ''); }
+
     step = 'slack';
     if (SLACK_CS_WEBHOOK) {
+      const planeLine = plane
+        ? `\n• Plane delivery project created (*${plane.identifier}*, ${plane.seeded} tasks): ${plane.url}`
+        : `\n• Plane project not created (check PLANE_API_TOKEN / logs) — create it manually.`;
       await fetch(SLACK_CS_WEBHOOK, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          text: `🎉 *Deal won* — ${lead.organization_name || 'client'} signed ${proposal_ref || 'a proposal'}. Lead #${lead_id} → Won.\n• Next: schedule kickoff call + send personal welcome.\n• Plane project + kickoff email are manual for now (no Plane API token configured).`,
+          text: `🎉 *Deal won* — ${lead.organization_name || 'client'} signed ${proposal_ref || 'a proposal'}. Lead #${lead_id} → Won.\n• Next: schedule kickoff call + send personal welcome.${planeLine}`,
         }),
       }).catch(e => console.error('onboard slack:', e.message));
     }
 
     res.json({ ok: true, lead_id, proposal_ref: proposal_ref || null,
       client_company: lead.organization_name || null,
-      note: 'Krayin → Won + Slack done. Plane project + kickoff email deferred.' });
+      plane_project: plane,
+      note: plane ? 'Krayin → Won + Plane project + Slack done.' : 'Krayin → Won + Slack done; Plane project skipped (see logs).' });
   } catch (e) {
     console.error(`/onboard failed at ${step}:`, e.message, e.body || '');
     res.status(500).json({ ok: false, step, reason: e.message, body: e.body });

@@ -779,6 +779,9 @@ services:
       - WAREHOUSE_DB_USER=warehouse_admin
       - WAREHOUSE_DB_PASSWORD=${METRICS_DB_PASSWORD}
       - WAREHOUSE_DB_DATABASE=warehouse
+      - PLANE_API_TOKEN=${PLANE_API_TOKEN}
+      - PLANE_BASE_URL=${PLANE_BASE_URL}
+      - PLANE_WORKSPACE_SLUG=${PLANE_WORKSPACE_SLUG}
     volumes:
       - ./templates:/data/templates:ro
       - ./prompts:/data/prompts:ro
