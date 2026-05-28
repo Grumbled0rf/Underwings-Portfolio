@@ -1116,4 +1116,43 @@ app.post('/outbound/linkedin-sent', async (req, res) => {
   }
 });
 
+// POST /outbound/warehouse-sync
+// Lands the outbound tables into the warehouse for Metabase KPIs, PII-MINIMISED:
+// only analytic columns (no emails/subjects/bodies/DMs) — consistent with our
+// own PDPL posture. Full reload each run (tables are tiny).
+app.post('/outbound/warehouse-sync', async (req, res) => {
+  if (!requireToken(req, res)) return;
+  const pg = await warehousePool.connect();
+  try {
+    await pg.query('CREATE SCHEMA IF NOT EXISTS raw');
+    await pg.query(`CREATE TABLE IF NOT EXISTS raw.uw_outbound_log (
+      id int PRIMARY KEY, lead_id int, channel text, sequence_step int,
+      practitioner text, sent_at timestamptz, reply_at timestamptz, reply_sentiment text)`);
+    await pg.query(`CREATE TABLE IF NOT EXISTS raw.uw_outbound_draft (
+      id int PRIMARY KEY, lead_id int, practitioner text, channel text, source text,
+      score int, status text, created_at timestamptz, reviewed_at timestamptz)`);
+
+    const [logRows] = await krayinPool.query(
+      'SELECT id, lead_id, channel, sequence_step, practitioner, sent_at, reply_at, reply_sentiment FROM uw_outbound_log');
+    await pg.query('TRUNCATE raw.uw_outbound_log');
+    for (const r of logRows) {
+      await pg.query('INSERT INTO raw.uw_outbound_log VALUES ($1,$2,$3,$4,$5,$6,$7,$8)',
+        [r.id, r.lead_id, r.channel, r.sequence_step, r.practitioner, r.sent_at, r.reply_at, r.reply_sentiment]);
+    }
+    const [drRows] = await krayinPool.query(
+      'SELECT id, lead_id, practitioner, channel, source, score, status, created_at, reviewed_at FROM uw_outbound_draft');
+    await pg.query('TRUNCATE raw.uw_outbound_draft');
+    for (const r of drRows) {
+      await pg.query('INSERT INTO raw.uw_outbound_draft VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)',
+        [r.id, r.lead_id, r.practitioner, r.channel, r.source, r.score, r.status, r.created_at, r.reviewed_at]);
+    }
+    res.json({ ok: true, log_rows: logRows.length, draft_rows: drRows.length });
+  } catch (e) {
+    console.error('/outbound/warehouse-sync failed:', e.message);
+    res.status(500).json({ ok: false, reason: e.message });
+  } finally {
+    pg.release();
+  }
+});
+
 // ───── helpers (above) ──────────────────────────────────────────────

@@ -1,0 +1,10 @@
+[Unit]
+Description=Underwings outbound→warehouse sync (PII-minimised, for Metabase KPIs)
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+User=deployer
+WorkingDirectory=/home/deployer/underwings
+ExecStart=/home/deployer/underwings/scripts/outbound-warehouse-sync.sh

@@ -34,6 +34,8 @@ UNITS=(
   monday-reconciliation.timer
   pdpl-retention.service
   pdpl-retention.timer
+  outbound-warehouse-sync.service
+  outbound-warehouse-sync.timer
 )
 
 for u in "${UNITS[@]}"; do
@@ -43,7 +45,7 @@ done
 
 systemctl daemon-reload
 
-for u in backup-databases.timer n8n-workflow-export.timer daily-touchpoints.timer monday-reconciliation.timer pdpl-retention.timer; do
+for u in backup-databases.timer n8n-workflow-export.timer daily-touchpoints.timer monday-reconciliation.timer pdpl-retention.timer outbound-warehouse-sync.timer; do
   systemctl enable --now "${u}"
 done
 

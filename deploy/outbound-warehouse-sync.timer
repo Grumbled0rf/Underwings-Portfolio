@@ -1,0 +1,10 @@
+[Unit]
+Description=Run Underwings outbound→warehouse sync nightly (02:45 Asia/Dubai)
+
+[Timer]
+OnCalendar=*-*-* 02:45:00 Asia/Dubai
+Persistent=true
+RandomizedDelaySec=120
+
+[Install]
+WantedBy=timers.target
