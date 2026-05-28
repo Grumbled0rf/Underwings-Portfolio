@@ -210,9 +210,10 @@ with 30-day exit clause, not free work.
 
 - **Phase C tail** — workflow 08 (signature → Won) rewritten sidecar-first
   + tested via simulated HMAC-signed webhook (valid → Won, bad → 401).
-  Fixed latent stage-move bug (wrong webhook param). Plane project +
-  kickoff email deferred (no PLANE_API_TOKEN; first clients onboarded
-  personally).
+  Fixed latent stage-move bug (wrong webhook param). **Plane delivery-project
+  automation now wired (2026-05-27):** /onboard auto-creates a Plane project
+  named "{client} — Delivery" + seeds a 7-step engagement checklist + posts
+  the link to #client-success. Kickoff email still personal/manual.
 - **Phase A** — Monday reconciliation ritual (systemd timer → #ops checklist).
 - **Phase E (core)** — daily touchpoint reminders (Won deals at day 7/30/90
   → #client-success for a personal note). Auto-email to clients deferred
@@ -240,7 +241,8 @@ with 30-day exit clause, not free work.
   founding-client outreach exists precisely to manufacture the first ones.
 - Phase E auto-email to clients — intentionally deferred (personal > templated
   for first clients).
-- Plane delivery-project automation — needs PLANE_API_TOKEN (founder to generate).
+- ~~Plane delivery-project automation — needs PLANE_API_TOKEN~~ ✅ DONE 2026-05-27
+  (token generated; /onboard auto-creates the project + checklist).
 - Documenso signature email only reaches real (non-.local) recipient addresses.
 
 ❌ **Not started** (all gated on first paying client per §5)
