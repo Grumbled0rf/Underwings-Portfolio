@@ -58,7 +58,11 @@ const showArabic = hasArabicAlternate ?? (normalizedPath === "/" || isArabic);
 const orgId = `${siteUrl}/#organization`;
 const defaultSchema = {
   "@context": "https://schema.org",
-  "@type": "Organization",
+  // ProfessionalService is a LocalBusiness subtype, so this single node now
+  // carries the LocalBusiness signals the SEO audit §2.5 flagged as missing for
+  // UAE local / map-pack intent — while keeping the same shared @id so every
+  // page's Organization reference still consolidates into one entity.
+  "@type": ["Organization", "ProfessionalService"],
   "@id": orgId,
   "name": "Underwings Cybersecurity Solutions",
   "alternateName": "Underwings",
@@ -72,10 +76,22 @@ const defaultSchema = {
   "telephone": "+971 50 567 0394",
   "address": {
     "@type": "PostalAddress",
+    // TODO (backlink strategy §1 / audit §2.5): add "streetAddress" + "postalCode"
+    // once the real Abu Dhabi address is confirmed — required to match the
+    // Google Business Profile + UAE directory citations byte-for-byte.
     "addressLocality": "Abu Dhabi",
     "addressRegion": "Abu Dhabi",
     "addressCountry": "AE"
   },
+  // TODO (backlink strategy §1 / §5): complete these LocalBusiness fields once the
+  // address + Google Business Profile exist. Left out rather than guessed so no
+  // inaccurate local data ships:
+  //   "geo": { "@type": "GeoCoordinates", "latitude": 0, "longitude": 0 },
+  //   "priceRange": "$$",
+  //   "openingHoursSpecification": [{ "@type": "OpeningHoursSpecification",
+  //       "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+  //       "opens": "09:00", "closes": "18:00" }],
+  //   "hasMap": "https://maps.google.com/?cid=…"  // from the GBP listing
   "areaServed": [
     { "@type": "Country", "name": "United Arab Emirates" },
     { "@type": "City", "name": "Abu Dhabi" },
@@ -88,8 +104,8 @@ const defaultSchema = {
     "Security Awareness Training", "Phishing Simulation"
   ],
   "sameAs": [
-    "https://www.linkedin.com/company/underwings-technologies",
-    "https://www.instagram.com/underwings.org_/"
+    "https://www.linkedin.com/company/underwings-cybersecurity",
+    "https://www.instagram.com/underwings.uae"
   ],
   "contactPoint": {
     "@type": "ContactPoint",
