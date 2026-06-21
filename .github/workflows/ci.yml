@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: dockerized/frontend
+        working-directory: frontend
 
     steps:
       - uses: actions/checkout@v4
@@ -28,11 +28,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
-          cache-dependency-path: dockerized/frontend/package-lock.json
 
+      # Matches the production Dockerfile (RUN npm install). npm ci is avoided
+      # because the committed lockfile is not kept strictly in sync.
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       - name: Build
         run: npm run build
@@ -55,7 +55,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: dockerized/admin
+        working-directory: admin
 
     steps:
       - uses: actions/checkout@v4
@@ -63,11 +63,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
-          cache-dependency-path: dockerized/admin/package-lock.json
 
+      # admin has no committed lockfile; matches its Dockerfile (RUN npm install).
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       - name: Build
         run: npm run build
@@ -94,13 +93,13 @@ jobs:
             --build-arg PUBLIC_SUPABASE_URL=http://localhost:8000 \
             --build-arg PUBLIC_SUPABASE_ANON_KEY=placeholder-for-ci \
             -t underwings-frontend:ci \
-            dockerized/frontend
+            frontend
 
       - name: Build admin image
-        run: docker build -t underwings-admin:ci dockerized/admin
+        run: docker build -t underwings-admin:ci admin
 
       - name: Build nginx image
-        run: docker build -t underwings-nginx:ci dockerized/nginx
+        run: docker build -t underwings-nginx:ci nginx
 
       - name: Verify frontend container starts
         run: |
