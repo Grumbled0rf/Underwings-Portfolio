@@ -1,6 +1,42 @@
-User-agent: *
-Allow: /
+# Underwings Cybersecurity Solutions — robots.txt
+#
+# We welcome BOTH classic search engines and AI answer engines. The goal is to
+# be found in search AND cited/recommended by AI assistants (ChatGPT, Claude,
+# Gemini, Perplexity, Copilot, etc.).
+#
+# IMPORTANT: If Cloudflare's "Block AI bots" / managed robots.txt is enabled, it
+# is served at the edge and OVERRIDES this file. To honour the rules below,
+# disable that managed feature in the Cloudflare dashboard.
+#
+# Content signals (https://contentsignals.org):
+#   search=yes    — index us and show us in search results
+#   ai-input=yes  — use our content to ground real-time AI answers (cite us)
+#   ai-train=no   — do not use our content to train or fine-tune AI models
 
+User-agent: *
+Content-Signal: search=yes, ai-input=yes, ai-train=no
+Allow: /
+Disallow: /admin
+Disallow: /supabase/
+Disallow: /api/
+Disallow: /brand/BRAND-GUIDELINES.html
+
+# AI answer & search crawlers — explicitly welcomed
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-Web
+User-agent: anthropic-ai
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: cohere-ai
+User-agent: Amazonbot
+User-agent: meta-externalagent
+Content-Signal: search=yes, ai-input=yes, ai-train=no
+Allow: /
 Disallow: /admin
 Disallow: /supabase/
 Disallow: /api/
