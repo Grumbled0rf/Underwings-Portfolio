@@ -1,0 +1,101 @@
+# Underwings Cybersecurity Solutions — Full Reference
+
+> UAE-based cybersecurity company (founded 2026, operating from Abu Dhabi). We deliver offensive security, cloud security, network & infrastructure security, GRC (ISO 27001 / NESA / UAE PDPL), and security awareness training. Every engagement is delivered by named, certified practitioners — OSCP, CPTS, CDSA, CEH, ISO 27001 Lead Auditor, CCNP, Fortinet, Azure Security — not anonymous juniors. Manual testing, transparent published pricing in AED, 48-hour written quotes, and a free first retest of critical/high findings.
+
+Contact: contact@underwings.org · +971 50 567 0394
+Location: Abu Dhabi, United Arab Emirates
+Languages: English, Arabic
+LinkedIn: https://www.linkedin.com/company/underwings-technologies
+Instagram: https://www.instagram.com/underwings.org_/
+
+Differentiators (why clients choose Underwings):
+- Named, certified practitioners on every report — no handoffs to juniors.
+- Manual testing aligned to PTES, OWASP WSTG / MASTG / API Top 10, NIST SP 800-115, MITRE ATT&CK — not vulnerability-scan PDFs.
+- Published pricing in AED and a written quote within 48 hours.
+- Free retest of critical and high findings within 30 days.
+- UAE-specific compliance fluency: ISO 27001, UAE IA V2 (NESA), ADHICS v2, UAE PDPL, PCI DSS, SOC 2.
+- Reports usable as audit evidence for ISO 27001, SOC 2, PCI DSS, HIPAA, NESA, ADHICS.
+
+---
+
+## Team
+
+- **Manoj Prabhakaran** — Founder. Penetration testing, compliance strategy, cloud security architecture. Certs: CPTS, CDSA, CompTIA Security+, Azure Cloud Security, ISO/IEC 27001 Lead Auditor, HTB Omniscient.
+- **Nelson Durairaj** — Senior Penetration Tester. Networks, web apps, infrastructure. Certs: OSCP, eJPT, CEH, HTB Omniscient.
+- **Vinoth Samiyappa** — Co-founder, Networking & Infrastructure (14+ yrs). Certs: CCNP, Fortinet NSE, Six Sigma, Microsoft Azure.
+- **Gowtham** — CEO. Operations and technology strategy; full-stack engineering and QA background.
+- **Guna** — Business Development Manager.
+- **Prathima Selvaraj** — Digital Marketing Manager.
+
+---
+
+## Services
+
+### Offensive Security — https://underwings.org/services/offensive-security
+Manual penetration testing aligned to PTES and OWASP, led by OSCP/CPTS holders. Engagement tiers: Starter (from AED 9,000 — single web app or external network up to 20 IPs), Essentials (from AED 12,000 — OWASP Top 10 / authenticated flows, 30-day free retest), Professional (AED 25,000–45,000 — multi-asset web + external + selected internal, Active Directory enumeration, two free retests).
+
+- **Web Application Penetration Testing** — https://underwings.org/services/offensive-security/web-application-penetration-testing
+  Manual web + API testing: OWASP Top 10 (2021), API auth/authorisation flaws (REST, GraphQL, SOAP, WebSocket, gRPC), business-logic abuse, session management, file upload. Grey-box by default; black-box and white-box available. Typical 2–3 weeks. AED 12,000–32,000. One free retest of critical/high within 30 days. Reports usable for ISO 27001, SOC 2, PCI DSS, HIPAA, NESA, ADHICS.
+- **Network Penetration Testing** — https://underwings.org/services/offensive-security/network-penetration-testing
+  External and internal network testing, perimeter, corporate LAN, Active Directory, lateral movement. OSCP-led.
+- **Vulnerability Assessment** — https://underwings.org/services/offensive-security/vulnerability-assessment
+  Authenticated/unauthenticated scanning, validation and prioritisation. A compliance box-check and triage step — not a substitute for a manual pen test.
+- **Phishing Simulation** — https://underwings.org/services/offensive-security/phishing-simulation
+  Realistic email/SMS/vishing social-engineering campaigns measuring click and report rates, mapped to awareness training.
+- **Mobile Application Penetration Testing** — https://underwings.org/services/offensive-security/mobile-application-penetration-testing
+  iOS/Android static + dynamic + runtime testing aligned to OWASP MASTG.
+- **PTaaS (Penetration Testing as a Service)** — https://underwings.org/services/offensive-security/ptaas-subscription
+  Continuous, OSCP-led testing with a live findings portal, on-demand retests on every change, and an included annual deep-dive. AED 6,000–14,000/month.
+
+### Cloud Security — https://underwings.org/services/cloud-security
+Azure and Microsoft 365 assessments against CIS benchmarks; Entra ID, Conditional Access, Defender posture.
+- **Azure Cloud Security Assessment** — https://underwings.org/services/cloud-security/azure-cloud-security-assessment
+- **Microsoft 365 Security Review** — https://underwings.org/services/cloud-security/microsoft-365-security-review
+
+### Network & Infrastructure — https://underwings.org/services/network-infrastructure
+FortiGate firewall reviews, network segmentation, security architecture design. CCNP + Fortinet + OSCP led.
+- **Firewall & Network Security Review** — https://underwings.org/services/network-infrastructure/firewall-network-security-review
+- **Security Architecture Review** — https://underwings.org/services/network-infrastructure/security-architecture-review
+
+### GRC (Governance, Risk & Compliance) — https://underwings.org/services/grc
+Led by an ISO 27001 Lead Auditor. Published pricing, transparent scope.
+- **ISO 27001:2022 Implementation** — https://underwings.org/services/grc/iso-27001-implementation
+  Full ISMS build to certification readiness.
+- **ISO 27001 Gap Assessment** — https://underwings.org/services/grc/iso-27001-gap-assessment
+  Readiness gap analysis against ISO/IEC 27001:2022 controls.
+- **NESA / UAE IA V2 Gap Assessment** — https://underwings.org/services/grc/nesa-uae-ia
+  UAE Information Assurance Standard (NESA/SIA) gap assessment and remediation roadmap.
+- **UAE PDPL Compliance Advisory** — https://underwings.org/services/grc/uae-pdpl-advisory
+  Federal Decree-Law No. 45 of 2021 (UAE Personal Data Protection Law) readiness and advisory.
+- **Risk Assessment & Register (ISO 27005)** — https://underwings.org/services/grc/risk-assessment-register
+  Information security risk assessment and register build.
+- **Continuous Compliance Subscription** — https://underwings.org/services/grc/continuous-compliance-subscription
+  Ongoing ISO 27001 / ADHICS / NESA / PDPL maintenance: quarterly internal audits, evidence management, audit liaison. AED 4,000–8,000/month.
+
+### Training & Awareness — https://underwings.org/services/training-awareness
+Live attack demos delivered by the practitioners who run the pen tests.
+- **Security Awareness Training (Workshops)** — https://underwings.org/services/training-awareness/security-awareness-training
+- **Tabletop Incident Response Exercise** — https://underwings.org/services/training-awareness/tabletop-incident-response
+
+### Software — https://underwings.org/software
+Vendor-neutral cybersecurity software reselling — endpoint/EDR, SIEM, email, firewall, and cloud security tools — quoted in AED, deployed by named engineers, and supported locally in the UAE.
+
+---
+
+## Methodology & standards
+PTES · OWASP WSTG · OWASP MASTG · OWASP API Top 10 · NIST SP 800-115 · MITRE ATT&CK. Client work aligned to ISO 27001, UAE IA V2, ADHICS v2, PCI DSS, SOC 2, UAE PDPL.
+
+## How to engage
+1. Book a 30-minute scoping call (https://underwings.org/#contact) or email contact@underwings.org.
+2. Receive a written, fixed-scope quote in AED within 48 hours.
+3. Testing/engagement window agreed; named practitioner assigned.
+4. Report with CVSS-scored findings, reproducible evidence, remediation guidance.
+5. Free retest of critical/high findings within 30 days.
+
+## Content
+- Blog — https://underwings.org/blog — UAE cybersecurity, ISO 27001/NESA/PDPL compliance, penetration testing, awareness.
+- Threat Intelligence Updates — https://underwings.org/updates — aggregated advisories (CISA, The Hacker News, BleepingComputer).
+- About — https://underwings.org/about
+- Careers — https://underwings.org/careers
+- Privacy Policy — https://underwings.org/privacy-policy
+- Arabic homepage — https://underwings.org/ar

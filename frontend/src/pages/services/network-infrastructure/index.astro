@@ -107,6 +107,16 @@ const comingY2 = [
 
 const comingY3 = [];
 
+// Mirrors the EXISTING visible FAQ section below (schema only — no content change).
+const faqs = [
+  { q: "Will the review cause downtime or affect production traffic?", a: "No. The review is read-only — we work from configuration exports, packet captures, and a read-only admin account on your firewall management. No rule changes happen without your explicit approval and a change-control window. Production traffic is unaffected." },
+  { q: "Do you only review FortiGate, or other firewall vendors too?", a: "FortiGate is our primary specialty (the dominant platform in the UAE), but we also review Cisco ASA / Firepower, Palo Alto, Check Point and SonicWall. The rule-set hygiene principles — least privilege, segmentation, deny-by-default — are vendor-neutral." },
+  { q: "What's the difference between a Firewall Review and an Architecture Review?", a: "A Firewall Review goes deep into your existing rules and configuration — shadowed rules, overly permissive ANY-ANY entries, missing logging, weak ciphers, outdated firmware. An Architecture Review steps back and asks if the network design itself is sound — segmentation, DMZ posture, VPN boundaries, zero-trust readiness, target-state diagrams. Most clients need both." },
+  { q: "Will you implement the recommended changes, or just hand over a report?", a: "Both options are available. The default deliverable is a risk-rated findings report with a prioritised remediation plan. If you prefer, we can co-implement the changes alongside your network team in a change-controlled window — knowledge transfer included so your engineers own the result." },
+  { q: "How does this work pair with penetration testing?", a: "A firewall and architecture review tells you how your network is supposed to behave; an internal pen test tells you how an attacker would actually move through it. Running them together gives you the highest-fidelity view of network risk, and we coordinate findings so nothing falls between the gaps." },
+  { q: "Will this support our ISO 27001, NESA or PCI DSS compliance work?", a: "Yes. Findings are mapped to ISO 27001 Annex A (8.20–8.23 network controls), UAE IA V2, ADHICS v2, and PCI DSS Requirement 1 on request. The remediation evidence is suitable for auditor review, and PCI segmentation testing is available as an add-on." },
+];
+
 const schema = [
   {
     "@context": "https://schema.org",
@@ -121,7 +131,12 @@ const schema = [
     "@context": "https://schema.org",
     "@type": "ItemList",
     "name": "Network & Infrastructure Security Services — Underwings",
-    "itemListElement": flagship.map((s, i) => ({ "@type": "ListItem", "position": i + 1, "name": s.title }))
+    "itemListElement": flagship.map((s, i) => ({ "@type": "ListItem", "position": i + 1, "name": s.title, "url": `https://underwings.org${s.href}` }))
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(f => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } }))
   }
 ];
 

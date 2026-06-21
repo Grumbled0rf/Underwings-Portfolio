@@ -19,35 +19,85 @@ const {
   title = "Underwings – Cybersecurity Solutions & Software Sales",
   description = "Underwings is a cybersecurity startup providing VAPT, ISO 27001 implementation, security awareness training, and security software sales in UAE.",
   ogImage = "/brand/og/og-default.png",
-  canonical = Astro.url.href,
+  canonical,
   keywords = "cybersecurity UAE, VAPT services Abu Dhabi, ISO 27001 implementation, security software sales, penetration testing UAE, cybersecurity training",
   wfPage = "6920627afaad5c7afb54bfa8",
   schema,
   bodyClass = "body",
+  // Set to true on any English page that has a published Arabic equivalent at
+  // the mirrored /ar/<path> URL. Lets hreflang scale to a full Arabic tree
+  // without emitting alternates that point at pages which don't exist yet.
+  hasArabicAlternate,
 } = Astro.props;
 
 const siteUrl = import.meta.env.PUBLIC_SITE_URL || "https://underwings.org";
 const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || "";
 const nonce = Astro.locals.nonce || "";
 
+// ── Canonicalisation ─────────────────────────────────────────────
+// One deterministic URL form per page: no trailing slash, no query string.
+// canonical, og:url and every hreflang href are built from this same value so
+// they never disagree (the root cause of the crawler's hreflang "conflicts").
+const rawPath = Astro.url.pathname;
+const normalizedPath = rawPath === "/" ? "/" : rawPath.replace(/\/+$/, "");
+const canonicalUrl =
+  canonical || (normalizedPath === "/" ? siteUrl : `${siteUrl}${normalizedPath}`);
+
+// ── hreflang ─────────────────────────────────────────────────────
+// Arabic lives under /ar (today only the homepage; built to scale to /ar/*).
+const isArabic = normalizedPath === "/ar" || normalizedPath.startsWith("/ar/");
+const enPath = isArabic ? (normalizedPath.replace(/^\/ar/, "") || "/") : normalizedPath;
+const enUrl = enPath === "/" ? siteUrl : `${siteUrl}${enPath}`;
+const arUrl = enPath === "/" ? `${siteUrl}/ar` : `${siteUrl}/ar${enPath}`;
+// Emit the en↔ar pair only where an Arabic equivalent actually exists.
+const showArabic = hasArabicAlternate ?? (normalizedPath === "/" || isArabic);
+
 // Schema logic: null = no schema, undefined = default Organization, custom = render custom
+// Shared @id so every page's Organization reference consolidates into one entity
+// in Google's Knowledge Graph (and is reused by the richer node on /about).
+const orgId = `${siteUrl}/#organization`;
 const defaultSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
+  "@id": orgId,
   "name": "Underwings Cybersecurity Solutions",
+  "alternateName": "Underwings",
   "url": siteUrl,
   "logo": `${siteUrl}/brand/logos/underwings-icon-green.png`,
-  "description": "Cybersecurity startup offering security software sales, VAPT services, ISO 27001 implementation, and security awareness training in UAE.",
+  "image": `${siteUrl}/brand/og/og-default.png`,
+  "description": "UAE-based cybersecurity company delivering penetration testing (VAPT), ISO 27001 / NESA / UAE PDPL compliance, cloud and network security, security awareness training, and security software — by named, certified practitioners.",
+  "foundingDate": "2026",
+  "slogan": "Honest, practitioner-led cybersecurity for UAE businesses.",
+  "email": "contact@underwings.org",
+  "telephone": "+971 50 567 0394",
   "address": {
     "@type": "PostalAddress",
-    "addressCountry": "AE",
-    "addressRegion": "Abu Dhabi"
+    "addressLocality": "Abu Dhabi",
+    "addressRegion": "Abu Dhabi",
+    "addressCountry": "AE"
   },
+  "areaServed": [
+    { "@type": "Country", "name": "United Arab Emirates" },
+    { "@type": "City", "name": "Abu Dhabi" },
+    { "@type": "City", "name": "Dubai" }
+  ],
+  "knowsAbout": [
+    "Penetration Testing", "Vulnerability Assessment", "Web Application Security",
+    "ISO/IEC 27001", "NESA / UAE IA", "UAE PDPL", "ADHICS",
+    "Cloud Security", "Microsoft 365 Security", "Network Security",
+    "Security Awareness Training", "Phishing Simulation"
+  ],
+  "sameAs": [
+    "https://www.linkedin.com/company/underwings-technologies",
+    "https://www.instagram.com/underwings.org_/"
+  ],
   "contactPoint": {
     "@type": "ContactPoint",
-    "telephone": "+971-505670394",
+    "telephone": "+971 50 567 0394",
     "email": "contact@underwings.org",
-    "contactType": "sales"
+    "contactType": "sales",
+    "areaServed": "AE",
+    "availableLanguage": ["en", "ar"]
   }
 };
 
@@ -56,7 +106,7 @@ const schemaArray = schemaToRender === null ? [] : Array.isArray(schemaToRender)
 ---
 
 <!DOCTYPE html>
-<html lang="en" data-wf-page={wfPage} data-wf-site="69206277faad5c7afb54beff">
+<html lang={isArabic ? "ar" : "en"} dir={isArabic ? "rtl" : "ltr"} data-wf-page={wfPage} data-wf-site="69206277faad5c7afb54beff">
 <head>
   <meta charset="utf-8">
   <title>{title}</title>
@@ -66,23 +116,23 @@ const schemaArray = schemaToRender === null ? [] : Array.isArray(schemaToRender)
   <meta property="twitter:title" content={title}>
   <meta property="twitter:description" content={description}>
   <meta property="og:type" content="website">
-  <meta property="og:url" content={canonical}>
+  <meta property="og:url" content={canonicalUrl}>
   <meta property="og:image" content={`${siteUrl}${ogImage}`}>
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:locale" content="en_AE">
 
-  <!-- hreflang: en ↔ ar cross-linking (self-referencing per page) -->
-  {(Astro.url.pathname === '/' || Astro.url.pathname === '/ar') ? (
+  <!-- hreflang: reciprocal en ↔ ar; all hrefs match the canonical URL form -->
+  {showArabic ? (
     <>
-      <link rel="alternate" hreflang="en" href={siteUrl}>
-      <link rel="alternate" hreflang="ar" href={`${siteUrl}/ar`}>
-      <link rel="alternate" hreflang="x-default" href={siteUrl}>
+      <link rel="alternate" hreflang="en" href={enUrl}>
+      <link rel="alternate" hreflang="ar" href={arUrl}>
+      <link rel="alternate" hreflang="x-default" href={enUrl}>
     </>
   ) : (
     <>
-      <link rel="alternate" hreflang="en" href={`${siteUrl}${Astro.url.pathname}`}>
-      <link rel="alternate" hreflang="x-default" href={`${siteUrl}${Astro.url.pathname}`}>
+      <link rel="alternate" hreflang="en" href={canonicalUrl}>
+      <link rel="alternate" hreflang="x-default" href={canonicalUrl}>
     </>
   )}
   <meta content="summary_large_image" name="twitter:card">
@@ -91,7 +141,7 @@ const schemaArray = schemaToRender === null ? [] : Array.isArray(schemaToRender)
   <meta name="author" content="Underwings Cybersecurity Solutions">
   <meta name="geo.region" content="AE">
   <meta name="geo.placename" content="Abu Dhabi, UAE">
-  <link rel="canonical" href={canonical}>
+  <link rel="canonical" href={canonicalUrl}>
   <meta name="keywords" content={keywords}>
 
   <!-- Google Analytics -->

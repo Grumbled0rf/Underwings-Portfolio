@@ -6,14 +6,88 @@ import PartnerLogos from '../components/PartnerLogos.astro';
 
 export const prerender = false;
 
-const breadcrumbSchema = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://underwings.org" },
-    { "@type": "ListItem", "position": 2, "name": "About", "item": "https://underwings.org/about" }
-  ]
-};
+const siteUrl = "https://underwings.org";
+const orgId = `${siteUrl}/#organization`;
+
+// Team — kept in sync with the rendered cards below. Powers Person nodes with
+// credentials, the strongest E-E-A-T / "who is behind this" signal for Google
+// and generative engines (ChatGPT / Perplexity / Gemini).
+const team = [
+  { name: "Manoj Prabhakaran", role: "Founder", founder: true,
+    certs: ["CPTS", "CDSA", "CompTIA Security+", "Azure Cloud Security", "ISO/IEC 27001 Lead Auditor", "HTB Omniscient"] },
+  { name: "Nelson Durairaj", role: "Senior Penetration Tester",
+    certs: ["OSCP", "eJPT", "CEH", "HTB Omniscient"] },
+  { name: "Vinoth Samiyappa", role: "Co-founder — Networking & Infrastructure", founder: true,
+    certs: ["CCNP", "Fortinet NSE", "Six Sigma", "Microsoft Azure"] },
+  { name: "Gowtham", role: "Chief Executive Officer", certs: [] },
+  { name: "Guna", role: "Business Development Manager", certs: [] },
+  { name: "Prathima Selvaraj", role: "Digital Marketing Manager", certs: [] },
+];
+
+const toPerson = (m) => ({
+  "@type": "Person",
+  "name": m.name,
+  "jobTitle": m.role,
+  "worksFor": { "@id": orgId },
+  ...(m.certs.length ? {
+    "hasCredential": m.certs.map((c) => ({
+      "@type": "EducationalOccupationalCredential",
+      "credentialCategory": "certification",
+      "name": c,
+    })),
+  } : {}),
+});
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": siteUrl },
+      { "@type": "ListItem", "position": 2, "name": "About", "item": `${siteUrl}/about` },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": ["Organization", "ProfessionalService"],
+    "@id": orgId,
+    "name": "Underwings Cybersecurity Solutions",
+    "alternateName": "Underwings",
+    "url": siteUrl,
+    "logo": `${siteUrl}/brand/logos/underwings-icon-green.png`,
+    "image": `${siteUrl}/brand/og/og-default.png`,
+    "description": "UAE-based cybersecurity company delivering penetration testing (VAPT), ISO 27001 / NESA / UAE PDPL compliance, cloud and network security, and security awareness training — by named, certified practitioners.",
+    "foundingDate": "2026",
+    "slogan": "Honest, practitioner-led cybersecurity for UAE businesses.",
+    "email": "contact@underwings.org",
+    "telephone": "+971 50 567 0394",
+    "priceRange": "$$",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Abu Dhabi",
+      "addressRegion": "Abu Dhabi",
+      "addressCountry": "AE",
+    },
+    "areaServed": [
+      { "@type": "Country", "name": "United Arab Emirates" },
+      { "@type": "City", "name": "Abu Dhabi" },
+      { "@type": "City", "name": "Dubai" },
+    ],
+    "sameAs": [
+      "https://www.linkedin.com/company/underwings-technologies",
+      "https://www.instagram.com/underwings.org_/",
+    ],
+    "founder": team.filter((m) => m.founder).map(toPerson),
+    "employee": team.map(toPerson),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": "About Underwings Cybersecurity Solutions",
+    "url": `${siteUrl}/about`,
+    "mainEntity": { "@id": orgId },
+  },
+];
 ---
 
 <Layout
@@ -21,7 +95,7 @@ const breadcrumbSchema = {
   description="Underwings is a cybersecurity startup operating from UAE, providing security software sales, VAPT services, ISO 27001 implementation, and security training — built for growing businesses."
   keywords="Underwings Cybersecurity Solutions, cybersecurity company UAE, security consulting Abu Dhabi, about Underwings"
   wfPage="about-page"
-  schema={breadcrumbSchema}
+  schema={schema}
 >
   <Fragment slot="head">
     <style is:inline>
