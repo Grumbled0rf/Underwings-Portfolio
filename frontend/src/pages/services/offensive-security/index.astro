@@ -191,6 +191,17 @@ const comingY3 = [
   { slug: "ot-ics-security", title: "OT / ICS Security (IEC 62443)", desc: "Operational technology security for utilities, energy, manufacturing. Specialist hire required; anchor-client driven." },
 ];
 
+// Hub-level FAQ — answer-first, high commercial-intent. Powers FAQPage rich
+// results + AI-answer citations. Additive: does not alter any existing copy.
+const faqs = [
+  { q: "How much does penetration testing cost in the UAE?", a: "Underwings publishes fixed pricing: engagements start at AED 9,000 (Starter — a single web app or external network up to 20 IPs), AED 12,000 for Essentials (manual OWASP Top 10 / authenticated testing with a 30-day free retest), and AED 25,000–45,000 for Professional multi-asset scopes. You receive a written, fixed-scope quote in AED within 48 hours of a scoping call." },
+  { q: "What's the difference between a vulnerability assessment and a penetration test?", a: "A vulnerability assessment scans and prioritises known weaknesses — useful as a compliance box-check and triage step. A penetration test is manual: a certified tester actively exploits and chains weaknesses the way a real attacker would, including business-logic flaws scanners can't find. Underwings delivers manual testing aligned to PTES and OWASP, not scanner PDFs." },
+  { q: "How long does a penetration test take?", a: "A single web application or small external network is typically 2–3 weeks end-to-end (scoping, testing, reporting, walkthrough). Larger or API-heavy scopes extend to 3–4 weeks. Expedited delivery is available." },
+  { q: "Will your penetration test report satisfy ISO 27001, SOC 2, PCI DSS or NESA audits?", a: "Yes. Reports include scope, methodology, dates, named tester credentials, CVSS-scored findings, reproduction steps, remediation guidance, and retest validation — usable as audit evidence for ISO 27001, SOC 2, PCI DSS, HIPAA, NESA, and ADHICS." },
+  { q: "Who performs the testing, and what certifications do they hold?", a: "Every engagement is delivered by named, certified practitioners — OSCP, CPTS, CDSA, CEH — with the tester named in the report. No anonymous juniors and no outsourcing." },
+  { q: "Is a retest included after we fix the findings?", a: "Yes. One free retest of critical and high findings within 30 days of the final report is included on Essentials and above, with a separate report confirming remediation." },
+];
+
 const schema = [
   {
     "@context": "https://schema.org",
@@ -206,8 +217,13 @@ const schema = [
     "@type": "ItemList",
     "name": "Offensive Security Services — Underwings",
     "itemListElement": flagship.map((s, i) => ({
-      "@type": "ListItem", "position": i + 1, "name": s.title
+      "@type": "ListItem", "position": i + 1, "name": s.title, "url": `https://underwings.org${s.href}`
     }))
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(f => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } }))
   }
 ];
 
@@ -1206,6 +1222,52 @@ export const prerender = false;
         </div>
       </div>
     </section>
+
+    <!-- FAQ (additive — AEO / FAQPage rich results) -->
+    <section class="section off-section-dotted" id="faq">
+      <div class="container-medium">
+        <div class="uw-hubfaq-head off-reveal">
+          <span class="off-cta-kicker">Questions, answered</span>
+          <h2 class="heading" style="margin-top:0.5rem;">Penetration testing in the UAE — FAQ</h2>
+        </div>
+        <div class="uw-hubfaq off-reveal">
+          {faqs.map(item => (
+            <details class="uw-hubfaq-item">
+              <summary>{item.q}</summary>
+              <p class="uw-hubfaq-answer">{item.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <style is:inline>
+      .uw-hubfaq-head { text-align: center; max-width: 720px; margin: 0 auto 2.25rem; }
+      .uw-hubfaq { max-width: 820px; margin: 0 auto; display: flex; flex-direction: column; gap: 0.75rem; }
+      .uw-hubfaq-item {
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 12px;
+        padding: 0 1.25rem;
+        transition: border-color 0.25s ease, background 0.25s ease;
+      }
+      .uw-hubfaq-item[open] { border-color: rgba(36,215,88,0.3); background: rgba(36,215,88,0.03); }
+      .uw-hubfaq-item summary {
+        list-style: none; cursor: pointer; position: relative;
+        padding: 1.1rem 2rem 1.1rem 0;
+        font-size: 1rem; font-weight: 600; color: #fff; line-height: 1.45;
+      }
+      .uw-hubfaq-item summary::-webkit-details-marker { display: none; }
+      .uw-hubfaq-item summary::after {
+        content: '+'; position: absolute; right: 0; top: 50%; transform: translateY(-50%);
+        font-size: 1.4rem; font-weight: 400; color: #24d758; line-height: 1;
+      }
+      .uw-hubfaq-item[open] summary::after { content: '−'; }
+      .uw-hubfaq-answer {
+        margin: 0; padding: 0 0 1.2rem; font-size: 0.92rem; line-height: 1.65;
+        color: rgba(255,255,255,0.72);
+      }
+    </style>
 
     <!-- Final CTA -->
     <section class="section bg-color-dark off-final-cta">

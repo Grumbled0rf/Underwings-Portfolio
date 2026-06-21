@@ -12,6 +12,9 @@ export default defineConfig({
   adapter: node({
     mode: 'standalone'
   }),
+  // Canonicalisation: enforce a single no-trailing-slash URL form so the
+  // homepage (and every page) is not indexed as both /foo and /foo/.
+  trailingSlash: 'never',
   integrations: [sitemap()],
   compressHTML: true,
   server: {

@@ -32,15 +32,30 @@ const breadcrumbSchema = {
   ]
 };
 
+// Mirrors the EXISTING visible FAQ section below (schema only — no content change).
+const faqs = [
+  { q: "Are you cheaper than buying directly from the vendor?", a: "For most products list price is the same. The difference is implementation, training and local support — vendors charge separately for those, or not at all. With us, deployment is bundled, support is local, and you get a single AED invoice instead of vendor billing in USD." },
+  { q: "What happens if I want to switch vendors later?", a: "You own your licences and your data — we don't lock you in. We'll help you migrate cleanly even if it means moving you off a vendor we sell. Long-term trust matters more to us than one product's margin." },
+  { q: "Do you support only the products you sell, or anything we already own?", a: "We can take over support for tools you already have across most major vendors and cloud-native platforms. Tell us what's in place — if we can't support it, we'll tell you upfront." },
+  { q: "How fast can you actually deploy?", a: "EDR for under 100 endpoints: 3–5 working days. Email security: 2–4 days. SIEM rollout: 2–4 weeks depending on log sources. Full SMB stack: 4–6 weeks. We can move faster for incident-response situations." },
+  { q: "Can I pay annually, monthly, or in instalments?", a: "Most licences are annual. Implementation fees can be split 50/50 (start / go-live) or 30/30/40 for larger projects. We invoice in AED with full VAT compliance." },
+  { q: "What if we don't know what we need?", a: "That's the most common starting point. Book a free 30-minute scoping call — we'll ask about your environment, risks and compliance pressure, then send a written recommendation in AED within 24 hours. No obligation." },
+];
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(f => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } }))
+};
+
 export const prerender = false;
 ---
 
 <Layout
-  title="Cybersecurity Software — Quoted, Deployed, Supported in AED | Underwings"
+  title="Cybersecurity Software UAE — Quoted & Deployed | Underwings"
   description="Endpoint, SIEM, email, firewall and cloud security software — quoted in AED within 24 hours, deployed by named engineers, supported locally in the UAE. Vendor-neutral recommendations."
   keywords="cybersecurity software UAE, security software sales AED, EDR UAE, SIEM UAE, endpoint protection UAE, security software bundles, vendor neutral cybersecurity UAE"
   wfPage="software-page"
-  schema={[serviceSchema, breadcrumbSchema]}
+  schema={[serviceSchema, breadcrumbSchema, faqSchema]}
   bodyClass="body"
 >
 

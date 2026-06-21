@@ -109,6 +109,16 @@ const comingY3 = [
   { slug: "cnapp-implementation", title: "Cloud Native Application Protection (CNAPP) Implementation", desc: "Unified CSPM + CWPP + CIEM platform rollout — for mid-market organisations with complex multi-cloud footprints." },
 ];
 
+// Mirrors the EXISTING visible FAQ section below (schema only — no content change).
+const faqs = [
+  { q: "We're already on Azure / M365 with default config — is that really risky?", a: "Yes. Microsoft ships secure defaults for some settings, but the most impactful controls (Conditional Access policies, Defender posture, RBAC scope, storage anonymous access, SharePoint external sharing, Entra privileged-role membership) all need explicit configuration. Every UAE tenant we've seen has 10–30 high-severity findings out of the box." },
+  { q: "Will an assessment disrupt our users or production environment?", a: "No. The assessment is read-only — we use a Global Reader role (Azure) and a delegated read-only admin (M365). No changes are made without your explicit approval during the remediation phase. Users see nothing and operations are unaffected." },
+  { q: "Do you just give a report, or do you actually fix the issues?", a: "Both. The deliverable is a CIS-mapped findings report with a prioritised remediation plan, and we can implement the fixes for you — change-controlled, in your maintenance window, with your team shadowing for knowledge transfer." },
+  { q: "What's the difference between an Azure assessment and an M365 review?", a: "An Azure assessment covers subscription-level resources: VMs, networking, storage, key vault, RBAC, Defender for Cloud posture, and Entra ID at the directory level. An M365 review covers user-facing workloads: Exchange, SharePoint, Teams, OneDrive, Conditional Access, MFA, DLP and sensitivity labels. Most clients need both — we usually bundle them at a discount." },
+  { q: "What level of access do you need to start?", a: "For Azure: a guest account with the Global Reader role at the tenant root, plus Reader on the subscriptions in scope. For M365: a delegated read-only admin role. We sign an NDA before access is granted, and access can be revoked the moment delivery is complete. No credentials leave your tenant." },
+  { q: "Will this work prepare us for ISO 27001, NESA or PDPL?", a: "Yes. Every finding is mapped to ISO 27001 Annex A controls, UAE IA V2, ADHICS v2, and relevant PDPL clauses on request. The remediation evidence we produce becomes audit evidence — one of the highest-leverage activities for any UAE compliance programme." },
+];
+
 const schema = [
   {
     "@context": "https://schema.org",
@@ -123,7 +133,12 @@ const schema = [
     "@context": "https://schema.org",
     "@type": "ItemList",
     "name": "Cloud Security Services — Underwings",
-    "itemListElement": flagship.map((s, i) => ({ "@type": "ListItem", "position": i + 1, "name": s.title }))
+    "itemListElement": flagship.map((s, i) => ({ "@type": "ListItem", "position": i + 1, "name": s.title, "url": `https://underwings.org${s.href}` }))
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(f => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } }))
   }
 ];
 

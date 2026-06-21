@@ -163,6 +163,17 @@ const comingY3 = [
   { slug: "dora-nis2", title: "DORA / NIS2", desc: "EU financial and critical-infrastructure directives. Demand-pull only — EU-linked clients." },
 ];
 
+// Mirrors the EXISTING visible FAQ section below (schema only — no content change).
+// Powers FAQPage rich results + AI-answer eligibility.
+const faqs = [
+  { q: "Are you also the auditor? Isn't that a conflict of interest?", a: "No — and we never will be. We are the implementer. The certificate is issued by an accredited certification body (DNV, BSI, BV, Intertek, TÜV — your choice). This separation is required by ISO/IEC 17021 and we keep it absolute. We'll happily make the introduction to a certifier we trust." },
+  { q: "How long does ISO 27001 take from kickoff to certification?", a: "Typical SME path: 4–6 months end-to-end. Gap assessment (2–3 weeks), implementation including risk register, SoA, policies and controls (8–12 weeks), internal audit + management review (2 weeks), Stage 1 audit (1 week), remediation, Stage 2 audit (1 week). Larger or multi-site organisations need 6–9 months." },
+  { q: "Will you actually do the work, or just hand us templates?", a: "We do the work. Policies are authored to fit your business — not generic boilerplate. The risk register is populated from interviews and asset inventories we run with your team. Controls are configured in your systems, not ticked on a spreadsheet. The deliverable is operational evidence, not paperwork." },
+  { q: "We need ISO 27001 + UAE PDPL + NESA — can you do all three together?", a: "Yes — and you should. There's around 70% control overlap between ISO 27001 Annex A, UAE IA V2 and PDPL. We deliver a unified control set mapped against all three frameworks, so you implement once and evidence three times. Adding ADHICS v2 or PCI DSS is a matter of mapping, not duplicate effort." },
+  { q: "What if our scope changes mid-project (acquisition, new region, new product)?", a: "Scope changes are normal. Every engagement has a written change-control clause: small additions are absorbed, larger ones get a transparent change-order with adjusted timeline and fee — no surprise invoices. The certification scope statement can be drafted to cover anticipated growth." },
+  { q: "Do you provide ongoing support after certification?", a: "Yes. After Stage 2, most clients move onto a maintenance retainer covering surveillance audit prep, internal audits, management reviews, policy updates, control re-tests, and evidence pack curation — billed monthly or per surveillance cycle, so you stay certified without re-running an implementation project every year." },
+];
+
 const schema = [
   {
     "@context": "https://schema.org",
@@ -180,8 +191,14 @@ const schema = [
     "itemListElement": flagship.map((s, i) => ({
       "@type": "ListItem",
       "position": i + 1,
-      "name": s.title
+      "name": s.title,
+      "url": `https://underwings.org${s.href}`
     }))
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(f => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } }))
   }
 ];
 
