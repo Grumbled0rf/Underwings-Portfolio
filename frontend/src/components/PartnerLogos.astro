@@ -11,7 +11,12 @@ export interface Props {
 }
 
 const { size = 'small', linkTo = '#' } = Astro.props;
-const logoHeight = size === 'large' ? 36 : 30;
+const logoHeight = size === 'large' ? 52 : 44;
+
+// Normalise a partner name to a slug so per-logo CSS can nudge logos whose
+// source image carries extra internal padding (e.g. Sprinto/Sophos render
+// visually smaller than Hexnode/TISS at the same pixel height).
+const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
 interface Partner {
   id: string;
@@ -51,8 +56,13 @@ try {
 ---
 
 {partners.map((p) => (
-  <a href={linkTo} class={`partner-logo ${p.invert_logo ? 'partner-logo--invert' : ''}`} title={p.name}>
-    <img src={p.logo_url} alt={p.name} loading="lazy" style={`height: ${logoHeight}px; width: auto;`}>
+  <a
+    href={linkTo}
+    class={`partner-logo partner-logo--${slugify(p.name)} ${p.invert_logo ? 'partner-logo--invert' : ''}`}
+    title={p.name}
+    style={`--logo-h: ${logoHeight}px;`}
+  >
+    <img src={p.logo_url} alt={p.name} loading="lazy">
   </a>
 ))}
 
@@ -63,6 +73,16 @@ try {
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+  .partner-logo img {
+    height: var(--logo-h);
+    width: auto;
+  }
+  /* Per-logo normalisation: Sophos' source image has heavy internal padding,
+     so at equal height its wordmark reads smaller than the others. Scale it up
+     to match the visual weight of Hexnode / TISS. */
+  .partner-logo--sophos img {
+    height: calc(var(--logo-h) * 1.5);
   }
   .partner-logo--invert {
     filter: brightness(0) invert(1);
